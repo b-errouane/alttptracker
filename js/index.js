@@ -1,34 +1,64 @@
 var startingitemstring = "00000000000000000000000000";
 
 function load_cookie() {
-	var c = document.cookie;
+		var allCookies = document.cookie;
 	
-	if (c.indexOf('settings') > -1) {
+	if (allCookies.indexOf('settings') > -1) {
 		document.getElementById("remembersettings").checked = true;
-		if (c.indexOf('m-M') > -1) {
-			document.getElementById("mapyes").checked = true;
-		}
-		if (c.indexOf('m-C') > -1) {
-			document.getElementById("mapsmall").checked = true;
-		}
-		if (c.indexOf('s-Y') > -1) {
-			document.getElementById("sphereyes").checked = true;
-		}
-		if (c.indexOf('a-Y') > -1) {
-			document.getElementById("autotrackingyes").checked = true;
-			var p = c.substr(c.indexOf('a-Y') + 3);
-			if (p.indexOf('|') > 0) {
-				p = p.substr(0, p.indexOf('|'));
-				document.getElementById("autotrackingport").value = p;
+		let settingsCookie = allCookies.substring(allCookies.indexOf('settings'));
+		settingsCookie = settingsCookie.indexOf(';') > -1 ? settingsCookie.substring(0, settingsCookie.indexOf(';')) : settingsCookie;
+		let settings = settingsCookie.split('=')[1].split('|').map(x => x.split('-'));
+
+
+		settings.forEach(setting => {
+			switch (setting[0]) {
+				case 'm':
+					switch (setting[1]) {
+						case 'M':
+							document.getElementById("mapyes").checked = true;
+							break;
+						case 'C':
+							document.getElementById("mapsmall").checked = true;
+							break;
+						case 'N':
+							document.getElementById("mapno").checked = true;
+							break;
+					}
+					break;
+				case 's':
+					if (setting[1] === 'Y') {
+						document.getElementById("sphereyes").checked = true;
+					}
+					break;
+				case 'a':
+					const autotrackingSetting = setting[1][0];
+					const autotrackingPort = setting[1].substring(1);
+					switch (autotrackingSetting) {
+						case 'Y':
+							document.getElementById("autotrackingyes").checked = true;
+							break;
+						case 'O':
+							document.getElementById("autotrackingold").checked = true;
+							break;
+						case 'N':
+							document.getElementById("autotrackingno").checked = true;
+							break;
+					}
+					if (autotrackingPort) {
+						document.getElementById("autotrackingport").value = autotrackingPort;
+					}
+					break;
+				case 'p':
+					document.getElementById("spriteselect").value = setting[1];
+					break;
+				case 'ms':
+					if (setting[1] === 'O') {
+						document.getElementById("oldmapstyles").checked = true;
+					}
+					break;
 			}
-		}
-		if (c.indexOf('p-') > -1) {
-			var sprite = c.substr(c.indexOf('p-') + 2);
-			if (sprite.indexOf(';') > -1) {
-				sprite = sprite.substr(0, sprite.indexOf(';'));
-			}
-			document.getElementById("spriteselect").value = sprite;
-		}
+		})
+
 	}
 }
 
@@ -93,6 +123,7 @@ function launch_tracker() {
 	var overworld = document.querySelector('input[name="overworldgroup"]:checked').value;
 	var boss = document.querySelector('input[name="bossgroup"]:checked').value;
 	var enemy = document.querySelector('input[name="enemygroup"]:checked').value;
+	var pseudoboots = document.querySelector('input[name="pseudobootsgroup"]:checked').value;
 	var unknown = document.querySelector('input[name="unknowngroup"]:checked').value;
 	var glitches = document.querySelector('input[name="glitchesgroup"]:checked').value;
 	var shuffledmaps = (document.getElementById("shuffledmaps").checked === true ? "1" : "0");
@@ -122,6 +153,7 @@ function launch_tracker() {
 	var restreamdelay = document.getElementById('restreamingdelay').value;
 	var spritesel = document.getElementById("spriteselect");
 	var sprite = spritesel.options[spritesel.selectedIndex].value;
+	var mapStyle = document.querySelector('input[name="oldmapstyles"]:checked') === null ? "N" : "O";
 	
 	if (restreamingcode != "") {
 		if (restreamingcode.length != 6) {
@@ -142,7 +174,7 @@ function launch_tracker() {
 	var height = sphere === "Y" ? map === "C" ? 988 : 744 : map === "C" ? 692 : 448;
 	
 	if (document.getElementById("remembersettings").checked == true) {
-		var settings = "m-" + map + "|s-" + sphere + "|a-" + autotracking + trackingport + "|p-" + sprite;
+		var settings = "m-" + map + "|s-" + sphere + "|a-" + autotracking + trackingport + "|p-" + sprite + "|ms-" + mapStyle;
 		document.cookie = "settings=" + settings + "; expires=Sat, 3 Jan 2026 12:00:00 UTC";
 	} else {
 		document.cookie = "settings=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
@@ -153,13 +185,14 @@ function launch_tracker() {
 		glitches = 'M';
 	}
 	
-	var trackerWindow = window.open('tracker.html?f={world}{entrance}{door}{overworld}{boss}{enemy}{unknown}{glitches}{shuffledmaps}{shuffledcompasses}{shuffledsmallkeys}{shuffledbigkeys}{shopsanity}{ambrosia}{nonprogressivebows}{activatedflute}{bonkshuffle}{goal}{tower}{towercrystals}{ganon}{ganoncrystals}{swords}&d={map}{spoiler}{sphere}{autotracking}{trackingport}{restreamingcode}{restreamer}{restreamdelay}&s={startingitemstring}&p={sprite}&r={epoch}'
+	var trackerWindow = window.open('tracker.html?f={world}{entrance}{door}{overworld}{boss}{enemy}{pseudoboots}{unknown}{glitches}{shuffledmaps}{shuffledcompasses}{shuffledsmallkeys}{shuffledbigkeys}{shopsanity}{ambrosia}{nonprogressivebows}{activatedflute}{bonkshuffle}{goal}{tower}{towercrystals}{ganon}{ganoncrystals}{swords}&d={map}{spoiler}{sphere}{autotracking}{trackingport}{restreamingcode}{restreamer}{restreamdelay}{mapstyle}&s={startingitemstring}&p={sprite}&r={epoch}'
 			.replace('{world}', world)
 			.replace('{entrance}', entrance)
 			.replace('{door}', door)
 			.replace('{overworld}', overworld)
 			.replace('{boss}', boss)
 			.replace('{enemy}', enemy)
+			.replace('{pseudoboots}', pseudoboots)
 			.replace('{unknown}', unknown)
 			.replace('{glitches}', glitches)
 			.replace('{shuffledmaps}', shuffledmaps)
@@ -181,10 +214,11 @@ function launch_tracker() {
 			.replace('{spoiler}', spoiler)
 			.replace('{sphere}', sphere)
 			.replace('{autotracking}', autotracking)
-			.replace('{trackingport}', trackingport)
+			.replace('{trackingport}', trackingport.padStart(5, '0'))
 			.replace('{restreamingcode}', restreamingcode)
 			.replace('{restreamer}', restreamer)
 			.replace('{restreamdelay}', restreamdelay)
+			.replace('{mapstyle}', mapStyle)
 			.replace('{startingitemstring}', startingitemstring)
 			.replace('{sprite}', sprite)
 			.replace('{epoch}', Date.now()),

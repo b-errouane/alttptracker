@@ -48,6 +48,12 @@ body {
 
 #tracker .item,
 #tracker .boss { opacity: .25; }
+#tracker .prize { opacity: .66; 
+  border: 2px solid;
+  border-radius: 100%;
+  background-color: #000;
+  background-position: right -2px bottom -2px;  
+}
 #tracker .item[class*="active"],
 #tracker .boss.defeated { opacity: 1; }
 #tracker .bigkey { opacity: .25; }
@@ -58,6 +64,16 @@ body {
 #tracker .sphere { height: 37px; width: 37px; background-size:100%; }
 #bigkeyhalf0 { top: 11px; }
 #bigkeyhalf1 { top: 59px; }
+
+#tracker .prize-1 { background-size: 90%; background-repeat: no-repeat; background-position: center;}
+#tracker .prize-2 { background-size: 90%; background-repeat: no-repeat; background-position: center;}
+#tracker .prize-5 { background-size: 90%; background-repeat: no-repeat; background-position: center left 1;}
+
+#tracker .prize.collected {
+  border: 2px solid;
+  border-radius: 100%;
+}
+
 
 [class*="prize-"] {
   width: 32px;
@@ -96,7 +112,13 @@ body {
   bottom: 16px;
   background-size: 100% 100%;
 }
-
+.pseudoboots {
+  width: 64px;
+  height: 64px;
+  position: absolute;
+  bottom: 0px;
+  background-size: 100% 100%;
+}
 #map {
   width: 884px;
   height: 448px;
@@ -168,11 +190,15 @@ body {
   background-size: 100% 100%;
 }
 
+.chest.scouted,
+.castle.scouted,
+.location.scouted,
+.dungeon.scouted,
 .chest.highlight,
 .castle.highlight,
 .location.highlight,
 .entrance.highlight,
-.dungeon.highlight { border-color:rgb(255, 238, 0); }
+.dungeon.highlight { border-color:rgb(255, 238, 0) !important; }
 .chest.large { width: 64px !important; height: 64px !important; background-size: 100%; font-size: 34px !important; padding-top: 8px !important; background-image: url(../images/dungeons/keychestlarge.png); }
 .chest-0.large { width: 64px !important; height: 64px !important; background-size: 100%; font-size: 34px !important; padding-top: 8px !important; background-image: url(../images/dungeons/keychestlarge0.png); }
 .location.rightclick,
@@ -335,6 +361,7 @@ body {
 .mirror { background-image: url(../images/items/mirror.png); }
 .mirrorscroll { background-image: url(../images/dungeons/map.png); }
 .boots { background-image: url(../images/items/boots.png); }
+.pseudoboots { background-image: url(../images/items/pseudoboots.png); }
 .glove { background-image: url(../images/items/glove1.png); }
 .glove.active-2 { background-image: url(../images/items/glove2.png); }
 .flippers { background-image: url(../images/items/flippers.png); }
@@ -653,7 +680,8 @@ body {
     height: 30px;
 	font-family: teko_light, Arial, Helvetica, sans-serif; 
 	font-variant: small-caps;	
-	background-image: url(../images/interface/entrancelocation.png);
+  border: 2px solid white;
+
 	cursor: pointer;
     padding: 1px 0px 0px 3px;
     font-size: 22px;

@@ -37,6 +37,22 @@
 	window.doorWindow = null;
 	window.dungeonData = null;
 	
+	window.rgbToLightness = function(rgb) {
+		if (rgb.substring(0, 1) === "#") {
+			rgb = rgb.substring(1);
+		}
+		var r = parseInt(rgb.substring(0, 2), 16) / 255;
+		var g = parseInt(rgb.substring(2, 4), 16) / 255;
+		var b = parseInt(rgb.substring(4, 6), 16) / 255;
+		var max = Math.max(r, g, b);
+		var min = Math.min(r, g, b);
+		return (max + min) / 2;
+	}
+
+	window.rgbToTextColour = function(rgb) {
+		return rgbToLightness(rgb) >= 0.5 ? "#000000" : "#FFFFFF";
+	}
+
 	window.resetTrackerTimer = function() {
 		clearTimeout(trackingTimer);
 		trackingTimer = setTimeout(sendTrackerCommand, 2000);
@@ -56,6 +72,7 @@
 					"overworldshuffle":flags.overworldshuffle,
 					"bossshuffle":flags.bossshuffle,
 					"enemyshuffle":flags.enemyshuffle,
+					"pseudoboots":flags.pseudoboots,
 					"unknown":flags.unknown,
 					"glitches":flags.glitches,
 					"wildmaps":flags.wildmaps,
@@ -341,6 +358,7 @@
 					"overworldshuffle":flags.overworldshuffle,
 					"bossshuffle":flags.bossshuffle,
 					"enemyshuffle":flags.enemyshuffle,
+					"pseudoboots":flags.pseudoboots,
 					"unknown":flags.unknown,
 					"glitches":flags.glitches,
 					"wildmaps":flags.wildmaps,
@@ -600,6 +618,7 @@
 						flags.overworldshuffle = megapack.overworldshuffle;
 						flags.bossshuffle = megapack.bossshuffle;
 						flags.enemyshuffle = megapack.enemyshuffle;
+						flags.pseudoboots = megapack.pseudoboots;
 						flags.unknown = megapack.unknown;
 						flags.glitches = megapack.glitches;
 						flags.wildmaps = megapack.wildmaps;
@@ -905,7 +924,7 @@
 		var isboss = label.startsWith('boss');
 
 		for (var i = 0; i < 10; i++) {
-			document.getElementById('dungeonPrize'+i).className = 'prize-' + prizes[i];
+			document.getElementById('dungeonPrize'+i).classList = ['prize-' + prizes[i]];
 		}
 		
 		for (var i = 0; i < 2; i++) {
@@ -984,6 +1003,7 @@
 					else
 						chests[rightClickedLocation].content += ", "+name;
 					document.getElementById('caption').innerHTML = caption_to_html(name+' placed at '+chests[rightClickedLocation].caption);
+					document.getElementById('locationMap'+rightClickedLocation).classList.add('scouted')
 				}
 				document.getElementById('locationMap'+rightClickedLocation).classList.remove('rightclick');
 			}
@@ -994,6 +1014,7 @@
 					else
 						dungeons[rightClickedLocation].content += ", "+name;
 					document.getElementById('caption').innerHTML = caption_to_html(name+' placed in '+dungeons[rightClickedLocation].caption);
+					document.getElementById('dungeon'+rightClickedLocation).classList.add('scouted')
 				}
 				document.getElementById('dungeon'+rightClickedLocation).classList.remove('rightclick');
 			}
@@ -1008,6 +1029,11 @@
 		if(label === 'mirror' && flags.doorshuffle != 'N') {
 			document.getElementById('mirrorscroll').style.display = items.mirror ?'block' :'none';
 		}
+
+		if (label === 'boots' && flags.pseudoboots === 'Y') {
+			document.getElementById('pseudoboots').style.display = items.boots ? 'block' : 'none';
+		}
+
 
 		if (label.substring(0,5) === 'chest') {
             var value = items.dec(label);
@@ -1033,7 +1059,8 @@
 				if (flags.entrancemode === 'N') {
 					var x = label.substring(5);
 					document.getElementById('dungeon'+x).className = 'dungeon ' +
-						(value ? dungeons[x].can_get_chest() : 'opened');
+						(value ? dungeons[x].can_get_chest() : 'opened') + 
+						(value && dungeons[x].content ? ' scouted' : '');
 					if (label == "chest11") {
 						document.getElementById('bossMap11').className = 'bossprize-' + prizes[11] + ' boss ' + dungeons[11].is_beatable();
 					}
@@ -1095,11 +1122,19 @@
 			is_boss = nodes[0].classList.contains('boss');
 			if ((typeof items[label]) === 'boolean') {
 				items[label] = !items[label];
-				
+
 				if (items[label] == true) {
 					lastItem = label;
 				} else {
 					lastItem = null;
+				}
+				if (label === 'mushroom') {
+					if (!window.mushroomfound) {
+						window.mushroomfound = true;
+					}
+					if (window.mushroomfound) {
+						items[label] = true;
+					}
 				}
 				nodes.forEach(node=>node.classList[items[label] ? 'add' : 'remove'](is_boss ? 'defeated' : 'active'));
 			} else if (label != 'sword' || flags.swordmode != 'S') {
@@ -1174,13 +1209,13 @@
 							} else if (isTurtleConnector(known_location) === true) {
 								entrancetype = 'turtleconnector';
 							} else if (isSpawn(known_location) === true) {
-								entrancetype = 'spawn';
+								entrancetype = known_location;
 							} else if (isDungeon(known_location) === true) {
 								entrancetype = known_location;
 							} else if (isDark(known_location) === true) {
-								entrancetype = 'dark';
+								entrancetype = known_location;
 							} else if (requireItem(known_location) === true) {
-								entrancetype = 'itemlocked';
+								entrancetype = known_location;
 							} else if (isUnknownConnector(known_location) === true) {
 								entrancetype = 'unknownconnector';
 							}
@@ -1202,7 +1237,7 @@
 				for (var k = 0; k < dungeons.length; k++) {
 					document.getElementById('bossMap'+k).className = 'bossprize-' + prizes[k] + ' boss ' + (dungeons[k].is_beaten ? 'opened' : dungeons[k].is_beatable());
 					if (items['chest'+k])
-						document.getElementById('dungeon'+k).className = 'dungeon ' + dungeons[k].can_get_chest();
+						document.getElementById('dungeon'+k).className = 'dungeon ' + dungeons[k].can_get_chest() + (dungeons[k].can_get_chest() != 'opened' && dungeons[k].content ? ' scouted' : '');
 				}
 			}
 			toggle_agahnim();
@@ -1385,24 +1420,32 @@
     // event of clicking on a boss's pendant/crystal subsquare
     window.toggle_dungeon = function(n) {
 		var maxdungeon = (flags.wildmaps ? 6 : 5);
+		document.getElementById('dungeonPrize'+n).classList.remove('prize-' + prizes[n]);
         prizes[n] += 1;
         if (prizes[n] === maxdungeon) prizes[n] = 0;
-
-        document.getElementById('dungeonPrize'+n).className = 'prize-' + prizes[n];
+        document.getElementById('dungeonPrize'+n).classList.add('prize-' + prizes[n]);
 
 		updateMapTracker();
     };
 	
     window.rightClickPrize = function(n) {
 		var mindungeon = (flags.wildmaps ? 5 : 4);
+		document.getElementById('dungeonPrize'+n).classList.remove('prize-' + prizes[n]);
         prizes[n] -= 1;
         if (prizes[n] === -1) prizes[n] = mindungeon;
 
-        document.getElementById('dungeonPrize'+n).className = 'prize-' + prizes[n];
-
+        document.getElementById('dungeonPrize'+n).classList.add('prize-' + prizes[n]);
 		updateMapTracker();
     };	
 	
+	window.toggle_prize = function(n) {
+		if (document.getElementById('dungeonPrize'+n).classList.contains('collected')) {
+			document.getElementById('dungeonPrize'+n).classList.remove('collected');
+		} else {
+			document.getElementById('dungeonPrize'+n).classList.add('collected');
+		}
+		updateMapTracker();
+	};
 	
     // event of right clicking on a boss's enemizer portrait
     window.rightClickEnemy = function(n) {
@@ -1459,7 +1502,7 @@
 		if (flags.mapmode != 'N') {
 			var x = label.substring(5);
 			if (document.getElementById('dungeon'+x) != null) 
-				document.getElementById('dungeon'+x).className = 'dungeon ' + (value ? dungeons[x].can_get_chest() : 'opened');
+				document.getElementById('dungeon'+x).className = 'dungeon ' + (value ? dungeons[x].can_get_chest() : 'opened') + (value && dungeons[x].content ? ' scouted' : '');
 		}
 		updateMapTracker();
 	};
@@ -1631,53 +1674,59 @@
 		
 		document.getElementById('entranceModalNote').focus();
 		const curStyle = window.getComputedStyle(document.documentElement);
-		document.getElementById('hc_m').style.backgroundColor = curStyle.getPropertyValue('--hc-color');
-		document.getElementById('hc_w').style.backgroundColor = curStyle.getPropertyValue('--hc-color');
-		document.getElementById('hc_e').style.backgroundColor = curStyle.getPropertyValue('--hc-color');
-		document.getElementById('ct').style.backgroundColor = curStyle.getPropertyValue('--ct-color');
-		document.getElementById('ep').style.backgroundColor = curStyle.getPropertyValue('--ep-color');
-		document.getElementById('dp_m').style.backgroundColor = curStyle.getPropertyValue('--dp-color');
-		document.getElementById('dp_w').style.backgroundColor = curStyle.getPropertyValue('--dp-color');
-		document.getElementById('dp_e').style.backgroundColor = curStyle.getPropertyValue('--dp-color');
-		document.getElementById('dp_n').style.backgroundColor = curStyle.getPropertyValue('--dp_n-color');
-		document.getElementById('toh').style.backgroundColor = curStyle.getPropertyValue('--toh-color');
-		document.getElementById('pod').style.backgroundColor = curStyle.getPropertyValue('--pod-color');
-		document.getElementById('sp').style.backgroundColor = curStyle.getPropertyValue('--sp-color');
-		document.getElementById('sw').style.backgroundColor = curStyle.getPropertyValue('--sw-color');
-		document.getElementById('tt').style.backgroundColor = curStyle.getPropertyValue('--tt-color');
-		document.getElementById('ip').style.backgroundColor = curStyle.getPropertyValue('--ip-color');
-		document.getElementById('mm').style.backgroundColor = curStyle.getPropertyValue('--mm-color');
-		document.getElementById('tr_m').style.backgroundColor = curStyle.getPropertyValue('--tr-color');
-		document.getElementById('tr_w').style.backgroundColor = curStyle.getPropertyValue('--tr-color');
-		document.getElementById('tr_e').style.backgroundColor = curStyle.getPropertyValue('--tr-color');
-		document.getElementById('tr_b').style.backgroundColor = curStyle.getPropertyValue('--tr-color');
-		document.getElementById('link').style.backgroundColor = '#00ddff';
-		document.getElementById('sanc').style.backgroundColor = '#00ddff';
-		document.getElementById('mount').style.backgroundColor = '#00ddff';
-		document.getElementById('item').style.backgroundColor = '#51ff3a';
-		document.getElementById('gt').style.backgroundColor = curStyle.getPropertyValue('--gt-color');
-		document.getElementById('ganon').style.backgroundColor = curStyle.getPropertyValue('--ganon-color');
-		document.getElementById('magic').style.backgroundColor = '#ff7b00';
-		document.getElementById('kid').style.backgroundColor = '#ff7b00';
-		document.getElementById('smith').style.backgroundColor = '#ff7b00';
-		document.getElementById('bat').style.backgroundColor = '#ff7b00';
-		document.getElementById('lib').style.backgroundColor = '#ff7b00';
-		document.getElementById('saha').style.backgroundColor = '#ff7b00';
-		document.getElementById('mimc').style.backgroundColor = '#ff7b00';
-		document.getElementById('rupee').style.backgroundColor = '#51ff3a';
-		document.getElementById('shop').style.backgroundColor = '#51ff3a';
-		document.getElementById('dark').style.backgroundColor = '#2433ff';
-		document.getElementById('connector').style.backgroundColor = curStyle.getPropertyValue('--connector-color');
-		// document.getElementById('connector1').style.backgroundColor = '#ff50f9';
-		// document.getElementById('connector3').style.backgroundColor = '#bf00ff';
-		document.getElementById('bomb').style.backgroundColor = '#ff7b00';
-		document.getElementById('bump').style.backgroundColor = '#ff7b00';
-		document.getElementById('spike').style.backgroundColor = '#ff7b00';
-		document.getElementById('hook').style.backgroundColor = '#ff7b00';
-		document.getElementById('dam').style.backgroundColor = '#ff7b00';
+
+		const customColours = {
+			'--hc-color': ['hc_m', 'hc_w', 'hc_e'],
+			'--ct-color': ['ct'],
+			'--ep-color': ['ep'],
+			'--dp-color': ['dp_m', 'dp_w', 'dp_e'],
+			'--dp_n-color': ['dp_n'],
+			'--toh-color': ['toh'],
+			'--pod-color': ['pod'],
+			'--sp-color': ['sp'],
+			'--sw-color': ['sw'],
+			'--tt-color': ['tt'],
+			'--ip-color': ['ip'],
+			'--mm-color': ['mm'],
+			'--tr-color': ['tr_m', 'tr_w', 'tr_e', 'tr_b'],
+			'--gt-color': ['gt'],
+			'--ganon-color': ['ganon'],
+			'--connector-color': ['connector'],
+			'--link-color': ['link'],
+			'--sanc-color': ['sanc'],
+			'--mount-color': ['mount'],
+			'--ganon-color': ['ganon'],
+			'--link-color': ['link'],
+			'--sanc-color': ['sanc'],
+			'--mount-color': ['mount'],
+			'--item-color': ['item'],
+			'--magic-color': ['magic'],
+			'--kid-color': ['kid'],
+			'--smith-color': ['smith'],
+			'--bat-color': ['bat'],
+			'--lib-color': ['lib'],
+			'--saha-color': ['saha'],
+			'--mimc-color': ['mimc'],
+			'--rupee-color': ['rupee'],
+			'--shop-color': ['shop'],
+			'--dark-color': ['dark'],
+			'--bomb-color': ['bomb'],
+			'--bump-color': ['bump'],
+			'--spike-color': ['spike'],
+			'--hook-color': ['hook'],
+			'--dam-color': ['dam'],
+		}
+
+		for (const [key, value] of Object.entries(customColours)) {
+			for (const v of value) {
+				document.getElementById(v).style.backgroundColor = curStyle.getPropertyValue(key);
+				document.getElementById(v).style.color = rgbToTextColour(curStyle.getPropertyValue(key));
+			}
+		}
+		
 		
 		if (entrances[n].known_location != '') {
-			document.getElementById(entrances[n].known_location).style.backgroundColor = '#00F';
+			document.getElementById(entrances[n].known_location).style.borderColor = curStyle.getPropertyValue('--available-color');
 		}
 	}
 	
@@ -1884,6 +1933,8 @@
 	}
 	
 	window.tagEntrance = function(n, t) {
+		const curStyle = window.getComputedStyle(document.documentElement);
+
 		document.getElementById('hc_m').style.backgroundColor = '#000';
 		document.getElementById('hc_w').style.backgroundColor = '#000';
 		document.getElementById('hc_e').style.backgroundColor = '#000';
@@ -1929,6 +1980,7 @@
 		
 		if (entrances[document.getElementById('entranceID').value].known_location === n) {
 			entrances[document.getElementById('entranceID').value].known_location = '';
+			document.getElementById(n).style.borderColor = curStyle.getPropertyValue('#ffffff');
 			entrances[document.getElementById('entranceID').value].type = 0;
 			var information = document.getElementById('informationdiv'+document.getElementById('entranceID').value);
 			if (information != null) {
@@ -1937,7 +1989,7 @@
 		} else {
 			entrances[document.getElementById('entranceID').value].known_location = n;
 			entrances[document.getElementById('entranceID').value].type = (t === true ? 2 : 3);
-			document.getElementById(n).style.backgroundColor = '#00F';
+			document.getElementById(n).style.borderColor = curStyle.getPropertyValue('--available-color');
 			
 			if (document.getElementById('informationdiv'+document.getElementById('entranceID').value) != null) {
 				document.getElementById('informationdiv'+document.getElementById('entranceID').value).innerHTML = n.replace('_','-').toUpperCase();
@@ -2021,7 +2073,7 @@
             dungeons[8+n].is_beaten = !dungeons[8+n].is_beaten;
             toggle_boss(8+n);
             if (items['chest'+(8+n)] > 0)
-                document.getElementById('dungeon'+(8+n)).className = 'dungeon ' + dungeons[8+n].can_get_chest();
+                document.getElementById('dungeon'+(8+n)).className = 'dungeon ' + dungeons[8+n].can_get_chest() + (dungeons[8+n].can_get_chest() != 'opened' && dungeons[8+n].content ? ' scouted' : '');
             // TRock medallion affects Mimic Cave
             if (n === 1) {
                 chests[4].is_opened = !chests[4].is_opened;
@@ -2043,9 +2095,11 @@
             chests[x].is_opened = !chests[x].is_opened;
             var highlight = document.getElementById('locationMap'+x).classList.contains('highlight');
 			var checkedType = (x >= 23 && x <= 63) ? 'bonked' : 'opened';
+			var scouted = chests[x].content
             document.getElementById('locationMap'+x).className = 'location ' +
                 (chests[x].is_opened ? checkedType : chests[x].is_available()) +
-                (highlight ? ' highlight' : '');
+                (highlight ? ' highlight' : '') +
+				(scouted && !chests[x].is_opened ? ' scouted' : '');
 				
 			if (flags.restreamer === "T" && loadPrimer === true) {
 				resetTrackerTimer();
@@ -2895,38 +2949,16 @@
 
 			flags.doorshuffle = document.getElementById('doorselect').value;
 
-			rightClickChest('chest0');
-			toggle('chest0');
-			rightClickChest('chest1');
-			toggle('chest1');
-			rightClickChest('chest2');
-			toggle('chest2');
-			rightClickChest('chest3');
-			toggle('chest3');
-			rightClickChest('chest4');
-			toggle('chest4');
-			rightClickChest('chest5');
-			toggle('chest5');
-			rightClickChest('chest6');
-			toggle('chest6');
-			rightClickChest('chest7');
-			toggle('chest7');
-			rightClickChest('chest8');
-			toggle('chest8');
-			rightClickChest('chest9');
-			toggle('chest9');
-			rightClickChest('chest10');
-			toggle('chest10');
-			rightClickChest('chest11');
-			toggle('chest11');
-			rightClickChest('chest12');
-			toggle('chest12');
+			for (var k = 0; k < 13; k++) {
+				rightClickChest('chest' + k);
+				toggle('chest' + k);
+			};
 			
 			if (!document.getElementById('shuffledmaps').checked) {
 				for (var k = 0; k < 10; k++) {
 					if (prizes[k] == 5) {
 						prizes[k] = 0;
-						document.getElementById('dungeonPrize'+k).className = 'prize-0';
+						document.getElementById('dungeonPrize'+k).classList = ['prize-0'];
 					}
 				}
 			}
@@ -3370,6 +3402,8 @@
 		document.getElementById('bombfloor').style.visibility = flags.doorshuffle != 'C' ? 'hidden' : 'visible';
 		
 		document.getElementById('mirrorscroll').style.visibility = flags.doorshuffle === 'N' ? 'hidden' : 'visible';
+
+		document.getElementById('pseudoboots').style.visibility = flags.pseudoboots === 'N' ? 'hidden' : 'visible';
 		
 		document.getElementById('showpathsdiv').style.visibility = flags.doorshuffle === 'N' && flags.overworldshuffle === 'N' ? 'hidden' : 'visible';
 
@@ -3770,6 +3804,7 @@
 			document.getElementById('smallkeyhalf0').innerHTML = items.smallkeyhalf0;
 			document.getElementById('smallkeyhalf1').innerHTML = items.smallkeyhalf1;
 		}
+
 		
 		if (flags.spheresmode == 'N') {
 			document.getElementById('spheres').style.visibility = 'hidden';
@@ -3791,6 +3826,40 @@
 		
 		for (var i = 0; i < 10; i++) {
 			document.getElementById('bossMap' + i).classList.add('bossprize-0');
+		}
+
+		if (flags.mapstyle === 'O') {
+			document.getElementById('map').style.backgroundImage = "url(images/overlay/map_old.png)";
+			var locations = document.getElementsByClassName('location');
+			for (var i = 0; i < locations.length; i++) {
+				locations[i].style.width = flags.entrancemode === 'N' ? '20px' : '16px';
+				locations[i].style.height = flags.entrancemode === 'N' ? '20px' : '16px';
+				locations[i].style.border = flags.entrancemode === 'N' ? '3px solid' : '2px solid';
+				locations[i].style.marginLeft = flags.entrancemode === 'N' ? '-10px' : '-8px';
+				locations[i].style.marginTop = flags.entrancemode === 'N' ? '-10px' : '-8px';
+			}
+			
+			for (var i = 0; i < dungeons.length; i++) {
+				let dungeon = document.getElementById('dungeon'+i);
+				dungeon.style.width = '40px';
+				dungeon.style.height = '40px';
+				dungeon.style.border = '4px solid';
+				dungeon.style.marginLeft = '-20px';
+				dungeon.style.marginTop = '-20px';
+				if ([2, 8].includes(i)) {
+					dungeon.style.marginLeft = '-15px';
+					let boss = document.getElementById('bossMap'+i);
+					boss.style.marginLeft = '-5px';
+				}
+			}
+
+			let castle = document.getElementById('castle');
+			castle.style.width = '40px';
+			castle.style.height = '40px';
+			castle.style.border = '4px solid';
+			castle.style.marginLeft = '-20px';
+			castle.style.marginTop = '-20px';
+
 		}
 		
 		//Set starting items
@@ -3894,6 +3963,9 @@
 			}
 			if (window.flags.startingitems.charAt(22) === '1') {
 				toggle('boots');
+				if (window.flags.pseudoboots === 'Y') {
+					toggle('boots');
+				}
 			}
 			if (window.flags.startingitems.charAt(23) != '0') {
 				toggle('glove');
@@ -3908,7 +3980,7 @@
 				toggle('magic');
 			}
 			
-			if (flags.autotracking === 'Y' && flags.restreamer != "R") {
+			if ((flags.autotracking === 'Y' || flags.autotracking === 'O') && flags.restreamer != "R") {
 				autotrackConnect();
 			}
 		}
