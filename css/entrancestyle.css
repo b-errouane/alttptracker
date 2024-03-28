@@ -14,6 +14,7 @@ body {
 .row:after { clear: both; }
 .cell { position: relative; float: left; }
 .cell.split { height: 64px; width: 64px; position: relative; float: left; background-image: url(../images/items/splitbackground.png); }
+.cell.quarter { height: 64px; width: 64px; position: relative; float: left; }
 
 #app { width: 1340px; height: 744px; overflow: hidden; display: block!important; }
 #app.mapless { width: 448px; }
@@ -44,6 +45,14 @@ body {
   position: absolute;
   bottom: 0;
   right: 0;
+}
+
+#tracker .heartpiece {
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  bottom: 36;
+  right: 4;
 }
 
 #tracker .item,
@@ -199,6 +208,11 @@ body {
 .location.highlight,
 .entrance.highlight,
 .dungeon.highlight { border-color:rgb(255, 238, 0) !important; }
+
+.chest.findhighlight,
+.castle.findhighlight,
+.location.findhighlight,
+.dungeon.findhighlight { border-color:rgb(255, 238, 0) !important; border-width: 3px !important; }
 .chest.large { width: 64px !important; height: 64px !important; background-size: 100%; font-size: 34px !important; padding-top: 8px !important; background-image: url(../images/dungeons/keychestlarge.png); }
 .chest-0.large { width: 64px !important; height: 64px !important; background-size: 100%; font-size: 34px !important; padding-top: 8px !important; background-image: url(../images/dungeons/keychestlarge0.png); }
 .location.rightclick,
@@ -300,6 +314,16 @@ body {
 .shield.active-2 { background-image: url(../images/items/shield2.png); background-size:100%; float:left; }
 .shield.active-3 { background-image: url(../images/items/shield3.png); background-size:100%; float:left; }
 .moonpearl { background-image: url(../images/items/moonpearl.png); background-size:100%; }
+.heartpiece { background-image: url(../images/items/heartpiece0.png); background-size:100%; }
+div[class*=" heartpiece"].active-1 { 
+  background-image: url(../images/items/heartpiece1.png);
+ }
+div[class*=" heartpiece"].active-2 { 
+  background-image: url(../images/items/heartpiece2.png);
+ }
+div[class*=" heartpiece"].active-3 { 
+  background-image: url(../images/items/heartpiece3.png);
+ }
 .crystalgoal.crystals0 { background-image: url(../images/dungeons/crystal0.png); background-size:100%; }
 .crystalgoal.crystals1 { background-image: url(../images/dungeons/crystal1.png); background-size:100%; }
 .crystalgoal.crystals2 { background-image: url(../images/dungeons/crystal2.png); background-size:100%; }
@@ -350,11 +374,17 @@ body {
 .shovel { width: 32px; height: 32px; background-size: 32px; top: 0; left: 0; background-image: url(../images/items/shovel.png); }
 .net { background-image: url(../images/items/net.png); }
 .book { background-image: url(../images/items/book.png); }
-.bottle { background-image: url(../images/items/bottle0.png); }
-.bottle.active-1 { background-image: url(../images/items/bottle1.png); }
-.bottle.active-2 { background-image: url(../images/items/bottle2.png); }
-.bottle.active-3 { background-image: url(../images/items/bottle3.png); }
-.bottle.active-4 { background-image: url(../images/items/bottle4.png); }
+.bottle1 { width: 32px; height: 32px; background-size: 32px; top: 0; left: 1; background-image: url(../images/items/bottle_empty.png); }
+.bottle2 { width: 32px; height: 32px; background-size: 32px; top: 0; left: 31; background-image: url(../images/items/bottle_empty.png); }
+.bottle3 { width: 32px; height: 32px; background-size: 32px; top: 32; left: 1; background-image: url(../images/items/bottle_empty.png); }
+.bottle4 { width: 32px; height: 32px; background-size: 32px; top: 32; left: 31; background-image: url(../images/items/bottle_empty.png); }
+div[class*=" bottle"].active-1 { background-image: url(../images/items/bottle_empty.png); }
+div[class*=" bottle"].active-2 { background-image: url(../images/items/bottle_red.png); }
+div[class*=" bottle"].active-3 { background-image: url(../images/items/bottle_green.png); }
+div[class*=" bottle"].active-4 { background-image: url(../images/items/bottle_blue.png); }
+div[class*=" bottle"].active-5 { background-image: url(../images/items/bottle_fairy.png); }
+div[class*=" bottle"].active-6 { background-image: url(../images/items/bottle_bee.png); }
+div[class*=" bottle"].active-7 { background-image: url(../images/items/bottle_goodbee.png); }
 .somaria { background-image: url(../images/items/somaria.png); }
 .byrna { background-image: url(../images/items/byrna.png); }
 .cape { background-image: url(../images/items/cape.png); }

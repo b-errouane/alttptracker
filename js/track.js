@@ -33,6 +33,7 @@
 	window.constantFunctions = {};
 	window.constantFunctionsEDC = {};
 	window.dungeonEntranceCounts = [1, 4, 1, 1, 1, 8, 1, 1, 1, 4, 1, 5, 1];
+	window.bottlesObtained = [false, false, false, false]
 
 	window.doorWindow = null;
 	window.dungeonData = null;
@@ -1139,6 +1140,20 @@
 				nodes.forEach(node=>node.classList[items[label] ? 'add' : 'remove'](is_boss ? 'defeated' : 'active'));
 			} else if (label != 'sword' || flags.swordmode != 'S') {
 				var value = items.inc(label);
+				if (label.startsWith('bottle')) {
+					var bottleid = parseInt(label.substring(6)) - 1;
+					if (value === 0) {
+						if (window.bottlesObtained[bottleid] === true) {
+							window.bottlesObtained[bottleid] = false;
+							items.bottle -= 1;
+						}
+					} else {
+						if (window.bottlesObtained[bottleid] === false) {
+							window.bottlesObtained[bottleid] = true;
+							items.bottle += 1;
+						}
+					}
+				}
 				if (label === 'bow' && value === 1 && window.flags.nonprogressivebows === false) {
 					value = items.inc(label);
 				}
@@ -2040,6 +2055,30 @@
 		}
     };
 
+	window.rightClickBottle = function(n) {
+		var curValue = items['bottle'+n];
+		var value = items.dec('bottle'+n);
+
+		var el = document.getElementById('bottle'+n)
+
+		if (value === items.range['bottle'+n].min) {
+			el.className = el.className.replace('active-' + curValue, '');
+			if (window.bottlesObtained[n-1] == true) {
+				window.bottlesObtained[n-1] = false;
+				items.bottle -= 1;
+			}
+		} else if (value === items.range['bottle'+n].max) {
+			el.className = el.className + ' active-' + value;
+			if (window.bottlesObtained[n-1] == false) {
+				window.bottlesObtained[n-1] = true;
+				items.bottle += 1;
+			}
+		} else {
+			el.className = el.className.replace('active-' + curValue, 'active-' + value);
+		}
+		updateLocationAvailability();
+	}
+
     // event of right clicking on a boss's enemizer portrait
     window.rightClickMedallion = function(n) {
         medallions[n] -= 1;
@@ -2391,7 +2430,7 @@
 					if(hasItem)
 					{
 						if(flags.mapmode != 'N')
-							document.getElementById('locationMap'+i).classList.add('highlight');
+							document.getElementById('locationMap'+i).classList.add('findhighlight');
 						var locationName = chests[i].caption;
 						results = results === "" ?locationName :results+", "+locationName;
 					}
@@ -2411,7 +2450,7 @@
 					if(hasItem)
 					{
 						if(flags.mapmode != 'N')
-							document.getElementById('dungeon'+i).classList.add('highlight');
+							document.getElementById('dungeon'+i).classList.add('findhighlight');
 						var locationName = dungeons[i].caption;
 						results = results === "" ?locationName :results+", "+locationName;
 					}
@@ -2437,7 +2476,7 @@
 				if(dungeonHasItem)
 				{
 					if(flags.mapmode != 'N')
-						document.getElementById('dungeon'+i).classList.add('highlight');
+						document.getElementById('dungeon'+i).classList.add('findhighlight');
 				}
 			}
 			if(results !== "")
@@ -2449,14 +2488,14 @@
 		if(flags.mapmode != 'N')
 		{
 			for(var i = 0; i < chests.length; i++)
-				document.getElementById('locationMap'+i).classList.remove('highlight');
+				document.getElementById('locationMap'+i).classList.remove('findhighlight');
 			if (flags.entrancemode != 'N') {
 				for(var i = 0; i < entrances.length; i++)
-					document.getElementById('entranceMap'+i).classList.remove('highlight');
+					document.getElementById('entranceMap'+i).classList.remove('findhighlight');
 			}
 			else
 				for(var i = 0; i < dungeons.length; i++)
-					document.getElementById('dungeon'+i).classList.remove('highlight');
+					document.getElementById('dungeon'+i).classList.remove('findhighlight');
 		}
 		document.getElementById('caption').innerHTML = '&nbsp;';
 	};
@@ -3947,7 +3986,7 @@
 				toggle('book');
 			}
 			if (window.flags.startingitems.charAt(17) === '1') {
-				toggle('bottle');
+				toggle('bottle1');
 			}
 			if (window.flags.startingitems.charAt(18) === '1') {
 				toggle('somaria');

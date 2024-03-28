@@ -849,6 +849,9 @@ function autotrackDoTracking(data) {
     if (changed(0x35B))
         setitem("tunic", data['rooms_inv'][0x35B] + 1);
 
+    if (changed(0x36B))
+        setitem("heartpiece", data['rooms_inv'][0x36B]);
+
     if (changed(0x37B))
         setitem("magic", data['rooms_inv'][0x37B] > 0);
 	
@@ -923,11 +926,11 @@ function autotrackDoTracking(data) {
 	function setcompass(dungeon, value) {
 		rightClickEnemy(dungeon);
     };
-	
-    var prevbottles = -1;
-    if (autotrackPrevData !== null)
-        prevbottles = (autotrackPrevData['rooms_inv'][0x35C] == 0 ? 0 : 1) + (autotrackPrevData['rooms_inv'][0x35D] == 0 ? 0 : 1) + (autotrackPrevData['rooms_inv'][0x35E] == 0 ? 0 : 1) + (autotrackPrevData['rooms_inv'][0x35F] == 0 ? 0 : 1);
-    var bottles = (data['rooms_inv'][0x35C] == 0 ? 0 : 1) + (data['rooms_inv'][0x35D] == 0 ? 0 : 1) + (data['rooms_inv'][0x35E] == 0 ? 0 : 1) + (data['rooms_inv'][0x35F] == 0 ? 0 : 1);
-    if (bottles != prevbottles)
-        setitem("bottle", bottles);
+
+    for (let i=1; i<=4; i++) {
+        const bottleLoc = 0x35C + i - 1;
+        if (changed(bottleLoc)) {
+            setitem(`bottle${i}`, Math.max(0, data['rooms_inv'][bottleLoc] - 1))
+        }
+    }
 }

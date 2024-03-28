@@ -125,6 +125,11 @@
         bow: { min: 0, max: 3 },
         boomerang: { min: 0, max: 3 },
         glove: { min: 0, max: 2 },
+        bottle1: { min: 0, max: 7 },
+        bottle2: { min: 0, max: 7 },
+        bottle3: { min: 0, max: 7 },
+        bottle4: { min: 0, max: 7 },
+        heartpiece: { min: 0, max: 3},
         smallkey0: { min: 0, max: keyCount(dungeonKeys.ep) },
         smallkey1: { min: 0, max: keyCount(dungeonKeys.dp) },
         smallkey2: { min: 0, max: keyCount(dungeonKeys.th) },
@@ -177,7 +182,15 @@
         net: false,
         book: false,
 
+        // Bottle is still used for logic
         bottle: 0,
+        bottle1: 0,
+        bottle2: 0,
+        bottle3: 0,
+        bottle4: 0,
+
+        heartpiece: 0,
+
         somaria: false,
         byrna: false,
         cape: false,

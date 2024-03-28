@@ -1,21 +1,21 @@
 <html>
 	<head>
 		<title>ALTTP Randomizer Community Tracker - Tracker</title>
-		<script src="js/jquery-3.3.1.js?v=20038"></script>
-		<script src="js/bootstrap.min.js?v=20038"></script>
-		<link rel="stylesheet" type="text/css" href="css/sprites.css?v=20038">
-		<link rel="stylesheet" type="text/css" href="css/fonts.css?v=20038">
-		<link rel="stylesheet" type="text/css" href="css/colors.css?v=20038.1">
+		<script src="js/jquery-3.3.1.js?v=20039"></script>
+		<script src="js/bootstrap.min.js?v=20039"></script>
+		<link rel="stylesheet" type="text/css" href="css/sprites.css?v=20039">
+		<link rel="stylesheet" type="text/css" href="css/fonts.css?v=20039">
+		<link rel="stylesheet" type="text/css" href="css/colors.css?v=20039">
 		<link rel="stylesheet" type="text/css" id="mainstyle">
 		<link rel="stylesheet" type="text/css" id="maincompactstyle">
-		<script src="js/util.js?v=20038"></script>
-		<script src="js/items.js?v=20038"></script>
-		<script src="js/chests.js?v=20038"></script>
-		<script src="js/entrancechests.js?v=20038"></script>
-		<script src="js/track.js?v=20038"></script>
-		<script src="js/dungeons.js?v=20038"></script>
-		<script src="js/spoiler.js?v=20038"></script>
-		<script src="js/autot.js?v=20038"></script>
+		<script src="js/util.js?v=20039"></script>
+		<script src="js/items.js?v=20039"></script>
+		<script src="js/chests.js?v=20039"></script>
+		<script src="js/entrancechests.js?v=20039"></script>
+		<script src="js/track.js?v=20039"></script>
+		<script src="js/dungeons.js?v=20039"></script>
+		<script src="js/spoiler.js?v=20039"></script>
+		<script src="js/autot.js?v=20039"></script>
 		<script>
 			var colorSettings = JSON.parse(localStorage.getItem('colorSettings'));
 			for (var key in colorSettings) {
@@ -73,6 +73,7 @@
 											</div>
 											<div class="item sword" onClick="toggle('sword')" onMouseover="findItems(['Sword'])" onMouseout="unhighlightAll()"></div>
 											<div class="item shield" onClick="toggle('shield')" onMouseover="findItems(['Shield'])" onMouseout="unhighlightAll()"></div>
+											<div class="item heartpiece" onClick="toggle('heartpiece')" onMouseover="findItems(['heartpiece'])" onMouseout="unhighlightAll()"></div>
 											<div class="item moonpearl" onClick="toggle('moonpearl')" onMouseover="findItems(['Moon Pearl'])" onMouseout="unhighlightAll()"></div>
 										</div>
 									</div>
@@ -222,8 +223,11 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="cell">
-									<div class="item bottle" onClick="toggle('bottle')" onMouseover="findItems(['Bottle','Bottle (Red Potion)','Bottle (Green Potion)','Bottle (Blue Potion)','Bottle (Fairy)','Bottle (Bee)','Bottle (Gold Bee)'])" onMouseout="unhighlightAll()"></div>
+								<div class="cell quarter">
+									<div id="bottle1" class="item half bottle1" onClick="toggle('bottle1')" oncontextmenu="javascript:rightClickBottle(1);return false;" onMouseover="findItems(['Bottle','Bottle (Red Potion)','Bottle (Green Potion)','Bottle (Blue Potion)','Bottle (Fairy)','Bottle (Bee)','Bottle (Gold Bee)'])" onMouseout="unhighlightAll()"></div>
+									<div id="bottle2" class="item half bottle2" onClick="toggle('bottle2')" oncontextmenu="javascript:rightClickBottle(2);return false;" onMouseover="findItems(['Bottle','Bottle (Red Potion)','Bottle (Green Potion)','Bottle (Blue Potion)','Bottle (Fairy)','Bottle (Bee)','Bottle (Gold Bee)'])" onMouseout="unhighlightAll()"></div>
+									<div id="bottle3" class="item half bottle3" onClick="toggle('bottle3')" oncontextmenu="javascript:rightClickBottle(3);return false;" onMouseover="findItems(['Bottle','Bottle (Red Potion)','Bottle (Green Potion)','Bottle (Blue Potion)','Bottle (Fairy)','Bottle (Bee)','Bottle (Gold Bee)'])" onMouseout="unhighlightAll()"></div>
+									<div id="bottle4" class="item half bottle4" onClick="toggle('bottle4')" oncontextmenu="javascript:rightClickBottle(4);return false;" onMouseover="findItems(['Bottle','Bottle (Red Potion)','Bottle (Green Potion)','Bottle (Blue Potion)','Bottle (Fairy)','Bottle (Bee)','Bottle (Gold Bee)'])" onMouseout="unhighlightAll()"></div>
 								</div>
 								<div class="cell">
 									<div class="item somaria" onClick="toggle('somaria')" onMouseover="findItems(['Cane of Somaria'])" onMouseout="unhighlightAll()"></div>
