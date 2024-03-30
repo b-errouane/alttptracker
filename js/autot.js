@@ -747,14 +747,8 @@ function autotrackDoTracking(data) {
 
     function setitem(item, value) {
         click_map();
-        if (item != 'mushroom') {
-			while (items[item] != value)
-				toggle(item);
-		} else {
-			if (!window.mushroomfound) {
-				while (items[item] != value)
-					toggle(item);
-			}
+        while (items[item] != value) {
+            toggle(item);
 		}
     };
 
@@ -774,8 +768,6 @@ function autotrackDoTracking(data) {
         setitem("boomerang", bits == 0x80 ? 1 : (bits == 0x40 ? 2 : 3));
     }
 
-    if (disabledbit(0x38C, 0x20))
-        setitem("mushroom", false);
     if (newbit(0x38C, 0x20))
         setitem("mushroom", true);
     if (newbit(0x38C, 0x10))
