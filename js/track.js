@@ -1444,6 +1444,16 @@
         document.getElementById('dungeonPrize'+n).classList.add('prize-' + prizes[n]);
 		updateMapTracker();
     };	
+
+	window.set_prize = function(n) {
+		if (document.getElementById('dungeonPrize'+n).classList.contains('collected')) {
+			return;
+		} else {
+			document.getElementById('dungeonPrize'+n).classList.add('collected');
+		}
+		updateMapTracker();
+	};
+
 	
 	window.toggle_prize = function(n) {
 		if (document.getElementById('dungeonPrize'+n).classList.contains('collected')) {

@@ -452,9 +452,12 @@ function autotrackDoTracking(data) {
                     newDungeonItemCount++;
                 }
                 if (!flags.wildkeys) {
-                    newDungeonItemCount += data['rooms_inv'][dungeondata.smallkeys];
+                    let keyCount = data['rooms_inv'][dungeondata.smallkeys];
+                    if (dungeon === 'toh') { // Temporary fix for Tower of Hera small key being counted twice
+                        keyCount = Math.min(keyCount, 1);
+                    }
+                    newDungeonItemCount += keyCount;
                 }
-
                 newCheckedLocationCount -= newDungeonItemCount;
                 while (newCheckedLocationCount > dungeonautotrackCounts[dungeon]) {
                     dungeonautotrackCounts[dungeon] ++;
@@ -476,7 +479,7 @@ function autotrackDoTracking(data) {
         Object.entries(prizemap).forEach(([prizeType, prizes]) => {
             Object.entries(prizes).forEach(([mask, prize]) => {
                 if (newbit(prizeType === 'pendant' ? 0x374 : 0x37A, mask, 'rooms_inv')) {
-                    toggle_prize(dungeonPrizes[`${prizeType}${prize}`]);
+                    set_prize(dungeonPrizes[`${prizeType}${prize}`]);
                 }
             });
         });
