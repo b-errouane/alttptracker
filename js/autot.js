@@ -479,7 +479,52 @@ function autotrackDoTracking(data) {
         Object.entries(prizemap).forEach(([prizeType, prizes]) => {
             Object.entries(prizes).forEach(([mask, prize]) => {
                 if (newbit(prizeType === 'pendant' ? 0x374 : 0x37A, mask, 'rooms_inv')) {
-                    set_prize(dungeonPrizes[`${prizeType}${prize}`]);
+                    const dungeonNum = dungeonPrizes[`${prizeType}${prize}`];
+                    collect_prize(dungeonNum);
+                    let currentPrize = Array.from(document.getElementById(`dungeonPrize${dungeonNum}`).classList).filter(c => c.startsWith('prize-'))[0];
+                    // Is the prize set correctly already?
+                    switch (currentPrize) {
+                        case 'prize-1':
+                            if (prize === 'g') {
+                                return
+                            }
+                            break;
+                        case 'prize-2':
+                            if (prize === 'b' || prize === 'r') {
+                                return
+                            }
+                            break;
+                        // Not allowed to distiquish between normal and 4/5 crystals so we don't correct mistakes
+                        case 'prize-3':
+                        case 'prize-4':
+                            if (prizeType === 'crystal') {
+                                return
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                    switch (prize) {
+                        case 'g':
+                            set_prize(dungeonNum, 1);
+                            break;
+                        case 'b':
+                        case 'r':
+                            set_prize(dungeonNum, 2);
+                            break;
+                        case '1':
+                        case '2':
+                        case '3':
+                        case '4':
+                        case '5':
+                        case '6':
+                        case '7':
+                            set_prize(dungeonNum, 3);
+                            break;
+                        default:
+                            set_prize(dungeonNum, 4);
+                            break;
+                    }
                 }
             });
         });

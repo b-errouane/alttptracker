@@ -1,15 +1,15 @@
 <html>
    <head>
       <title>ALTTP Randomizer Community Tracker - Launcher</title>
-      <script type="text/javascript" src="js/index.js?v=20040"></script>
-      <script type="text/javascript" src="js/jquery-3.3.1.js?v=20040"></script>
-      <script type="text/javascript" src="js/jquery.powertip.js?v=20040"></script>
-      <script type="text/javascript" src="js/bootstrap.min.js?v=20040"></script>
-      <link href="css/jquery.powertip.css?v=20040" rel="stylesheet" />
-      <link href="css/launcher.css?v=20040" rel="stylesheet">
-      <link href="css/fonts.css?v=20040" rel="stylesheet">
-      <link href="css/sprites.css?v=20040" rel="stylesheet">
-      <link href="css/toast.css?v=20040" rel="stylesheet">
+      <script type="text/javascript" src="js/index.js?v=20041"></script>
+      <script type="text/javascript" src="js/jquery-3.3.1.js?v=20041"></script>
+      <script type="text/javascript" src="js/jquery.powertip.js?v=20041"></script>
+      <script type="text/javascript" src="js/bootstrap.min.js?v=20041"></script>
+      <link href="css/jquery.powertip.css?v=20041" rel="stylesheet" />
+      <link href="css/launcher.css?v=20041" rel="stylesheet">
+      <link href="css/fonts.css?v=20041" rel="stylesheet">
+      <link href="css/sprites.css?v=20041" rel="stylesheet">
+      <link href="css/toast.css?v=20041" rel="stylesheet">
       <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
       <meta http-equiv="Pragma" content="no-cache" />
       <meta http-equiv="Expires" content="0" />
@@ -63,13 +63,7 @@
                   <input type="button" value="MYSTERY" class="preset-btn" onclick="loadmysterypreset()" />
                   </span>
                   <span class="preset-btn-span">
-                  <input type="button" value="GOLD RUSH" class="preset-btn" onclick="loadgoldrushspreset()" />
-                  </span>
-                  <span class="preset-btn-span">
-                  <input type="button" value="OPEN PLUS" class="preset-btn" onclick="loadhardopenpluspreset()" />
-                  </span>
-                  <span class="preset-btn-span">
-                  <input type="button" value="STANDARD BOOTS" class="preset-btn" onclick="loadstandardbootspreset()" />
+                  <input type="button" value="RETRANCE" class="preset-btn" onclick="loadretrancepreset()" />
                   </span>
                </div>
                <div class="preset-header" style="cursor: default;">
@@ -87,27 +81,37 @@
                   </span>
                </div>
                <div class="preset-header" style="cursor: default;">
-                  Competitive Presets
+                  War for Hyrule Presets Presets
                </div>
                <div>
                   <span class="preset-btn-span">
-                     <input type="button" value="DOORS SOTW" class="preset-btn" onclick="loaddoorssotwpreset()" />
+                     <input type="button" value="AD KEYS" class="preset-btn" onclick="loadadkeyspreset()" />
                   </span>
                   <span class="preset-btn-span">
-                     <input type="button" value="DOORS BEGINNER" class="preset-btn" onclick="loaddoorsbeginnerpreset()" />
+                     <input type="button" value="BOSSHUNT" class="preset-btn" onclick="loadbosshuntpreset()" />
                   </span>
                   <span class="preset-btn-span">
-                     <input type="button" value="AD" class="preset-btn" onclick="loadadpreset()" />
+                     <input type="button" value="CHAOS BOSS" class="preset-btn" onclick="loadenemizerpreset()" />
                   </span>
                   <span class="preset-btn-span">
-                     <input type="button" value="AAD KEYS" class="preset-btn" onclick="loadopenkeyspreset()" />
+                     <input type="button" value="INFLUKEYS" class="preset-btn" onclick="loadinflukeyspreset()" />
                   </span>
                   <span class="preset-btn-span">
-                     <input type="button" value="GANONHUNT" class="preset-btn" onclick="loadganonhuntpreset()" />
+                     <input type="button" value="7/6 OPEN" class="preset-btn" onclick="loadopen76preset()" />
                   </span>
-                  <span class="preset-btn-span">
-                     <input type="button" value="ENEMIZER BOOTS" class="preset-btn" onclick="loadenemizerbootspreset()" />
-                  </span>
+                  <div class="preset-header" style="cursor: default;">
+                     Misc Presets
+                  </div>
+                  <div>
+                     <span class="preset-btn-span">
+                        <input type="button" value="DOORS" class="preset-btn" onclick="loaddoorssotwpreset()" />
+                     </span>
+                     <span class="preset-btn-span">
+                        <input type="button" value="AD KEYDROP BOOTS" class="preset-btn" onclick="loadadkeydroppreset()" />
+                     </span>
+                     <span class="preset-btn-span">
+                        <input type="button" value="CROSSKEYS 2024" class="preset-btn" onclick="loadcrosskeys2024preset()" />
+                     </span>
                </div>
                <div class="preset-header" style="cursor: default;">
                   Archived Presets
@@ -222,8 +226,8 @@
                      <label for="doorcrossed" >Crossed</label>
                      </span>
                      <span class="preset-span">
-                        <input id="doorcrossed" value="P" type="radio" name="doorgroup" />
-                        <label for="doorcrossed" >Pots</label>
+                        <input id="doorpots" value="P" type="radio" name="doorgroup" />
+                        <label for="doorpots" >Pots</label>
                      </span>
                   </div>
                   <div>
@@ -456,6 +460,16 @@
                      <span class="preset-span">
                      <input id="goalpedestal" value="P" type="radio" name="goalgroup" />
                      <label for="goalpedestal">Pedestal</label>
+                     </span>
+                     <span class="preset-span-double">
+                     </span>
+                     <span class="preset-span">
+                     <input id="goaltriforcehunt" value="T" type="radio" name="goalgroup" />
+                     <label for="goaltriforcehunt">Triforce Hunt</label>
+                     </span>
+                     <span class="preset-span">
+                     <input id="goalganonhunt" value="H" type="radio" name="goalgroup" />
+                     <label for="goalganonhunt">Ganonhunt</label>
                      </span>
                      <span class="preset-span">
                      <input id="goalother" value="O" type="radio" name="goalgroup" />

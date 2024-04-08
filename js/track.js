@@ -1196,8 +1196,12 @@
 	window.updateLocationAvailability = function() {
 		if(flags.mapmode != 'N') {
             for (var k = 0; k < chests.length; k++) {
-                if (!chests[k].is_opened)
+                if (!chests[k].is_opened) {
                     document.getElementById('locationMap'+k).className = 'location ' + chests[k].is_available();
+					if (chests[k].content) {
+						document.getElementById('locationMap'+k).classList.add('scouted');
+					}
+				}
             }
 			if (flags.entrancemode != 'N') {
 				for (var k = 0; k < entrances.length; k++) {
@@ -1434,6 +1438,17 @@
 
 		updateMapTracker();
     };
+
+	window.set_prize = function(n, value) {
+		const currentElement = document.getElementById('dungeonPrize'+n);
+		if (currentElement.classList.contains('prize-' + value)) {
+			return;
+		}
+		currentElement.classList.remove('prize-' + prizes[n]);
+		prizes[n] = value;
+		currentElement.classList.add('prize-' + value);
+		updateMapTracker();
+	};
 	
     window.rightClickPrize = function(n) {
 		var mindungeon = (flags.wildmaps ? 5 : 4);
@@ -1445,7 +1460,7 @@
 		updateMapTracker();
     };	
 
-	window.set_prize = function(n) {
+	window.collect_prize = function(n) {
 		if (document.getElementById('dungeonPrize'+n).classList.contains('collected')) {
 			return;
 		} else {
@@ -3242,6 +3257,8 @@
 			document.getElementById('ganondiv').classList.remove('pendants');
 			document.getElementById('ganondiv').classList.remove('other');
 			document.getElementById('ganondiv').classList.remove('alldungeons');
+			document.getElementById('ganondiv').classList.remove('ganonhunt');
+			document.getElementById('ganondiv').classList.remove('triforcehunt');
 			
 			switch (document.getElementById('goalselect').value) {
 				case 'G':
@@ -3258,6 +3275,14 @@
 					break;
 				case 'P':
 					document.getElementById('ganondiv').classList.add('pendants');
+					flags.ganonvulncount = 8;
+					break;
+				case 'T':
+					document.getElementById('ganondiv').classList.add('triforcehunt');
+					flags.ganonvulncount = 8;
+					break;
+				case 'H':
+					document.getElementById('ganondiv').classList.add('ganonhunt');
 					flags.ganonvulncount = 8;
 					break;
 				case 'O':
@@ -3613,6 +3638,12 @@
 				break;
 			case 'P':
 				document.getElementById('ganondiv').classList.add('pendants');
+				break;
+			case 'T':
+				document.getElementById('ganondiv').classList.add('triforcehunt');
+				break;
+			case 'H':
+				document.getElementById('ganondiv').classList.add('ganonhunt');
 				break;
 			case 'O':
 				document.getElementById('ganondiv').classList.add('other');
