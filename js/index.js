@@ -1470,7 +1470,7 @@ function loadbosshuntpreset() {
 	document.getElementById("entrancenone").checked = true;
 	document.getElementById("doornone").checked = true;
 	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossshuffled").checked = true;
+	document.getElementById("bossnone").checked = true;
 	document.getElementById("enemynone").checked = true;
 	document.getElementById("glitchesnone").checked = true;
 	document.getElementById("goalganonhunt").checked = true;
