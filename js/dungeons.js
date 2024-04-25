@@ -148,7 +148,7 @@
 
 	function activeFlute()
 	{
-		return items.flute && canReachOtherWorld();
+		return items.flute === 2 && canReachOtherWorld();
 	}
 	
 	function glitchLinkState()
@@ -445,7 +445,7 @@
 						}
 						break;
 					case 'mirrordesert':
-						if(!items.mirror || !items.flute || items.glove < 2)
+						if(!items.mirror || items.flute < 2 || items.glove < 2)
 						{
 							doorcheck = 'possible';
 							break label;
@@ -853,9 +853,9 @@
 
 		if (!items.bigkey2) return 'unavailable';
 			
-		if (flags.wildbigkeys) return (dungeoncheck === 'available' ? ((!items.flute && !items.lantern && !(flags.glitches != 'N' && items.boots)) ? 'darkavailable' : 'available') : ((!items.flute && !items.lantern && !(flags.glitches != 'N' && items.boots)) ? 'darkpossible' : 'possible')); 
-		if ((flags.wildkeys && (items.smallkey2 === 0 && flags.gametype != 'R')) || (!items.lantern && !items.firerod)) return (!items.flute && !items.lantern && !(flags.glitches != 'N' && items.boots)) ? 'darkpossible' : 'possible';
-		return (dungeoncheck === 'available' ? ((!items.flute && !items.lantern && !(flags.glitches != 'N' && items.boots)) ? 'darkavailable' : 'available') : ((!items.flute && !items.lantern && !(flags.glitches != 'N' && items.boots)) ? 'darkpossible' : 'possible'));
+		if (flags.wildbigkeys) return (dungeoncheck === 'available' ? ((items.flute < 2 && !items.lantern && !(flags.glitches != 'N' && items.boots)) ? 'darkavailable' : 'available') : ((items.flute < 2 && !items.lantern && !(flags.glitches != 'N' && items.boots)) ? 'darkpossible' : 'possible')); 
+		if ((flags.wildkeys && (items.smallkey2 === 0 && flags.gametype != 'R')) || (!items.lantern && !items.firerod)) return (items.flute < 2 && !items.lantern && !(flags.glitches != 'N' && items.boots)) ? 'darkpossible' : 'possible';
+		return (dungeoncheck === 'available' ? ((items.flute < 2 && !items.lantern && !(flags.glitches != 'N' && items.boots)) ? 'darkavailable' : 'available') : ((items.flute < 2 && !items.lantern && !(flags.glitches != 'N' && items.boots)) ? 'darkpossible' : 'possible'));
 		}
     };
 
@@ -1178,7 +1178,7 @@
     };
 
     window.HeraChests = function() {
-		var isDark = !items.flute && !items.lantern && !(flags.glitches != 'N') && flags.entrancemode === 'N' && flags.overworldshuffle === 'N';
+		var isDark = items.flute < 2 && !items.lantern && !(flags.glitches != 'N') && flags.entrancemode === 'N' && flags.overworldshuffle === 'N';
 		
 		var chests = ['U','U','U','U','U','U'];
 
@@ -1892,7 +1892,7 @@
     window.TRFrontChests = function(medcheck) {
 		if (!items.somaria) return 'unavailable';
 		if (medcheck === 'unavailable') return 'unavailable';
-		var isDark = !items.flute && !items.lantern && !(flags.glitches != 'N' && items.boots) && flags.entrancemode === 'N' && flags.overworldshuffle === 'N' && !(flags.glitches === 'M');
+		var isDark = items.flute < 2 && !items.lantern && !(flags.glitches != 'N' && items.boots) && flags.entrancemode === 'N' && flags.overworldshuffle === 'N' && !(flags.glitches === 'M');
 		
 		if (medcheck === 'possible') return (isDark ? 'darkpossible' : 'possible');
 
@@ -2114,7 +2114,7 @@
     };
 
 	window.TRMidChests = function() {
-		var isDark = !items.flute && !items.lantern && !(flags.glitches != 'N' && items.boots) && flags.entrancemode === 'N' && flags.overworldshuffle === 'N' && !(flags.glitches === 'M');
+		var isDark = items.flute < 2 && !items.lantern && !(flags.glitches != 'N' && items.boots) && flags.entrancemode === 'N' && flags.overworldshuffle === 'N' && !(flags.glitches === 'M');
 		
 		var chests = ['U','U','U','U','U','U','U','U','U','U','U','U'];
 		
@@ -2344,7 +2344,7 @@
     };
 
     window.TRBackChests = function() {
-		var isDark = !items.flute && !items.lantern && flags.entrancemode === 'N' && flags.overworldshuffle === 'N';
+		var isDark = items.flute < 2 && !items.lantern && flags.entrancemode === 'N' && flags.overworldshuffle === 'N';
 		
 		var chests = ['U','U','U','U','U','U','U','U','U','U','U','U'];
 		
@@ -2554,7 +2554,7 @@
     };
 
     window.GTChests = function() {
-		var isDark = !items.flute && !items.lantern && flags.gametype != 'I' && !(flags.glitches != 'N' && items.boots) && flags.entrancemode === 'N' && flags.overworldshuffle === 'N' && !(flags.glitches === 'M');
+		var isDark = items.flute < 2 && !items.lantern && flags.gametype != 'I' && !(flags.glitches != 'N' && items.boots) && flags.entrancemode === 'N' && flags.overworldshuffle === 'N' && !(flags.glitches === 'M');
 
 		var chests = ['U','U','U','U','U','U','U','U','U','U','U','U','U','U','U','U','U','U','U','U','U','U','U','U','U','U'];
 		

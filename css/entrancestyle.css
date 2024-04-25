@@ -366,6 +366,7 @@ div[class*=" heartpiece"].active-3 {
 .boomerang.active-3 { background-image: url(../images/items/boomerang3.png); }
 .hookshot { background-image: url(../images/items/hookshot.png); }
 .mushroom { width: 32px; height: 32px; background-size: 32px; top: 0; left: 0; background-image: url(../images/items/mushroom.png); }
+.mushroom.active-2 { width: 32px; height: 32px; background-size: 32px; top: 0; left: 0; background-image: url(../images/items/mushroom_turnedin.png); }
 .powder { width: 32px; height: 32px; background-size: 32px; top: 32; left: 32; background-image: url(../images/items/powder.png); }
 .firerod { background-image: url(../images/items/firerod.png); }
 .icerod { background-image: url(../images/items/icerod.png); }
@@ -399,6 +400,7 @@ div[class*=" bottle"].active-7 { background-image: url(../images/items/bottle_go
 .glove.active-2 { background-image: url(../images/items/glove2.png); }
 .flippers { background-image: url(../images/items/flippers.png); }
 .flute { width: 32px; height: 32px; background-size: 32px; top: 32; left: 32; background-image: url(../images/items/flute.png); }
+.flute.active-2 { width: 32px; height: 32px; background-size: 32px; top: 32; left: 32; background-image: url(../images/items/flute_activated.png); }
 .magic { background-image: url(../images/items/magic.png); }
 .half.magic { width: 32px; height: 32px; background-size: 32px; top: 32px; left: 0; background-image: url(../images/items/magic.png); }
 .agahnim, #bossMapAgahnim { width: 32px; height: 32px; background-size: 32px; top: 0; left: 0; background-image:url(../images/dungeons/agahnim0.png); }

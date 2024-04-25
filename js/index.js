@@ -1554,122 +1554,159 @@ function loadcrosskeys2024preset() {
 }
 
 
-function importflags() {
-	var i = document.getElementById("importflag").value;
-	
-	if (i.indexOf('/') > 1) {
-		i = i.substr(i.lastIndexOf('/') + 1);
-	}
-	if (i.indexOf('#') > 1) {
-		i = i.substr(0,i.indexOf('#'));
-	}
-	
-	$.getJSON("https://alttpr-patch-data.s3.us-east-2.amazonaws.com/" + i + ".json", function(data) {
-		var d = data.spoiler;
+async function importflags(auto=false) {
+	return new Promise((resolve) => {
+		var i = document.getElementById("importflag").value;
 		
-		if (d.meta.spoilers === "mystery") {
-			loadmysterypreset(false);
-		} else {
-			document.getElementById("gametype" + d.meta.mode).checked = true;
-			
-			//Entrance flag
-			if (d.meta.shuffle != null) {
-				document.getElementById("entrancesimple").checked = true;
-			} else {
-				document.getElementById("entrancenone").checked = true;
-			}
-			
-			document.getElementById("doornone").checked = true;
-			document.getElementById("overworldno").checked = true;
-			document.getElementById("shopsanityno").checked = true;
-			document.getElementById("ambrosiano").checked = true;
-			
-			if (data.spoiler.meta["enemizer.enemy_shuffle"] === "none") {
-				document.getElementById("enemynone").checked = true;
-			} else {
-				document.getElementById("enemyshuffled").checked = true;
-			}
-			if (data.spoiler.meta["enemizer.boss_shuffle"] === "none") {
-				document.getElementById("bossnone").checked = true;
-			} else {
-				document.getElementById("bossshuffled").checked = true;
-			}
-			
-			//Glitches flag
-			switch (d.meta.dungeon_items) {
-				case "standard":
-					document.getElementById("shuffledmaps").checked = false;
-					document.getElementById("shuffledcompasses").checked = false;
-					document.getElementById("shuffledsmallkeys").checked = false;
-					document.getElementById("shuffledbigkeys").checked = false;
-					break;
-				case "mc":
-					document.getElementById("shuffledmaps").checked = true;
-					document.getElementById("shuffledcompasses").checked = true;
-					document.getElementById("shuffledsmallkeys").checked = false;
-					document.getElementById("shuffledbigkeys").checked = false;
-					break;
-				case "mcs":
-					document.getElementById("shuffledmaps").checked = true;
-					document.getElementById("shuffledcompasses").checked = true;
-					document.getElementById("shuffledsmallkeys").checked = true;
-					document.getElementById("shuffledbigkeys").checked = false;
-					break;
-				case "full":
-					document.getElementById("shuffledmaps").checked = true;
-					document.getElementById("shuffledcompasses").checked = true;
-					document.getElementById("shuffledsmallkeys").checked = true;
-					document.getElementById("shuffledbigkeys").checked = true;
-					break;
-			}
-			//document.getElementById("placement" + d.meta.item_placement).checked = true;
-			
-			switch (d.meta.goal) {
-				case "ganon":
-					document.getElementById("goalganon").checked = true;
-					break;
-				case "fast_ganon":
-					document.getElementById("goalfast").checked = true;
-					break;
-				case "dungeons":
-					document.getElementById("goaldungeons").checked = true;
-					break;
-				case "pedestal":
-					document.getElementById("goalpedestal").checked = true;
-					break;
-				case "triforce_hunt":
-					document.getElementById("goaltriforce").checked = true;
-					break;
-				case "ganonhunt":
-					document.getElementById("goalganonhunt").checked = true;
-					break;
-				default:
-					document.getElementById("goalother").checked = true;
-					break;
-				
-			}
-			
-			if (d.meta.entry_crystals_tower === 'random') {
-				document.getElementById("goalrandom").checked = true;
-				document.getElementById("towerselect").value = 7;
-			} else {
-				document.getElementById("goalcrystal").checked = true;
-				document.getElementById("towerselect").value = d.meta.entry_crystals_tower;
-			}
-
-			if (d.meta.entry_crystals_ganon === 'random') {
-				document.getElementById("ganonrandom").checked = true;
-				document.getElementById("ganonselect").value = 7;
-			} else {
-				document.getElementById("ganoncrystal").checked = true;
-				document.getElementById("ganonselect").value = d.meta.entry_crystals_ganon;
-			}
-			
-			document.getElementById("swords" + d.meta.weapons).checked = true;
+		if (i.indexOf('/') > 1) {
+			i = i.substr(i.lastIndexOf('/') + 1);
+		}
+		if (i.indexOf('#') > 1) {
+			i = i.substr(0,i.indexOf('#'));
 		}
 		
-		window.scrollTo(0,document.body.scrollHeight);
-		showToast();
+		$.getJSON("https://alttpr-patch-data.s3.us-east-2.amazonaws.com/" + i + ".json", function(data) {
+			var d = data.spoiler;
+
+			// Gameplay
+			if (d.meta.spoilers === "mystery") {
+				loadmysterypreset(false);
+				resolve('mystery');
+			} else {
+				document.getElementById("gametype" + d.meta.mode).checked = true;
+				
+				//Entrance flag
+				if (d.meta.shuffle != null) {
+					document.getElementById("entrancesimple").checked = true;
+				} else {
+					document.getElementById("entrancenone").checked = true;
+				}
+				
+				document.getElementById("doornone").checked = true;
+				document.getElementById("overworldno").checked = true;
+				
+				if (d.meta["enemizer.boss_shuffle"] === "none") {
+					document.getElementById("bossnone").checked = true;
+				} else {
+					document.getElementById("bossshuffled").checked = true;
+				}
+							
+				if (d.meta["enemizer.enemy_shuffle"] === "none") {
+					document.getElementById("enemynone").checked = true;
+				} else {
+					document.getElementById("enemyshuffled").checked = true;
+				}
+
+				if (d.meta.pseudoboots) {
+					document.getElementById("pseudobootsyes").checked = true;
+				} else {
+					document.getElementById("pseudobootsno").checked = true;
+				}
+
+				// Logic
+				document.getElementById("swords" + d.meta.weapons).checked = true;
+
+				switch (d.meta.dungeon_items) {
+					case "standard":
+						document.getElementById("shuffledmaps").checked = false;
+						document.getElementById("shuffledcompasses").checked = false;
+						document.getElementById("shuffledsmallkeys").checked = false;
+						document.getElementById("shuffledbigkeys").checked = false;
+						break;
+					case "mc":
+						document.getElementById("shuffledmaps").checked = true;
+						document.getElementById("shuffledcompasses").checked = true;
+						document.getElementById("shuffledsmallkeys").checked = false;
+						document.getElementById("shuffledbigkeys").checked = false;
+						break;
+					case "mcs":
+						document.getElementById("shuffledmaps").checked = true;
+						document.getElementById("shuffledcompasses").checked = true;
+						document.getElementById("shuffledsmallkeys").checked = true;
+						document.getElementById("shuffledbigkeys").checked = false;
+						break;
+					case "full":
+						document.getElementById("shuffledmaps").checked = true;
+						document.getElementById("shuffledcompasses").checked = true;
+						document.getElementById("shuffledsmallkeys").checked = true;
+						document.getElementById("shuffledbigkeys").checked = true;
+						break;
+				}
+
+				document.getElementById("ambrosiano").checked = true;
+				// bows
+				// flute
+				// bonk
+				document.getElementById("shopsanityno").checked = true;
+
+
+				switch (d.meta.logic){
+					case "NoLogic":
+						document.getElementById("glitchesnologic").checked = true;
+						break;
+					case "NoGlitches":
+						document.getElementById("glitchesnone").checked = true;
+						break;
+					case "OverworldGlitches":
+						document.getElementById("glitchesoverworld").checked = true;
+						break;
+					case "MajorGlitches":
+						document.getElementById("glitchesmajor").checked = true;
+						break;
+					case "HybridMajorGlitches":
+						document.getElementById("glitcheshybrid").checked = true;
+						break;
+				}
+
+				// Goal
+				
+				switch (d.meta.goal) {
+					case "ganon":
+						document.getElementById("goalganon").checked = true;
+						break;
+					case "fast_ganon":
+						document.getElementById("goalfast").checked = true;
+						break;
+					case "dungeons":
+						document.getElementById("goaldungeons").checked = true;
+						break;
+					case "pedestal":
+						document.getElementById("goalpedestal").checked = true;
+						break;
+					case "triforce_hunt":
+						document.getElementById("goaltriforce").checked = true;
+						break;
+					case "ganonhunt":
+						document.getElementById("goalganonhunt").checked = true;
+						break;
+					default:
+						document.getElementById("goalother").checked = true;
+						break;		
+				}
+
+				if (d.meta.entry_crystals_tower === 'random') {
+					document.getElementById("goalrandom").checked = true;
+					document.getElementById("towerselect").value = 7;
+				} else {
+					document.getElementById("goalcrystal").checked = true;
+					document.getElementById("towerselect").value = d.meta.entry_crystals_tower;
+				}
+
+				if (d.meta.entry_crystals_ganon === 'random') {
+					document.getElementById("ganonrandom").checked = true;
+					document.getElementById("ganonselect").value = 7;
+				} else {
+					document.getElementById("ganoncrystal").checked = true;
+					document.getElementById("ganonselect").value = d.meta.entry_crystals_ganon;
+				}
+				
+			}
+			if (!auto) {
+				window.scrollTo(0,document.body.scrollHeight);
+				showToast();
+			}
+			resolve('normal');
+		}).fail(function() { autotrackSetStatus("Non-VT, reading ROM"); resolve('normal') });
 	});
 }
 
@@ -1714,7 +1751,6 @@ function togglereleasediv(x) {
 function hideRestreaming() {
 	if (window.location.href.indexOf("dunka.net") === -1) {
 		document.getElementById("restreamingpresetdiv").style.display = "none";
-		document.getElementById("importflagsdiv").style.display = "none";
 	}
 }
 

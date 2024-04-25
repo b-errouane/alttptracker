@@ -2,8 +2,6 @@
     'use strict';
 
     var query = uri_query();
-
-    window.mushroomfound = false; 
     
     window.flags = {
         gametype: query.f.charAt(0),
@@ -130,6 +128,8 @@
         bottle3: { min: 0, max: 7 },
         bottle4: { min: 0, max: 7 },
         heartpiece: { min: 0, max: 3},
+        mushroom: { min: 0, max: 2},
+        flute: { min: 0, max: 2},
         smallkey0: { min: 0, max: keyCount(dungeonKeys.ep) },
         smallkey1: { min: 0, max: keyCount(dungeonKeys.dp) },
         smallkey2: { min: 0, max: keyCount(dungeonKeys.th) },
@@ -167,7 +167,7 @@
         bow: 0,
         boomerang: 0,
         hookshot: false,
-        mushroom: false,
+        mushroom: 0,
         powder: false,
 
         firerod: false,
@@ -199,7 +199,7 @@
         boots: false,
         glove: 0,
         flippers: false,
-        flute: false,
+        flute: 0,
         agahnim: false,
         agahnim2: false,
         bomb: false,

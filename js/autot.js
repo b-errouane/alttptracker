@@ -18,9 +18,11 @@ var POTDATA_START = SAVEDATA_START + 0x7018;
 var SPRITEDATA_START = SAVEDATA_START + 0x7268;
 var PSEUDOBOOTS_LOC = 0x18008E;
 var RANDOVERSION_LOC = 0x138000; // Actually DR
-var MYSTERY_LOC = 0x138004; // Actually DRFlags
+var DRFLAGS_LOC = 0x138004; // Actually DRFlags
 var PRIZES_LOC = 0x1209B; // Pendant/Crystal number data
 var PRIZES2_LOC = 0x180050; // Pendant/Crystal data
+
+var CONFIGURING = false;
 
 
 const dungeondatamem = {
@@ -218,6 +220,14 @@ function autotrackSetStatus(text) {
     document.getElementById("autotrackingstatus").textContent = "Autotracking Status: " + text;
 }
 
+function autotrackTrackerConfigure() {
+    const port = document.getElementById("autotrackingport").value;
+    console.log(port)
+    autotrackConnect("ws://localhost:" + port, true);
+    CONFIGURING = true;
+
+}
+
 function autotrackConnect(host="ws://localhost:" + flags.trackingport) {
     if (autotrackSocket !== null || autotrackReconnectTimer !== null) {
         autotrackDisconnect();
@@ -303,29 +313,345 @@ function autotrackOnDeviceList(event) {
     }));
     autotrackSetStatus("Connected to " + autotrackDeviceName);
 
-    autotrackStartTimer();
+    if (!CONFIGURING) {
+        autotrackStartTimer();
+    } else {
+        autotrackerConfigure();
+    }
+}
+
+function snesread(address, size, callback) {
+    autotrackSocket.send(JSON.stringify({
+        Opcode : "GetAddress",
+        Space : "SNES",
+        Operands : [address.toString(16), size.toString(16)]
+    }));
+    autotrackSocket.onmessage = callback;
+};
+
+function snesreadsave(address, size, data, data_loc, nextCallback, merge=false) {
+    snesread(address, size, function(event) {
+        if (merge) {
+            data[data_loc] = new Uint8Array([...data[data_loc], ...new Uint8Array(event.data)]);
+        } else {
+            data[data_loc] = new Uint8Array(event.data);
+        }
+        nextCallback();
+    })
+}
+
+function parseWorldState(config_data) {
+    if (config_data['mainflags'][0x175] == 0x01) {
+        return 'retro'
+    } else if (config_data['mainflags'][0x4A] == 0x01) {
+        return 'inverted'
+    } else {
+        switch (config_data['initsram'][0x3C5]) {
+            case 0x00:
+                return 'standard';
+            case 0x02:
+                return 'open';
+        }
+    }
+    return false
+}
+
+function parseDoorShuffle(config_data) {
+    if ((config_data['drflags'][0x01] & 0x02) === 0) {
+        if (config_data['potflags'][0x00] === 1) {
+            return 'pots'
+        }
+        return 'none'
+    } else {
+        if ((config_data['drflags'][0x01] & 0x04) === 0) {
+            return 'basic'
+        } else {
+            return 'crossed'
+        }
+    }
+}
+
+function parseSwordSettings(config_data) {
+    // CAVEAT: Cannot support vanilla placement
+    if (config_data['mainflags'][0x3F] === 0x01) {
+        return 'swordless'
+    } else if (config_data['initsram'][0x359] > 0x00) {
+        return 'assured'
+    } else {
+        return 'randomized'
+    }
+}
+
+function parseGlitches(config_data) {
+    // Check to see if parsing the JSON set something other than None
+    if (config_data['seed_type'] === 'VT' && document.getElementById("glitchesnone").checked) {
+        switch (config_data['mainflags'][0x210]) {
+            case 0x00:
+                return 'none';
+            case 0x02:
+                return 'overworld';
+            case 0x01:
+                return 'hybrid';
+            case 0xFF:
+                return 'nologic';
+        }
+    } else if (config_data['seed_type'] === 'DR') {
+        if (config_data['mainflags'][0xA4] === 0) {	
+            return 'none';
+        } else if (config_data['mainflags'][0x45] & 0x10) {
+            return 'nologic';
+        } else {
+            return 'overworld';
+        }
+    }
+    return false
+}
+
+function parseGoal(config_data) {
+    if (config_data['mainflags'][0x167] > 0) {
+        return 'triforcehunt'
+    } else {
+        switch (config_data['mainflags'][0x1A8]) {
+            case 0x01:
+                return 'pedestal';
+            case 0x02:
+                return 'dungeons';
+            case 0x03:
+                return 'ganon';
+            case 0x04:
+                if (config_data['initsram'][0x2DB] === 0x20 || config_data['seed_type'] != 'VT') {
+                    return 'fast';
+                } else {
+                    return 'ganon';
+                }
+            case 0x05:
+                return 'ganonhunt';
+            default:
+                return 'ganon';
+        }
+    }
+}
+
+function parseStartingInventory(config_data) {
+    var itemlocs = {
+        "moonpearl": [0x357, 0],
+        "bow": [0x38E, 0],
+        "boomerang": [0x341, 0],
+        "hookshot": [0x342, 0],
+        "mushroom": [0x344, 0],
+        "powder": [0x344, 0],
+        "firerod": [0x345, 0],
+        "icerod": [0x346, 0],
+        "bombos": [0x347, 0],
+        "ether": [0x348, 0],
+        "quake": [0x349, 0],
+        "lantern": [0x34A, 0],
+        "hammer": [0x34B, 0],
+        "shovel": [0x34C, 0],
+        "flute": [0x34C, 0],
+        "net": [0x34D, 0],
+        "book": [0x34E, 0],
+        "bottle": [0x34F, 0],
+        "somaria": [0x350, 0],
+        "byrna": [0x351, 0],
+        "cape": [0x352, 0],
+        "mirror": [0x353, 0],
+        "boots": [0x355, 0],
+        "glove": [0x354, 0],
+        "flippers": [0x356, 0],
+        "magic": [0x37B, 0],
+    }
+    const invFlags = {
+        0x01: ['flute', 1],
+        0x02: ['flute', 1],
+        0x04: ['shovel', 1],
+        // 0x08: ['mushroom', 1],
+        0x10: ['powder', 1],
+        0x20: ['mushroom', 1],
+        0x40: ['boomerang', 2],
+        0x80: ['boomerang', 1],
+    }
+
+    Object.entries(invFlags).forEach((flag_data) => {
+        if ((config_data['initsram'][0x38C] & parseInt(flag_data[0])) != 0) {
+            itemlocs[flag_data[1][0]][1] += flag_data[1][1];
+        }
+    })
+
+    const hasSilvers = ((config_data['initsram'][0x38E] & 0x40) > 0) || ((config_data['initsram'][0x38E] & 0x80) > 0) && ((config_data['initsram'][0x38E] & 0x20) > 0);
+    const hasBow = ((config_data['initsram'][0x38E] & 0x80) > 0) || ((config_data['initsram'][0x38E] & 0x20) > 0);
+    if (hasSilvers && !hasBow) {
+        itemlocs['bow'][1] = 1;
+    } else if (!hasSilvers && hasBow) {
+        itemlocs['bow'][1] = 2;
+    } else if (hasSilvers && hasBow) {
+        itemlocs['bow'][1] = 3;
+    }   
+
+    Object.entries(itemlocs).forEach((item_data, idx) => {
+        var item = item_data[0];
+        var loc = item_data[1];
+        if (item === 'bottle' && config_data['initsram'][loc[0]] > 0) {
+            toggle(item, idx);
+        } else if (config_data['initsram'][loc[0]] > 0) {
+            if (['boomerang', 'bow', 'flute', 'shovel', 'powder', 'mushroom'].includes(item)) {
+                for (var i = 0; i < loc[1]; i++) {
+                    toggle(item, idx)
+                }
+            } else {
+                toggle(item, idx);
+            }
+        }
+    })
+}
+
+
+
+
+async function autotrackerConfigure() {
+    var config_data = {}
+    var MYSTERY_SEED = false;
+
+    function readDRFlags() {
+        snesreadsave(DRFLAGS_LOC, 0x2, config_data, 'drflags', isMystery);
+    }
+
+    async function isMystery() {
+        var hashChars = Array.from(config_data['hash']).map(c => String.fromCharCode(c)).join('');
+
+        if (hashChars.slice(0, 2) === 'VT') {
+            config_data['seed_type'] = 'VT';
+            var hash = hashChars.slice(3, 21).trim();
+            document.getElementById("importflag").value = hash;
+            const mystery = await importflags(auto=true) === 'mystery';
+            MYSTERY_SEED = mystery;
+            autotrackSetStatus("Detected VT seed. Loading data from alttpr.com and then ROM");
+
+        } else if (hashChars.slice(0, 2) === 'DR' && (config_data['drflags'][1] & 0x1) === 1) {
+            MYSTERY_SEED = true;
+            config_data['seed_type'] = 'DR';
+            autotrackSetStatus("Detected DR seed. Loading data from ROM");
+
+        }
+        if (!MYSTERY_SEED) {
+            readShopFlags();
+        } else {
+            handleAutoconfigData();
+        }
+            
+    }
+
+    function readShopFlags() {
+        snesreadsave(0x142A51, 0x1, config_data, 'shopsanity', readMainFlags);
+    }
+
+    function readMainFlags() {
+        snesreadsave(0x180000, 0x220, config_data, 'mainflags', readInitialSRAM);
+    }
+
+    function readInitialSRAM() {
+        snesreadsave(0x183000, 0x200, config_data, 'initsram', readInitialSRAM2);
+    }
+
+    function readInitialSRAM2() {
+        snesreadsave(0x183200, 0x200, config_data, 'initsram', readPotFlags, merge=true);
+    }
+
+    function readPotFlags() {
+        snesreadsave(0x28AA56, 0x1, config_data, 'potflags', readEnemizerFlags);
+    }
+
+    function readEnemizerFlags() {
+        if (config_data['seed_type'] === 'DR') {
+            snesreadsave(0x368105, 0x5, config_data, 'enemizerflags', handleAutoconfigData);
+        } else {
+            handleAutoconfigData();
+        }
+
+    }
+
+    function handleAutoconfigData() {
+        // For now, we always turn this on to allow people to correct any mistakes after the fact
+        document.getElementById("unknownmystery").checked = true;
+
+        if (MYSTERY_SEED) {
+            loadmysterypreset();
+            autotrackSetStatus("Mystery seed detected. Mystery preset loaded and starting items configured.");
+            return
+        }
+
+        // Gameplay
+        if (parseWorldState(config_data)) {
+            document.getElementById("gametype" + parseWorldState(config_data)).checked = true;
+        }
+
+        if ((config_data['mainflags'][0x211] & 0x02) !== 0) {
+            document.getElementById("entrancesimple").checked = true;
+        } else {
+            document.getElementById("entrancenone").checked = true;
+        }
+
+        if (config_data['seed_type'] = 'DR') {
+            document.getElementById("door" + parseDoorShuffle(config_data)).checked = true;
+        }
+
+        // TODO: Overworld
+
+        if (config_data['enemizerflags']) {
+            if (config_data['enemizerflags'][0x02] === 0x01) {
+                document.getElementById("bossshuffled").checked = true;
+            } else {
+                document.getElementById("bossnone").checked = true;
+            }
+
+            if (config_data['enemizerflags'][0x00] === 0x01) {
+                document.getElementById("enemyshuffled").checked = true;
+            } else {
+                document.getElementById("enemynone").checked = true;
+            }
+        }
+
+        if (config_data['mainflags'][0x8E] === 0x01) {
+            document.getElementById("pseudobootsyes").checked = true;
+        } else {
+            document.getElementById("pseudobootsno").checked = true;
+        }
+
+        // Logic
+        document.getElementById("swords" + parseSwordSettings(config_data)).checked = true;
+
+        document.getElementById("shuffledmaps").checked = config_data['mainflags'][0x16A] & 0x04;
+        document.getElementById("shuffledcompasses").checked = config_data['mainflags'][0x16A] & 0x02;
+        document.getElementById("shuffledsmallkeys").checked = config_data['mainflags'][0x16A] & 0x01;
+        document.getElementById("shuffledbigkeys").checked = config_data['mainflags'][0x16A] & 0x08;
+
+        // Ambrosia - NA
+        // Non-progressive Bows - NYI
+        // Activated flute - NA
+        // Bonk Shuffle - NYI
+
+        if (config_data['shopsanity'][0x00] & 0x02) {
+            document.getElementById("shopsanityyes").checked = true;
+        } else {
+            document.getElementById("shopsanityno").checked = true;
+        }
+
+        if (parseGlitches(config_data)) {
+            document.getElementById("glitches" + parseGlitches(config_data)).checked = true;
+        }
+
+        document.getElementById("goal" + parseGoal(config_data)).checked = true;
+
+        parseStartingInventory(config_data);        
+
+        CONFIGURING = false;
+        autotrackSetStatus("Tracker auto-configured.");
+        autotrackDisconnect();
+    }
+    snesreadsave(0x7FC0, 21, config_data, 'hash', readDRFlags);
 }
 
 function autotrackReadMem() {
-    function snesread(address, size, callback) {
-        autotrackSocket.send(JSON.stringify({
-            Opcode : "GetAddress",
-            Space : "SNES",
-            Operands : [address.toString(16), size.toString(16)]
-        }));
-        autotrackSocket.onmessage = callback;
-    };
-
-    function snesreadsave(address, size, data_loc, nextCallback, merge=false) {
-        snesread(address, size, function(event) {
-            if (merge) {
-                data[data_loc] = new Uint8Array([...data[data_loc], ...new Uint8Array(event.data)]);
-            } else {
-                data[data_loc] = new Uint8Array(event.data);
-            }
-            nextCallback();
-        })
-    }
 
     if (autotrackReconnectTimer !== null)
         clearTimeout(autotrackReconnectTimer);
@@ -335,8 +661,8 @@ function autotrackReadMem() {
         autotrackConnect(autotrackHost);
     }, autotrackTimeoutDelay);
     
-    snesreadsave(WRAM_START + 0x10, 1, 'gamemode', addMainAutoTrackData1);
     var data = {};
+    snesreadsave(WRAM_START + 0x10, 1, data, 'gamemode', addMainAutoTrackData1);
 
     function addMainAutoTrackData1() {
         var gamemode = data["gamemode"][0];
@@ -344,44 +670,45 @@ function autotrackReadMem() {
             autotrackStartTimer();
             return;
         }
-        snesreadsave(SAVEDATA_START, 0x280, 'rooms_inv', addMainAutoTrackData2);
+        snesreadsave(SAVEDATA_START, 0x280, data,  'rooms_inv', addMainAutoTrackData2);
     }
 
     function addMainAutoTrackData2() {
         snesreadsave(SAVEDATA_START + 0x280, 0x280, 
+            data,
             'rooms_inv',
             flags.autotracking === 'Y' ? addPotData : handleAutoTrackData,
             merge=true);
     }
 
     function addPotData() {
-        snesreadsave(POTDATA_START, 0x250, 'potdata', addSpriteDropData);
+        snesreadsave(POTDATA_START, 0x250, data, 'potdata', addSpriteDropData);
     }
 
     function addSpriteDropData() {
-        snesreadsave(SPRITEDATA_START, 0x250, 'spritedata', addPrizeData);
+        snesreadsave(SPRITEDATA_START, 0x250, data, 'spritedata', addPrizeData);
     }
 
     function addPrizeData() {
-        snesreadsave(PRIZES_LOC, 0xD, 'prizes', addPrize2Data);
+        snesreadsave(PRIZES_LOC, 0xD, data, 'prizes', addPrize2Data);
     }
 
     function addPrize2Data() {
-        snesreadsave(PRIZES2_LOC, 0xD, 'prizes', addRandoVersion, merge=true);
+        snesreadsave(PRIZES2_LOC, 0xD, data, 'prizes', addRandoVersion, merge=true);
     }
 
     function addRandoVersion() {
-        snesreadsave(RANDOVERSION_LOC, 0x2, 'version', addMysteryFlag);
+        snesreadsave(RANDOVERSION_LOC, 0x2, data, 'version', addMysteryFlag);
     }
 
     function addMysteryFlag() {
-        snesreadsave(MYSTERY_LOC, 0x2, 'mystery', addPseudobootsFlag);
+        snesreadsave(DRFLAGS_LOC, 0x2, data, 'mystery', addPseudobootsFlag);
     }
 
     function addPseudobootsFlag() {
         // Check if we're playing DR and that the mystery flag is not set
         if ((data['version'][0] === 68 && data['version'][1] === 82) && (data['mystery'][1] & 0x1) === 0) {
-            snesreadsave(PSEUDOBOOTS_LOC, 0x1, 'pseudoboots', handleAutoTrackData);
+            snesreadsave(PSEUDOBOOTS_LOC, 0x1, data, 'pseudoboots', handleAutoTrackData);
         } else {
             handleAutoTrackData();
         }
@@ -819,15 +1146,15 @@ function autotrackDoTracking(data) {
         setitem("boomerang", bits == 0x80 ? 1 : (bits == 0x40 ? 2 : 3));
     }
 
-    if (newbit(0x38C, 0x20))
-        setitem("mushroom", true);
+    if (changed(0x38C)) {
+        setitem("mushroom", (data['rooms_inv'][0x38C] & 0x28) == 0x28 ? 1 : ((data['rooms_inv'][0x38C] & 0x28) == 0x08 ? 2 : 0));
+        setitem("flute", (data['rooms_inv'][0x38C] & 0x03) == 0x01 ? 2 : ((data['rooms_inv'][0x38C] & 0x03) == 0x02 ? 1 : 0));
+    }
     if (newbit(0x38C, 0x10))
         setitem("powder", true);
 
     if (newbit(0x38C, 0x04))
         setitem("shovel", true);
-    if (newbit(0x38C, 0x03))
-        setitem("flute", true);
 
     if (newbit(0x342, 0x01))
         setitem("hookshot", true);

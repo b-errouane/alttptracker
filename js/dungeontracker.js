@@ -4122,7 +4122,7 @@
 						s += "<div class='savequitsymbol' style='left: "+(x+getBigScreenSubareaX(screen)+16)+"px; top: "+(y+getBigScreenSubareaY(screen)+16)+"px; opacity: "+(mode === "editflutespots" ?.25 :.5)+"'></div>";
 						break;
 					}
-			if((mode === "editflutespots" || ((drawFluteSpots === "on" || (drawFluteSpots === "fluteshuffle" && fluteshuffle)) && ownItems.flute && document.getElementById("activeflutebox").checked)) && darkWorld === (worldState === 'I') && (fluteshuffle ?customFluteSpots :vanillaFluteSpots).includes(id%0x40))
+			if((mode === "editflutespots" || ((drawFluteSpots === "on" || (drawFluteSpots === "fluteshuffle" && fluteshuffle)) && ownItems.flute === 2 && document.getElementById("activeflutebox").checked)) && darkWorld === (worldState === 'I') && (fluteshuffle ?customFluteSpots :vanillaFluteSpots).includes(id%0x40))
 				s += "<div class='flutesymbol' style='left: "+(x+getBigScreenSubareaX(screen)+16)+"px; top: "+(y+getBigScreenSubareaY(screen)+16)+"px; opacity: "+(mode === "editflutespots" ?1 :.75)+"'></div>";
 			if(!fullOWConnectorStart && !unknownScreen && mode !== "editflutespots")
 				for(let edge of screen.edges.values())
@@ -4188,9 +4188,9 @@
 						}
 					}
 				}
-			if((id === 0x18 || (id === 0x58 && mapMode === "single")) && mode === "editedges" && !fullOWConnectorStart && ownItems.flute && !document.getElementById("activeflutebox").checked)
+			if((id === 0x18 || (id === 0x58 && mapMode === "single")) && mode === "editedges" && !fullOWConnectorStart && ownItems.flute === 2 && !document.getElementById("activeflutebox").checked)
 				s += "<span class='activateflute"+(visitedScreenEdges.has(overworldScreens.get(0x18).edges.get("N0")) && (ownItems.moonpearl || (id === 0x18) === (darkWorld === (worldState === 'I'))) ?" green" :"")+"' style='left: "+(x+16)+"px; top: "+(y+26)+"px;' onclick='clickFluteActivated()'>Flute activated</span>";
-			if(id%0x40 === 0x18 && (darkWorld === (worldState === 'I') || mapMode === "single") && mode === "editedges" && !fullOWConnectorStart && fluteshuffle && customFluteSpots.length != 8 && ownItems.flute && document.getElementById("activeflutebox").checked)
+			if(id%0x40 === 0x18 && (darkWorld === (worldState === 'I') || mapMode === "single") && mode === "editedges" && !fullOWConnectorStart && fluteshuffle && customFluteSpots.length != 8 && ownItems.flute === 2 && document.getElementById("activeflutebox").checked)
 				s += "<span class='activateflute"+(true ?" green" :"")+"' style='left: "+(x+16)+"px; top: "+(y+26)+"px;' onclick='clickSetFluteSpots()'>Set flute spots</span>";
 			if((id === 0x03 || (id === 0x43 && drawDarkWorld)) && mode === "editedges" && !fullOWConnectorStart && document.getElementById("overworldoptionsfinalbox").style.display === "block")
 				s += "<span class='activateflute green' style='left: "+(x+16)+"px; top: "+(y+94)+"px;' onclick='showAutoAdjustModal()'>Auto fixes</span>";
@@ -5107,7 +5107,7 @@
 		items.follower = null;
 		items.keepMirrorPortal = false;
 		if(!document.getElementById("activeflutebox").checked)
-			items.flute = false;
+			items.flute = 0;
 		if(!document.getElementById("globalsync").checked && !document.getElementById("itemsync").checked)
 		{
 			items.bomb = true;
@@ -5149,7 +5149,7 @@
 			inspectStartRegion(0x03,"Bottom",true);
 		if(document.getElementById("pinnedpyramid").checked)
 			inspectStartRegion(0x5B,"Balcony",false);
-		if(items.flute)
+		if(items.flute === 2)
 			for(let id of fluteshuffle ?customFluteSpots :vanillaFluteSpots)
 				inspectStartRegion(id,null,false);
 		allStartRegions = fixedStartRegions.concat(customStartRegions);
