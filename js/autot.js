@@ -523,9 +523,9 @@ async function autotrackerConfigure() {
             config_data['seed_type'] = 'VT';
             var hash = hashChars.slice(3, 21).trim();
             document.getElementById("importflag").value = hash;
-            const mystery = await importflags(auto=true) === 'mystery';
-            MYSTERY_SEED = mystery;
             autotrackSetStatus("Detected VT seed. Loading data from alttpr.com and then ROM");
+            const mystery = await importflags(auto=true) === 'mystery';
+            MYSTERY_SEED = mystery
 
         } else if (hashChars.slice(0, 2) === 'DR' && (config_data['drflags'][1] & 0x1) === 1) {
             MYSTERY_SEED = true;

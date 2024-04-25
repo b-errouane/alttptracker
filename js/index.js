@@ -1706,7 +1706,7 @@ async function importflags(auto=false) {
 				showToast();
 			}
 			resolve('normal');
-		}).fail(function() { autotrackSetStatus("Non-VT, reading ROM"); resolve('normal') });
+		}).fail(function() { autotrackSetStatus("Cannot find seed on alttpr.com. Assuming mystery."); resolve('mystery') });
 	});
 }
 
