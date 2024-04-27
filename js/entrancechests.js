@@ -62,12 +62,12 @@
 
 	function activeFlute()
 	{
-		return items.flute === 2 && canReachLightWorld();
+		return items.flute >= 1 && canReachLightWorld();
 	}
 	
 	function activeFluteInvertedEntrance()
 	{
-		return items.flute === 2 && (canReachInvertedLightWorld() || flags.activatedflute);
+		return items.flute >= 1 && (canReachInvertedLightWorld() || flags.activatedflute);
 	}
 	
 	function hasFoundLocation(x) {
@@ -88,7 +88,7 @@
 	function canReachWDMNorth()
 	{
 		if (hasFoundEntrance(68) || (hasFoundEntrance(77) && items.hammer) || 
-		(items.mirror && (hasFoundEntrance(69) || hasFoundEntrance(70) || hasFoundEntrance(71) || hasFoundEntrance(72) || hasFoundEntrance(73) || hasFoundEntrance(75) || hasFoundEntrance(76) || hasFoundEntrance(127) || hasFoundEntrance(131) || hasFoundEntrance(132) || hasFoundEntrance(133) || hasFoundEntrance(136))) || (items.flute === 2 && items.mirror)
+		(items.mirror && (hasFoundEntrance(69) || hasFoundEntrance(70) || hasFoundEntrance(71) || hasFoundEntrance(72) || hasFoundEntrance(73) || hasFoundEntrance(75) || hasFoundEntrance(76) || hasFoundEntrance(127) || hasFoundEntrance(131) || hasFoundEntrance(132) || hasFoundEntrance(133) || hasFoundEntrance(136))) || (items.flute >= 1 && items.mirror)
 		) return true;
 		if (items.mirror && items.hookshot && (hasFoundEntrance(77) || hasFoundEntrance(78) || hasFoundEntrance(79) || hasFoundEntrance(80) || hasFoundEntrance(81) || hasFoundEntrance(82) || hasFoundEntrance(83) || hasFoundEntrance(84))) return true;
 		if (items.mirror && items.hammer && (hasFoundEntrance(128) || hasFoundEntrance(130))) return true;
@@ -98,19 +98,19 @@
 
 	function canReachWDM()
 	{
-		if (canReachWDMNorth() || (items.mirror && canReachDWWDM()) || items.flute === 2 || (items.hookshot && (hasFoundEntrance(77) || hasFoundEntrance(78) || hasFoundEntrance(79) || hasFoundEntrance(80) || hasFoundEntrance(81) || hasFoundEntrance(82) || hasFoundEntrance(83) || hasFoundEntrance(84) || (hasFoundEntrance(137) || hasFoundEntrance(138) || hasFoundEntrance(139)) && items.mirror)) || hasFoundEntrance(69) || hasFoundEntrance(70) || hasFoundEntrance(71) || hasFoundEntrance(72) || hasFoundEntrance(73) || hasFoundEntrance(75) || hasFoundEntrance(76)) return true;
+		if (canReachWDMNorth() || (items.mirror && canReachDWWDM()) || items.flute >= 1 || (items.hookshot && (hasFoundEntrance(77) || hasFoundEntrance(78) || hasFoundEntrance(79) || hasFoundEntrance(80) || hasFoundEntrance(81) || hasFoundEntrance(82) || hasFoundEntrance(83) || hasFoundEntrance(84) || (hasFoundEntrance(137) || hasFoundEntrance(138) || hasFoundEntrance(139)) && items.mirror)) || hasFoundEntrance(69) || hasFoundEntrance(70) || hasFoundEntrance(71) || hasFoundEntrance(72) || hasFoundEntrance(73) || hasFoundEntrance(75) || hasFoundEntrance(76)) return true;
 		return false;
 	}
 	
 	function canReachEDMNorth()
 	{
-		if ((canReachWDMNorth() && items.hammer) || hasFoundEntrance(77) || (hasFoundEntrance(68) && items.hammer) || (items.mirror && (hasFoundEntrance(127) || hasFoundEntrance(131) || hasFoundEntrance(132) || hasFoundEntrance(133) || hasFoundEntrance(136))) || (items.flute === 2 && items.mirror && items.hammer)) return true;
+		if ((canReachWDMNorth() && items.hammer) || hasFoundEntrance(77) || (hasFoundEntrance(68) && items.hammer) || (items.mirror && (hasFoundEntrance(127) || hasFoundEntrance(131) || hasFoundEntrance(132) || hasFoundEntrance(133) || hasFoundEntrance(136))) || (items.flute >= 1 && items.mirror && items.hammer)) return true;
 		return false;
 	}
 
 	function canReachEDM()
 	{
-		if (canReachEDMNorth() || (items.flute === 2 && items.hookshot) || (items.hookshot && canReachWDM()) || (items.hammer && canReachWDMNorth()) || ((hasFoundEntrance(134) || hasFoundEntrance(135) || hasFoundEntrance(137) || hasFoundEntrance(138) || hasFoundEntrance(139)) && items.mirror) || hasFoundEntrance(78) || hasFoundEntrance(79) || hasFoundEntrance(80) || hasFoundEntrance(81) || hasFoundEntrance(82) || hasFoundEntrance(83) || hasFoundEntrance(84)) return true;
+		if (canReachEDMNorth() || (items.flute >= 1 && items.hookshot) || (items.hookshot && canReachWDM()) || (items.hammer && canReachWDMNorth()) || ((hasFoundEntrance(134) || hasFoundEntrance(135) || hasFoundEntrance(137) || hasFoundEntrance(138) || hasFoundEntrance(139)) && items.mirror) || hasFoundEntrance(78) || hasFoundEntrance(79) || hasFoundEntrance(80) || hasFoundEntrance(81) || hasFoundEntrance(82) || hasFoundEntrance(83) || hasFoundEntrance(84)) return true;
 		return false;
 	}
 	
@@ -156,7 +156,7 @@
 	}
 
 	function canReachMiseryMire() {
-		if (hasFoundEntrance(123) || hasFoundEntrance(124) || hasFoundEntrance(125) || hasFoundEntrance(126) || (items.flute === 2 && items.glove === 2)) return true;
+		if (hasFoundEntrance(123) || hasFoundEntrance(124) || hasFoundEntrance(125) || hasFoundEntrance(126) || (items.flute >= 1 && items.glove === 2)) return true;
 	}	
 	
 	function canReachDWDMNorth()
@@ -4797,7 +4797,7 @@
 				is_connector: false,
 				is_available: function() {
 					if (hasFoundEntrance(53)) return 'available';				
-					if (items.book || (items.flute === 2 && items.glove === 2 && items.mirror) || (items.mirror && canReachMiseryMire()) || ((hasFoundEntrance(123)) && items.mirror)) return 'available';
+					if (items.book || (items.flute >= 1 && items.glove === 2 && items.mirror) || (items.mirror && canReachMiseryMire()) || ((hasFoundEntrance(123)) && items.mirror)) return 'available';
 					return 'unavailable';
 				}
 			}, { // [54]
@@ -4808,7 +4808,7 @@
 				is_connector: false,
 				is_available: function() {
 					if (hasFoundEntrance(54)) return 'available';
-					return ((items.flute === 2 && items.glove === 2 && items.mirror) || (items.mirror && canReachMiseryMire()) || (hasFoundEntrance(56) && items.glove > 0)) ? 'available' : 'unavailable';
+					return ((items.flute >= 1 && items.glove === 2 && items.mirror) || (items.mirror && canReachMiseryMire()) || (hasFoundEntrance(56) && items.glove > 0)) ? 'available' : 'unavailable';
 				}
 			}, { // [55]
 				caption: 'Desert Palace - East Entrance',
@@ -4827,7 +4827,7 @@
 				is_connector: false,
 				is_available: function() {
 					if (hasFoundEntrance(56)) return 'available';
-					return ((hasFoundEntrance(54) && items.glove > 0) || (items.mirror && canReachMiseryMire()) || (items.flute === 2 && items.glove === 2 && items.mirror)) ? 'available' : 'unavailable';
+					return ((hasFoundEntrance(54) && items.glove > 0) || (items.mirror && canReachMiseryMire()) || (items.flute >= 1 && items.glove === 2 && items.mirror)) ? 'available' : 'unavailable';
 				}
 			}, { // [57]
 				caption: 'Checkerboard Cave',
@@ -5770,7 +5770,7 @@
 				caption: 'Misery Mire {medallion0} [{boots}/{hookshot}]',
 				is_beaten: false,
 				is_beatable: function() {
-					if (!items.moonpearl || items.flute < 2 || items.glove !== 2 || !canReachDarkWorld()) return 'unavailable';
+					if (!items.moonpearl || items.flute === 0 || items.glove !== 2 || !canReachDarkWorld()) return 'unavailable';
 					if (!items.boots && !items.hookshot) return 'unavailable';
 					if (!items.bigkey8) return 'unavailable';
 					var state = medallionCheck(0);
@@ -5778,7 +5778,7 @@
 					return window.MMBoss();
 				},
 				can_get_chest: function() {
-					if (!items.moonpearl || items.flute < 2 || items.glove !== 2 || !canReachDarkWorld()) return 'unavailable';
+					if (!items.moonpearl || items.flute === 0 || items.glove !== 2 || !canReachDarkWorld()) return 'unavailable';
 					if (!items.boots && !items.hookshot) return 'unavailable';
 					var state = medallionCheck(0);
 					if (state) return state;
@@ -5948,7 +5948,7 @@
 				caption: 'Desert West Ledge',
 				is_opened: false,
 				is_available: function() {
-					return (hasFoundEntrance(54) || (items.mirror && canReachMiseryMire()) || (items.flute === 2 && items.glove === 2 && items.mirror) || (hasFoundEntrance(56) && items.glove > 0)) ? 'available' : 'information';
+					return (hasFoundEntrance(54) || (items.mirror && canReachMiseryMire()) || (items.flute >= 1 && items.glove === 2 && items.mirror) || (hasFoundEntrance(56) && items.glove > 0)) ? 'available' : 'information';
 				}
 			}, { // [16]
 				caption: 'Lake Hylia Island {mirror}',

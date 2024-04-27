@@ -51,7 +51,7 @@
 	}
 	
 	function can_reach_outcast_glitched() {
-		return (flags.glitches != 'N' && (items.boots || items.glove || items.flute === 2) && ((items.moonpearl && items.boots) || items.mirror)) || flags.glitches === 'M';
+		return (flags.glitches != 'N' && (items.boots || items.glove || items.flute >= 1) && ((items.moonpearl && items.boots) || items.mirror)) || flags.glitches === 'M';
 	}
 	
 	function canReachDarkWorld()
@@ -86,7 +86,7 @@
 
 	function activeFlute()
 	{
-		return (items.flute === 1 && (canReachLightWorld() || flags.activatedflute)) || items.flute === 2;
+		return (items.flute === 2 || (canReachLightWorld() || items.flute === 1));
 	}
 	
 	function canSpinSpeed()
@@ -108,7 +108,7 @@
 	// Regional functions, does not cover Inverted
 	
 	function canReachWDM() { // West Death Mountain
-		return items.flute === 2 || (flags.glitches != 'N' && items.boots) || items.glove || flags.glitches === 'M';
+		return items.flute >= 1 || (flags.glitches != 'N' && items.boots) || items.glove || flags.glitches === 'M';
 	}
 	
 	function canReachEDM() { // East Death Mountain
@@ -140,7 +140,7 @@
 	}
 	
 	function canReachMireArea() {
-		return (items.glove === 2 && (items.flute === 2 || (flags.glitches != 'N' && items.boots))) || (items.moonpearl && (flags.glitches != 'N' && items.boots) && canReachSDW()) || flags.glitches === 'M'; 
+		return (items.glove === 2 && (items.flute >= 1 || (flags.glitches != 'N' && items.boots))) || (items.moonpearl && (flags.glitches != 'N' && items.boots) && canReachSDW()) || flags.glitches === 'M'; 
 	}
 	
 	window.loadChestFlagsItem = function() {
@@ -329,7 +329,7 @@
 				is_opened: false,
 				is_available: function() {
 					return canReachEDM() ?
-						items.lantern ||items.flute === 2 || items.boots || flags.glitches === 'M' ? 'available' : 'darkavailable' :
+						items.lantern ||items.flute >= 1 || items.boots || flags.glitches === 'M' ? 'available' : 'darkavailable' :
 						'unavailable';
 				}
 			}, { // [4]
@@ -337,7 +337,7 @@
 				is_opened: false,
 				is_available: function() {
 					return items.mirror && items.hammer && canReachEDM() ? 
-						items.lantern || items.flute === 2 || items.boots || flags.glitches === 'M' ? 'available' : 'darkavailable' : 'unavailable';
+						items.lantern || items.flute >= 1 || items.boots || flags.glitches === 'M' ? 'available' : 'darkavailable' : 'unavailable';
 				}
 			}, { // [5]
 				caption: 'Tavern',
@@ -374,7 +374,7 @@
 				is_opened: false,
 				is_available: function() {
 					return canReachDDM() ?
-						items.lantern || items.flute === 2 || items.boots || flags.glitches === 'M' ? 'available' : 'darkavailable' :
+						items.lantern || items.flute >= 1 || items.boots || flags.glitches === 'M' ? 'available' : 'darkavailable' :
 						'unavailable';
 				}
 			}, { // [12]
@@ -386,7 +386,7 @@
 				is_opened: false,
 				is_available: function() {
 					return canReachWDM() && (items.moonpearl || glitchLinkState()) && items.glove && items.hammer && (items.byrna || (items.cape && (items.bottle || items.magic))) ?
-						items.lantern || items.flute === 2 || items.boots || glitchLinkState() ? 'available' : 'darkavailable' :
+						items.lantern || items.flute >= 1 || items.boots || glitchLinkState() ? 'available' : 'darkavailable' :
 						'unavailable';
 				}
 			}, { // [14]
@@ -408,7 +408,7 @@
 				is_opened: false,
 				is_available: function() {
 					return canReachEDM() ?
-						items.lantern || items.flute === 2 || items.boots || flags.glitches === 'M' ? 'available' : 'darkavailable' :
+						items.lantern || items.flute >= 1 || items.boots || flags.glitches === 'M' ? 'available' : 'darkavailable' :
 						'unavailable';
 				}
 			}, { // [18]
@@ -430,7 +430,7 @@
 				is_opened: false,
 				is_available: function() {
 					return canReachEDM() && (items.moonpearl || glitchLinkState()) && (items.glove || items.boots || flags.glitches === 'M') && (items.boots || items.hookshot) ?
-						items.lantern || items.flute === 2 || items.boots || flags.glitches === 'M' ? 'available' : 'darkavailable' :
+						items.lantern || items.flute >= 1 || items.boots || flags.glitches === 'M' ? 'available' : 'darkavailable' :
 						'unavailable';
 				}
 			}, { // [22]
@@ -438,7 +438,7 @@
 				is_opened: false,
 				is_available: function() {
 					return canReachEDM() && (items.moonpearl || glitchLinkState()) && (items.glove || items.boots || flags.glitches === 'M') && items.hookshot ?
-						items.lantern || items.flute === 2 || items.boots || flags.glitches === 'M' ? 'available' : 'darkavailable' :
+						items.lantern || items.flute >= 1 || items.boots || flags.glitches === 'M' ? 'available' : 'darkavailable' :
 						'unavailable';
 				}
 			}, { // [23]
@@ -452,7 +452,7 @@
 				is_opened: false,
 				is_available: function() {
 					return canGetBonkableItem() && canReachEDM() ?
-					(items.lantern || items.flute === 2 ? 'available' : 'darkavailable') : 'unavailable';
+					(items.lantern || items.flute >= 1 ? 'available' : 'darkavailable') : 'unavailable';
 				}
 			}, { // [25]
 				caption: 'Mountain Entry Pull Tree',
@@ -736,7 +736,7 @@
 				is_available: function() {
 					return items.book && canReachToH() ?
 						(items.sword >= 2 || (flags.swordmode === 'S' && items.hammer)) ?
-							items.lantern || items.flute === 2 || items.boots || flags.glitches === 'M' ? 'available' : 'darkavailable' :
+							items.lantern || items.flute >= 1 || items.boots || flags.glitches === 'M' ? 'available' : 'darkavailable' :
 							'information' :
 						'unavailable';
 				}
@@ -788,7 +788,7 @@
 				is_opened: false,
 				is_available: function() {
 					return canReachWDM() ?
-						items.lantern || items.flute === 2 || items.boots || flags.glitches === 'M' ? 'available' : 'darkavailable' :
+						items.lantern || items.flute >= 1 || items.boots || flags.glitches === 'M' ? 'available' : 'darkavailable' :
 						'unavailable';
 				}
 			}, { // [80]
@@ -831,7 +831,7 @@
 				is_available: function() {
 					return canReachWDM() ?
 						items.mirror || items.boots || flags.glitches === 'M' ?
-							items.lantern || items.flute === 2 || items.boots || flags.glitches === 'M' ? 'available' : 'darkavailable' :
+							items.lantern || items.flute >= 1 || items.boots || flags.glitches === 'M' ? 'available' : 'darkavailable' :
 							'information' :
 						'unavailable';
 				}
@@ -841,7 +841,7 @@
 				is_available: function() {
 					return canReachEDM() ?
 						items.boots || flags.glitches === 'M' || (items.mirror && items.moonpearl && items.glove && canReachDDM()) ?
-							items.lantern || items.flute === 2 || items.boots || flags.glitches === 'M' ? 'available' : 'darkavailable' :
+							items.lantern || items.flute >= 1 || items.boots || flags.glitches === 'M' ? 'available' : 'darkavailable' :
 							'information' :
 						'unavailable';
 				}
@@ -996,7 +996,7 @@
 				is_opened: false,
 				is_available: function() {
 					return items.bomb && canReachEDM() ?
-						items.lantern || items.flute === 2 || items.boots ? 'available' : 'darkavailable' :
+						items.lantern || items.flute >= 1 || items.boots ? 'available' : 'darkavailable' :
 						'unavailable';
 				}
 			}, { // [111]
@@ -1016,7 +1016,7 @@
 				is_opened: false,
 				is_available: function() {
 					return canReachDDM() ?
-						items.lantern || items.flute === 2 || items.boots ? 'available' : 'darkavailable' :
+						items.lantern || items.flute >= 1 || items.boots ? 'available' : 'darkavailable' :
 						'unavailable';
 				}
 			}, { // [114]
@@ -1832,7 +1832,7 @@
 					if(flags.doorshuffle != 'N')
 					{
 						if(medallionCheck(1) === 'unavailable' && (!items.mirror || ((!items.hookshot || !items.moonpearl) && items.glove < 2))) return 'unavailable';
-						var doorcheck = window.doorCheck(9,items.flute < 2 && !items.lantern,true,false,['somaria','firerod',(!flags.wildkeys && flags.gametype != 'R') || !flags.wildbigkeys ? 'laserbridge' : '','bombdash'],'boss');
+						var doorcheck = window.doorCheck(9,items.flute === 0 && !items.lantern,true,false,['somaria','firerod',(!flags.wildkeys && flags.gametype != 'R') || !flags.wildbigkeys ? 'laserbridge' : '','bombdash'],'boss');
 						if(doorcheck === 'unavailable')
 							return 'unavailable';
 						if((medallionCheck(1) === 'possible' || (!items.mirror && !items.bomb)) && doorcheck === 'available')
@@ -1865,7 +1865,7 @@
 					if(flags.doorshuffle != 'N')
 					{
 						if(medallionCheck(1) === 'unavailable' && (!items.mirror || ((!items.hookshot || !items.moonpearl) && items.glove < 2))) return 'unavailable';
-						var doorcheck = window.doorCheck(9,items.flute < 2 && !items.lantern,true,false,['somaria','firerod','laserbridge','bombdash'],'item');
+						var doorcheck = window.doorCheck(9,items.flute === 0 && !items.lantern,true,false,['somaria','firerod','laserbridge','bombdash'],'item');
 						if(doorcheck === 'unavailable')
 							return 'unavailable';
 							if((medallionCheck(1) === 'possible' || (!items.mirror && !items.bomb)) && doorcheck === 'available')
@@ -2843,14 +2843,14 @@
 				caption: 'Desert Palace {book} / {glove2} {mirror} {flute}',
 				is_beaten: false,
 				is_beatable: function() {
-					if (!items.book && !(items.flute === 2 && items.glove === 2 && items.mirror)) return 'unavailable';
+					if (!items.book && !(items.flute >= 1 && items.glove === 2 && items.mirror)) return 'unavailable';
 					var doorcheck = window.doorCheck(1,false,false,false,[(!flags.wildkeys && flags.gametype != 'R') || !flags.wildbigkeys ? 'boots' : '','glove','firesource','killbomb','mirrordesert'],'boss');
 					if(doorcheck)
 						return doorcheck;
 					return window.DPBoss();
 				},
 				can_get_chest: function() {
-					if (!items.book && !(items.flute === 2 && items.glove === 2 && items.mirror)) return 'unavailable';
+					if (!items.book && !(items.flute >= 1 && items.glove === 2 && items.mirror)) return 'unavailable';
 					var doorcheck = window.doorCheck(1,false,false,false,['boots','glove','firesource','killbomb','mirrordesert'],'item');
 					if(doorcheck)
 						return doorcheck;
@@ -2860,10 +2860,10 @@
 				caption: 'Tower of Hera {mirror} / {hookshot} {hammer}',
 				is_beaten: false,
 				is_beatable: function() {
-					if (items.flute < 2 && !items.glove) return 'unavailable';
+					if (items.flute === 0 && !items.glove) return 'unavailable';
 					if (!items.mirror && !(items.hookshot && items.hammer)) return 'unavailable';
-					if (items.flute < 2 && !items.glove) return 'unavailable';
-					var doorcheck = window.doorCheck(2,items.flute < 2 && !items.lantern,false,false,[(!flags.wildkeys && flags.gametype != 'R') || !flags.wildbigkeys ? 'firesource' : '','kill'],'boss');
+					if (items.flute === 0 && !items.glove) return 'unavailable';
+					var doorcheck = window.doorCheck(2,items.flute === 0 && !items.lantern,false,false,[(!flags.wildkeys && flags.gametype != 'R') || !flags.wildbigkeys ? 'firesource' : '','kill'],'boss');
 					if(doorcheck)
 					{
 					//	if(!items.flute && !items.lantern && (doorcheck === 'available' || doorcheck === 'possible'))
@@ -2874,9 +2874,9 @@
 					return window.HeraBoss();
 				},
 				can_get_chest: function() {
-					if (items.flute < 2 && !items.glove) return 'unavailable';
+					if (items.flute === 0 && !items.glove) return 'unavailable';
 					if (!items.mirror && !(items.hookshot && items.hammer)) return 'unavailable';
-					var doorcheck = window.doorCheck(2,items.flute < 2 && !items.lantern,false,false,['firesource','kill'],'item');
+					var doorcheck = window.doorCheck(2,items.flute === 0 && !items.lantern,false,false,['firesource','kill'],'item');
 					if(doorcheck)
 					{
 					//	if(!items.flute && !items.lantern && (doorcheck === 'available' || doorcheck === 'possible'))
@@ -2984,7 +2984,7 @@
 					//if (!items.moonpearl || !items.flute || items.glove !== 2 || !items.somaria || !canReachDarkWorld()) return 'unavailable';
 					//if (!items.boots && !items.hookshot) return 'unavailable';
 					//if (!items.bigkey8 || medallionCheck(0) === 'unavailable') return 'unavailable';
-					if (!items.moonpearl || items.flute < 2 || items.glove !== 2 || !canReachDarkWorld() || medallionCheck(0) === 'unavailable') return 'unavailable';
+					if (!items.moonpearl || items.flute === 0 || items.glove !== 2 || !canReachDarkWorld() || medallionCheck(0) === 'unavailable') return 'unavailable';
 					//var state = medallionCheck(0);
 					//if (state) return state;
 					var doorcheck = window.doorCheck(8,false,true,false,['hookshot','firesource','somaria','bomb'],'boss');
@@ -3002,7 +3002,7 @@
 					return window.MMBoss(medallion_check(0));
 				},
 				can_get_chest: function() {
-					if (!items.moonpearl || items.flute < 2 || items.glove !== 2 || !canReachDarkWorld() || medallionCheck(0) === 'unavailable') return 'unavailable';
+					if (!items.moonpearl || items.flute === 0 || items.glove !== 2 || !canReachDarkWorld() || medallionCheck(0) === 'unavailable') return 'unavailable';
 					//var state = medallionCheck(0);
 					//if (state) return state;
 					var doorcheck = window.doorCheck(8,false,true,false,['hookshot','firesource','somaria','bomb'],'item');
@@ -3027,7 +3027,7 @@
 					if (medallionCheck(1) === 'unavailable') return 'unavailable';
 					//var state = medallionCheck(1);
 					//if (state) return state;
-					var doorcheck = window.doorCheck(9,items.flute < 2 && !items.lantern,true,false,['somaria','firerod',(!flags.wildkeys && flags.gametype != 'R') || !flags.wildbigkeys ? 'laserbridge' : '','bomb'],'boss');
+					var doorcheck = window.doorCheck(9,items.flute === 0 && !items.lantern,true,false,['somaria','firerod',(!flags.wildkeys && flags.gametype != 'R') || !flags.wildbigkeys ? 'laserbridge' : '','bomb'],'boss');
 					if(doorcheck)
 					{
 						if(doorcheck === 'unavailable')
@@ -3047,7 +3047,7 @@
 					if (medallionCheck(1) === 'unavailable') return 'unavailable';
 					//var state = medallionCheck(1);
 					//if (state) return state;				
-					var doorcheck = window.doorCheck(9,items.flute < 2 && !items.lantern,true,false,['somaria','firerod','laserbridge','bomb'],'item');
+					var doorcheck = window.doorCheck(9,items.flute === 0 && !items.lantern,true,false,['somaria','firerod','laserbridge','bomb'],'item');
 					if(doorcheck)
 					{
 						if(doorcheck === 'unavailable')
@@ -3068,7 +3068,7 @@
 					if ((flags.swordmode != 'S' && items.sword < 2) || (flags.swordmode === 'S' && !items.hammer) || (!items.lantern && !items.firerod)) return 'unavailable';
 					//Fast Ganon
 					if (flags.goals === 'F' && (items.sword > 1 || (flags.swordmode === 'S' && items.hammer)) && (items.lantern || items.firerod)) return 'available';
-					var doorcheck = window.doorCheck(10,items.flute < 2 && !items.lantern,false,false,['hammer','firerod','hookshot','boomerang','somaria',(!flags.wildkeys && flags.gametype != 'R') || !flags.wildbigkeys ? 'boots' : '','bow',flags.bossshuffle === 'N' ? '' : 'icerod','bomb'],'boss');
+					var doorcheck = window.doorCheck(10,items.flute === 0 && !items.lantern,false,false,['hammer','firerod','hookshot','boomerang','somaria',(!flags.wildkeys && flags.gametype != 'R') || !flags.wildbigkeys ? 'boots' : '','bow',flags.bossshuffle === 'N' ? '' : 'icerod','bomb'],'boss');
 					if(doorcheck)
 						return doorcheck;
 					return window.GTBoss();
@@ -3076,10 +3076,10 @@
 				can_get_chest: function() {
 					if (items.glove < 2 || (!items.hookshot && (!items.mirror || !items.hammer)) || !canReachDarkWorld()) return 'unavailable';
 					if (flags.opentowercount == 8) {
-						return (items.lantern || items.flute === 2) ? 'possible' : 'darkpossible';
+						return (items.lantern || items.flute >= 1) ? 'possible' : 'darkpossible';
 					}
 					if (crystalCheck() < 7 && crystalCheck() < flags.opentowercount) return 'unavailable';
-					var doorcheck = window.doorCheck(10,items.flute < 2 && !items.lantern,false,false,['hammer','firerod','hookshot','boomerang','somaria','boots','bow',flags.bossshuffle === 'N' ? '' : 'icerod','bomb'],'item');
+					var doorcheck = window.doorCheck(10,items.flute === 0 && !items.lantern,false,false,['hammer','firerod','hookshot','boomerang','somaria','boots','bow',flags.bossshuffle === 'N' ? '' : 'icerod','bomb'],'item');
 					if(doorcheck)
 						return doorcheck;
 					return window.GTChests();
@@ -3167,8 +3167,8 @@
 				caption: 'Spiral Cave',
 				is_opened: false,
 				is_available: function() {
-					return (items.glove || items.flute === 2) && (items.hookshot || items.mirror && items.hammer) ?
-						items.lantern || items.flute === 2 ? 'available' : 'darkavailable' :
+					return (items.glove || items.flute >= 1) && (items.hookshot || items.mirror && items.hammer) ?
+						items.lantern || items.flute >= 1 ? 'available' : 'darkavailable' :
 						'unavailable';
 				}
 			}, { // [4]
@@ -3177,17 +3177,17 @@
 				is_available: function() {
 					if (!items.moonpearl || !items.hammer || items.glove !== 2 || (!items.somaria && flags.doorshuffle === 'N') || !items.mirror || (!items.bomb && flags.doorshuffle === 'N') || (flags.wildkeys && flags.doorshuffle === 'N' && items.smallkey9 <= 1 && flags.gametype != 'R')) return 'unavailable';
 					var state = medallionCheck(1);	
-					if (state) return state === 'possible' && items.flute < 2 && !items.lantern ? 'darkpossible' : state;
+					if (state) return state === 'possible' && items.flute === 0 && !items.lantern ? 'darkpossible' : state;
 
-					var doorcheck = window.doorCheck(9,items.flute < 2 && !items.lantern,true,false,['somaria','firerod',(!flags.wildkeys && flags.gametype != 'R') || !flags.wildbigkeys ? 'laserbridge' : '','bomb'],'connector');
+					var doorcheck = window.doorCheck(9,items.flute === 0 && !items.lantern,true,false,['somaria','firerod',(!flags.wildkeys && flags.gametype != 'R') || !flags.wildbigkeys ? 'laserbridge' : '','bomb'],'connector');
 					if(doorcheck)
 						return doorcheck;
 
 					if (flags.wildkeys) {
-						return (items.smallkey9 <= 1 && flags.gametype != 'R') ? 'unavailable' : (items.lantern || items.flute === 2 ? 'available' : 'darkavailable');
+						return (items.smallkey9 <= 1 && flags.gametype != 'R') ? 'unavailable' : (items.lantern || items.flute >= 1 ? 'available' : 'darkavailable');
 					}
 
-					return items.firerod ? (items.lantern || items.flute === 2 ? 'available' : 'darkavailable') : (items.lantern || items.flute === 2 ? 'possible' : 'darkpossible');
+					return items.firerod ? (items.lantern || items.flute >= 1 ? 'available' : 'darkavailable') : (items.lantern || items.flute >= 1 ? 'possible' : 'darkpossible');
 				}
 			}, { // [5]
 				caption: 'Tavern',
@@ -3221,14 +3221,14 @@
 				caption: 'Mire Shed (2)',
 				is_opened: false,
 				is_available: function() {
-					return items.moonpearl && items.flute === 2 && items.glove === 2 ? 'available' : 'unavailable';
+					return items.moonpearl && items.flute >= 1 && items.glove === 2 ? 'available' : 'unavailable';
 				}
 			}, { // [11]
 				caption: 'Super Bunny Chests (2)',
 				is_opened: false,
 				is_available: function() {
 					return items.moonpearl && items.glove === 2 && (items.hookshot || items.mirror && items.hammer) ?
-						items.lantern || items.flute === 2 ? 'available' : 'darkavailable' :
+						items.lantern || items.flute >= 1 ? 'available' : 'darkavailable' :
 						'unavailable';
 				}
 			}, { // [12]
@@ -3242,7 +3242,7 @@
 				is_opened: false,
 				is_available: function() {
 					return items.moonpearl && items.glove && items.hammer && (items.byrna || (items.cape && (items.bottle || items.magic))) ?
-						items.lantern || items.flute === 2 ? 'available' : 'darkavailable' :
+						items.lantern || items.flute >= 1 ? 'available' : 'darkavailable' :
 						'unavailable';
 				}
 			}, { // [14]
@@ -3267,9 +3267,9 @@
 				caption: 'Paradox Cave (5 + 2 {bomb})',
 				is_opened: false,
 				is_available: function() {
-					return (items.glove || items.flute === 2) && (items.hookshot || (items.mirror && items.hammer)) &&
+					return (items.glove || items.flute >= 1) && (items.hookshot || (items.mirror && items.hammer)) &&
 					(items.bomb || items.bow || items.boomerang || items.firerod || items.icerod || items.somaria) ?
-					(items.lantern || items.flute === 2 ? (items.bomb ? 'available' : 'partialavailable') : 'darkavailable') : 'unavailable';
+					(items.lantern || items.flute >= 1 ? (items.bomb ? 'available' : 'partialavailable') : 'darkavailable') : 'unavailable';
 				}
 			}, { // [18]
 				caption: 'West of Sanctuary {boots}',
@@ -3294,7 +3294,7 @@
 				is_opened: false,
 				is_available: function() {
 					return items.moonpearl && items.glove === 2 && (items.hookshot || (items.mirror && items.hammer && items.boots)) ?
-						items.lantern || items.flute === 2 ? 'available' : 'darkavailable' :
+						items.lantern || items.flute >= 1 ? 'available' : 'darkavailable' :
 						'unavailable';
 				}
 			}, { // [22]
@@ -3302,7 +3302,7 @@
 				is_opened: false,
 				is_available: function() {
 					return items.moonpearl && items.glove === 2 && items.hookshot ?
-						items.lantern || items.flute === 2 ? 'available' : 'darkavailable' :
+						items.lantern || items.flute >= 1 ? 'available' : 'darkavailable' :
 						'unavailable';
 				}
 			}, { // [23]
@@ -3316,7 +3316,7 @@
 				is_opened: false,
 				is_available: function() {
 					return canGetBonkableItem() && canReachEDM() ?
-					(items.lantern || items.flute === 2 ? 'available' : 'darkavailable') : 'unavailable';
+					(items.lantern || items.flute >= 1 ? 'available' : 'darkavailable') : 'unavailable';
 				}
 			}, { // [25]
 				caption: 'Mountain Entry Pull Tree',
@@ -3600,9 +3600,9 @@
 				caption: 'Ether Tablet {sword2}{book}',
 				is_opened: false,
 				is_available: function() {
-					return items.book && (items.glove || items.flute === 2) && (items.mirror || items.hookshot && items.hammer) ?
+					return items.book && (items.glove || items.flute >= 1) && (items.mirror || items.hookshot && items.hammer) ?
 						(items.sword >= 2 || (flags.swordmode === 'S' && items.hammer)) ?
-							items.lantern || items.flute === 2 ? 'available' : 'darkavailable' :
+							items.lantern || items.flute >= 1 ? 'available' : 'darkavailable' :
 							'information' :
 						'unavailable';
 				}
@@ -3631,7 +3631,7 @@
 				caption: 'Lost Old Man {lantern}',
 				is_opened: false,
 				is_available: function() {
-					return items.glove || items.flute === 2 ?
+					return items.glove || items.flute >= 1 ?
 						items.lantern ? 'available' : 'darkavailable' :
 						'unavailable';
 				}
@@ -3655,8 +3655,8 @@
 				caption: 'Spectacle Rock Cave',
 				is_opened: false,
 				is_available: function() {
-					return items.glove || items.flute === 2 ?
-						items.lantern || items.flute === 2 ? 'available' : 'darkavailable' :
+					return items.glove || items.flute >= 1 ?
+						items.lantern || items.flute >= 1 ? 'available' : 'darkavailable' :
 						'unavailable';
 				}
 			}, { // [80]
@@ -3675,7 +3675,7 @@
 				caption: 'Checkerboard Cave {mirror}',
 				is_opened: false,
 				is_available: function() {
-					return items.flute === 2 && items.glove === 2 && items.mirror ? 'available' : 'unavailable';
+					return items.flute >= 1 && items.glove === 2 && items.mirror ? 'available' : 'unavailable';
 				}
 			}, { // [83]
 				caption: '{hammer}{hammer}{hammer}{hammer}{hammer}{hammer}{hammer}{hammer}!!!!!!!!',
@@ -3697,9 +3697,9 @@
 				caption: 'Spectacle Rock {mirror}',
 				is_opened: false,
 				is_available: function() {
-					return items.glove || items.flute === 2 ?
+					return items.glove || items.flute >= 1 ?
 						items.mirror ?
-							items.lantern || items.flute === 2 ? 'available' : 'darkavailable' :
+							items.lantern || items.flute >= 1 ? 'available' : 'darkavailable' :
 							'information' :
 						'unavailable';
 				}
@@ -3707,9 +3707,9 @@
 				caption: 'Floating Island {bomb} {mirror}',
 				is_opened: false,
 				is_available: function() {
-					return (items.glove || items.flute === 2) && (items.hookshot || items.hammer && items.mirror) ?
+					return (items.glove || items.flute >= 1) && (items.hookshot || items.hammer && items.mirror) ?
 						items.mirror && items.moonpearl && items.glove === 2 && items.bomb ?
-							items.lantern || items.flute === 2 ? 'available' : 'darkavailable' :
+							items.lantern || items.flute >= 1 ? 'available' : 'darkavailable' :
 							'information' :
 						'unavailable';
 				}
@@ -3723,8 +3723,8 @@
 				caption: 'Desert West Ledge {book}/{mirror}',
 				is_opened: false,
 				is_available: function() {
-					//return items.book || items.flute === 2 && items.glove === 2 && items.mirror ? 'available' : 'information';
-					if(items.flute === 2 && items.glove === 2 && items.mirror)
+					//return items.book || items.flute >= 1 && items.glove === 2 && items.mirror ? 'available' : 'information';
+					if(items.flute >= 1 && items.glove === 2 && items.mirror)
 						return 'available';
 					if(!items.book)
 						return 'information';
@@ -3923,8 +3923,8 @@
 				caption: 'Paradox Shop (3) {bomb}',
 				is_opened: false,
 				is_available: function() {
-					return items.bomb && (items.glove || items.flute === 2) && (items.hookshot || items.mirror && items.hammer) ?
-					items.lantern || items.flute === 2 ? 'available' : 'darkavailable' :
+					return items.bomb && (items.glove || items.flute >= 1) && (items.hookshot || items.mirror && items.hammer) ?
+					items.lantern || items.flute >= 1 ? 'available' : 'darkavailable' :
 					'unavailable';
 				}
 			}, { // [111]
@@ -3944,7 +3944,7 @@
 				is_opened: false,
 				is_available: function() {
 					return items.glove === 2 && (items.hookshot || (items.mirror && items.hammer)) ?
-						items.lantern || items.flute === 2 ? 'available' : 'darkavailable' : 'unavailable';
+						items.lantern || items.flute >= 1 ? 'available' : 'darkavailable' : 'unavailable';
 				}
 			}, { // [114]
 				caption: 'Dark Potion Shop (3)',

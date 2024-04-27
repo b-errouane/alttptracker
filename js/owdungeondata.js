@@ -1607,7 +1607,7 @@
 		{
 			explore(current.parallel,items,options,visitedRegions,visitedScreenEdges,checkableScreens,continueRegions,assumptions);
 		}
-		if(options.fluteEdges && items.flute === 2 && current.parallel && !current.mirrorBlock && darkWorld === (worldState === 'I'))
+		if(options.fluteEdges && items.flute >= 1 && current.parallel && !current.mirrorBlock && darkWorld === (worldState === 'I'))
 		{
 			for(let region of fluteSpotRegions)
 				if((!mixedow || region.screen.mixedState !== "unknown") && !visitedRegions.has(region))
@@ -1697,7 +1697,7 @@
 					parallel.nextEdgeType = "M";
 					reachable.add(parallel);
 				}
-				if(options.fluteEdges && items.flute === 2 && fluteSpotRegions.includes(current))
+				if(options.fluteEdges && items.flute >= 1 && fluteSpotRegions.includes(current))
 				{
 					let distance = current.distance+2;
 					for(let screen of overworldScreens.values())
