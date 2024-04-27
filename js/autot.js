@@ -396,7 +396,7 @@ function parseGlitches(config_data) {
                 return 'nologic';
         }
     } else if (config_data['seed_type'] === 'DR') {
-        if (config_data['mainflags'][0xA4] === 0) {	
+        if (config_data['mainflags'][0xA4] === 1) {	
             return 'none';
         } else if (config_data['mainflags'][0x45] & 0x10) {
             return 'nologic';
