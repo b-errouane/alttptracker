@@ -591,7 +591,7 @@ async function autotrackerConfigure() {
             document.getElementById("entrancenone").checked = true;
         }
 
-        if (config_data['seed_type'] = 'DR') {
+        if (config_data['seed_type'] === 'DR') {
             document.getElementById("door" + parseDoorShuffle(config_data)).checked = true;
         }
 
