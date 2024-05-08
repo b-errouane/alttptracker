@@ -2037,7 +2037,7 @@
 				}
 				
 				
-				divtoadd.style.left = loc.offsetLeft - 5.5;
+				divtoadd.style.left = loc.offsetLeft - 5.5 + (loc.parentElement.id === "mapEntranceDiv_dark" ? 221 : 0);
 				divtoadd.className = 'informationdiv';
 
 				divtoadd.style.width = 20;
@@ -2188,33 +2188,74 @@
 					var connector1 = document.getElementById('entranceMap' + x);
 					var connector2 = document.getElementById('entranceMap' + document.getElementById('entranceID').value);
 
-					if (connector1.offsetTop > connector2.offsetTop) {
-						divtoadd.style.top = connector2.offsetTop + (flags.mapmode === "C" ? 4.5 : 6);
-					} else {
-						divtoadd.style.top = connector1.offsetTop + (flags.mapmode === "C" ? 4.5 : 6);
-					}
-					if (connector1.offsetLeft > connector2.offsetLeft) {
-						divtoadd.style.left = connector2.offsetLeft + (flags.mapmode === "C" ? 4.5 : 6);
-					} else {
-						divtoadd.style.left = connector1.offsetLeft + (flags.mapmode === "C" ? 4.5 : 6);
-					}
+					var c1offsetleft = connector1.offsetLeft + (connector1.parentElement.id === "mapEntranceDiv_dark" && flags.mapmode != "V" ? connector1.parentElement.offsetWidth : 0);
+					var c2offsetleft = connector2.offsetLeft + (connector2.parentElement.id === "mapEntranceDiv_dark" && flags.mapmode != "V" ? connector2.parentElement.offsetWidth : 0);
 					
-					if (connector1.offsetLeft > connector2.offsetLeft) {
-						if (connector1.offsetTop > connector2.offsetTop) {
-							divtoadd.className = 'crossedright';
+					if (flags.mapmode === "V" && (connector1.parentElement.id != connector2.parentElement.id)) {
+						if (connector2.parentElement.id === "mapEntranceDiv_light") {
+							divtoadd.style.top = connector2.offsetTop + 6;
 						} else {
-							divtoadd.className = 'crossedleft';
+							divtoadd.style.top = connector1.offsetTop + 6;
+						}
+						
+						if (c1offsetleft > c2offsetleft) {
+							divtoadd.style.left = c2offsetleft + 6;
+						} else {
+							divtoadd.style.left = c1offsetleft + 6;
+						}
+						
+						if (connector2.parentElement.id === "mapEntranceDiv_light") {
+							if (c1offsetleft > c2offsetleft) {
+								divtoadd.className = 'crossedright';
+							} else {
+								divtoadd.className = 'crossedleft';
+							}
+						} else {
+							if (c1offsetleft < c2offsetleft) {
+								divtoadd.className = 'crossedright';
+							} else {
+								divtoadd.className = 'crossedleft';
+							}
+						}
+						
+						if (connector2.parentElement.id === "mapEntranceDiv_light") {
+							divtoadd.style.height = Math.abs(connector1.offsetTop + 448 - connector2.offsetTop);
+							divtoadd.style.width = Math.abs(c1offsetleft - c2offsetleft - 2);
+						} else {
+							divtoadd.style.height = Math.abs(connector2.offsetTop + 448 - connector1.offsetTop);
+							divtoadd.style.width = Math.abs(c1offsetleft - c2offsetleft + 2);
 						}
 					} else {
 						if (connector1.offsetTop > connector2.offsetTop) {
-							divtoadd.className = 'crossedleft';
+							divtoadd.style.top = connector2.offsetTop + (flags.mapmode === "C" ? 4.5 : 6) + (flags.mapmode === "V" && connector1.parentElement.id === "mapEntranceDiv_dark" ? 448 : 0);
 						} else {
-							divtoadd.className = 'crossedright';
+							divtoadd.style.top = connector1.offsetTop + (flags.mapmode === "C" ? 4.5 : 6) + (flags.mapmode === "V" && connector1.parentElement.id === "mapEntranceDiv_dark" ? 448 : 0);
 						}
+						
+						if (c1offsetleft > c2offsetleft) {
+							divtoadd.style.left = c2offsetleft + (flags.mapmode === "C" ? 4.5 : 6);
+						} else {
+							divtoadd.style.left = c1offsetleft + (flags.mapmode === "C" ? 4.5 : 6);
+						}
+						
+						if (c1offsetleft > c2offsetleft) {
+							if (connector1.offsetTop > connector2.offsetTop) {
+								divtoadd.className = 'crossedright';
+							} else {
+								divtoadd.className = 'crossedleft';
+							}
+						} else {
+							if (connector1.offsetTop > connector2.offsetTop) {
+								divtoadd.className = 'crossedleft';
+							} else {
+								divtoadd.className = 'crossedright';
+							}
+						}
+						
+						divtoadd.style.height = Math.abs(connector1.offsetTop - connector2.offsetTop);
+						divtoadd.style.width = Math.abs(c1offsetleft - c2offsetleft);
 					}
 
-					divtoadd.style.width = Math.abs(connector1.offsetLeft - connector2.offsetLeft);
-					divtoadd.style.height = Math.abs(connector1.offsetTop - connector2.offsetTop);
 					divtoadd.style.position = 'absolute';
 					
 					document.getElementById('connectorLineDiv').appendChild(divtoadd);
@@ -3392,8 +3433,37 @@
 
     window.updateLayout = function() {
 		//Map layers
-		document.getElementById("mapItemDiv").style.display = flags.entrancemode === 'N' ? "block" : "none";
-		document.getElementById("mapEntranceDiv").style.display = flags.entrancemode === 'N' ? "none" : "block";
+		switch (flags.mapmode)
+		{
+			case "N":
+				break;
+			case "M":
+				//document.getElementById("map").style.width = "1340px";
+				document.getElementById("map").style.width = "892px";
+				document.getElementById("map").style.position = "absolute";
+				document.getElementById("map").style.left = "448";
+				document.getElementById("map").style.top = "0";
+				break;
+			case "C":
+				document.getElementById("connectorLineDiv").style.height = "222px";
+				document.getElementById("connectorLineDiv").style.left = "0";
+				document.getElementById("connectorLineDiv").style.top = "448";
+				document.getElementById("informationDiv").style.height = "222px";
+				document.getElementById("informationDiv").style.left = "0";
+				document.getElementById("informationDiv").style.top = "448";
+				break;
+			case "V":
+				document.getElementById("map").style.width = "448px";
+				document.getElementById("map").style.position = "absolute";
+				document.getElementById("map").style.left = "0";
+				document.getElementById("map").style.top = "448";
+				break;
+		}
+
+		document.getElementById("mapItemDiv_light").style.display = flags.entrancemode === 'N' ? "block" : "none";
+		document.getElementById("mapItemDiv_dark").style.display = flags.entrancemode === 'N' ? "block" : "none";
+		document.getElementById("mapEntranceDiv_light").style.display = flags.entrancemode === 'N' ? "none" : "block";
+		document.getElementById("mapEntranceDiv_dark").style.display = flags.entrancemode === 'N' ? "none" : "block";
 		
 		//Hide HC and CT big keys if not needed
 		document.getElementById('bigkeyhalf0').style.visibility = !flags.wildbigkeys || flags.doorshuffle != 'C' ? 'hidden' : 'visible';
@@ -3408,6 +3478,9 @@
 			rightClickChest('chest12');
 			toggle('chest12');
 		}
+
+		document.getElementById('connectorLineDiv').style.visibility = (flags.entrancemode === 'N' ? 'hidden' : 'visible');
+		document.getElementById('informationDiv').style.visibility = (flags.entrancemode === 'N' ? 'hidden' : 'visible');
 		
 		//Show compasses for Crossed Door Shuffle
 		if (flags.doorshuffle === 'C') {
@@ -3425,18 +3498,66 @@
 		//Moved locations in Inverted
 		if (flags.entrancemode === 'N') {
 			window.document.getElementById('locationMap1').style.visibility = 'inherit';
-			if (flags.gametype === 'I' && flags.overworldshuffle === 'N') {
-				document.getElementById('locationMap2').style.left = "77.4%";
+			if (flags.gametype === 'I' && flags.overworldshuffle === 'N' && flags.entrancemode === 'N') {
+				document.getElementById('locationMap2').style.left = "54.8%";
+				jQuery("#locationMap2").detach().appendTo('#map_dark');
+
 				document.getElementById('locationMap119').style.left = "27.4%";
 			} else {
-				document.getElementById('locationMap2').style.left = "27.4%";
+				document.getElementById('locationMap2').style.left = "54.8%";
+				jQuery("#locationMap2").detach().appendTo('#map_light');
+				
 				document.getElementById('locationMap119').style.left = "77.4%";
 			}
+
+			jQuery("#locationMap1").detach().appendTo('#map_light');
+			jQuery("#locationMap3").detach().appendTo('#map_light');
+			jQuery("#locationMap4").detach().appendTo('#map_light');
+			jQuery("#locationMap17").detach().appendTo('#map_light');
+			jQuery("#locationMap18").detach().appendTo('#map_light');
+			jQuery("#locationMap19").detach().appendTo('#map_light');
+			
+			jQuery("#locationMap7").detach().appendTo('#map_dark');
+			jQuery("#locationMap8").detach().appendTo('#map_dark');
+			jQuery("#locationMap10").detach().appendTo('#map_dark');
+			jQuery("#locationMap11").detach().appendTo('#map_dark');
+			jQuery("#locationMap13").detach().appendTo('#map_dark');
+			jQuery("#locationMap16").detach().appendTo('#map_dark');
+			jQuery("#locationMap21").detach().appendTo('#map_dark');
+			jQuery("#locationMap22").detach().appendTo('#map_dark');
 			updateLayoutTowers();
 		}
 		else
 		{
-			document.getElementById('locationMap2').style.left = "5%";
+			document.getElementById('locationMap2').style.left = "10%";
+			
+			//Move locations to correct half of map in entrance
+			if (flags.gametype === 'I') {
+				jQuery("#locationMap1").detach().appendTo('#map_dark');
+			} else {
+				jQuery("#locationMap1").detach().appendTo('#map_light');
+			}
+			
+			jQuery("#locationMap3").detach().appendTo('#map_dark');
+			jQuery("#locationMap4").detach().appendTo('#map_dark');
+			jQuery("#locationMap8").detach().appendTo('#map_dark');
+			jQuery("#locationMap17").detach().appendTo('#map_dark');
+			jQuery("#locationMap18").detach().appendTo('#map_dark');
+			jQuery("#locationMap19").detach().appendTo('#map_dark');
+			
+			jQuery("#locationMap2").detach().appendTo('#map_light');
+			jQuery("#locationMap7").detach().appendTo('#map_light');
+			jQuery("#locationMap10").detach().appendTo('#map_light');
+			jQuery("#locationMap11").detach().appendTo('#map_light');
+			jQuery("#locationMap13").detach().appendTo('#map_light');
+			jQuery("#locationMap16").detach().appendTo('#map_light');
+			jQuery("#locationMap21").detach().appendTo('#map_light');
+			jQuery("#locationMap22").detach().appendTo('#map_light');
+			
+			document.getElementById('entranceMap75').style.zIndex = "3";
+			document.getElementById('entranceMap105').style.zIndex = "3";
+			document.getElementById('entranceMap129').style.zIndex = "3";
+			
 			updateLayoutGanon();
 		}
 		
@@ -3480,47 +3601,64 @@
 		//Moved locations in Inverted and Overworld Shuffle
 		if (flags.entrancemode === 'N') {
 			if (flags.overworldshuffle === 'N' ? flags.gametype === 'I' : swapTowers) {
-				document.getElementById('locationMap106').style.left = "74.5%";
+				document.getElementById('locationMap106').style.left = "49%";
 				document.getElementById('locationMap106').style.top = "5%";
+				jQuery("#locationMap106").detach().appendTo('#mapItemDiv_dark');
 				
-				document.getElementById('locationMap107').style.left = "81.6%";
+				document.getElementById('locationMap107').style.left = "63.2%";
 				document.getElementById('locationMap107').style.top = "5%";
+				jQuery("#locationMap107").detach().appendTo('#mapItemDiv_dark');
 				
-				document.getElementById('bossMapAgahnim').style.left = "78%";
+				document.getElementById('bossMapAgahnim').style.left = "56%";
 				document.getElementById('bossMapAgahnim').style.top = flags.mapmode === 'C' ? "5.5%" : "4.5%";
-				document.getElementById('castle').style.left = "78%";
+				document.getElementById('castle').style.left = "56%";
 				document.getElementById('castle').style.top = flags.mapmode === 'C' ? "5.5%" : "4.5%";
+				jQuery("#bossMapAgahnim").detach().appendTo('#mapItemDiv_dark');
+				jQuery("#castle").detach().appendTo('#mapItemDiv_dark');
 				
-				document.getElementById('bossMap10').style.left = "25%";
+				document.getElementById('bossMap10').style.left = "50%";
 				document.getElementById('bossMap10').style.top = "52.5%";
-				document.getElementById('dungeon10').style.left = "25%";
+				document.getElementById('dungeon10').style.left = "50%";
 				document.getElementById('dungeon10').style.top = "52.5%";
+				jQuery("#bossMap10").detach().appendTo('#mapItemDiv_light');
+				jQuery("#dungeon10").detach().appendTo('#mapItemDiv_light');
 				
-				document.getElementById('bossMap12').style.left = "79.0%";
+				document.getElementById('bossMap12').style.left = "56.5%";
 				document.getElementById('bossMap12').style.top = flags.mapmode === 'C' ? "7.2%" : "5.5%";
-				document.getElementById('dungeon12').style.left = "79.0%";
+				document.getElementById('dungeon12').style.left = "56.5%";
 				document.getElementById('dungeon12').style.top = flags.mapmode === 'C' ? "7.2%" : "5.5%";
+				jQuery("#bossMap12").detach().appendTo('#mapItemDiv_dark');
+				jQuery("#dungeon12").detach().appendTo('#mapItemDiv_dark');
+
 			} else {
-				document.getElementById('locationMap106').style.left = "21.0%";
+				document.getElementById('locationMap106').style.left = "42.0%";
 				document.getElementById('locationMap106').style.top = "52.6%";
+				jQuery("#locationMap106").detach().appendTo('#mapItemDiv_light');
 				
-				document.getElementById('locationMap107').style.left = "29.0%";
+				document.getElementById('locationMap107').style.left = "58.0%";
 				document.getElementById('locationMap107').style.top = "52.6%";
+				jQuery("#locationMap107").detach().appendTo('#mapItemDiv_light');
 				
-				document.getElementById('bossMapAgahnim').style.left = "25.0%";
+				document.getElementById('bossMapAgahnim').style.left = "50.0%";
 				document.getElementById('bossMapAgahnim').style.top = "52.6%";
-				document.getElementById('castle').style.left = "25.0%";
+				document.getElementById('castle').style.left = "50.0%";
 				document.getElementById('castle').style.top = "52.6%";
+				jQuery("#bossMapAgahnim").detach().appendTo('#mapItemDiv_light');
+				jQuery("#castle").detach().appendTo('#mapItemDiv_light');
 				
-				document.getElementById('bossMap10').style.left = "79.0%";
+				document.getElementById('bossMap10').style.left = "58.0%";
 				document.getElementById('bossMap10').style.top = flags.mapmode === 'C' ? "7.2%" : "5.5%";
-				document.getElementById('dungeon10').style.left = "79.0%";
+				document.getElementById('dungeon10').style.left = "58.0%";
 				document.getElementById('dungeon10').style.top = flags.mapmode === 'C' ? "7.2%" : "5.5%";
+				jQuery("#bossMap10").detach().appendTo('#mapItemDiv_dark');
+				jQuery("#dungeon10").detach().appendTo('#mapItemDiv_dark');
 				
-				document.getElementById('bossMap12').style.left = "25%";
+				document.getElementById('bossMap12').style.left = "50%";
 				document.getElementById('bossMap12').style.top = "52.5%";
-				document.getElementById('dungeon12').style.left = "25%";
+				document.getElementById('dungeon12').style.left = "50%";
 				document.getElementById('dungeon12').style.top = "52.5%";
+				jQuery("#bossMap12").detach().appendTo('#mapItemDiv_light');
+				jQuery("#dungeon12").detach().appendTo('#mapItemDiv_light');
 			}
 		}
 	};
@@ -3529,19 +3667,21 @@
 		//Moved locations in Inverted and Overworld Shuffle
 		if (flags.entrancemode != 'N') {
 			if (flags.overworldshuffle === 'N' ? flags.gametype === 'I' : swapGanon) {
-				window.document.getElementById('locationMap1').style.visibility = 'hidden';
-				window.document.getElementById('entranceMap10').style.top = "40.0%";
-				window.document.getElementById('entranceMap93').style.left = "25.7%";
-				window.document.getElementById('entranceMap93').style.top = "43.0%";
-				window.document.getElementById('entranceMap95').style.left = "23.2%";
-				window.document.getElementById('entranceMap95').style.top = "44.0%";
-			} else {
-				window.document.getElementById('locationMap1').style.visibility = 'inherit';
-				window.document.getElementById('entranceMap10').style.top = "42%";
-				window.document.getElementById('entranceMap93').style.left = "75.7%";
+				window.document.getElementById('entranceMap10').style.top = "39%";
+				window.document.getElementById('entranceMap93').style.left = "51.4%";
 				window.document.getElementById('entranceMap93').style.top = "42%";
-				window.document.getElementById('entranceMap95').style.left = "72.4%";
-				window.document.getElementById('entranceMap95').style.top = "50%";
+				window.document.getElementById('entranceMap95').style.left = "47.8%";
+				window.document.getElementById('entranceMap95').style.top = "45%";
+				jQuery("#entranceMap93").detach().appendTo('#mapEntranceDiv_light');
+				jQuery("#entranceMap95").detach().appendTo('#mapEntranceDiv_light');
+			} else {
+				window.document.getElementById('entranceMap10').style.top = "39%";
+				window.document.getElementById('entranceMap93').style.left = "51.4%";
+				window.document.getElementById('entranceMap93').style.top = "42%";
+				window.document.getElementById('entranceMap95').style.left = "44.8%";
+				window.document.getElementById('entranceMap95').style.top = "45%";
+				jQuery("#entranceMap93").detach().appendTo('#mapEntranceDiv_dark');
+				jQuery("#entranceMap95").detach().appendTo('#mapEntranceDiv_dark');
 			}
 		}
 	};
@@ -3551,6 +3691,9 @@
 		document.getElementById("mainstyle").href = "css/"+(flags.entrancemode === 'N' ? "" : "entrance")+"style.css?v="+buildString;
 		if (flags.mapmode === 'C') {
 			document.getElementById("maincompactstyle").href = "css/"+(flags.entrancemode === 'N' ? "" : "entrance")+"smallmap.css?v="+buildString;
+		} else if (flags.mapmode === 'V') {
+			window.document.getElementById('map_light').style.marginLeft = "6px";
+			window.document.getElementById('map_dark').style.marginLeft = "2px";
 		}
 		flags.entrancemode === 'N' ? loadChestFlagsItem() : loadChestFlagsEntrance();
 	};
@@ -3706,12 +3849,12 @@
                 document.getElementById('locationMap'+k).className = 'location ' + (k >= chests.length || chests[k].is_opened ? ( k > 22 && k < 79 ? 'bonked' : 'opened') : chests[k].is_available());
             }
 			
-			if (flags.mapmode === 'C') {				
+			if (flags.mapmode === 'C' || flags.mapmode === 'V') {
 				var modal = document.getElementById("entranceModal"),modalMain = document.getElementById("entranceModalMain");
 				modal.style.width = "448px";
 				modal.style.left = "0px";
 				modalMain.style.width = "408px";
-				modalMain.style.height = "600px";
+				modalMain.style.height = flags.mapmode === "C" ? "600px" : "624px";
 				modalMain.style.left = "20px";
 				modalMain.style.top = "36px";
 			}
@@ -3884,6 +4027,10 @@
 			document.getElementById('app').classList.add('sphereless');
 		} else {
 			document.getElementById('spheres').style.visibility = 'visible';
+			if (flags.mapmode === 'V') {
+				document.getElementById('spheres').classList.remove('row')
+				document.getElementById('spheres').classList.add('cell')
+			}
 		}
 		
 		document.getElementsByClassName('tunic')[0].classList.add(flags.sprite);
@@ -3901,7 +4048,8 @@
 		}
 
 		if (flags.mapstyle === 'O') {
-			document.getElementById('map').style.backgroundImage = "url(images/overlay/map_old.png)";
+			document.getElementById('map_light').style.backgroundImage = "url(images/overlay/map_lw_old.png)";
+			document.getElementById('map_dark').style.backgroundImage = "url(images/overlay/map_dw_old.png)";
 			var locations = document.getElementsByClassName('location');
 			for (var i = 0; i < locations.length; i++) {
 				locations[i].style.width = flags.entrancemode === 'N' ? '20px' : '16px';

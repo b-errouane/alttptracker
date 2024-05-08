@@ -1,39 +1,42 @@
 <html>
-	<head>
-		<title>ALTTP Randomizer Community Tracker - Tracker</title>
-		<script src="js/jquery-3.3.1.js?v=20042.1"></script>
-		<script src="js/bootstrap.min.js?v=20042.1"></script>
-		<link rel="stylesheet" type="text/css" href="css/sprites.css?v=20042.1">
-		<link rel="stylesheet" type="text/css" href="css/fonts.css?v=20042.1">
-		<link rel="stylesheet" type="text/css" href="css/colors.css?v=20042.1">
-		<link rel="stylesheet" type="text/css" id="mainstyle">
-		<link rel="stylesheet" type="text/css" id="maincompactstyle">
-		<script src="js/util.js?v=20042.1"></script>
-		<script src="js/items.js?v=20042.1"></script>
-		<script src="js/chests.js?v=20042.1"></script>
-		<script src="js/entrancechests.js?v=20042.1"></script>
-		<script src="js/track.js?v=20042.1"></script>
-		<script src="js/dungeons.js?v=20042.1"></script>
-		<script src="js/spoiler.js?v=20042.1"></script>
-		<script src="js/autot.js?v=20042.3"></script>
-		<script>
-			var colorSettings = JSON.parse(localStorage.getItem('colorSettings'));
-			for (var key in colorSettings) {
-				document.documentElement.style.setProperty(`--${key}`, colorSettings[key]);
-			}
-		</script>
-		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-		<meta http-equiv="Content-Security-Policy" content="connect-src 'self' 'unsafe-inline' localhost:* ws://localhost:*;">
-		<meta http-equiv="Pragma" content="no-cache" />
-		<meta http-equiv="Expires" content="0" />
-		<link rel="apple-touch-icon" sizes="180x180" href="images/icons/apple-touch-icon.png">
-		<link rel="icon" type="image/png" sizes="32x32" href="images/icons/favicon-32x32.png">
-		<link rel="icon" type="image/png" sizes="16x16" href="images/icons/favicon-16x16.png">
-	</head>
-	<body style="background-color: black;">
-		<div id="app" class="row" style="display: none;">
-			<div id="trackingoverlay" class="restreamingoverlay">
-				<div id="tracker" class="cell">
+
+<head>
+	<title>ALTTP Randomizer Community Tracker - Tracker</title>
+	<script src="js/jquery-3.3.1.js?v=21001"></script>
+	<script src="js/bootstrap.min.js?v=21001"></script>
+	<link rel="stylesheet" type="text/css" href="css/sprites.css?v=21001">
+	<link rel="stylesheet" type="text/css" href="css/fonts.css?v=21001">
+	<link rel="stylesheet" type="text/css" href="css/colors.css?v=21001">
+	<link rel="stylesheet" type="text/css" id="mainstyle">
+	<link rel="stylesheet" type="text/css" id="maincompactstyle">
+	<script src="js/util.js?v=21001"></script>
+	<script src="js/items.js?v=21001"></script>
+	<script src="js/chests.js?v=21001"></script>
+	<script src="js/entrancechests.js?v=21001"></script>
+	<script src="js/track.js?v=21001"></script>
+	<script src="js/dungeons.js?v=21001"></script>
+	<script src="js/spoiler.js?v=21001"></script>
+	<script src="js/autot.js?v=21001"></script>
+	<script>
+		var colorSettings = JSON.parse(localStorage.getItem('colorSettings'));
+		for (var key in colorSettings) {
+			document.documentElement.style.setProperty(`--${key}`, colorSettings[key]);
+		}
+	</script>
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+	<meta http-equiv="Content-Security-Policy" content="connect-src 'self' 'unsafe-inline' localhost:* ws://localhost:*;">
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+	<link rel="apple-touch-icon" sizes="180x180" href="images/icons/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="images/icons/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="images/icons/favicon-16x16.png">
+</head>
+
+<body style="background-color: black;">
+	<div id="app" class="row" style="display: none;">
+		<div id="trackingoverlay" class="restreamingoverlay">
+			<div id="tracker" class="row">
+				<div id="maintracker" class="cell">
 					<div class="row">
 						<div class="cell">
 							<div class="row">
@@ -43,33 +46,33 @@
 											<div class="item tunic tunic active-1 bunny" onClick="toggle('tunic')" onMouseover="findItems(['Armor'])" onMouseout="unhighlightAll()"></div>
 											<div id="crystalsdiv" class="item active crystalgoal" onClick="crystalGoal()"></div>
 											<div id="crystalsselectdiv" class="crystalgoalselect" style="visibility: collapse;">
-												<img class="goalselect" src="./images/dungeons/crystal.png" onClick="setCrystalGoal('')"/>
-												<img class="goalselect" src="./images/dungeons/crystal0.png" onClick="setCrystalGoal(0)"/>
-												<img class="goalselect" src="./images/dungeons/crystal1.png" onClick="setCrystalGoal(1)"/>
-												<img class="goalselect" src="./images/dungeons/crystal2.png" onClick="setCrystalGoal(2)"/>
-												<img class="goalselect" src="./images/dungeons/crystal3.png" onClick="setCrystalGoal(3)"/>
-												<img class="goalselect" src="./images/dungeons/crystal4.png" onClick="setCrystalGoal(4)"/>
-												<img class="goalselect" src="./images/dungeons/crystal5.png" onClick="setCrystalGoal(5)"/>
-												<img class="goalselect" src="./images/dungeons/crystal6.png" onClick="setCrystalGoal(6)"/>
-												<img class="goalselect" src="./images/dungeons/crystal7.png" onClick="setCrystalGoal(7)"/>
+												<img class="goalselect" src="./images/dungeons/crystal.png" onClick="setCrystalGoal('')" />
+												<img class="goalselect" src="./images/dungeons/crystal0.png" onClick="setCrystalGoal(0)" />
+												<img class="goalselect" src="./images/dungeons/crystal1.png" onClick="setCrystalGoal(1)" />
+												<img class="goalselect" src="./images/dungeons/crystal2.png" onClick="setCrystalGoal(2)" />
+												<img class="goalselect" src="./images/dungeons/crystal3.png" onClick="setCrystalGoal(3)" />
+												<img class="goalselect" src="./images/dungeons/crystal4.png" onClick="setCrystalGoal(4)" />
+												<img class="goalselect" src="./images/dungeons/crystal5.png" onClick="setCrystalGoal(5)" />
+												<img class="goalselect" src="./images/dungeons/crystal6.png" onClick="setCrystalGoal(6)" />
+												<img class="goalselect" src="./images/dungeons/crystal7.png" onClick="setCrystalGoal(7)" />
 											</div>
 											<div id="ganonselectdiv" class="ganongoalselect" style="visibility: collapse;">
-												<img class="goalselect" src="./images/dungeons/ganon.png" onClick="setGanonGoal('')"/>
-												<img class="goalselect" src="./images/dungeons/ganon0.png" onClick="setGanonGoal(0)"/>
-												<img class="goalselect" src="./images/dungeons/ganon1.png" onClick="setGanonGoal(1)"/>
-												<img class="goalselect" src="./images/dungeons/ganon2.png" onClick="setGanonGoal(2)"/>
-												<img class="goalselect" src="./images/dungeons/ganon3.png" onClick="setGanonGoal(3)"/>
-												<img class="goalselect" src="./images/dungeons/ganon4.png" onClick="setGanonGoal(4)"/>
-												<img class="goalselect" src="./images/dungeons/ganon5.png" onClick="setGanonGoal(5)"/>
-												<img class="goalselect" src="./images/dungeons/ganon6.png" onClick="setGanonGoal(6)"/>
-												<img class="goalselect" src="./images/dungeons/ganon7.png" onClick="setGanonGoal(7)"/>
+												<img class="goalselect" src="./images/dungeons/ganon.png" onClick="setGanonGoal('')" />
+												<img class="goalselect" src="./images/dungeons/ganon0.png" onClick="setGanonGoal(0)" />
+												<img class="goalselect" src="./images/dungeons/ganon1.png" onClick="setGanonGoal(1)" />
+												<img class="goalselect" src="./images/dungeons/ganon2.png" onClick="setGanonGoal(2)" />
+												<img class="goalselect" src="./images/dungeons/ganon3.png" onClick="setGanonGoal(3)" />
+												<img class="goalselect" src="./images/dungeons/ganon4.png" onClick="setGanonGoal(4)" />
+												<img class="goalselect" src="./images/dungeons/ganon5.png" onClick="setGanonGoal(5)" />
+												<img class="goalselect" src="./images/dungeons/ganon6.png" onClick="setGanonGoal(6)" />
+												<img class="goalselect" src="./images/dungeons/ganon7.png" onClick="setGanonGoal(7)" />
 											</div>
 											<div id="changeflagsdiv" class="changeflags">
-												<img class="goalselect" src="./images/dungeons/flagicon.png" onClick="changeFlags()"/>
+												<img class="goalselect" src="./images/dungeons/flagicon.png" onClick="changeFlags()" />
 											</div>
 											<div id="ganondiv" class="item active ganongoal" onClick="ganonGoal()"></div>
 											<div id="showpathsdiv" class="showpaths">
-												<img class="goalselect" src="./images/dungeons/map.png" onClick="showDoorWindow()"/>
+												<img class="goalselect" src="./images/dungeons/map.png" onClick="showDoorWindow()" />
 											</div>
 											<div class="item sword" onClick="toggle('sword')" onMouseover="findItems(['Sword'])" onMouseout="unhighlightAll()"></div>
 											<div class="item shield" onClick="toggle('shield')" onMouseover="findItems(['Shield'])" onMouseout="unhighlightAll()"></div>
@@ -412,314 +415,317 @@
 							</div>
 						</div>
 					</div>
-					<div id="spheres">
-						<div class="row">
-							<div class="cell">
-								<div id="sphere1_1" class="sphere noitem" onClick="setSphereItem('sphere1_1')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere1_2" class="sphere noitem" onClick="setSphereItem('sphere1_2')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere1_3" class="sphere noitem" onClick="setSphereItem('sphere1_3')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere1_4" class="sphere noitem" onClick="setSphereItem('sphere1_4')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere1_5" class="sphere noitem" onClick="setSphereItem('sphere1_5')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere1_6" class="sphere noitem" onClick="setSphereItem('sphere1_6')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere1_7" class="sphere noitem" onClick="setSphereItem('sphere1_7')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere1_8" class="sphere noitem" onClick="setSphereItem('sphere1_8')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere1_9" class="sphere noitem" onClick="setSphereItem('sphere1_9')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere1_10" class="sphere noitem" onClick="setSphereItem('sphere1_10')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere1_11" class="sphere noitem" onClick="setSphereItem('sphere1_11')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere1_12" class="sphere noitem" onClick="setSphereItem('sphere1_12')"></div>
-							</div>
+				</div>
+				<div id="spheres" class="row">
+					<div class="row">
+						<div class="cell">
+							<div id="sphere1_1" class="sphere noitem" onClick="setSphereItem('sphere1_1')"></div>
 						</div>
-						<div class="row">
-							<div class="cell">
-								<div id="sphere2_1" class="sphere noitem" onClick="setSphereItem('sphere2_1')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere2_2" class="sphere noitem" onClick="setSphereItem('sphere2_2')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere2_3" class="sphere noitem" onClick="setSphereItem('sphere2_3')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere2_4" class="sphere noitem" onClick="setSphereItem('sphere2_4')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere2_5" class="sphere noitem" onClick="setSphereItem('sphere2_5')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere2_6" class="sphere noitem" onClick="setSphereItem('sphere2_6')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere2_7" class="sphere noitem" onClick="setSphereItem('sphere2_7')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere2_8" class="sphere noitem" onClick="setSphereItem('sphere2_8')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere2_9" class="sphere noitem" onClick="setSphereItem('sphere2_9')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere2_10" class="sphere noitem" onClick="setSphereItem('sphere2_10')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere2_11" class="sphere noitem" onClick="setSphereItem('sphere2_11')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere2_12" class="sphere noitem" onClick="setSphereItem('sphere2_12')"></div>
-							</div>
+						<div class="cell">
+							<div id="sphere1_2" class="sphere noitem" onClick="setSphereItem('sphere1_2')"></div>
 						</div>
-						<div class="row">
-							<div class="cell">
-								<div id="sphere3_1" class="sphere noitem" onClick="setSphereItem('sphere3_1')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere3_2" class="sphere noitem" onClick="setSphereItem('sphere3_2')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere3_3" class="sphere noitem" onClick="setSphereItem('sphere3_3')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere3_4" class="sphere noitem" onClick="setSphereItem('sphere3_4')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere3_5" class="sphere noitem" onClick="setSphereItem('sphere3_5')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere3_6" class="sphere noitem" onClick="setSphereItem('sphere3_6')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere3_7" class="sphere noitem" onClick="setSphereItem('sphere3_7')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere3_8" class="sphere noitem" onClick="setSphereItem('sphere3_8')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere3_9" class="sphere noitem" onClick="setSphereItem('sphere3_9')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere3_10" class="sphere noitem" onClick="setSphereItem('sphere3_10')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere3_11" class="sphere noitem" onClick="setSphereItem('sphere3_11')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere3_12" class="sphere noitem" onClick="setSphereItem('sphere3_12')"></div>
-							</div>
+						<div class="cell">
+							<div id="sphere1_3" class="sphere noitem" onClick="setSphereItem('sphere1_3')"></div>
 						</div>
-						<div class="row">
-							<div class="cell">
-								<div id="sphere4_1" class="sphere noitem" onClick="setSphereItem('sphere4_1')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere4_2" class="sphere noitem" onClick="setSphereItem('sphere4_2')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere4_3" class="sphere noitem" onClick="setSphereItem('sphere4_3')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere4_4" class="sphere noitem" onClick="setSphereItem('sphere4_4')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere4_5" class="sphere noitem" onClick="setSphereItem('sphere4_5')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere4_6" class="sphere noitem" onClick="setSphereItem('sphere4_6')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere4_7" class="sphere noitem" onClick="setSphereItem('sphere4_7')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere4_8" class="sphere noitem" onClick="setSphereItem('sphere4_8')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere4_9" class="sphere noitem" onClick="setSphereItem('sphere4_9')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere4_10" class="sphere noitem" onClick="setSphereItem('sphere4_10')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere4_11" class="sphere noitem" onClick="setSphereItem('sphere4_11')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere4_12" class="sphere noitem" onClick="setSphereItem('sphere4_12')"></div>
-							</div>
+						<div class="cell">
+							<div id="sphere1_4" class="sphere noitem" onClick="setSphereItem('sphere1_4')"></div>
 						</div>
-						<div class="row">
-							<div class="cell">
-								<div id="sphere5_1" class="sphere noitem" onClick="setSphereItem('sphere5_1')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere5_2" class="sphere noitem" onClick="setSphereItem('sphere5_2')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere5_3" class="sphere noitem" onClick="setSphereItem('sphere5_3')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere5_4" class="sphere noitem" onClick="setSphereItem('sphere5_4')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere5_5" class="sphere noitem" onClick="setSphereItem('sphere5_5')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere5_6" class="sphere noitem" onClick="setSphereItem('sphere5_6')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere5_7" class="sphere noitem" onClick="setSphereItem('sphere5_7')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere5_8" class="sphere noitem" onClick="setSphereItem('sphere5_8')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere5_9" class="sphere noitem" onClick="setSphereItem('sphere5_9')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere5_10" class="sphere noitem" onClick="setSphereItem('sphere5_10')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere5_11" class="sphere noitem" onClick="setSphereItem('sphere5_11')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere5_12" class="sphere noitem" onClick="setSphereItem('sphere5_12')"></div>
-							</div>
+						<div class="cell">
+							<div id="sphere1_5" class="sphere noitem" onClick="setSphereItem('sphere1_5')"></div>
 						</div>
-						<div class="row">
-							<div class="cell">
-								<div id="sphere6_1" class="sphere noitem" onClick="setSphereItem('sphere6_1')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere6_2" class="sphere noitem" onClick="setSphereItem('sphere6_2')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere6_3" class="sphere noitem" onClick="setSphereItem('sphere6_3')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere6_4" class="sphere noitem" onClick="setSphereItem('sphere6_4')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere6_5" class="sphere noitem" onClick="setSphereItem('sphere6_5')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere6_6" class="sphere noitem" onClick="setSphereItem('sphere6_6')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere6_7" class="sphere noitem" onClick="setSphereItem('sphere6_7')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere6_8" class="sphere noitem" onClick="setSphereItem('sphere6_8')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere6_9" class="sphere noitem" onClick="setSphereItem('sphere6_9')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere6_10" class="sphere noitem" onClick="setSphereItem('sphere6_10')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere6_11" class="sphere noitem" onClick="setSphereItem('sphere6_11')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere6_12" class="sphere noitem" onClick="setSphereItem('sphere6_12')"></div>
-							</div>
+						<div class="cell">
+							<div id="sphere1_6" class="sphere noitem" onClick="setSphereItem('sphere1_6')"></div>
 						</div>
-						<div class="row">
-							<div class="cell">
-								<div id="sphere7_1" class="sphere noitem" onClick="setSphereItem('sphere7_1')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere7_2" class="sphere noitem" onClick="setSphereItem('sphere7_2')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere7_3" class="sphere noitem" onClick="setSphereItem('sphere7_3')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere7_4" class="sphere noitem" onClick="setSphereItem('sphere7_4')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere7_5" class="sphere noitem" onClick="setSphereItem('sphere7_5')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere7_6" class="sphere noitem" onClick="setSphereItem('sphere7_6')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere7_7" class="sphere noitem" onClick="setSphereItem('sphere7_7')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere7_8" class="sphere noitem" onClick="setSphereItem('sphere7_8')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere7_9" class="sphere noitem" onClick="setSphereItem('sphere7_9')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere7_10" class="sphere noitem" onClick="setSphereItem('sphere7_10')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere7_11" class="sphere noitem" onClick="setSphereItem('sphere7_11')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere7_12" class="sphere noitem" onClick="setSphereItem('sphere7_12')"></div>
-							</div>
+						<div class="cell">
+							<div id="sphere1_7" class="sphere noitem" onClick="setSphereItem('sphere1_7')"></div>
 						</div>
-						<div class="row">
-							<div class="cell">
-								<div id="sphere8_1" class="sphere noitem" onClick="setSphereItem('sphere8_1')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere8_2" class="sphere noitem" onClick="setSphereItem('sphere8_2')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere8_3" class="sphere noitem" onClick="setSphereItem('sphere8_3')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere8_4" class="sphere noitem" onClick="setSphereItem('sphere8_4')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere8_5" class="sphere noitem" onClick="setSphereItem('sphere8_5')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere8_6" class="sphere noitem" onClick="setSphereItem('sphere8_6')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere8_7" class="sphere noitem" onClick="setSphereItem('sphere8_7')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere8_8" class="sphere noitem" onClick="setSphereItem('sphere8_8')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere8_9" class="sphere noitem" onClick="setSphereItem('sphere8_9')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere8_10" class="sphere noitem" onClick="setSphereItem('sphere8_10')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere8_11" class="sphere noitem" onClick="setSphereItem('sphere8_11')"></div>
-							</div>
-							<div class="cell">
-								<div id="sphere8_12" class="sphere noitem" onClick="setSphereItem('sphere8_12')"></div>
-							</div>
+						<div class="cell">
+							<div id="sphere1_8" class="sphere noitem" onClick="setSphereItem('sphere1_8')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere1_9" class="sphere noitem" onClick="setSphereItem('sphere1_9')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere1_10" class="sphere noitem" onClick="setSphereItem('sphere1_10')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere1_11" class="sphere noitem" onClick="setSphereItem('sphere1_11')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere1_12" class="sphere noitem" onClick="setSphereItem('sphere1_12')"></div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="cell">
+							<div id="sphere2_1" class="sphere noitem" onClick="setSphereItem('sphere2_1')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere2_2" class="sphere noitem" onClick="setSphereItem('sphere2_2')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere2_3" class="sphere noitem" onClick="setSphereItem('sphere2_3')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere2_4" class="sphere noitem" onClick="setSphereItem('sphere2_4')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere2_5" class="sphere noitem" onClick="setSphereItem('sphere2_5')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere2_6" class="sphere noitem" onClick="setSphereItem('sphere2_6')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere2_7" class="sphere noitem" onClick="setSphereItem('sphere2_7')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere2_8" class="sphere noitem" onClick="setSphereItem('sphere2_8')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere2_9" class="sphere noitem" onClick="setSphereItem('sphere2_9')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere2_10" class="sphere noitem" onClick="setSphereItem('sphere2_10')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere2_11" class="sphere noitem" onClick="setSphereItem('sphere2_11')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere2_12" class="sphere noitem" onClick="setSphereItem('sphere2_12')"></div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="cell">
+							<div id="sphere3_1" class="sphere noitem" onClick="setSphereItem('sphere3_1')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere3_2" class="sphere noitem" onClick="setSphereItem('sphere3_2')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere3_3" class="sphere noitem" onClick="setSphereItem('sphere3_3')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere3_4" class="sphere noitem" onClick="setSphereItem('sphere3_4')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere3_5" class="sphere noitem" onClick="setSphereItem('sphere3_5')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere3_6" class="sphere noitem" onClick="setSphereItem('sphere3_6')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere3_7" class="sphere noitem" onClick="setSphereItem('sphere3_7')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere3_8" class="sphere noitem" onClick="setSphereItem('sphere3_8')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere3_9" class="sphere noitem" onClick="setSphereItem('sphere3_9')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere3_10" class="sphere noitem" onClick="setSphereItem('sphere3_10')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere3_11" class="sphere noitem" onClick="setSphereItem('sphere3_11')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere3_12" class="sphere noitem" onClick="setSphereItem('sphere3_12')"></div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="cell">
+							<div id="sphere4_1" class="sphere noitem" onClick="setSphereItem('sphere4_1')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere4_2" class="sphere noitem" onClick="setSphereItem('sphere4_2')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere4_3" class="sphere noitem" onClick="setSphereItem('sphere4_3')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere4_4" class="sphere noitem" onClick="setSphereItem('sphere4_4')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere4_5" class="sphere noitem" onClick="setSphereItem('sphere4_5')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere4_6" class="sphere noitem" onClick="setSphereItem('sphere4_6')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere4_7" class="sphere noitem" onClick="setSphereItem('sphere4_7')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere4_8" class="sphere noitem" onClick="setSphereItem('sphere4_8')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere4_9" class="sphere noitem" onClick="setSphereItem('sphere4_9')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere4_10" class="sphere noitem" onClick="setSphereItem('sphere4_10')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere4_11" class="sphere noitem" onClick="setSphereItem('sphere4_11')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere4_12" class="sphere noitem" onClick="setSphereItem('sphere4_12')"></div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="cell">
+							<div id="sphere5_1" class="sphere noitem" onClick="setSphereItem('sphere5_1')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere5_2" class="sphere noitem" onClick="setSphereItem('sphere5_2')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere5_3" class="sphere noitem" onClick="setSphereItem('sphere5_3')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere5_4" class="sphere noitem" onClick="setSphereItem('sphere5_4')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere5_5" class="sphere noitem" onClick="setSphereItem('sphere5_5')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere5_6" class="sphere noitem" onClick="setSphereItem('sphere5_6')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere5_7" class="sphere noitem" onClick="setSphereItem('sphere5_7')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere5_8" class="sphere noitem" onClick="setSphereItem('sphere5_8')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere5_9" class="sphere noitem" onClick="setSphereItem('sphere5_9')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere5_10" class="sphere noitem" onClick="setSphereItem('sphere5_10')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere5_11" class="sphere noitem" onClick="setSphereItem('sphere5_11')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere5_12" class="sphere noitem" onClick="setSphereItem('sphere5_12')"></div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="cell">
+							<div id="sphere6_1" class="sphere noitem" onClick="setSphereItem('sphere6_1')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere6_2" class="sphere noitem" onClick="setSphereItem('sphere6_2')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere6_3" class="sphere noitem" onClick="setSphereItem('sphere6_3')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere6_4" class="sphere noitem" onClick="setSphereItem('sphere6_4')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere6_5" class="sphere noitem" onClick="setSphereItem('sphere6_5')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere6_6" class="sphere noitem" onClick="setSphereItem('sphere6_6')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere6_7" class="sphere noitem" onClick="setSphereItem('sphere6_7')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere6_8" class="sphere noitem" onClick="setSphereItem('sphere6_8')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere6_9" class="sphere noitem" onClick="setSphereItem('sphere6_9')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere6_10" class="sphere noitem" onClick="setSphereItem('sphere6_10')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere6_11" class="sphere noitem" onClick="setSphereItem('sphere6_11')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere6_12" class="sphere noitem" onClick="setSphereItem('sphere6_12')"></div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="cell">
+							<div id="sphere7_1" class="sphere noitem" onClick="setSphereItem('sphere7_1')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere7_2" class="sphere noitem" onClick="setSphereItem('sphere7_2')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere7_3" class="sphere noitem" onClick="setSphereItem('sphere7_3')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere7_4" class="sphere noitem" onClick="setSphereItem('sphere7_4')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere7_5" class="sphere noitem" onClick="setSphereItem('sphere7_5')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere7_6" class="sphere noitem" onClick="setSphereItem('sphere7_6')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere7_7" class="sphere noitem" onClick="setSphereItem('sphere7_7')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere7_8" class="sphere noitem" onClick="setSphereItem('sphere7_8')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere7_9" class="sphere noitem" onClick="setSphereItem('sphere7_9')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere7_10" class="sphere noitem" onClick="setSphereItem('sphere7_10')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere7_11" class="sphere noitem" onClick="setSphereItem('sphere7_11')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere7_12" class="sphere noitem" onClick="setSphereItem('sphere7_12')"></div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="cell">
+							<div id="sphere8_1" class="sphere noitem" onClick="setSphereItem('sphere8_1')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere8_2" class="sphere noitem" onClick="setSphereItem('sphere8_2')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere8_3" class="sphere noitem" onClick="setSphereItem('sphere8_3')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere8_4" class="sphere noitem" onClick="setSphereItem('sphere8_4')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere8_5" class="sphere noitem" onClick="setSphereItem('sphere8_5')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere8_6" class="sphere noitem" onClick="setSphereItem('sphere8_6')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere8_7" class="sphere noitem" onClick="setSphereItem('sphere8_7')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere8_8" class="sphere noitem" onClick="setSphereItem('sphere8_8')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere8_9" class="sphere noitem" onClick="setSphereItem('sphere8_9')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere8_10" class="sphere noitem" onClick="setSphereItem('sphere8_10')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere8_11" class="sphere noitem" onClick="setSphereItem('sphere8_11')"></div>
+						</div>
+						<div class="cell">
+							<div id="sphere8_12" class="sphere noitem" onClick="setSphereItem('sphere8_12')"></div>
 						</div>
 					</div>
 				</div>
-				<div id="map" class="cell" onClick="click_map();">
+
+			</div>
+			<div id="map">
+				<div id="map_light" class="cell" onClick="click_map();">
 					<div id="locationMap0" onClick="toggle_chest(0)" onMouseover="highlight(0)" onMouseout="unhighlight(0)" oncontextmenu="rightClickLocation(0); return false;"></div>
 					<div id="locationMap1" onClick="toggle_chest(1)" onMouseover="highlight(1)" onMouseout="unhighlight(1)" oncontextmenu="rightClickLocation(1); return false;"></div>
 					<div id="locationMap2" onClick="toggle_chest(2)" onMouseover="highlight(2)" onMouseout="unhighlight(2)" oncontextmenu="rightClickLocation(2); return false;"></div>
@@ -727,22 +733,15 @@
 					<div id="locationMap4" onClick="toggle_chest(4)" onMouseover="highlight(4)" onMouseout="unhighlight(4)" oncontextmenu="rightClickLocation(4); return false;"></div>
 					<div id="locationMap5" onClick="toggle_chest(5)" onMouseover="highlight(5)" onMouseout="unhighlight(5)" oncontextmenu="rightClickLocation(5); return false;"></div>
 					<div id="locationMap6" onClick="toggle_chest(6)" onMouseover="highlight(6)" onMouseout="unhighlight(6)" oncontextmenu="rightClickLocation(6); return false;"></div>
-					<div id="locationMap7" onClick="toggle_chest(7)" onMouseover="highlight(7)" onMouseout="unhighlight(7)" oncontextmenu="rightClickLocation(7); return false;"></div>
-					<div id="locationMap8" onClick="toggle_chest(8)" onMouseover="highlight(8)" onMouseout="unhighlight(8)" oncontextmenu="rightClickLocation(8); return false;"></div>
 					<div id="locationMap9" onClick="toggle_chest(9)" onMouseover="highlight(9)" onMouseout="unhighlight(9)" oncontextmenu="rightClickLocation(9); return false;"></div>
-					<div id="locationMap10" onClick="toggle_chest(10)" onMouseover="highlight(10)" onMouseout="unhighlight(10)" oncontextmenu="rightClickLocation(10); return false;"></div>
-					<div id="locationMap11" onClick="toggle_chest(11)" onMouseover="highlight(11)" onMouseout="unhighlight(11)" oncontextmenu="rightClickLocation(11); return false;"></div>
 					<div id="locationMap12" onClick="toggle_chest(12)" onMouseover="highlight(12)" onMouseout="unhighlight(12)" oncontextmenu="rightClickLocation(12); return false;"></div>
-					<div id="locationMap13" onClick="toggle_chest(13)" onMouseover="highlight(13)" onMouseout="unhighlight(13)" oncontextmenu="rightClickLocation(13); return false;"></div>
 					<div id="locationMap14" onClick="toggle_chest(14)" onMouseover="highlight(14)" onMouseout="unhighlight(14)" oncontextmenu="rightClickLocation(14); return false;"></div>
 					<div id="locationMap15" onClick="toggle_chest(15)" onMouseover="highlight(15)" onMouseout="unhighlight(15)" oncontextmenu="rightClickLocation(15); return false;"></div>
-					<div id="locationMap16" onClick="toggle_chest(16)" onMouseover="highlight(16)" onMouseout="unhighlight(16)" oncontextmenu="rightClickLocation(16); return false;"></div>
 					<div id="locationMap17" onClick="toggle_chest(17)" onMouseover="highlight(17)" onMouseout="unhighlight(17)" oncontextmenu="rightClickLocation(17); return false;"></div>
 					<div id="locationMap18" onClick="toggle_chest(18)" onMouseover="highlight(18)" onMouseout="unhighlight(18)" oncontextmenu="rightClickLocation(18); return false;"></div>
 					<div id="locationMap19" onClick="toggle_chest(19)" onMouseover="highlight(19)" onMouseout="unhighlight(19)" oncontextmenu="rightClickLocation(19); return false;"></div>
 					<div id="locationMap20" onClick="toggle_chest(20)" onMouseover="highlight(20)" onMouseout="unhighlight(20)" oncontextmenu="rightClickLocation(20); return false;"></div>
-					<div id="locationMap21" onClick="toggle_chest(21)" onMouseover="highlight(21)" onMouseout="unhighlight(21)" oncontextmenu="rightClickLocation(21); return false;"></div>
-					<div id="locationMap22" onClick="toggle_chest(22)" onMouseover="highlight(22)" onMouseout="unhighlight(22)" oncontextmenu="rightClickLocation(22); return false;"></div>
+
 					<div id="locationMap23" onClick="toggle_chest(23)" onMouseover="highlight(23)" onMouseout="unhighlight(23)" oncontextmenu="rightClickLocation(23); return false;"></div>
 					<div id="locationMap24" onClick="toggle_chest(24)" onMouseover="highlight(24)" onMouseout="unhighlight(24)" oncontextmenu="rightClickLocation(24); return false;"></div>
 					<div id="locationMap25" onClick="toggle_chest(25)" onMouseover="highlight(25)" onMouseout="unhighlight(25)" oncontextmenu="rightClickLocation(25); return false;"></div>
@@ -769,32 +768,15 @@
 					<div id="locationMap46" onClick="toggle_chest(46)" onMouseover="highlight(46)" onMouseout="unhighlight(46)" oncontextmenu="rightClickLocation(46); return false;"></div>
 					<div id="locationMap47" onClick="toggle_chest(47)" onMouseover="highlight(47)" onMouseout="unhighlight(47)" oncontextmenu="rightClickLocation(47); return false;"></div>
 					<div id="locationMap48" onClick="toggle_chest(48)" onMouseover="highlight(48)" onMouseout="unhighlight(48)" oncontextmenu="rightClickLocation(48); return false;"></div>
-					<div id="locationMap49" onClick="toggle_chest(49)" onMouseover="highlight(49)" onMouseout="unhighlight(49)" oncontextmenu="rightClickLocation(49); return false;"></div>
-					<div id="locationMap50" onClick="toggle_chest(50)" onMouseover="highlight(50)" onMouseout="unhighlight(50)" oncontextmenu="rightClickLocation(50); return false;"></div>
-					<div id="locationMap51" onClick="toggle_chest(51)" onMouseover="highlight(51)" onMouseout="unhighlight(51)" oncontextmenu="rightClickLocation(51); return false;"></div>
-					<div id="locationMap52" onClick="toggle_chest(52)" onMouseover="highlight(52)" onMouseout="unhighlight(52)" oncontextmenu="rightClickLocation(52); return false;"></div>
-					<div id="locationMap53" onClick="toggle_chest(53)" onMouseover="highlight(53)" onMouseout="unhighlight(53)" oncontextmenu="rightClickLocation(53); return false;"></div>
-					<div id="locationMap54" onClick="toggle_chest(54)" onMouseover="highlight(54)" onMouseout="unhighlight(54)" oncontextmenu="rightClickLocation(54); return false;"></div>
-					<div id="locationMap55" onClick="toggle_chest(55)" onMouseover="highlight(55)" onMouseout="unhighlight(55)" oncontextmenu="rightClickLocation(55); return false;"></div>
-					<div id="locationMap56" onClick="toggle_chest(56)" onMouseover="highlight(56)" onMouseout="unhighlight(56)" oncontextmenu="rightClickLocation(56); return false;"></div>
-					<div id="locationMap57" onClick="toggle_chest(57)" onMouseover="highlight(57)" onMouseout="unhighlight(57)" oncontextmenu="rightClickLocation(57); return false;"></div>
-					<div id="locationMap58" onClick="toggle_chest(58)" onMouseover="highlight(58)" onMouseout="unhighlight(58)" oncontextmenu="rightClickLocation(58); return false;"></div>
-					<div id="locationMap59" onClick="toggle_chest(59)" onMouseover="highlight(59)" onMouseout="unhighlight(59)" oncontextmenu="rightClickLocation(59); return false;"></div>
-					<div id="locationMap60" onClick="toggle_chest(60)" onMouseover="highlight(60)" onMouseout="unhighlight(60)" oncontextmenu="rightClickLocation(60); return false;"></div>
-					<div id="locationMap61" onClick="toggle_chest(61)" onMouseover="highlight(61)" onMouseout="unhighlight(61)" oncontextmenu="rightClickLocation(61); return false;"></div>
-					<div id="locationMap62" onClick="toggle_chest(62)" onMouseover="highlight(62)" onMouseout="unhighlight(62)" oncontextmenu="rightClickLocation(62); return false;"></div>
-					<div id="mapItemDiv">
+
+					<div id="mapItemDiv_light">
 						<div id="locationMap63" onClick="toggle_chest(63)" onMouseover="highlight(63)" onMouseout="unhighlight(63)" oncontextmenu="rightClickLocation(63); return false;"></div>
-						<div id="locationMap64" onClick="toggle_chest(64)" onMouseover="highlight(64)" onMouseout="unhighlight(64)" oncontextmenu="rightClickLocation(64); return false;"></div>
 						<div id="locationMap65" onClick="toggle_chest(65)" onMouseover="highlight(65)" onMouseout="unhighlight(65)" oncontextmenu="rightClickLocation(65); return false;"></div>
 						<div id="locationMap66" onClick="toggle_chest(66)" onMouseover="highlight(66)" onMouseout="unhighlight(66)" oncontextmenu="rightClickLocation(66); return false;"></div>
-						<div id="locationMap67" onClick="toggle_chest(67)" onMouseover="highlight(67)" onMouseout="unhighlight(67)" oncontextmenu="rightClickLocation(67); return false;"></div>
 						<div id="locationMap68" onClick="toggle_chest(68)" onMouseover="highlight(68)" onMouseout="unhighlight(68)" oncontextmenu="rightClickLocation(68); return false;"></div>
-						<div id="locationMap69" onClick="toggle_chest(69)" onMouseover="highlight(69)" onMouseout="unhighlight(69)" oncontextmenu="rightClickLocation(69); return false;"></div>
 						<div id="locationMap70" onClick="toggle_chest(70)" onMouseover="highlight(70)" onMouseout="unhighlight(70)" oncontextmenu="rightClickLocation(70); return false;"></div>
 						<div id="locationMap71" onClick="toggle_chest(71)" onMouseover="highlight(71)" onMouseout="unhighlight(71)" oncontextmenu="rightClickLocation(71); return false;"></div>
 						<div id="locationMap72" onClick="toggle_chest(72)" onMouseover="highlight(72)" onMouseout="unhighlight(72)" oncontextmenu="rightClickLocation(72); return false;"></div>
-						<div id="locationMap73" onClick="toggle_chest(73)" onMouseover="highlight(73)" onMouseout="unhighlight(73)" oncontextmenu="rightClickLocation(73); return false;"></div>
 						<div id="locationMap74" onClick="toggle_chest(74)" onMouseover="highlight(74)" onMouseout="unhighlight(74)" oncontextmenu="rightClickLocation(74); return false;"></div>
 						<div id="locationMap75" onClick="toggle_chest(75)" onMouseover="highlight(75)" onMouseout="unhighlight(75)" oncontextmenu="rightClickLocation(75); return false;"></div>
 						<div id="locationMap76" onClick="toggle_chest(76)" onMouseover="highlight(76)" onMouseout="unhighlight(76)" oncontextmenu="rightClickLocation(76); return false;"></div>
@@ -804,7 +786,6 @@
 						<div id="locationMap80" onClick="toggle_chest(80)" onMouseover="highlight(80)" onMouseout="unhighlight(80)" oncontextmenu="rightClickLocation(80); return false;"></div>
 						<div id="locationMap81" onClick="toggle_chest(81)" onMouseover="highlight(81)" onMouseout="unhighlight(81)" oncontextmenu="rightClickLocation(81); return false;"></div>
 						<div id="locationMap82" onClick="toggle_chest(82)" onMouseover="highlight(82)" onMouseout="unhighlight(82)" oncontextmenu="rightClickLocation(82); return false;"></div>
-						<div id="locationMap83" onClick="toggle_chest(83)" onMouseover="highlight(83)" onMouseout="unhighlight(83)" oncontextmenu="rightClickLocation(83); return false;"></div>
 						<div id="locationMap84" onClick="toggle_chest(84)" onMouseover="highlight(84)" onMouseout="unhighlight(84)" oncontextmenu="rightClickLocation(84); return false;"></div>
 						<div id="locationMap85" onClick="toggle_chest(85)" onMouseover="highlight(85)" onMouseout="unhighlight(85)" oncontextmenu="rightClickLocation(85); return false;"></div>
 						<div id="locationMap86" onClick="toggle_chest(86)" onMouseover="highlight(86)" onMouseout="unhighlight(86)" oncontextmenu="rightClickLocation(86); return false;"></div>
@@ -812,9 +793,6 @@
 						<div id="locationMap88" onClick="toggle_chest(88)" onMouseover="highlight(88)" onMouseout="unhighlight(88)" oncontextmenu="rightClickLocation(88); return false;"></div>
 						<div id="locationMap89" onClick="toggle_chest(89)" onMouseover="highlight(89)" onMouseout="unhighlight(89)" oncontextmenu="rightClickLocation(89); return false;"></div>
 						<div id="locationMap90" onClick="toggle_chest(90)" onMouseover="highlight(90)" onMouseout="unhighlight(90)" oncontextmenu="rightClickLocation(90); return false;"></div>
-						<div id="locationMap91" onClick="toggle_chest(91)" onMouseover="highlight(91)" onMouseout="unhighlight(91)" oncontextmenu="rightClickLocation(91); return false;"></div>
-						<div id="locationMap92" onClick="toggle_chest(92)" onMouseover="highlight(92)" onMouseout="unhighlight(92)" oncontextmenu="rightClickLocation(92); return false;"></div>
-						<div id="locationMap93" onClick="toggle_chest(93)" onMouseover="highlight(93)" onMouseout="unhighlight(93)" oncontextmenu="rightClickLocation(93); return false;"></div>
 						<div id="locationMap94" onClick="toggle_chest(94)" onMouseover="highlight(94)" onMouseout="unhighlight(94)" oncontextmenu="rightClickLocation(94); return false;"></div>
 						<div id="locationMap95" onClick="toggle_chest(95)" onMouseover="highlight(95)" onMouseout="unhighlight(95)" oncontextmenu="rightClickLocation(95); return false;"></div>
 						<div id="locationMap96" onClick="toggle_chest(96)" onMouseover="highlight(96)" onMouseout="unhighlight(96)" oncontextmenu="rightClickLocation(96); return false;"></div>
@@ -823,7 +801,6 @@
 						<div id="locationMap99" onClick="toggle_chest(99)" onMouseover="highlight(99)" onMouseout="unhighlight(99)" oncontextmenu="rightClickLocation(99); return false;"></div>
 						<div id="locationMap100" onClick="toggle_chest(100)" onMouseover="highlight(100)" onMouseout="unhighlight(100)" oncontextmenu="rightClickLocation(100); return false;"></div>
 						<div id="locationMap101" onClick="toggle_chest(101)" onMouseover="highlight(101)" onMouseout="unhighlight(101)" oncontextmenu="rightClickLocation(101); return false;"></div>
-						<div id="locationMap102" onClick="toggle_chest(102)" onMouseover="highlight(102)" onMouseout="unhighlight(102)" oncontextmenu="rightClickLocation(102); return false;"></div>
 						<div id="locationMap103" onClick="toggle_chest(103)" onMouseover="highlight(103)" onMouseout="unhighlight(103)" oncontextmenu="rightClickLocation(103); return false;"></div>
 						<div id="locationMap104" onClick="toggle_chest(104)" onMouseover="highlight(104)" onMouseout="unhighlight(104)" oncontextmenu="rightClickLocation(104); return false;"></div>
 						<div id="locationMap105" onClick="toggle_chest(105)" onMouseover="highlight(105)" onMouseout="unhighlight(105)" oncontextmenu="rightClickLocation(105); return false;"></div>
@@ -832,15 +809,8 @@
 						<div id="locationMap108" onClick="toggle_chest(108)" onMouseover="highlight(108)" onMouseout="unhighlight(108)" oncontextmenu="rightClickLocation(108); return false;"></div>
 						<div id="locationMap109" onClick="toggle_chest(109)" onMouseover="highlight(109)" onMouseout="unhighlight(109)" oncontextmenu="rightClickLocation(109); return false;"></div>
 						<div id="locationMap110" onClick="toggle_chest(110)" onMouseover="highlight(110)" onMouseout="unhighlight(110)" oncontextmenu="rightClickLocation(110); return false;"></div>
-						<div id="locationMap111" onClick="toggle_chest(111)" onMouseover="highlight(111)" onMouseout="unhighlight(111)" oncontextmenu="rightClickLocation(111); return false;"></div>
-						<div id="locationMap112" onClick="toggle_chest(112)" onMouseover="highlight(112)" onMouseout="unhighlight(112)" oncontextmenu="rightClickLocation(112); return false;"></div>
-						<div id="locationMap113" onClick="toggle_chest(113)" onMouseover="highlight(113)" onMouseout="unhighlight(113)" oncontextmenu="rightClickLocation(113); return false;"></div>
-						<div id="locationMap114" onClick="toggle_chest(114)" onMouseover="highlight(114)" onMouseout="unhighlight(114)" oncontextmenu="rightClickLocation(114); return false;"></div>
-						<div id="locationMap115" onClick="toggle_chest(115)" onMouseover="highlight(115)" onMouseout="unhighlight(115)" oncontextmenu="rightClickLocation(115); return false;"></div>
-						<div id="locationMap116" onClick="toggle_chest(116)" onMouseover="highlight(116)" onMouseout="unhighlight(116)" oncontextmenu="rightClickLocation(116); return false;"></div>
 						<div id="locationMap117" onClick="toggle_chest(117)" onMouseover="highlight(117)" onMouseout="unhighlight(117)" oncontextmenu="rightClickLocation(117); return false;"></div>
 						<div id="locationMap118" onClick="toggle_chest(118)" onMouseover="highlight(118)" onMouseout="unhighlight(118)" oncontextmenu="rightClickLocation(118); return false;"></div>
-						<div id="locationMap119" onClick="toggle_chest(119)" onMouseover="highlight(119)" onMouseout="unhighlight(119)" oncontextmenu="rightClickLocation(119); return false;"></div>
 						<div id="bossMapAgahnim" class="boss" onMouseover="highlight_agahnim()" onMouseout="unhighlight_agahnim()"></div>
 						<div id="castle" onMouseover="highlight_agahnim()" onMouseout="unhighlight_agahnim()"></div>
 						<div id="bossMap0" onMouseover="highlight_dungeon(0)" onMouseout="unhighlight_dungeon(0)" oncontextmenu="rightClickDungeon(0); return false;"></div>
@@ -849,28 +819,12 @@
 						<div id="dungeon1" onMouseover="highlight_dungeon(1)" onMouseout="unhighlight_dungeon(1)" oncontextmenu="rightClickDungeon(1); return false;"></div>
 						<div id="bossMap2" onMouseover="highlight_dungeon(2)" onMouseout="unhighlight_dungeon(2)" oncontextmenu="rightClickDungeon(2); return false;"></div>
 						<div id="dungeon2" onMouseover="highlight_dungeon(2)" onMouseout="unhighlight_dungeon(2)" oncontextmenu="rightClickDungeon(2); return false;"></div>
-						<div id="bossMap3" onMouseover="highlight_dungeon(3)" onMouseout="unhighlight_dungeon(3)" oncontextmenu="rightClickDungeon(3); return false;"></div>
-						<div id="dungeon3" onMouseover="highlight_dungeon(3)" onMouseout="unhighlight_dungeon(3)" oncontextmenu="rightClickDungeon(3); return false;"></div>
-						<div id="bossMap4" onMouseover="highlight_dungeon(4)" onMouseout="unhighlight_dungeon(4)" oncontextmenu="rightClickDungeon(4); return false;"></div>
-						<div id="dungeon4" onMouseover="highlight_dungeon(4)" onMouseout="unhighlight_dungeon(4)" oncontextmenu="rightClickDungeon(4); return false;"></div>
-						<div id="bossMap5" onMouseover="highlight_dungeon(5)" onMouseout="unhighlight_dungeon(5)" oncontextmenu="rightClickDungeon(5); return false;"></div>
-						<div id="dungeon5" onMouseover="highlight_dungeon(5)" onMouseout="unhighlight_dungeon(5)" oncontextmenu="rightClickDungeon(5); return false;"></div>
-						<div id="bossMap6" onMouseover="highlight_dungeon(6)" onMouseout="unhighlight_dungeon(6)" oncontextmenu="rightClickDungeon(6); return false;"></div>
-						<div id="dungeon6" onMouseover="highlight_dungeon(6)" onMouseout="unhighlight_dungeon(6)" oncontextmenu="rightClickDungeon(6); return false;"></div>
-						<div id="bossMap7" onMouseover="highlight_dungeon(7)" onMouseout="unhighlight_dungeon(7)" oncontextmenu="rightClickDungeon(7); return false;"></div>
-						<div id="dungeon7" onMouseover="highlight_dungeon(7)" onMouseout="unhighlight_dungeon(7)" oncontextmenu="rightClickDungeon(7); return false;"></div>
-						<div id="bossMap8" onMouseover="highlight_dungeon(8)" onMouseout="unhighlight_dungeon(8)" oncontextmenu="rightClickDungeon(8); return false;"></div>
-						<div id="dungeon8" onMouseover="highlight_dungeon(8)" onMouseout="unhighlight_dungeon(8)" oncontextmenu="rightClickDungeon(8); return false;"></div>
-						<div id="bossMap9" onMouseover="highlight_dungeon(9)" onMouseout="unhighlight_dungeon(9)" oncontextmenu="rightClickDungeon(9); return false;"></div>
-						<div id="dungeon9" onMouseover="highlight_dungeon(9)" onMouseout="unhighlight_dungeon(9)" oncontextmenu="rightClickDungeon(9); return false;"></div>
-						<div id="bossMap10" onMouseover="highlight_dungeon(10)" onMouseout="unhighlight_dungeon(10)" oncontextmenu="rightClickDungeon(10); return false;"></div>
-						<div id="dungeon10" onMouseover="highlight_dungeon(10)" onMouseout="unhighlight_dungeon(10)" oncontextmenu="rightClickDungeon(10); return false;"></div>
 						<div id="bossMap11" onMouseover="highlight_dungeon(11)" onMouseout="unhighlight_dungeon(11)" oncontextmenu="rightClickDungeon(11); return false;"></div>
 						<div id="dungeon11" onMouseover="highlight_dungeon(11)" onMouseout="unhighlight_dungeon(11)" oncontextmenu="rightClickDungeon(11); return false;"></div>
 						<div id="bossMap12" onMouseover="highlight_dungeon(12)" onMouseout="unhighlight_dungeon(12)" oncontextmenu="rightClickDungeon(12); return false;"></div>
 						<div id="dungeon12" onMouseover="highlight_dungeon(12)" onMouseout="unhighlight_dungeon(12)" oncontextmenu="rightClickDungeon(12); return false;"></div>
 					</div>
-					<div id="mapEntranceDiv">
+					<div id="mapEntranceDiv_light">
 						<div id="entranceMap0" onClick="toggle_location(0)" onMouseover="highlight_entrance(0)" onMouseout="unhighlight_entrance(0)" oncontextmenu="javascript:rightClickEntrance(0);return false;"></div>
 						<div id="entranceMap1" onClick="toggle_location(1)" onMouseover="highlight_entrance(1)" onMouseout="unhighlight_entrance(1)" oncontextmenu="javascript:rightClickEntrance(1);return false;"></div>
 						<div id="entranceMap2" onClick="toggle_location(2)" onMouseover="highlight_entrance(2)" onMouseout="unhighlight_entrance(2)" oncontextmenu="javascript:rightClickEntrance(2);return false;"></div>
@@ -957,6 +911,69 @@
 						<div id="entranceMap83" onClick="toggle_location(83)" onMouseover="highlight_entrance(83)" onMouseout="unhighlight_entrance(83)" oncontextmenu="javascript:rightClickEntrance(83);return false;"></div>
 						<div id="entranceMap84" onClick="toggle_location(84)" onMouseover="highlight_entrance(84)" onMouseout="unhighlight_entrance(84)" oncontextmenu="javascript:rightClickEntrance(84);return false;"></div>
 						<div id="entranceMap85" onClick="toggle_location(85)" onMouseover="highlight_entrance(85)" onMouseout="unhighlight_entrance(85)" oncontextmenu="javascript:rightClickEntrance(85);return false;"></div>
+
+						<div id="entranceSummary" onClick="LoadEntranceSummary()" title="Connector Summary"><img src="./images/interface/summary.png" /></div>
+						<div id="connectorStop" onClick="StopAConnector()" title="Cancel Connector"><img src="./images/interface/cancel.png" /></div>
+					</div>
+				</div>
+				<div id="map_dark" class="cell" onClick="click_map();">
+					<div id="locationMap7" onClick="toggle_chest(7)" onMouseover="highlight(7)" onMouseout="unhighlight(7)" oncontextmenu="rightClickLocation(7); return false;"></div>
+					<div id="locationMap8" onClick="toggle_chest(8)" onMouseover="highlight(8)" onMouseout="unhighlight(8)" oncontextmenu="rightClickLocation(8); return false;"></div>
+					<div id="locationMap10" onClick="toggle_chest(10)" onMouseover="highlight(10)" onMouseout="unhighlight(10)" oncontextmenu="rightClickLocation(10); return false;"></div>
+					<div id="locationMap11" onClick="toggle_chest(11)" onMouseover="highlight(11)" onMouseout="unhighlight(11)" oncontextmenu="rightClickLocation(11); return false;"></div>
+					<div id="locationMap13" onClick="toggle_chest(13)" onMouseover="highlight(13)" onMouseout="unhighlight(13)" oncontextmenu="rightClickLocation(13); return false;"></div>
+					<div id="locationMap16" onClick="toggle_chest(16)" onMouseover="highlight(16)" onMouseout="unhighlight(16)" oncontextmenu="rightClickLocation(16); return false;"></div>
+					<div id="locationMap21" onClick="toggle_chest(21)" onMouseover="highlight(21)" onMouseout="unhighlight(21)" oncontextmenu="rightClickLocation(21); return false;"></div>
+					<div id="locationMap22" onClick="toggle_chest(22)" onMouseover="highlight(22)" onMouseout="unhighlight(22)" oncontextmenu="rightClickLocation(22); return false;"></div>
+					<div id="locationMap49" onClick="toggle_chest(49)" onMouseover="highlight(49)" onMouseout="unhighlight(49)" oncontextmenu="rightClickLocation(49); return false;"></div>
+					<div id="locationMap50" onClick="toggle_chest(50)" onMouseover="highlight(50)" onMouseout="unhighlight(50)" oncontextmenu="rightClickLocation(50); return false;"></div>
+					<div id="locationMap51" onClick="toggle_chest(51)" onMouseover="highlight(51)" onMouseout="unhighlight(51)" oncontextmenu="rightClickLocation(51); return false;"></div>
+					<div id="locationMap52" onClick="toggle_chest(52)" onMouseover="highlight(52)" onMouseout="unhighlight(52)" oncontextmenu="rightClickLocation(52); return false;"></div>
+					<div id="locationMap53" onClick="toggle_chest(53)" onMouseover="highlight(53)" onMouseout="unhighlight(53)" oncontextmenu="rightClickLocation(53); return false;"></div>
+					<div id="locationMap54" onClick="toggle_chest(54)" onMouseover="highlight(54)" onMouseout="unhighlight(54)" oncontextmenu="rightClickLocation(54); return false;"></div>
+					<div id="locationMap55" onClick="toggle_chest(55)" onMouseover="highlight(55)" onMouseout="unhighlight(55)" oncontextmenu="rightClickLocation(55); return false;"></div>
+					<div id="locationMap56" onClick="toggle_chest(56)" onMouseover="highlight(56)" onMouseout="unhighlight(56)" oncontextmenu="rightClickLocation(56); return false;"></div>
+					<div id="locationMap57" onClick="toggle_chest(57)" onMouseover="highlight(57)" onMouseout="unhighlight(57)" oncontextmenu="rightClickLocation(57); return false;"></div>
+					<div id="locationMap58" onClick="toggle_chest(58)" onMouseover="highlight(58)" onMouseout="unhighlight(58)" oncontextmenu="rightClickLocation(58); return false;"></div>
+					<div id="locationMap59" onClick="toggle_chest(59)" onMouseover="highlight(59)" onMouseout="unhighlight(59)" oncontextmenu="rightClickLocation(59); return false;"></div>
+					<div id="locationMap60" onClick="toggle_chest(60)" onMouseover="highlight(60)" onMouseout="unhighlight(60)" oncontextmenu="rightClickLocation(60); return false;"></div>
+					<div id="locationMap61" onClick="toggle_chest(61)" onMouseover="highlight(61)" onMouseout="unhighlight(61)" oncontextmenu="rightClickLocation(61); return false;"></div>
+					<div id="locationMap62" onClick="toggle_chest(62)" onMouseover="highlight(62)" onMouseout="unhighlight(62)" oncontextmenu="rightClickLocation(62); return false;"></div>
+					<div id="mapItemDiv_dark">
+						<div id="locationMap64" onClick="toggle_chest(64)" onMouseover="highlight(64)" onMouseout="unhighlight(64)" oncontextmenu="rightClickLocation(64); return false;"></div>
+						<div id="locationMap67" onClick="toggle_chest(67)" onMouseover="highlight(67)" onMouseout="unhighlight(67)" oncontextmenu="rightClickLocation(67); return false;"></div>
+						<div id="locationMap69" onClick="toggle_chest(69)" onMouseover="highlight(69)" onMouseout="unhighlight(69)" oncontextmenu="rightClickLocation(69); return false;"></div>
+						<div id="locationMap73" onClick="toggle_chest(73)" onMouseover="highlight(73)" onMouseout="unhighlight(73)" oncontextmenu="rightClickLocation(73); return false;"></div>
+						<div id="locationMap83" onClick="toggle_chest(83)" onMouseover="highlight(83)" onMouseout="unhighlight(83)" oncontextmenu="rightClickLocation(83); return false;"></div>
+						<div id="locationMap91" onClick="toggle_chest(91)" onMouseover="highlight(91)" onMouseout="unhighlight(91)" oncontextmenu="rightClickLocation(91); return false;"></div>
+						<div id="locationMap92" onClick="toggle_chest(92)" onMouseover="highlight(92)" onMouseout="unhighlight(92)" oncontextmenu="rightClickLocation(92); return false;"></div>
+						<div id="locationMap93" onClick="toggle_chest(93)" onMouseover="highlight(93)" onMouseout="unhighlight(93)" oncontextmenu="rightClickLocation(93); return false;"></div>
+						<div id="locationMap102" onClick="toggle_chest(102)" onMouseover="highlight(102)" onMouseout="unhighlight(102)" oncontextmenu="rightClickLocation(102); return false;"></div>
+						<div id="locationMap111" onClick="toggle_chest(111)" onMouseover="highlight(111)" onMouseout="unhighlight(111)" oncontextmenu="rightClickLocation(111); return false;"></div>
+						<div id="locationMap112" onClick="toggle_chest(112)" onMouseover="highlight(112)" onMouseout="unhighlight(112)" oncontextmenu="rightClickLocation(112); return false;"></div>
+						<div id="locationMap113" onClick="toggle_chest(113)" onMouseover="highlight(113)" onMouseout="unhighlight(113)" oncontextmenu="rightClickLocation(113); return false;"></div>
+						<div id="locationMap114" onClick="toggle_chest(114)" onMouseover="highlight(114)" onMouseout="unhighlight(114)" oncontextmenu="rightClickLocation(114); return false;"></div>
+						<div id="locationMap115" onClick="toggle_chest(115)" onMouseover="highlight(115)" onMouseout="unhighlight(115)" oncontextmenu="rightClickLocation(115); return false;"></div>
+						<div id="locationMap116" onClick="toggle_chest(116)" onMouseover="highlight(116)" onMouseout="unhighlight(116)" oncontextmenu="rightClickLocation(116); return false;"></div>
+						<div id="locationMap119" onClick="toggle_chest(119)" onMouseover="highlight(119)" onMouseout="unhighlight(119)" oncontextmenu="rightClickLocation(119); return false;"></div>
+						<div id="bossMap3" onMouseover="highlight_dungeon(3)" onMouseout="unhighlight_dungeon(3)" oncontextmenu="rightClickDungeon(3); return false;"></div>
+						<div id="dungeon3" onMouseover="highlight_dungeon(3)" onMouseout="unhighlight_dungeon(3)" oncontextmenu="rightClickDungeon(3); return false;"></div>
+						<div id="bossMap4" onMouseover="highlight_dungeon(4)" onMouseout="unhighlight_dungeon(4)" oncontextmenu="rightClickDungeon(4); return false;"></div>
+						<div id="dungeon4" onMouseover="highlight_dungeon(4)" onMouseout="unhighlight_dungeon(4)" oncontextmenu="rightClickDungeon(4); return false;"></div>
+						<div id="bossMap5" onMouseover="highlight_dungeon(5)" onMouseout="unhighlight_dungeon(5)" oncontextmenu="rightClickDungeon(5); return false;"></div>
+						<div id="dungeon5" onMouseover="highlight_dungeon(5)" onMouseout="unhighlight_dungeon(5)" oncontextmenu="rightClickDungeon(5); return false;"></div>
+						<div id="bossMap6" onMouseover="highlight_dungeon(6)" onMouseout="unhighlight_dungeon(6)" oncontextmenu="rightClickDungeon(6); return false;"></div>
+						<div id="dungeon6" onMouseover="highlight_dungeon(6)" onMouseout="unhighlight_dungeon(6)" oncontextmenu="rightClickDungeon(6); return false;"></div>
+						<div id="bossMap7" onMouseover="highlight_dungeon(7)" onMouseout="unhighlight_dungeon(7)" oncontextmenu="rightClickDungeon(7); return false;"></div>
+						<div id="dungeon7" onMouseover="highlight_dungeon(7)" onMouseout="unhighlight_dungeon(7)" oncontextmenu="rightClickDungeon(7); return false;"></div>
+						<div id="bossMap8" onMouseover="highlight_dungeon(8)" onMouseout="unhighlight_dungeon(8)" oncontextmenu="rightClickDungeon(8); return false;"></div>
+						<div id="dungeon8" onMouseover="highlight_dungeon(8)" onMouseout="unhighlight_dungeon(8)" oncontextmenu="rightClickDungeon(8); return false;"></div>
+						<div id="bossMap9" onMouseover="highlight_dungeon(9)" onMouseout="unhighlight_dungeon(9)" oncontextmenu="rightClickDungeon(9); return false;"></div>
+						<div id="dungeon9" onMouseover="highlight_dungeon(9)" onMouseout="unhighlight_dungeon(9)" oncontextmenu="rightClickDungeon(9); return false;"></div>
+						<div id="bossMap10" onMouseover="highlight_dungeon(10)" onMouseout="unhighlight_dungeon(10)" oncontextmenu="rightClickDungeon(10); return false;"></div>
+						<div id="dungeon10" onMouseover="highlight_dungeon(10)" onMouseout="unhighlight_dungeon(10)" oncontextmenu="rightClickDungeon(10); return false;"></div>
+					</div>
+					<div id="mapEntranceDiv_dark">
 						<div id="entranceMap86" onClick="toggle_location(86)" onMouseover="highlight_entrance(86)" onMouseout="unhighlight_entrance(86)" oncontextmenu="javascript:rightClickEntrance(86);return false;"></div>
 						<div id="entranceMap87" onClick="toggle_location(87)" onMouseover="highlight_entrance(87)" onMouseout="unhighlight_entrance(87)" oncontextmenu="javascript:rightClickEntrance(87);return false;"></div>
 						<div id="entranceMap88" onClick="toggle_location(88)" onMouseover="highlight_entrance(88)" onMouseout="unhighlight_entrance(88)" oncontextmenu="javascript:rightClickEntrance(88);return false;"></div>
@@ -1012,444 +1029,446 @@
 						<div id="entranceMap138" onClick="toggle_location(138)" onMouseover="highlight_entrance(138)" onMouseout="unhighlight_entrance(138)" oncontextmenu="javascript:rightClickEntrance(138);return false;"></div>
 						<div id="entranceMap139" onClick="toggle_location(139)" onMouseover="highlight_entrance(139)" onMouseout="unhighlight_entrance(139)" oncontextmenu="javascript:rightClickEntrance(139);return false;"></div>
 						<div id="entranceMap140" onClick="toggle_location(140)" onMouseover="highlight_entrance(140)" onMouseout="unhighlight_entrance(140)" oncontextmenu="javascript:rightClickEntrance(140);return false;"></div>
-						<div id="entranceSummary" onClick="LoadEntranceSummary()" style="cursor: pointer; position: absolute; top: 89.6%; left: 43.8%; z-index: 2;"><img src="./images/interface/summary.png" /></div>
-						<div id="connectorStop" onClick="StopAConnector()" style="cursor: pointer; position: absolute; top: 89.6%; left: 43.8%; z-index: 2; visibility: hidden;"><img src="./images/interface/cancel.png" /></div>
-						<div id="hideConnectorLines" onClick="HideConnectors()" style="cursor: pointer; position: absolute; top: 89.6%; left: 50.6%; z-index: 2;"><img src="./images/interface/show.png" id="hideConnectorLinesImg" /></div>
-						<div id="connectorLineDiv" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; z-index: 0; visibility: collapse; pointer-events: none;">
-						</div>
-						<div id="informationDiv" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; pointer-events: none;">
-						</div>
+						<div id="hideConnectorLines" onClick="HideConnectors()" title="Hide/Show Connectors"><img src="./images/interface/hide.png" id="hideConnectorLinesImg" /></div>
 					</div>
-					<div id="caption">&nbsp;</div>
-					<div id="autotrackingstatus">&nbsp;</div>
+				</div>
+				<div id="caption">&nbsp;</div>
+				<div id="autotrackingstatus">&nbsp;</div>
+				<div id="connectorLineDiv" style="width: 100%; height: 100%; position: absolute; top: 0; left: 8; z-index: 0; pointer-events: none;">
+				</div>
+				<div id="informationDiv" style="width: 100%; height: 100%; position: absolute; top: 0; left: 8; z-index: 0; visibility: hidden; pointer-events: none;">
 				</div>
 			</div>
-		</div>
-		<div class="modal fade" id="entranceModal" aria-hidden="true" style="width: 884px; height: 100%; background-color: rgb(0,0,0,.3); z-index: 3; position: absolute; top: 0px; left: 456px; display: none;" onclick="hideEntranceModal()">
-			<div id="entranceModalMain" style="width: 800px; height: 300px; background-color: rgb(0,0,0,1); z-index: 4; position: absolute; top: 50px; left: 40px; border-style: solid; border-color: white; color: #FFF; " onclick="overrideEntranceClose();">
-				<div style="margin: 0px 10px 0px 10px;">
-					<input id="entranceID" type="text" style="visibility: collapse; height: 0px;"/><br>
-					<span id="entranceModalTitle" style="vertical-align: 8px;"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="addConnectorSpan" style="margin-right: 20px; cursor: pointer;" onclick="StartAConnectorModal();"><span style="vertical-align: 8px;">Add Connector:&nbsp;&nbsp;&nbsp;</span><img style="" src="./images/interface/connect.png" /></span><label style="vertical-align: 8px; white-space: nowrap;">Note: <input id="entranceModalNote" type="text" style="margin-top: 4px; width: 236px;" onkeypress="return checkReturn(event);" /></label><span id="connectTemplateSpan" style="cursor: pointer; visibility: hidden;" onclick="dosomething(1,2);" >Title&nbsp;&nbsp;&nbsp;<img id="connectTemplateImg" style="height: 15px;"src="./images/interface/cancel.png" />&nbsp;&nbsp;&nbsp;</span>
-					<hr>
-					<div>
-						Connected To: <span id="ConnectorListSpan"></span>
-					</div>
-					<hr>
-					<div id="modalTags" style="font-size: 16px;">
-						<div id="entranceModalLightWorld">
-							<div class="entranceModalGeneralInner">
-								Light World Dungeons<br>
-								<div class="entrancelocationdiv" onclick="tagEntrance('hc_m', true)" id="hc_m">HC m</div>
-								<div class="entrancelocationdiv" onclick="tagEntrance('hc_w', true)" id="hc_w">HC w</div>
-								<div class="entrancelocationdiv" onclick="tagEntrance('hc_e', true)" id="hc_e">HC e</div>
-								<div class="entrancelocationdiv" onclick="tagEntrance('ct', true)" id="ct">CT</div>
-								<div class="entrancelocationdiv" onclick="tagEntrance('ep', true)" id="ep">EP</div>
-								<div class="entrancelocationdiv" onclick="tagEntrance('dp_m', true)" id="dp_m">DP m</div>
-								<div class="entrancelocationdiv" onclick="tagEntrance('dp_w', true)" id="dp_w">DP w</div>
-								<div class="entrancelocationdiv" onclick="tagEntrance('dp_e', true)" id="dp_e">DP e</div>
-								<div class="entrancelocationdiv" onclick="tagEntrance('dp_n', true)" id="dp_n">DP n</div>
-								<div class="entrancelocationdiv" onclick="tagEntrance('toh', true)" id="toh">ToH</div>
-							</div>
-							<div>
-								Light World Key Locations<br>
-								<div class="entrancelocationdiv" onclick="tagEntrance('magic', false)" id="magic">Magic</div>
-								<div class="entrancelocationdiv" onclick="tagEntrance('kid', false)" id="kid">Kid</div>
-								<div class="entrancelocationdiv" onclick="tagEntrance('smith', false)" id="smith">Smith</div>
-								<div class="entrancelocationdiv" onclick="tagEntrance('bat', false)" id="bat">Bat</div>
-								<div class="entrancelocationdiv" onclick="tagEntrance('lib', false)" id="lib">Library</div>
-								<div class="entrancelocationdiv" onclick="tagEntrance('saha', false)" id="saha">Sahas</div>
-								<div class="entrancelocationdiv" onclick="tagEntrance('mimc', false)" id="mimc">Mimic</div>
-								<div class="entrancelocationdiv" onclick="tagEntrance('dam', false)" id="dam">Dam</div>
-							</div>
-						</div>
-						<div id="entranceModalGeneral">
-							<div class="entranceModalGeneralInnerSmall">
-								General Key Locations<br>
-								<div class="entrancelocationdiv" onclick="tagEntrance('rupee', false)" id="rupee">Rupee</div>
-								<div class="entrancelocationdiv" onclick="tagEntrance('shop', false)" id="shop">Shop</div>
-								<div class="entrancelocationdiv" onclick="tagEntrance('dark', false)" id="dark">Dark</div>
-								<div class="entrancelocationdiv" onclick="tagEntrance('connector', false)" id="connector">Connect</div>
-								<div class="entrancelocationdiv" onclick="tagEntrance('item', true)" id="item">Item</div>
-								<!-- <div class="entrancelocationdiv" style="background-image: none;"></div> -->
-								<!-- <div class="entrancelocationdiv" onclick="tagEntrance('connector1', false)" id="connector1">1-Way</div> -->
-								<!-- <div class="entrancelocationdiv" onclick="tagEntrance('connector3', false)" id="connector3">3-Way</div> -->
 
-							</div>
-							<div>
-								Starting Locations<br>
-								<div class="entrancelocationdiv" onclick="tagEntrance('link', true)" id="link">Link</div>
-								<div class="entrancelocationdiv" onclick="tagEntrance('sanc', true)" id="sanc">Sanc</div>
-								<div class="entrancelocationdiv" onclick="tagEntrance('mount', true)" id="mount">Mount</div>
-							</div>
+		</div>
+	</div>
+	</div>
+	<div class="modal fade" id="entranceModal" aria-hidden="true" style="width: 884px; height: 100%; background-color: rgb(0,0,0,.3); z-index: 3; position: absolute; top: 0px; left: 456px; display: none;" onclick="hideEntranceModal()">
+		<div id="entranceModalMain" style="width: 800px; height: 300px; background-color: rgb(0,0,0,1); z-index: 4; position: absolute; top: 50px; left: 40px; border-style: solid; border-color: white; color: #FFF; " onclick="overrideEntranceClose();">
+			<div style="margin: 0px 10px 0px 10px;">
+				<input id="entranceID" type="text" style="visibility: collapse; height: 0px;" /><br>
+				<span id="entranceModalTitle" style="vertical-align: 8px;"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="addConnectorSpan" style="margin-right: 20px; cursor: pointer;" onclick="StartAConnectorModal();"><span style="vertical-align: 8px;">Add Connector:&nbsp;&nbsp;&nbsp;</span><img style="" src="./images/interface/connect.png" /></span><label style="vertical-align: 8px; white-space: nowrap;">Note: <input id="entranceModalNote" type="text" style="margin-top: 4px; width: 236px;" onkeypress="return checkReturn(event);" /></label><span id="connectTemplateSpan" style="cursor: pointer; visibility: hidden;" onclick="dosomething(1,2);">Title&nbsp;&nbsp;&nbsp;<img id="connectTemplateImg" style="height: 15px;" src="./images/interface/cancel.png" />&nbsp;&nbsp;&nbsp;</span>
+				<hr>
+				<div>
+					Connected To: <span id="ConnectorListSpan"></span>
+				</div>
+				<hr>
+				<div id="modalTags" style="font-size: 16px;">
+					<div id="entranceModalLightWorld">
+						<div class="entranceModalGeneralInner">
+							Light World Dungeons<br>
+							<div class="entrancelocationdiv" onclick="tagEntrance('hc_m', true)" id="hc_m">HC m</div>
+							<div class="entrancelocationdiv" onclick="tagEntrance('hc_w', true)" id="hc_w">HC w</div>
+							<div class="entrancelocationdiv" onclick="tagEntrance('hc_e', true)" id="hc_e">HC e</div>
+							<div class="entrancelocationdiv" onclick="tagEntrance('ct', true)" id="ct">CT</div>
+							<div class="entrancelocationdiv" onclick="tagEntrance('ep', true)" id="ep">EP</div>
+							<div class="entrancelocationdiv" onclick="tagEntrance('dp_m', true)" id="dp_m">DP m</div>
+							<div class="entrancelocationdiv" onclick="tagEntrance('dp_w', true)" id="dp_w">DP w</div>
+							<div class="entrancelocationdiv" onclick="tagEntrance('dp_e', true)" id="dp_e">DP e</div>
+							<div class="entrancelocationdiv" onclick="tagEntrance('dp_n', true)" id="dp_n">DP n</div>
+							<div class="entrancelocationdiv" onclick="tagEntrance('toh', true)" id="toh">ToH</div>
 						</div>
-						<div id="entranceModalDarkWorld">
-							<div class="entranceModalGeneralInnerLarge">
-								Dark World Dungeons<br>
-								<div class="entrancelocationdiv" onclick="tagEntrance('pod', true)" id="pod">PoD</div>
-								<div class="entrancelocationdiv" onclick="tagEntrance('sp', true)" id="sp">SP</div>
-								<div class="entrancelocationdiv" onclick="tagEntrance('sw', true)" id="sw">SW</div>
-								<div class="entrancelocationdiv" onclick="tagEntrance('tt', true)" id="tt">TT</div>
-								<div class="entrancelocationdiv" onclick="tagEntrance('ip', true)" id="ip">IP</div>
-								<div class="entrancelocationdiv" onclick="tagEntrance('mm', true)" id="mm">MM</div>
-								<div class="entrancelocationdiv" onclick="tagEntrance('tr_m', true)" id="tr_m">TR m</div>
-								<div class="entrancelocationdiv" onclick="tagEntrance('tr_w', true)" id="tr_w">TR w</div>
-								<div class="entrancelocationdiv" onclick="tagEntrance('tr_e', true)" id="tr_e">TR e</div>
-								<div class="entrancelocationdiv" onclick="tagEntrance('tr_b', true)" id="tr_b">TR b</div>
-								<div class="entrancelocationdiv" onclick="tagEntrance('gt', true)" id="gt">GT</div>
-								<div class="entrancelocationdiv" onclick="tagEntrance('ganon', true)" id="ganon">Ganon</div>
-							</div>
-							<div>
-								Dark World Key Locations<br>
-								<div class="entrancelocationdiv" onclick="tagEntrance('bomb', false)" id="bomb">Bomb</div>
-								<div class="entrancelocationdiv" onclick="tagEntrance('bump', false)" id="bump">Bumper</div>
-								<div class="entrancelocationdiv" onclick="tagEntrance('spike', false)" id="spike">Spike</div>
-								<div class="entrancelocationdiv" onclick="tagEntrance('hook', false)" id="hook">Hook</div>
-							</div>
+						<div>
+							Light World Key Locations<br>
+							<div class="entrancelocationdiv" onclick="tagEntrance('magic', false)" id="magic">Magic</div>
+							<div class="entrancelocationdiv" onclick="tagEntrance('kid', false)" id="kid">Kid</div>
+							<div class="entrancelocationdiv" onclick="tagEntrance('smith', false)" id="smith">Smith</div>
+							<div class="entrancelocationdiv" onclick="tagEntrance('bat', false)" id="bat">Bat</div>
+							<div class="entrancelocationdiv" onclick="tagEntrance('lib', false)" id="lib">Library</div>
+							<div class="entrancelocationdiv" onclick="tagEntrance('saha', false)" id="saha">Sahas</div>
+							<div class="entrancelocationdiv" onclick="tagEntrance('mimc', false)" id="mimc">Mimic</div>
+							<div class="entrancelocationdiv" onclick="tagEntrance('dam', false)" id="dam">Dam</div>
 						</div>
 					</div>
-					<br>
+					<div id="entranceModalGeneral">
+						<div class="entranceModalGeneralInnerSmall">
+							General Key Locations<br>
+							<div class="entrancelocationdiv" onclick="tagEntrance('rupee', false)" id="rupee">Rupee</div>
+							<div class="entrancelocationdiv" onclick="tagEntrance('shop', false)" id="shop">Shop</div>
+							<div class="entrancelocationdiv" onclick="tagEntrance('dark', false)" id="dark">Dark</div>
+							<div class="entrancelocationdiv" onclick="tagEntrance('connector', false)" id="connector">Connect</div>
+							<div class="entrancelocationdiv" onclick="tagEntrance('item', true)" id="item">Item</div>
+							<!-- <div class="entrancelocationdiv" style="background-image: none;"></div> -->
+							<!-- <div class="entrancelocationdiv" onclick="tagEntrance('connector1', false)" id="connector1">1-Way</div> -->
+							<!-- <div class="entrancelocationdiv" onclick="tagEntrance('connector3', false)" id="connector3">3-Way</div> -->
+
+						</div>
+						<div>
+							Starting Locations<br>
+							<div class="entrancelocationdiv" onclick="tagEntrance('link', true)" id="link">Link</div>
+							<div class="entrancelocationdiv" onclick="tagEntrance('sanc', true)" id="sanc">Sanc</div>
+							<div class="entrancelocationdiv" onclick="tagEntrance('mount', true)" id="mount">Mount</div>
+						</div>
+					</div>
+					<div id="entranceModalDarkWorld">
+						<div class="entranceModalGeneralInnerLarge">
+							Dark World Dungeons<br>
+							<div class="entrancelocationdiv" onclick="tagEntrance('pod', true)" id="pod">PoD</div>
+							<div class="entrancelocationdiv" onclick="tagEntrance('sp', true)" id="sp">SP</div>
+							<div class="entrancelocationdiv" onclick="tagEntrance('sw', true)" id="sw">SW</div>
+							<div class="entrancelocationdiv" onclick="tagEntrance('tt', true)" id="tt">TT</div>
+							<div class="entrancelocationdiv" onclick="tagEntrance('ip', true)" id="ip">IP</div>
+							<div class="entrancelocationdiv" onclick="tagEntrance('mm', true)" id="mm">MM</div>
+							<div class="entrancelocationdiv" onclick="tagEntrance('tr_m', true)" id="tr_m">TR m</div>
+							<div class="entrancelocationdiv" onclick="tagEntrance('tr_w', true)" id="tr_w">TR w</div>
+							<div class="entrancelocationdiv" onclick="tagEntrance('tr_e', true)" id="tr_e">TR e</div>
+							<div class="entrancelocationdiv" onclick="tagEntrance('tr_b', true)" id="tr_b">TR b</div>
+							<div class="entrancelocationdiv" onclick="tagEntrance('gt', true)" id="gt">GT</div>
+							<div class="entrancelocationdiv" onclick="tagEntrance('ganon', true)" id="ganon">Ganon</div>
+						</div>
+						<div>
+							Dark World Key Locations<br>
+							<div class="entrancelocationdiv" onclick="tagEntrance('bomb', false)" id="bomb">Bomb</div>
+							<div class="entrancelocationdiv" onclick="tagEntrance('bump', false)" id="bump">Bumper</div>
+							<div class="entrancelocationdiv" onclick="tagEntrance('spike', false)" id="spike">Spike</div>
+							<div class="entrancelocationdiv" onclick="tagEntrance('hook', false)" id="hook">Hook</div>
+						</div>
+					</div>
+				</div>
+				<br>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="summaryModal" aria-hidden="true" style="height: 100%; background-color: rgb(0,0,0,.3); z-index: 3; position: absolute; top: 0px; display: none;" onclick="hideSummaryModal()">
+		<div id="summaryModalMain" style="background-color: rgb(0,0,0,1); z-index: 4; position: absolute; border-style: solid; border-color: white; color: #FFF;">
+			<div style="margin: 0px 10px 0px 10px;">
+				<div style="float: left; width: 380px; height: 300px; text-align: center">
+					<div style="margin: 10px 0 8px 0;" onclick="event.stopPropagation()">
+						<select id="summaryFilter0" onchange="LoadEntranceSummary(0); this.blur()">
+							<option value="all">All Locations</option>
+							<option value="dungeons">Dungeons</option>
+							<option value="starts">Starting Locations</option>
+							<option value="keylocations">Key Locations</option>
+							<option value="shopschests">Shops and Simple Chests</option>
+							<option value="unknownconnectors">Unknown Connectors</option>
+							<option value="notes">Notes</option>
+							<option value="knownconnectors">Known Connectors</option>
+						</select>
+						<label><input type="checkbox" id="summaryCleared0" onchange="LoadEntranceSummary(0); this.blur()" />Include cleared</label>
+					</div>
+					<div id="summaryDiv0" style="overflow-y: auto; text-align: left; height: 246px;">
+					</div>
+				</div>
+				<div style="float: left; width: 380px; height: 300px; text-align: center; margin-left: 10px;">
+					<div style="margin: 10px 0 8px 0;" onclick="event.stopPropagation()">
+						<select id="summaryFilter1" onchange="LoadEntranceSummary(1); this.blur()">
+							<option value="all">All Locations</option>
+							<option value="dungeons">Dungeons</option>
+							<option value="starts">Starting Locations</option>
+							<option value="keylocations">Key Locations</option>
+							<option value="shopschests">Shops and Simple Chests</option>
+							<option value="unknownconnectors">Unknown Connectors</option>
+							<option value="notes">Notes</option>
+							<option value="knownconnectors">Known Connectors</option>
+						</select>
+						<label><input type="checkbox" id="summaryCleared1" onchange="LoadEntranceSummary(1); this.blur()" />Include cleared</label>
+					</div>
+					<div id="summaryDiv1" style="overflow-y: auto; text-align: left; height: 246px;">
+					</div>
 				</div>
 			</div>
 		</div>
-		<div class="modal fade" id="summaryModal" aria-hidden="true" style="height: 100%; background-color: rgb(0,0,0,.3); z-index: 3; position: absolute; top: 0px; display: none;" onclick="hideSummaryModal()">
-			<div id="summaryModalMain" style="background-color: rgb(0,0,0,1); z-index: 4; position: absolute; border-style: solid; border-color: white; color: #FFF;">
-				<div style="margin: 0px 10px 0px 10px;">
-					<div style="float: left; width: 380px; height: 300px; text-align: center">
-						<div style="margin: 10px 0 8px 0;" onclick="event.stopPropagation()">
-							<select id="summaryFilter0" onchange="LoadEntranceSummary(0); this.blur()">
-								<option value="all">All Locations</option>
-								<option value="dungeons">Dungeons</option>
-								<option value="starts">Starting Locations</option>
-								<option value="keylocations">Key Locations</option>
-								<option value="shopschests">Shops and Simple Chests</option>
-								<option value="unknownconnectors">Unknown Connectors</option>
-								<option value="notes">Notes</option>
-								<option value="knownconnectors">Known Connectors</option>
-							</select>
-							<label><input type="checkbox" id="summaryCleared0" onchange="LoadEntranceSummary(0); this.blur()" />Include cleared</label>
-						</div>
-						<div id="summaryDiv0" style="overflow-y: auto; text-align: left; height: 246px;">
-						</div>
-					</div>
-					<div style="float: left; width: 380px; height: 300px; text-align: center; margin-left: 10px;">
-						<div style="margin: 10px 0 8px 0;" onclick="event.stopPropagation()">
-							<select id="summaryFilter1" onchange="LoadEntranceSummary(1); this.blur()">
-								<option value="all">All Locations</option>
-								<option value="dungeons">Dungeons</option>
-								<option value="starts">Starting Locations</option>
-								<option value="keylocations">Key Locations</option>
-								<option value="shopschests">Shops and Simple Chests</option>
-								<option value="unknownconnectors">Unknown Connectors</option>
-								<option value="notes">Notes</option>
-								<option value="knownconnectors">Known Connectors</option>
-							</select>
-							<label><input type="checkbox" id="summaryCleared1" onchange="LoadEntranceSummary(1); this.blur()" />Include cleared</label>
-						</div>
-						<div id="summaryDiv1" style="overflow-y: auto; text-align: left; height: 246px;">
-						</div>
-					</div>
-				</div>
-			</div>
+	</div>
+	<div class="modal fade" id="spoilerModal" aria-hidden="true" style="width: 400px; height: 440px; background-color: rgba(255, 255, 255, 1); z-index: 10; position: absolute; top: 6px; left: 20px; display: none;">
+		<div>
+			<center>
+				<h3>Load Spoiler Log</h3>
+			</center>
+			<center>Step 1) Select which items should be treated as trash and get marked as checked on the map by default</center>
+			<table width="380px" height="72px" style="margin: auto;">
+				<tr>
+					<td>
+						<input id="fewrupees" type="checkbox" checked />
+						<label for="fewrupees" style="width: 160px">1/5/20 Rupees</label>
+					</td>
+					<td>
+						<input id="manyrupees" type="checkbox" />
+						<label for="manyrupees" style="width: 160px">50/100/300 Rupees</label>
+					</td>
+					<td>
+						<input id="threebombs" type="checkbox" checked />
+						<label for="threebombs" style="width: 160px">3 Bombs</label>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input id="tenbombs" type="checkbox" />
+						<label for="tenbombs" style="width: 160px">10 Bombs</label>
+					</td>
+					<td>
+						<input id="arrows" type="checkbox" checked />
+						<label for="arrows" style="width: 160px">Arrows</label>
+					</td>
+					<td>
+						<input id="heartpieces" type="checkbox" checked />
+						<label for="heartpieces" style="width: 160px">Pieces of Heart</label>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input id="heartcontainers" type="checkbox" />
+						<label for="heartcontainers" style="width: 160px">Heart Containers</label>
+					</td>
+					<td>
+						<input id="armor" type="checkbox" />
+						<label for="armor" style="width: 160px">Armor</label>
+					</td>
+					<td>
+						<input id="boomerangs" type="checkbox" />
+						<label for="boomerangs" style="width: 160px">Boomerangs</label>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input id="shields" type="checkbox" checked />
+						<label for="shields" style="width: 160px">Shields</label>
+					</td>
+					<td>
+						<input id="maps" type="checkbox" checked />
+						<label for="maps" style="width: 160px">Maps</label>
+					</td>
+					<td>
+						<input id="compasses" type="checkbox" checked />
+						<label for="compasses" style="width: 160px">Compasses</label>
+					</td>
+				</tr>
+			</table>
+			<br><br>
+			<center>Step 2) Select and load the spoiler log<br><br>
+				<input type="file" accept=".txt" onchange="readSpoilerLog(this.files[0])">
+			</center>
+			<br><br>
+			<center><input type="button" onclick="closeSpoilerModal();" value="Cancel and Close" /></center>
 		</div>
-		<div class="modal fade" id="spoilerModal" aria-hidden="true" style="width: 400px; height: 440px; background-color: rgba(255, 255, 255, 1); z-index: 10; position: absolute; top: 6px; left: 20px; display: none;">
-			<div>
-				<center>
-					<h3>Load Spoiler Log</h3>
-				</center>
-				<center>Step 1) Select which items should be treated as trash and get marked as checked on the map by default</center>
-				<table width="380px" height="72px" style="margin: auto;">
+	</div>
+	<div class="modal fade" id="flagsModal" aria-hidden="true" style="width: 400px; height: 384px; background-color: rgba(255, 255, 255, 1); z-index: 100; position: absolute; top: 22px; left: 24px; display: none;">
+		<div>
+			<div style="user-select: none;">
+				<h3 style="width: 190px; display: inline-block; margin-left: 12px;">Change Flags</h3>
+				<span id="flagsmaintab" class="tab" onclick="openMainSettings();">Main settings</span>
+				<span id="flagsextratab" class="tab" onclick="openExtraSettings();">Extra settings</span>
+			</div>
+			<div style="height: 290px;">
+				<table id="flagsmain" width="380px" height="72px" style="margin: auto;">
 					<tr>
-						<td>
-							<input id="fewrupees" type="checkbox" checked />
-							<label for="fewrupees" style="width: 160px">1/5/20 Rupees</label>
+						<td width="140px">
+							World State:
 						</td>
 						<td>
-							<input id="manyrupees" type="checkbox" />
-							<label for="manyrupees" style="width: 160px">50/100/300 Rupees</label>
+							<select id="stateselect" style="width: 140px" onchange="updateMysteryPointTotal()">
+								<option value="S">Standard</option>
+								<option value="O">Open</option>
+								<option value="I">Inverted</option>
+								<option value="R">Retro</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td width="140px">
+							Entrance Shuffle:
 						</td>
 						<td>
-							<input id="threebombs" type="checkbox" checked />
-							<label for="threebombs" style="width: 160px">3 Bombs</label>
+							<select id="entranceselect" style="width: 140px">
+								<option value="N">None</option>
+								<option value="S">Simple/Restricted/Full/Crossed</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td width="100px">
+							Boss Shuffle:
+						</td>
+						<td>
+							<select id="bossselect" style="width: 140px" onchange="updateMysteryPointTotal()">
+								<option value="N">None</option>
+								<option value="S">Simple/Full</option>
+								<option value="R">Random</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td width="100px">
+							Enemy Shuffle:
+						</td>
+						<td>
+							<select id="enemyselect" style="width: 140px" onchange="updateMysteryPointTotal()">
+								<option value="N">None</option>
+								<option value="S">Shuffled/Random</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td width="120px">
+							Dungeon Items:
+						</td>
+						<td style="user-select: none;">
+							<input id="shuffledmaps" type="checkbox" onchange="updateMysteryPointTotal()" />
+							<label for="shuffledmaps" style="width:100px">Maps</label>
+							<input id="shuffledcompasses" type="checkbox" onchange="updateMysteryPointTotal()" />
+							<label for="shuffledcompasses" style="width:100px">Compasses</label><br>
+							<input id="shuffledkeys" type="checkbox" onchange="updateMysteryPointTotal()" />
+							<label for="shuffledkeys" style="width:100px">Small Keys</label>
+							<input id="shuffledbigkeys" type="checkbox" onchange="updateMysteryPointTotal()" />
+							<label for="shuffledbigkeys" style="width:100px">Big Keys</label>
+						</td>
+					</tr>
+					<tr>
+						<td width="100px">
+							Goal:
+						</td>
+						<td>
+							<select id="goalselect" style="width: 140px" onchange="updateMysteryPointTotal()">
+								<option value="G">Ganon</option>
+								<option value="F">Fast Ganon</option>
+								<option value="A">All Dungeons</option>
+								<option value="P">Pedestal</option>
+								<option value="T">Triforce Hunt</option>
+								<option value="H">Ganonhunt</option>
+								<option value="O">Other</option>
+							</select>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<input id="tenbombs" type="checkbox" />
-							<label for="tenbombs" style="width: 160px">10 Bombs</label>
+							Swords:
 						</td>
 						<td>
-							<input id="arrows" type="checkbox" checked />
-							<label for="arrows" style="width: 160px">Arrows</label>
-						</td>
-						<td>
-							<input id="heartpieces" type="checkbox" checked />
-							<label for="heartpieces" style="width: 160px">Pieces of Heart</label>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<input id="heartcontainers" type="checkbox" />
-							<label for="heartcontainers" style="width: 160px">Heart Containers</label>
-						</td>
-						<td>
-							<input id="armor" type="checkbox" />
-							<label for="armor" style="width: 160px">Armor</label>
-						</td>
-						<td>
-							<input id="boomerangs" type="checkbox" />
-							<label for="boomerangs" style="width: 160px">Boomerangs</label>
+							<select id="swordselect" style="width: 140px" onchange="updateMysteryPointTotal()">
+								<option value="R">Randomized</option>
+								<option value="A">Assured</option>
+								<option value="V">Vanilla</option>
+								<option value="S">Swordless</option>
+							</select>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<input id="shields" type="checkbox" checked />
-							<label for="shields" style="width: 160px">Shields</label>
+							Item Pool:
 						</td>
 						<td>
-							<input id="maps" type="checkbox" checked />
-							<label for="maps" style="width: 160px">Maps</label>
+							<select id="itempoolselect" style="width: 140px" onchange="updateMysteryPointTotal()">
+								<option value="N">Normal</option>
+								<option value="H">Hard</option>
+								<option value="E">Expert</option>
+							</select>
 						</td>
-						<td>
-							<input id="compasses" type="checkbox" checked />
-							<label for="compasses" style="width: 160px">Compasses</label>
+					</tr>
+					<tr>
+						<td width="120px">
+							Misc:
+						</td>
+						<td style="user-select: none;">
+							<input id="activatedflute" type="checkbox" onchange="updateMysteryPointTotal()" />
+							<label for="activatedflute" style="width:100px">Activated Flute</label>
+							<input id="bonkshuffle" type="checkbox" onchange="updateMysteryPointTotal()" />
+							<label for="bonkshuffle" style="width:100px">Bonk Shuffle</label><br>
+							<label for="mysterypointtotal" style="width:100px">Total Points</label>
+							<label id="mysterypointtotal">0</label>
 						</td>
 					</tr>
 				</table>
-				<br><br>
-				<center>Step 2) Select and load the spoiler log<br><br>
-					<input type="file" accept=".txt" onchange="readSpoilerLog(this.files[0])">
-				</center>
-				<br><br>
-				<center><input type="button" onclick="closeSpoilerModal();" value="Cancel and Close" /></center>
+				<table id="flagsextra" width="380px" height="12px" style="margin: auto;">
+					<tr>
+						<td width="120px">
+							Starting Items:
+						</td>
+						<td style="user-select: none;">
+							<input id="starthookshot" type="checkbox" onchange="updateMysteryPointTotal()" />
+							<label for="starthookshot" style="width:100px">Hookshot</label>
+							<input id="startfirerod" type="checkbox" onchange="updateMysteryPointTotal()" />
+							<label for="startfirerod" style="width:100px">Firerod</label><br>
+							<input id="starticerod" type="checkbox" onchange="updateMysteryPointTotal()" />
+							<label for="starticerod" style="width:100px">Icerod</label>
+							<input id="startflippers" type="checkbox" onchange="updateMysteryPointTotal()" />
+							<label for="startflippers" style="width:100px">Flippers</label><br>
+							<input id="startflute" type="checkbox" onchange="updateMysteryPointTotal()" />
+							<label for="startflute" style="width:100px">Flute</label>
+							<input id="startmirror" type="checkbox" onchange="updateMysteryPointTotal()" />
+							<label for="startmirror" style="width:100px">Mirror</label><br>
+							<input id="startboots" type="checkbox" onchange="updateMysteryPointTotal()" />
+							<label for="startboots" style="width:100px">Boots</label>
+						</td>
+					</tr>
+					<tr>
+						<td width="100px">
+							Enemy Damage:
+						</td>
+						<td>
+							<select id="enemydamageselect" style="width: 140px" onchange="updateMysteryPointTotal()">
+								<option value="N">None</option>
+								<option value="S">Shuffled/Random</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td width="100px">
+							Enemy Health:
+						</td>
+						<td>
+							<select id="enemyhealthselect" style="width: 140px" onchange="updateMysteryPointTotal()">
+								<option value="N">None</option>
+								<option value="E">Easy</option>
+								<option value="H">Hard</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Accessibility:
+						</td>
+						<td>
+							<select id="accessibilityselect" style="width: 140px" onchange="updateMysteryPointTotal()">
+								<option value="100">100%</option>
+								<option value="B">Beatable</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Hints:
+						</td>
+						<td>
+							<select id="hintselect" style="width: 140px" onchange="updateMysteryPointTotal()">
+								<option value="Y">Yes</option>
+								<option value="N">No</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td width="140px">
+							Door Shuffle:
+						</td>
+						<td>
+							<select id="doorselect" style="width: 140px">
+								<option value="N">None</option>
+								<option value="P">Pots</option>
+								<option value="B">Basic</option>
+								<option value="C">Crossed</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Overworld Shuffle:
+						</td>
+						<td>
+							<input id="overworldbox" type="checkbox" style="transform: scale(1.5);" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Shopsanity:
+						</td>
+						<td>
+							<input id="shopsanitybox" type="checkbox" style="transform: scale(1.5);" />
+						</td>
+					</tr>
+				</table>
 			</div>
+			<center style="user-select: none; transform: scale(1.25);"><input type="button" onclick="closeFlagsModal();" value="Cancel" />&nbsp;&nbsp;&nbsp;<input type="button" onclick="adjustFlags();" value="Submit" /></center>
 		</div>
-		<div class="modal fade" id="flagsModal" aria-hidden="true" style="width: 400px; height: 384px; background-color: rgba(255, 255, 255, 1); z-index: 100; position: absolute; top: 22px; left: 24px; display: none;">
-			<div>
-				<div style="user-select: none;">
-					<h3 style="width: 190px; display: inline-block; margin-left: 12px;">Change Flags</h3>
-					<span id="flagsmaintab" class="tab" onclick="openMainSettings();">Main settings</span>
-					<span id="flagsextratab" class="tab" onclick="openExtraSettings();">Extra settings</span>
-				</div>
-				<div style="height: 290px;">
-					<table id="flagsmain" width="380px" height="72px" style="margin: auto;">
-						<tr>
-							<td width="140px">
-								World State:
-							</td>
-							<td>
-								<select id="stateselect" style="width: 140px" onchange="updateMysteryPointTotal()">
-									<option value="S">Standard</option>
-									<option value="O">Open</option>
-									<option value="I">Inverted</option>
-									<option value="R">Retro</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td width="140px">
-								Entrance Shuffle:
-							</td>
-							<td>
-								<select id="entranceselect" style="width: 140px">
-									<option value="N">None</option>
-									<option value="S">Simple/Restricted/Full/Crossed</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td width="100px">
-								Boss Shuffle:
-							</td>
-							<td>
-								<select id="bossselect" style="width: 140px" onchange="updateMysteryPointTotal()">
-									<option value="N">None</option>
-									<option value="S">Simple/Full</option>
-									<option value="R">Random</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td width="100px">
-								Enemy Shuffle:
-							</td>
-							<td>
-								<select id="enemyselect" style="width: 140px" onchange="updateMysteryPointTotal()">
-									<option value="N">None</option>
-									<option value="S">Shuffled/Random</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td width="120px">
-								Dungeon Items:
-							</td>
-							<td style="user-select: none;">
-								<input id="shuffledmaps" type="checkbox" onchange="updateMysteryPointTotal()"/>
-								<label for="shuffledmaps" style="width:100px">Maps</label>
-								<input id="shuffledcompasses" type="checkbox" onchange="updateMysteryPointTotal()"/>
-								<label for="shuffledcompasses" style="width:100px">Compasses</label><br>
-								<input id="shuffledkeys" type="checkbox" onchange="updateMysteryPointTotal()"/>
-								<label for="shuffledkeys" style="width:100px">Small Keys</label>
-								<input id="shuffledbigkeys" type="checkbox" onchange="updateMysteryPointTotal()"/>
-								<label for="shuffledbigkeys" style="width:100px" >Big Keys</label>
-							</td>
-						</tr>
-						<tr>
-							<td width="100px">
-								Goal:
-							</td>
-							<td>
-								<select id="goalselect" style="width: 140px" onchange="updateMysteryPointTotal()">
-									<option value="G">Ganon</option>
-									<option value="F">Fast Ganon</option>
-									<option value="A">All Dungeons</option>
-									<option value="P">Pedestal</option>
-									<option value="T">Triforce Hunt</option>
-									<option value="H">Ganonhunt</option>
-									<option value="O">Other</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								Swords:
-							</td>
-							<td>
-								<select id="swordselect" style="width: 140px" onchange="updateMysteryPointTotal()">
-									<option value="R">Randomized</option>
-									<option value="A">Assured</option>
-									<option value="V">Vanilla</option>
-									<option value="S">Swordless</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								Item Pool:
-							</td>
-							<td>
-								<select id="itempoolselect" style="width: 140px" onchange="updateMysteryPointTotal()">
-									<option value="N">Normal</option>
-									<option value="H">Hard</option>
-									<option value="E">Expert</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td width="120px">
-								Misc:
-							</td>
-							<td style="user-select: none;">
-								<input id="activatedflute" type="checkbox" onchange="updateMysteryPointTotal()"/>
-								<label for="activatedflute" style="width:100px">Activated Flute</label>
-								<input id="bonkshuffle" type="checkbox" onchange="updateMysteryPointTotal()"/>
-								<label for="bonkshuffle" style="width:100px">Bonk Shuffle</label><br>
-								<label for="mysterypointtotal" style="width:100px">Total Points</label>
-								<label id="mysterypointtotal">0</label>
-							</td>
-						</tr>
-					</table>
-					<table id="flagsextra" width="380px" height="12px" style="margin: auto;">
-						<tr>
-							<td width="120px">
-								Starting Items:
-							</td>
-							<td style="user-select: none;">
-								<input id="starthookshot" type="checkbox" onchange="updateMysteryPointTotal()"/>
-								<label for="starthookshot" style="width:100px">Hookshot</label>
-								<input id="startfirerod" type="checkbox" onchange="updateMysteryPointTotal()"/>
-								<label for="startfirerod" style="width:100px">Firerod</label><br>
-								<input id="starticerod" type="checkbox" onchange="updateMysteryPointTotal()"/>
-								<label for="starticerod" style="width:100px">Icerod</label>
-								<input id="startflippers" type="checkbox" onchange="updateMysteryPointTotal()"/>
-								<label for="startflippers" style="width:100px">Flippers</label><br>
-								<input id="startflute" type="checkbox" onchange="updateMysteryPointTotal()"/>
-								<label for="startflute" style="width:100px">Flute</label>
-								<input id="startmirror" type="checkbox" onchange="updateMysteryPointTotal()"/>
-								<label for="startmirror" style="width:100px">Mirror</label><br>
-								<input id="startboots" type="checkbox" onchange="updateMysteryPointTotal()"/>
-								<label for="startboots" style="width:100px">Boots</label>
-							</td>
-						</tr>
-						<tr>
-							<td width="100px">
-								Enemy Damage:
-							</td>
-							<td>
-								<select id="enemydamageselect" style="width: 140px" onchange="updateMysteryPointTotal()">
-									<option value="N">None</option>
-									<option value="S">Shuffled/Random</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td width="100px">
-								Enemy Health:
-							</td>
-							<td>
-								<select id="enemyhealthselect" style="width: 140px" onchange="updateMysteryPointTotal()">
-									<option value="N">None</option>
-									<option value="E">Easy</option>
-									<option value="H">Hard</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								Accessibility:
-							</td>
-							<td>
-								<select id="accessibilityselect" style="width: 140px" onchange="updateMysteryPointTotal()">
-									<option value="100">100%</option>
-									<option value="B">Beatable</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								Hints:
-							</td>
-							<td>
-								<select id="hintselect" style="width: 140px" onchange="updateMysteryPointTotal()">
-									<option value="Y">Yes</option>
-									<option value="N">No</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td width="140px">
-								Door Shuffle:
-							</td>
-							<td>
-								<select id="doorselect" style="width: 140px">
-									<option value="N">None</option>
-									<option value="P">Pots</option>
-									<option value="B">Basic</option>
-									<option value="C">Crossed</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								Overworld Shuffle:
-							</td>
-							<td>
-								<input id="overworldbox" type="checkbox" style="transform: scale(1.5);" />
-							</td>
-						</tr>
-						<tr>
-							<td>
-								Shopsanity:
-							</td>
-							<td>
-								<input id="shopsanitybox" type="checkbox" style="transform: scale(1.5);" />
-							</td>
-						</tr>
-					</table>
-				</div>
-				<center style="user-select: none; transform: scale(1.25);"><input type="button" onclick="closeFlagsModal();" value="Cancel" />&nbsp;&nbsp;&nbsp;<input type="button" onclick="adjustFlags();" value="Submit" /></center>
-			</div>
-		</div>
-		<script>start()</script>
-	</body>
+	</div>
+	<script>start()</script>
+</body>
+
 </html>

@@ -86,7 +86,7 @@
 
 	function activeFlute()
 	{
-		return (items.flute === 2 || (canReachLightWorld() || items.flute === 1));
+		return (items.flute === 2 || (canReachLightWorld() && items.flute === 1));
 	}
 	
 	function canSpinSpeed()

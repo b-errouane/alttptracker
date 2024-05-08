@@ -171,8 +171,27 @@ function launch_tracker() {
 	}
 	
 	var width = map === "M" ? 1340 : 448;
-	var height = sphere === "Y" ? map === "C" ? 988 : 744 : map === "C" ? 692 : 448;
-	
+
+	var height;
+	if (map === "V") {
+		height = 1330;
+		if (sphere === "Y") {
+			width = 892
+		}
+	} else if (map === "C") {
+		if (sphere === "Y") {
+			height = 988;
+		} else {
+			height = 692;
+		}
+	} else {
+		if (sphere === "Y") {
+			height = 744;
+		} else {
+			height = 448;
+		}
+	}
+		
 	if (document.getElementById("remembersettings").checked == true) {
 		var settings = "m-" + map + "|s-" + sphere + "|a-" + autotracking + trackingport + "|p-" + sprite + "|ms-" + mapStyle;
 		document.cookie = "settings=" + settings + "; expires=Sat, 3 Jan 2026 12:00:00 UTC";
@@ -337,6 +356,7 @@ function loaddoorssotwpreset() {
 	document.getElementById("unknownnone").checked = true;
 	document.getElementById("shopsanityyes").checked = true;
 	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("pseudobootsyes").checked = true;
 	document.getElementById("shuffledmaps").checked = true;
 	document.getElementById("shuffledcompasses").checked = true;
 	document.getElementById("shuffledsmallkeys").checked = true;
@@ -365,6 +385,7 @@ function loaddoorsbeginnerpreset() {
 	document.getElementById("unknownnone").checked = true;
 	document.getElementById("shopsanityno").checked = true;
 	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("pseudobootsyes").checked = true;
 	document.getElementById("shuffledmaps").checked = false;
 	document.getElementById("shuffledcompasses").checked = false;
 	document.getElementById("shuffledsmallkeys").checked = false;
@@ -394,6 +415,7 @@ function loadadpreset() {
 	document.getElementById("unknownnone").checked = true;
 	document.getElementById("shopsanityno").checked = true;
 	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("pseudobootsno").checked = true;
 	document.getElementById("shuffledmaps").checked = false;
 	document.getElementById("shuffledcompasses").checked = false;
 	document.getElementById("shuffledsmallkeys").checked = false;
@@ -424,6 +446,7 @@ function loadganonhuntpreset() {
 	document.getElementById("unknownnone").checked = true;
 	document.getElementById("shopsanityno").checked = true;
 	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("pseudobootsno").checked = true;
 	document.getElementById("shuffledmaps").checked = false;
 	document.getElementById("shuffledcompasses").checked = false;
 	document.getElementById("shuffledsmallkeys").checked = false;
@@ -454,6 +477,7 @@ function loadenemizerbootspreset() {
 	document.getElementById("unknownnone").checked = true;
 	document.getElementById("shopsanityno").checked = true;
 	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("pseudobootsno").checked = true;
 	document.getElementById("shuffledmaps").checked = false;
 	document.getElementById("shuffledcompasses").checked = false;
 	document.getElementById("shuffledsmallkeys").checked = false;
@@ -483,6 +507,7 @@ function loadopenpreset() {
 	document.getElementById("unknownnone").checked = true;
 	document.getElementById("shopsanityno").checked = true;
 	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("pseudobootsno").checked = true;
 	document.getElementById("shuffledmaps").checked = false;
 	document.getElementById("shuffledcompasses").checked = false;
 	document.getElementById("shuffledsmallkeys").checked = false;
@@ -513,6 +538,7 @@ function loadowgpreset() {
 	document.getElementById("unknownnone").checked = true;
 	document.getElementById("shopsanityno").checked = true;
 	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("pseudobootsno").checked = true;
 	document.getElementById("shuffledmaps").checked = false;
 	document.getElementById("shuffledcompasses").checked = false;
 	document.getElementById("shuffledsmallkeys").checked = false;
@@ -543,6 +569,7 @@ function loadhmgpreset() {
 	document.getElementById("unknownnone").checked = true;
 	document.getElementById("shopsanityno").checked = true;
 	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("pseudobootsno").checked = true;
 	document.getElementById("shuffledmaps").checked = false;
 	document.getElementById("shuffledcompasses").checked = false;
 	document.getElementById("shuffledsmallkeys").checked = false;
@@ -573,6 +600,7 @@ function loadnologicpreset() {
 	document.getElementById("unknownnone").checked = true;
 	document.getElementById("shopsanityno").checked = true;
 	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("pseudobootsno").checked = true;
 	document.getElementById("shuffledmaps").checked = true;
 	document.getElementById("shuffledcompasses").checked = true;
 	document.getElementById("shuffledsmallkeys").checked = true;
@@ -603,6 +631,7 @@ function loadopenbootspreset() {
 	document.getElementById("unknownnone").checked = true;
 	document.getElementById("shopsanityno").checked = true;
 	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("pseudobootsno").checked = true;
 	document.getElementById("shuffledmaps").checked = false;
 	document.getElementById("shuffledcompasses").checked = false;
 	document.getElementById("shuffledsmallkeys").checked = false;
@@ -632,6 +661,7 @@ function loadambrosiapreset() {
 	document.getElementById("unknownnone").checked = true;
 	document.getElementById("shopsanityno").checked = true;
 	document.getElementById("ambrosiayes").checked = true;
+	document.getElementById("pseudobootsno").checked = true;
 	document.getElementById("shuffledmaps").checked = false;
 	document.getElementById("shuffledcompasses").checked = false;
 	document.getElementById("shuffledsmallkeys").checked = false;
@@ -661,6 +691,7 @@ function loadmysterypreset() {
 	document.getElementById("unknownmystery").checked = true;
 	document.getElementById("shopsanityno").checked = true;
 	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("pseudobootsno").checked = true;
 	document.getElementById("shuffledmaps").checked = true;
 	document.getElementById("shuffledcompasses").checked = true;
 	document.getElementById("shuffledsmallkeys").checked = true;
@@ -690,6 +721,7 @@ function loadcrosskeyspreset() {
 	document.getElementById("unknownnone").checked = true;
 	document.getElementById("shopsanityno").checked = true;
 	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("pseudobootsno").checked = true;
 	document.getElementById("shuffledmaps").checked = true;
 	document.getElementById("shuffledcompasses").checked = true;
 	document.getElementById("shuffledsmallkeys").checked = true;
@@ -719,6 +751,7 @@ function loadinvertedkeyspreset() {
 	document.getElementById("unknownnone").checked = true;
 	document.getElementById("shopsanityno").checked = true;
 	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("pseudobootsno").checked = true;
 	document.getElementById("shuffledmaps").checked = true;
 	document.getElementById("shuffledcompasses").checked = true;
 	document.getElementById("shuffledsmallkeys").checked = true;
@@ -748,6 +781,7 @@ function loadenemizerpreset() {
 	document.getElementById("unknownnone").checked = true;
 	document.getElementById("shopsanityno").checked = true;
 	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("pseudobootsno").checked = true;
 	document.getElementById("shuffledmaps").checked = false;
 	document.getElementById("shuffledcompasses").checked = false;
 	document.getElementById("shuffledsmallkeys").checked = false;
@@ -778,6 +812,7 @@ function loadbootspreset() {
 	document.getElementById("unknownnone").checked = true;
 	document.getElementById("shopsanityno").checked = true;
 	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("pseudobootsno").checked = true;
 	document.getElementById("shuffledmaps").checked = false;
 	document.getElementById("shuffledcompasses").checked = false;
 	document.getElementById("shuffledsmallkeys").checked = false;
@@ -807,6 +842,7 @@ function loadopenkeyspreset() {
 	document.getElementById("unknownnone").checked = true;
 	document.getElementById("shopsanityno").checked = true;
 	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("pseudobootsno").checked = true;
 	document.getElementById("shuffledmaps").checked = true;
 	document.getElementById("shuffledcompasses").checked = true;
 	document.getElementById("shuffledsmallkeys").checked = true;
@@ -836,6 +872,7 @@ function loadadkeyspreset() {
 	document.getElementById("unknownnone").checked = true;
 	document.getElementById("shopsanityno").checked = true;
 	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("pseudobootsno").checked = true;
 	document.getElementById("shuffledmaps").checked = true;
 	document.getElementById("shuffledcompasses").checked = true;
 	document.getElementById("shuffledsmallkeys").checked = true;
@@ -865,6 +902,7 @@ function loadreducedpreset() {
 	document.getElementById("unknownnone").checked = true;
 	document.getElementById("shopsanityno").checked = true;
 	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("pseudobootsno").checked = true;
 	document.getElementById("shuffledmaps").checked = false;
 	document.getElementById("shuffledcompasses").checked = false;
 	document.getElementById("shuffledsmallkeys").checked = false;
@@ -894,6 +932,7 @@ function loadinvrosiapreset() {
 	document.getElementById("unknownnone").checked = true;
 	document.getElementById("shopsanityno").checked = true;
 	document.getElementById("ambrosiayes").checked = true;
+	document.getElementById("pseudobootsno").checked = true;
 	document.getElementById("shuffledmaps").checked = false;
 	document.getElementById("shuffledcompasses").checked = false;
 	document.getElementById("shuffledsmallkeys").checked = false;
@@ -924,6 +963,7 @@ function loadstandardpreset() {
 	document.getElementById("unknownnone").checked = true;
 	document.getElementById("shopsanityno").checked = true;
 	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("pseudobootsno").checked = true;
 	document.getElementById("shuffledmaps").checked = false;
 	document.getElementById("shuffledcompasses").checked = false;
 	document.getElementById("shuffledsmallkeys").checked = false;
@@ -953,6 +993,7 @@ function loadmcshufflepreset() {
 	document.getElementById("unknownnone").checked = true;
 	document.getElementById("shopsanityno").checked = true;
 	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("pseudobootsno").checked = true;
 	document.getElementById("shuffledmaps").checked = true;
 	document.getElementById("shuffledcompasses").checked = true;
 	document.getElementById("shuffledsmallkeys").checked = false;
@@ -985,6 +1026,7 @@ function loadpotpourripreset() {
 	document.getElementById("unknownnone").checked = true;
 	document.getElementById("shopsanityno").checked = true;
 	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("pseudobootsno").checked = true;
 	document.getElementById("shuffledmaps").checked = false;
 	document.getElementById("shuffledcompasses").checked = false;
 	document.getElementById("shuffledsmallkeys").checked = true;
@@ -1014,6 +1056,7 @@ function loadretrancepreset() {
 	document.getElementById("unknownnone").checked = true;
 	document.getElementById("shopsanityno").checked = true;
 	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("pseudobootsno").checked = true;
 	document.getElementById("shuffledmaps").checked = true;
 	document.getElementById("shuffledcompasses").checked = true;
 	document.getElementById("shuffledsmallkeys").checked = true;
@@ -1043,6 +1086,7 @@ function loadcswordlesspreset() {
 	document.getElementById("unknownnone").checked = true;
 	document.getElementById("shopsanityno").checked = true;
 	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("pseudobootsno").checked = true;
 	document.getElementById("shuffledmaps").checked = true;
 	document.getElementById("shuffledcompasses").checked = true;
 	document.getElementById("shuffledsmallkeys").checked = false;
@@ -1071,6 +1115,7 @@ function loadinvertedadkeyspreset() {
 	document.getElementById("swordsrandomized").checked = true;
 	document.getElementById("unknownnone").checked = true;
 	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("pseudobootsno").checked = true;
 	document.getElementById("shuffledmaps").checked = true;
 	document.getElementById("shuffledcompasses").checked = true;
 	document.getElementById("shuffledsmallkeys").checked = true;
@@ -1101,6 +1146,7 @@ function loadgoldrushspreset() {
 	document.getElementById("unknownnone").checked = true;
 	document.getElementById("shopsanityno").checked = true;
 	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("pseudobootsno").checked = true;
 	document.getElementById("shuffledmaps").checked = true;
 	document.getElementById("shuffledcompasses").checked = true;
 	document.getElementById("shuffledsmallkeys").checked = true;
@@ -1130,6 +1176,7 @@ function loadludicrouspreset() {
 	document.getElementById("unknownnone").checked = true;
 	document.getElementById("shopsanityno").checked = true;
 	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("pseudobootsno").checked = true;
 	document.getElementById("shuffledmaps").checked = false;
 	document.getElementById("shuffledcompasses").checked = true;
 	document.getElementById("shuffledsmallkeys").checked = false;
@@ -1159,6 +1206,7 @@ function loadhardopenpluspreset() {
 	document.getElementById("unknownnone").checked = true;
 	document.getElementById("shopsanityno").checked = true;
 	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("pseudobootsno").checked = true;
 	document.getElementById("shuffledmaps").checked = false;
 	document.getElementById("shuffledcompasses").checked = false;
 	document.getElementById("shuffledsmallkeys").checked = false;
@@ -1188,6 +1236,7 @@ function loadinvertedspreset() {
 	document.getElementById("unknownnone").checked = true;
 	document.getElementById("shopsanityno").checked = true;
 	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("pseudobootsno").checked = true;
 	document.getElementById("shuffledmaps").checked = false;
 	document.getElementById("shuffledcompasses").checked = false;
 	document.getElementById("shuffledsmallkeys").checked = false;
@@ -1217,6 +1266,7 @@ function loadmcbosspreset() {
 	document.getElementById("unknownnone").checked = true;
 	document.getElementById("shopsanityno").checked = true;
 	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("pseudobootsno").checked = true;
 	document.getElementById("shuffledmaps").checked = true;
 	document.getElementById("shuffledcompasses").checked = true;
 	document.getElementById("shuffledsmallkeys").checked = false;
@@ -1247,6 +1297,7 @@ function loadtinvertedkeyspreset() {
 	document.getElementById("unknownnone").checked = true;
 	document.getElementById("shopsanityno").checked = true;
 	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("pseudobootsno").checked = true;
 	document.getElementById("shuffledmaps").checked = true;
 	document.getElementById("shuffledcompasses").checked = true;
 	document.getElementById("shuffledsmallkeys").checked = true;
@@ -1276,6 +1327,7 @@ function loadambroz1apreset() {
 	document.getElementById("unknownnone").checked = true;
 	document.getElementById("shopsanityno").checked = true;
 	document.getElementById("ambrosiayes").checked = true;
+	document.getElementById("pseudobootsno").checked = true;
 	document.getElementById("shuffledmaps").checked = false;
 	document.getElementById("shuffledcompasses").checked = false;
 	document.getElementById("shuffledsmallkeys").checked = false;
@@ -1305,6 +1357,7 @@ function loadinvertedcrosskeyspreset() {
 	document.getElementById("unknownnone").checked = true;
 	document.getElementById("shopsanityno").checked = true;
 	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("pseudobootsno").checked = true;
 	document.getElementById("shuffledmaps").checked = true;
 	document.getElementById("shuffledcompasses").checked = true;
 	document.getElementById("shuffledsmallkeys").checked = true;
@@ -1335,6 +1388,7 @@ function loadchuntpreset() {
 	document.getElementById("unknownnone").checked = true;
 	document.getElementById("shopsanityno").checked = true;
 	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("pseudobootsno").checked = true;
 	document.getElementById("shuffledmaps").checked = false;
 	document.getElementById("shuffledcompasses").checked = false;
 	document.getElementById("shuffledsmallkeys").checked = false;
@@ -1365,6 +1419,7 @@ function loadstandardbootspreset() {
 	document.getElementById("unknownnone").checked = true;
 	document.getElementById("shopsanityno").checked = true;
 	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("pseudobootsno").checked = true;
 	document.getElementById("shuffledmaps").checked = false;
 	document.getElementById("shuffledcompasses").checked = false;
 	document.getElementById("shuffledsmallkeys").checked = false;
@@ -1396,6 +1451,7 @@ function loadpatronpreset() {
 	document.getElementById("unknownnone").checked = true;
 	document.getElementById("shopsanityno").checked = true;
 	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("pseudobootsyes").checked = true;
 	document.getElementById("shuffledmaps").checked = true;
 	document.getElementById("shuffledcompasses").checked = true;
 	document.getElementById("shuffledsmallkeys").checked = true;
@@ -1424,6 +1480,7 @@ function loadopen76preset() {
 	document.getElementById("unknownnone").checked = true;
 	document.getElementById("shopsanityno").checked = true;
 	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("pseudobootsno").checked = true;
 	document.getElementById("shuffledmaps").checked = false;
 	document.getElementById("shuffledcompasses").checked = false;
 	document.getElementById("shuffledsmallkeys").checked = false;
@@ -1453,6 +1510,7 @@ function loadinflukeyspreset() {
 	document.getElementById("swordsrandomized").checked = true;
 	document.getElementById("unknownnone").checked = true;
 	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("pseudobootsno").checked = true;
 	document.getElementById("shuffledmaps").checked = true;
 	document.getElementById("shuffledcompasses").checked = true;
 	document.getElementById("shuffledsmallkeys").checked = true;
@@ -1482,6 +1540,7 @@ function loadbosshuntpreset() {
 	document.getElementById("unknownnone").checked = true;
 	document.getElementById("shopsanityno").checked = true;
 	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("pseudobootsno").checked = true;
 	document.getElementById("shuffledmaps").checked = false;
 	document.getElementById("shuffledcompasses").checked = false;
 	document.getElementById("shuffledsmallkeys").checked = false;
@@ -1512,6 +1571,7 @@ function loadadkeydroppreset() {
 	document.getElementById("unknownnone").checked = true;
 	document.getElementById("shopsanityno").checked = true;
 	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("pseudobootsno").checked = true;
 	document.getElementById("shuffledmaps").checked = true;
 	document.getElementById("shuffledcompasses").checked = true;
 	document.getElementById("shuffledsmallkeys").checked = true;
