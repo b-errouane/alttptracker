@@ -2030,14 +2030,26 @@
 				divtoadd.id = 'informationdiv' + document.getElementById('entranceID').value;
 				var loc = document.getElementById('entranceMap' + document.getElementById('entranceID').value);
 				
+				var topOffset = 0;
 				if (loc.offsetTop < 20) {
-					divtoadd.style.top = loc.offsetTop + 10;
+					topOffset = loc.offsetTop + 10;
 				} else {
-					divtoadd.style.top = loc.offsetTop - 11;
+					topOffset = loc.offsetTop - 11;
+				}	
+				
+				var leftOffset = 0;
+				if ( flags.mapmode === 'C') {
+					leftOffset = loc.parentElement.id === "mapEntranceDiv_dark" ? 221 : 0;
+					topOffset += (flags.spheresmode === 'Y' ? 296 : 0)
+				} else if (flags.mapmode === 'M') {
+					leftOffset = loc.parentElement.id === "mapEntranceDiv_dark" ? 442 : 0;
+				} else if (flags.mapmode === 'V') {
+					leftOffset = loc.parentElement.id === "mapEntranceDiv_dark" ? -5 : 0;
+					topOffset += (loc.parentElement.id === "mapEntranceDiv_dark" ? 448 : 0)
 				}
 				
-				
-				divtoadd.style.left = loc.offsetLeft - 5.5 + (loc.parentElement.id === "mapEntranceDiv_dark" ? 221 : 0);
+				divtoadd.style.left = loc.offsetLeft - 5.5 + leftOffset;
+				divtoadd.style.top = topOffset;
 				divtoadd.className = 'informationdiv';
 
 				divtoadd.style.width = 20;
