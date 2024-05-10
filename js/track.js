@@ -1777,9 +1777,22 @@
 					var divtoadd = document.createElement('div');
 					divtoadd.id = 'notediv' + document.getElementById('entranceID').value;
 					var loc = document.getElementById('entranceMap' + document.getElementById('entranceID').value);
+
+					var topOffset = 0;		
+					var leftOffset = 0;
+					if ( flags.mapmode === 'C') {
+						leftOffset = loc.parentElement.id === "mapEntranceDiv_dark" ? 221 : 0;
+						topOffset += (flags.spheresmode === 'Y' ? 296 : 0)
+					} else if (flags.mapmode === 'M') {
+						leftOffset = loc.parentElement.id === "mapEntranceDiv_dark" ? 442 : 0;
+					} else if (flags.mapmode === 'V') {
+						leftOffset = loc.parentElement.id === "mapEntranceDiv_dark" ? -5 : 0;
+						topOffset += (loc.parentElement.id === "mapEntranceDiv_dark" ? 448 : 0)
+					}
 					
-					divtoadd.style.top = loc.offsetTop - 10;
-					divtoadd.style.left = loc.offsetLeft + 10;
+					divtoadd.style.left = loc.offsetLeft + 10 + leftOffset;
+					divtoadd.style.top = loc.offsetTop - 10 + topOffset;
+					
 					divtoadd.className = 'notediv';
 
 					divtoadd.style.width = 10;
@@ -3691,7 +3704,7 @@
 				window.document.getElementById('entranceMap93').style.left = "51.4%";
 				window.document.getElementById('entranceMap93').style.top = "42%";
 				window.document.getElementById('entranceMap95').style.left = "44.8%";
-				window.document.getElementById('entranceMap95').style.top = "45%";
+				window.document.getElementById('entranceMap95').style.top = "50%";
 				jQuery("#entranceMap93").detach().appendTo('#mapEntranceDiv_dark');
 				jQuery("#entranceMap95").detach().appendTo('#mapEntranceDiv_dark');
 			}
