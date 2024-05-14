@@ -96,9 +96,9 @@
 		return false;
 	}
 
-	function canReachWDM()
+	function canReachWDM(fromEdm=false)
 	{
-		if (canReachWDMNorth() || (items.mirror && canReachDWWDM()) || (items.mirror && items.hookshot && canReachDWEDM()) || items.flute >= 1 || (items.hookshot && (hasFoundEntrance(77) || hasFoundEntrance(78) || hasFoundEntrance(79) || hasFoundEntrance(80) || hasFoundEntrance(81) || hasFoundEntrance(82) || hasFoundEntrance(83) || hasFoundEntrance(84) || (hasFoundEntrance(137) || hasFoundEntrance(138) || hasFoundEntrance(139)) && items.mirror)) || hasFoundEntrance(69) || hasFoundEntrance(70) || hasFoundEntrance(71) || hasFoundEntrance(72) || hasFoundEntrance(73) || hasFoundEntrance(75) || hasFoundEntrance(76)) return true;
+		if (canReachWDMNorth() || (items.mirror && canReachDWWDM()) || (items.mirror && items.hookshot && canReachDWEDM(fromEdm)) || items.flute >= 1 || (items.hookshot && (hasFoundEntrance(77) || hasFoundEntrance(78) || hasFoundEntrance(79) || hasFoundEntrance(80) || hasFoundEntrance(81) || hasFoundEntrance(82) || hasFoundEntrance(83) || hasFoundEntrance(84) || (hasFoundEntrance(137) || hasFoundEntrance(138) || hasFoundEntrance(139)) && items.mirror)) || hasFoundEntrance(69) || hasFoundEntrance(70) || hasFoundEntrance(71) || hasFoundEntrance(72) || hasFoundEntrance(73) || hasFoundEntrance(75) || hasFoundEntrance(76)) return true;
 		return false;
 	}
 	
@@ -110,7 +110,7 @@
 
 	function canReachEDM()
 	{
-		if (canReachEDMNorth() || (items.flute >= 1 && items.hookshot) || (items.hookshot && canReachWDM()) || (items.hammer && canReachWDMNorth()) || ((hasFoundEntrance(134) || hasFoundEntrance(135) || hasFoundEntrance(137) || hasFoundEntrance(138) || hasFoundEntrance(139)) && items.mirror) || hasFoundEntrance(78) || hasFoundEntrance(79) || hasFoundEntrance(80) || hasFoundEntrance(81) || hasFoundEntrance(82) || hasFoundEntrance(83) || hasFoundEntrance(84)) return true;
+		if (canReachEDMNorth() || (items.flute >= 1 && items.hookshot) || (items.hookshot && canReachWDM(true)) || (items.hammer && canReachWDMNorth()) || ((hasFoundEntrance(134) || hasFoundEntrance(135) || hasFoundEntrance(137) || hasFoundEntrance(138) || hasFoundEntrance(139)) && items.mirror) || hasFoundEntrance(78) || hasFoundEntrance(79) || hasFoundEntrance(80) || hasFoundEntrance(81) || hasFoundEntrance(82) || hasFoundEntrance(83) || hasFoundEntrance(84)) return true;
 		return false;
 	}
 	
@@ -171,9 +171,9 @@
 		return false;
 	}
 	
-	function canReachDWEDM()
+	function canReachDWEDM(fromEdm=false)
 	{
-		if (canReachDWDMNorth() || hasFoundEntrance(134) || hasFoundEntrance(135) || (canReachEDM() && items.glove === 2 && items.moonpearl)) return true;
+		if (canReachDWDMNorth() || hasFoundEntrance(134) || hasFoundEntrance(135) || (!fromEdm && canReachEDM() && items.glove === 2 && items.moonpearl)) return true;
 		return false;
 	}
 	
