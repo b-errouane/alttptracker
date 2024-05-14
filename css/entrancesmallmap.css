@@ -25,7 +25,8 @@
 }
 
 #autotrackingstatus {
-  bottom: -20px;
+  bottom: 2px;
+  right: 3px;
 }
 
 .location {

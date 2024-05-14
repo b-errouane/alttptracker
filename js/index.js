@@ -20,6 +20,9 @@ function load_cookie() {
 						case 'C':
 							document.getElementById("mapsmall").checked = true;
 							break;
+						case 'V':
+							document.getElementById("mapvertical").checked = true;
+							break;
 						case 'N':
 							document.getElementById("mapno").checked = true;
 							break;
