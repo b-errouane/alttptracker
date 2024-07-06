@@ -546,9 +546,9 @@
 		//Bumper Cave
 		createDefaultConnector(0x4A,"Bottom Cave",0x4A,"Ledge","cape",true);
 		//DM Ascent
-		createDefaultConnector(0x0A,"Bottom Cave",0x03,"Bottom","lantern",false);
+		createDefaultConnector(0x0A,"Bottom Cave",0x03,"Bottom","darkroom",false);
 		//DM Descent
-		createDefaultConnector(0x03,"Bottom",0x0A,"Ledge","lantern",true);
+		createDefaultConnector(0x03,"Bottom",0x0A,"Ledge","darkroom",true);
 		createDefaultConnector(0x05,"Bottom Main",0x05,"Top Main",null,true);
 		createDefaultConnector(0x45,"Bottom Main",0x45,"Top Main",null,false);
 		createDefaultConnector(0x45,"Top Main",0x45,"Island","glovesandbomb",true);
@@ -650,9 +650,12 @@
 		createSpecialLocation(0x30,"Tablet","Read Bombos","book");
 		createItemLocation(0x4F,"Main",73,8,"bushes");
 		createItemLocation(0x81,"Main",74,9,null);
-		createItemLocation(0x03,"Bottom",75,10,"lantern");
-		createSpecialLocation(0x43,"Bottom","Inverted Old Man","lantern");
-		createSpecialLocation(0x03,"Top","Old Man Hera",null);
+		createItemLocation(0x03,"Bottom",75,10,"darkroom");
+		createSpecialLocation(0x03,"Bottom","Old Man Dark Room",null);
+		createSpecialLocation(0x43,"Bottom","Inverted Old Man","darkroom");
+		createSpecialLocation(0x43,"Bottom","Inverted Old Man Dark Room",null);
+		createSpecialLocation(0x03,"Top","Old Man Hera","darkroom");
+		createSpecialLocation(0x03,"Top","Old Man Hera Dark Room",null);
 		createItemLocation(0x16,"West",76,-1,"mushroom");
 		createItemLocation(0x00,"Southeast",77,-1,"bushes");
 		createSpecialLocation(0x00,"Southeast","Check Hideout",null);
@@ -702,7 +705,8 @@
 		createSpecialLocation(0x6C,"Main","Red Bomb","redcrystals");
 		createItemLocation(0x80,"Main",103,22,"allpendants");
 		createSpecialLocation(0x80,"Main","Read Pedestal","book");
-		createItemLocation(0x1B,"Courtyard",104,-1,"bushesandlantern");
+		createItemLocation(0x1B,"Courtyard",104,-1,"bushesanddarkroom");
+		createSpecialLocation(0x1B,"Courtyard","Dark Cross Dark Room","bushes");
 		createItemLocation(0x0F,"Waterfall",105,-1,"bushes");
 		createItemLocation(0x1B,"Balcony",106,-1,"bushes");
 		createItemLocation(0x1B,"Balcony",107,-1,"ctbarrier");
@@ -728,6 +732,7 @@
 		createDungeonLocation(0x03,"Top",2,0,null);
 		createDungeonLocation(0x5E,"Main",3,0,"bushes");
 		createDungeonLocation(0x7B,"Main",4,0,null);
+		createSpecialLocation(0x3B,"Main","Dam","bushes");
 		createDungeonLocation(0x40,"Southeast",5,0,null);
 		createDungeonLocation(0x40,"Southeast",5,1,null);
 		createDungeonLocation(0x40,"Northwest",5,2,null);
@@ -1090,7 +1095,7 @@
 							isUnknown = true;
 						if(screen.mixedState === "normal")
 							isNormal = true;
-						if(screen.mixedState === "swapped")
+						if(screen.mixedState === "flipped")
 							isSwapped = true;
 					}
 					if(isUnknown+isNormal+isSwapped > 1)
@@ -1114,7 +1119,7 @@
 				for(let group of missingScreensNormal)
 					setMixedScreen(overworldScreens.get(group[0]),"normal");
 				for(let group of missingScreensSwapped)
-					setMixedScreen(overworldScreens.get(group[0]),"swapped");
+					setMixedScreen(overworldScreens.get(group[0]),"flipped");
 			}
 		}
 		for(let screen of overworldScreens.values())
@@ -1566,13 +1571,12 @@
 		else
 			if(current.openLogicEdgesOut)
 				edgesOut = edgesOut.concat(current.openLogicEdgesOut);
-		if(!items.follower || ((items.follower === "smithfrog" || items.follower === "smithfrognosq") && entranceEnabled))
-		{
+		if(!options.follower || ((options.follower === "smithfrog" || options.follower === "smithfrognosq") && entranceEnabled))		{
 			edgesOut = edgesOut.concat(entranceEnabled ?current.entranceConnectorsOut :current.defaultConnectorsOut);
 		}
 		for(let edge of edgesOut)
 		{
-			if((!edge.rule || checkRule(edge.rule,items,darkWorld)) && !visitedRegions.has(edge.target))
+			if((!edge.rule || checkRule(edge.rule,items,options,darkWorld)) && !visitedRegions.has(edge.target))
 			{
 				if(mixedow && getAssumedMixedState(edge.target.screen,assumptions) === "unknown")
 					checkableScreens.add(edge.target.screen.id&0xBF);
@@ -1582,7 +1586,7 @@
 		}
 		for(let edge of current.screenEdges)
 		{
-			if(!edge.water || checkRule("flippers",items,darkWorld))
+			if(!edge.water || checkRule("flippers",items,options,darkWorld))
 			{
 				visitedScreenEdges.add(edge);
 				if(mixedow && !isShuffledEdge(edge) && (edge.parallel || crossedow === 'P') && getAssumedMixedState(edge.vanilla.screen,assumptions) === "unknown")
@@ -1592,14 +1596,14 @@
 				else
 				{
 					let targetEdge = getAssumedConnectedEdge(edge,false,assumptions);
-					if(targetEdge && (!targetEdge.water || checkRule("flippers",items,isAssumedDarkWorld(targetEdge.screen,assumptions))) && !visitedRegions.has(targetEdge.region))
+					if(targetEdge && (!targetEdge.water || checkRule("flippers",items,options,isAssumedDarkWorld(targetEdge.screen,assumptions))) && !visitedRegions.has(targetEdge.region))
 					{
 						explore(targetEdge.region,items,options,visitedRegions,visitedScreenEdges,checkableScreens,continueRegions,assumptions);
 					}
 				}
 			}
 		}
-		if(current.portal && (darkWorld === (worldState === 'I')) && (!current.portal.rule || checkRule(current.portal.rule,items,darkWorld)) && !visitedRegions.has(current.parallel))
+		if(current.portal && (darkWorld === (worldState === 'I')) && (!current.portal.rule || checkRule(current.portal.rule,items,options,darkWorld)) && !visitedRegions.has(current.parallel))
 		{
 			explore(current.parallel,items,options,visitedRegions,visitedScreenEdges,checkableScreens,continueRegions,assumptions);
 		}
@@ -1613,7 +1617,7 @@
 				if((!mixedow || region.screen.mixedState !== "unknown") && !visitedRegions.has(region))
 					explore(region,items,options,visitedRegions,visitedScreenEdges,checkableScreens,continueRegions,assumptions);
 		}
-		if(options.saveQuitEdges && !options.keepMirrorPortal && items.follower !== "oldman" && items.follower !== "smithfrognosq" && items.follower !== "redbomb")
+		if(options.saveQuitEdges && !options.keepMirrorPortal && options.follower !== "oldman" && options.follower !== "smithfrognosq" && options.follower !== "redbomb")
 		{
 			for(let region of allStartRegions)
 				if((!mixedow || region.screen.mixedState !== "unknown") && !visitedRegions.has(region))
@@ -1649,14 +1653,14 @@
 			else
 				if(current.openLogicEdgesIn)
 					edgesIn = edgesIn.concat(current.openLogicEdgesIn);
-			if(!items.follower || ((items.follower === "smithfrog" || items.follower === "smithfrognosq") && entranceEnabled))
+			if(!options.follower || ((options.follower === "smithfrog" || options.follower === "smithfrognosq") && entranceEnabled))
 			{
 				edgesIn = edgesIn.concat(entranceEnabled ?current.entranceConnectorsIn :current.defaultConnectorsIn);
 			}
 			for(let edge of edgesIn)
 			{
 				let distance = current.distance+edge.weight;
-				if((!mixedow || edge.source.screen.mixedState !== "unknown") && (!edge.rule || checkRule(edge.rule,items,isDarkWorld(edge.source.screen))) && distance < edge.source.distance)
+				if((!mixedow || edge.source.screen.mixedState !== "unknown") && (!edge.rule || checkRule(edge.rule,items,options,isDarkWorld(edge.source.screen))) && distance < edge.source.distance)
 				{
 					edge.source.distance = distance;
 					edge.source.nextRegion = current;
@@ -1666,12 +1670,12 @@
 				}
 			}
 			for(let edge of current.screenEdges)
-				if(!edge.water || checkRule("flippers",items,darkWorld))
+				if(!edge.water || checkRule("flippers",items,options,darkWorld))
 				{
 					let distance = current.distance+1;
 					let sourceEdges = getConnectedEdge(edge,true);
 					for(let sourceEdge of sourceEdges)
-						if(sourceEdge && (!sourceEdge.water || checkRule("flippers",items,isDarkWorld(sourceEdge.screen))) && distance < sourceEdge.region.distance)
+						if(sourceEdge && (!sourceEdge.water || checkRule("flippers",items,options,isDarkWorld(sourceEdge.screen))) && distance < sourceEdge.region.distance)
 						{
 							sourceEdge.region.distance = distance;
 							sourceEdge.region.nextRegion = current;
@@ -1683,7 +1687,7 @@
 			if(current.parallel)
 			{
 				let distance = current.distance+1,parallel = current.parallel;
-				if(parallel.portal && (!darkWorld === (worldState === 'I')) && (!parallel.portal.rule || checkRule(parallel.portal.rule,items,!darkWorld)) && distance < parallel.distance)
+				if(parallel.portal && (!darkWorld === (worldState === 'I')) && (!parallel.portal.rule || checkRule(parallel.portal.rule,items,options,!darkWorld)) && distance < parallel.distance)
 				{
 					parallel.distance = distance;
 					parallel.nextRegion = current;
@@ -1712,7 +1716,7 @@
 								}
 				}
 			}
-			if(options.saveQuitEdges && !options.keepMirrorPortal && items.follower !== "oldman" && items.follower !== "smithfrognosq" && items.follower !== "redbomb" && allStartRegions.includes(current))
+			if(options.saveQuitEdges && !options.keepMirrorPortal && options.follower !== "oldman" && options.follower !== "smithfrognosq" && options.follower !== "redbomb" && allStartRegions.includes(current))
 			{
 				let distance = current.distance+4;
 				for(let screen of overworldScreens.values())
@@ -1731,15 +1735,35 @@
 
 	window.canReachFrom = function(start,target,items,follower,availability,mirrorStart,mirrorTarget)
 	{
-		let reachable = new Set(),options = {},oldFollower = items.follower;
-		items.follower = follower;
+		let normal = singleLogicCanReachFrom(start,target,items,follower,false,availability,mirrorStart,mirrorTarget);
+		if(items.lantern || normal === "available" || normal === "darkavailable")
+			return normal;
+		let dark = singleLogicCanReachFrom(start,target,items,follower,true,availability,mirrorStart,mirrorTarget);
+		if(dark === "available" || dark === "possible")
+			dark = "dark"+dark;
+		if(normal === "unavailable")
+			return dark;
+		return dark === "darkavailable" ?"darkavailable" :"possible";
+	};
+
+	window.singleLogicCanReachFrom = function(start,target,items,follower,darkRoomNavigation,availability,mirrorStart,mirrorTarget)
+	{
+		let reachable = new Set(),options = {},assumptions = new Map();
+		options.follower = follower;
 		options.saveQuitEdges = true;
 		options.fluteEdges = true;
 		options.keepMirrorPortal = items.keepMirrorPortal = false;
-		explore(start,items,options,reachable,new Set(),new Set(),new Map(),emptyMap);
+		options.darkRoomNavigation = darkRoomNavigation;
+		if(!entranceEnabled && mixedow && layoutshuffle === 'N' && crossedow !== 'C')
+		{
+			//Currently only used for delivering followers with vanilla entrances, so some screen states don't matter
+			let unimportantScreens = [0x02,0x11,0x16,0x17,0x18,0x1E,0x25,0x2A,0x2B,0x2E,0x2F,0x32,0x34,0x37,0x3B,0x3C];
+			for(let id of unimportantScreens)
+				assumptions.set(id,"normal");
+		}
+		explore(start,items,options,reachable,new Set(),new Set(),new Map(),assumptions);
 		if(reachable.has(target))
 		{
-			items.follower = oldFollower;
 			return availability;
 		}
 		availability = "unavailable";
@@ -1748,19 +1772,19 @@
 			if(mirrorStart !== "unavailable")
 			{
 				reachable.clear();
-				explore(start.parallel,items,options,reachable,new Set(),new Set(),new Map(),emptyMap);
+				explore(start.parallel,items,options,reachable,new Set(),new Set(),new Map(),assumptions);
 				if(reachable.has(target))
 					availability = mirrorStart;
 			}
-			if(mirrorTarget !== "unavailable" && availability !== "available")
+			if(mirrorTarget !== "unavailable" && availability !== "available" && availability !== "darkavailable")
 			{
 				options.keepMirrorPortal = items.keepMirrorPortal = true;
 				reachable.clear();
-				explore(start,items,options,reachable,new Set(),new Set(),new Map(),emptyMap);
+				explore(start,items,options,reachable,new Set(),new Set(),new Map(),assumptions);
 				if(reachable.has(target.parallel))
 				{
 					reachable.clear();
-					explore(target.parallel,items,options,reachable,new Set(),new Set(),new Map(),emptyMap);
+					explore(target.parallel,items,options,reachable,new Set(),new Set(),new Map(),assumptions);
 					if(reachable.has(start))
 					{
 						availability = mirrorTarget;
@@ -1772,7 +1796,7 @@
 		return availability;
 	};
 
-	window.checkRule = function(rule,items,darkWorld)
+	window.checkRule = function(rule,items,options,darkWorld)
 	{
 		switch(rule)
 		{
@@ -1780,8 +1804,8 @@
 				return items.moonpearl || (darkWorld === (worldState === 'I'));
 			case "mirror":
 				return items.mirror && !items.keepMirrorPortal;
-			case "lantern":
-				return items.lantern;
+			case "darkroom":
+				return items.lantern || options.darkRoomNavigation;
 			case "agahnim":
 				return items.agahnim;
 			case "agahnim2":
@@ -1793,29 +1817,29 @@
 			case "mushroom":
 				return items.mushroom;
 			case "nofollower":
-				return !items.follower;
+				return !options.follower;
 			case "ledge":
-				return items.follower !== "redbomb";
+				return options.follower !== "redbomb";
 			case "waterledge":
-				return items.follower !== "redbomb" && (items.moonpearl || (darkWorld === (worldState === 'I'))) && items.flippers;
+				return options.follower !== "redbomb" && (items.moonpearl || (darkWorld === (worldState === 'I'))) && items.flippers;
 			case "hammerledge":
-				return items.follower !== "redbomb" && (items.moonpearl || (darkWorld === (worldState === 'I'))) && items.hammer;
+				return options.follower !== "redbomb" && (items.moonpearl || (darkWorld === (worldState === 'I'))) && items.hammer;
 			case "mittsledge":
-				return items.follower !== "redbomb" && (items.moonpearl || (darkWorld === (worldState === 'I'))) && items.mitts;
+				return options.follower !== "redbomb" && (items.moonpearl || (darkWorld === (worldState === 'I'))) && items.mitts;
 			case "hammermitts":
 				return (items.moonpearl || (darkWorld === (worldState === 'I'))) && items.hammer && items.mitts;
 			case "bombdash":
 				return (items.moonpearl || (darkWorld === (worldState === 'I'))) && (items.bomb || items.boots);
-			case "bushesandlantern":
-				return (items.moonpearl || (darkWorld === (worldState === 'I'))) && items.lantern;
+			case "bushesanddarkroom":
+				return (items.moonpearl || (darkWorld === (worldState === 'I'))) && (items.lantern || options.darkRoomNavigation);
 			case "glovesandbomb":
 				return (items.moonpearl || (darkWorld === (worldState === 'I'))) && items.gloves && items.bomb;
 			case "bootsquake":
-				return (items.moonpearl || (darkWorld === (worldState === 'I'))) && (items.boots || (items.quake && items.sword > 1));
+				return (items.moonpearl || (darkWorld === (worldState === 'I'))) && (items.boots || (items.quake && items.sword > 0));
 			case "agaandboots":
 				return (items.moonpearl || (darkWorld === (worldState === 'I'))) && items.agahnim && items.boots;
 			case "agaandbootsquake":
-				return (items.moonpearl || (darkWorld === (worldState === 'I'))) && items.agahnim && (items.boots || (items.quake && items.sword > 1));
+				return (items.moonpearl || (darkWorld === (worldState === 'I'))) && items.agahnim && (items.boots || (items.quake && items.sword > 0));
 			case "hscbottom":
 				return (items.moonpearl || (darkWorld === (worldState === 'I'))) && items.gloves && (items.boots || items.hookshot);
 			case "hscbottomback":
@@ -1930,8 +1954,190 @@
 		return set;
 	};
 
-	window.determineLocationAvailability = function(regions,extraRegions,maybeLightRegions,maybeDarkRegions,items)
+	window.determineOverworldAvailability = function(items,startRegions,checkableScreens,continueRegions)
 	{
+		let visitedRegions = new Set(),visitedScreenEdges = new Set();
+		let checkableScreensDarkRooms = new Set(checkableScreens),continueRegionsDarkRooms = new Map(continueRegions);
+		let options = {};
+		for(let start of startRegions)
+			if(!visitedRegions.has(start) && (!mixedow || start.screen.mixedState !== "unknown"))
+				explore(start,items,options,visitedRegions,visitedScreenEdges,checkableScreens,continueRegions,emptyMap);
+		let rCheckable = determineCheckableScreens(items,options,visitedRegions,visitedScreenEdges,checkableScreens,continueRegions);
+		visitedRegions = setUnion(visitedRegions,rCheckable.extraVisitedRegions);
+		let result = {};
+		result.visitedRegions = visitedRegions;
+		result.visitedScreenEdges = visitedScreenEdges;
+		result.maybeVisitedRegions = rCheckable.maybeVisitedRegions;
+		result.maybeLightRegions = rCheckable.maybeLightRegions;
+		result.maybeDarkRegions = rCheckable.maybeDarkRegions;
+		result.checkableScreens = rCheckable.checkableScreens;
+		result.maybeCheckableScreens = rCheckable.maybeCheckableScreens;
+		result.continueRegions = continueRegions;
+		if(!items.lantern)
+		{
+			let visitedRegionsDarkRooms = new Set(),visitedScreenEdgesDarkRooms = new Set();
+			let optionsDarkRooms = {};
+			optionsDarkRooms.darkRoomNavigation = true;
+			for(let start of startRegions)
+				if(!visitedRegionsDarkRooms.has(start) && (!mixedow || start.screen.mixedState !== "unknown"))
+					explore(start,items,optionsDarkRooms,visitedRegionsDarkRooms,visitedScreenEdgesDarkRooms,checkableScreensDarkRooms,continueRegionsDarkRooms,emptyMap);
+			let rCheckableDarkRoom = determineCheckableScreens(items,optionsDarkRooms,visitedRegionsDarkRooms,visitedScreenEdgesDarkRooms,checkableScreensDarkRooms,continueRegionsDarkRooms);
+			visitedRegionsDarkRooms = setUnion(visitedRegionsDarkRooms,rCheckableDarkRoom.extraVisitedRegions);
+			result.visitedRegionsDarkRooms = visitedRegionsDarkRooms;
+			result.visitedScreenEdgesDarkRooms = visitedScreenEdgesDarkRooms;
+			result.maybeVisitedRegionsDarkRooms = rCheckableDarkRoom.maybeVisitedRegions;
+			result.maybeLightRegionsDarkRooms = rCheckableDarkRoom.maybeLightRegions;
+			result.maybeDarkRegionsDarkRooms = rCheckableDarkRoom.maybeDarkRegions;
+			result.checkableScreensDarkRooms = rCheckableDarkRoom.checkableScreens;
+			result.maybeCheckableScreensDarkRooms = rCheckableDarkRoom.maybeCheckableScreens;
+			result.continueRegionsDarkRooms = continueRegionsDarkRooms;
+		}
+		else
+		{
+			result.visitedRegionsDarkRooms = visitedRegions;
+			result.visitedScreenEdgesDarkRooms = visitedScreenEdges;
+			result.maybeVisitedRegionsDarkRooms = rCheckable.maybeVisitedRegions;
+			result.maybeLightRegionsDarkRooms = rCheckable.maybeLightRegions;
+			result.maybeDarkRegionsDarkRooms = rCheckable.maybeDarkRegions;
+			result.checkableScreensDarkRooms = rCheckable.checkableScreens;
+			result.maybeCheckableScreensDarkRooms = rCheckable.maybeCheckableScreens;
+			result.continueRegionsDarkRooms = continueRegions;
+		}
+		return result;
+	};
+
+	window.determineCheckableScreens = function(items,options,visitedRegions,visitedScreenEdges,checkableScreens,continueRegions)
+	{
+		let maybeCheckableScreens = new Set();
+		let maybeVisitedRegions = new Set(),extraVisitedRegions = new Set(),maybeLightRegions = new Set(),maybeDarkRegions = new Set();
+		if(mixedow && checkableScreens.size != 0)
+		{//Find more checkable screens (bad algorithm, but works well enough to be useful)
+			let assumedScreens = new Set();
+			let nextScreens = checkableScreens;
+			let cr = new Map(continueRegions);
+			let mcr = new Map();
+			let maybeMode = false;
+			while(nextScreens.size != 0)
+			{
+				let cs = Array.from(nextScreens);
+				nextScreens = new Set();
+				for(let id of cs)
+				{
+					if(assumedScreens.has(id))
+						continue;
+					let assumptions = new Map();
+					let regionsAssumeNormal = new Set(visitedRegions),regionsAssumeSwapped = new Set(visitedRegions);
+					let edgesAssumeNormal = new Set(visitedScreenEdges),edgesAssumeSwapped = new Set(visitedScreenEdges);
+					let checkableAssumeNormal = new Set(checkableScreens),checkableAssumeSwapped = new Set(checkableScreens);
+					let continueAssumeNormal = new Map(),continueAssumeSwapped = new Map();
+					let group = getScreenLinkGroup(id,false);
+					for(let n of group)
+						assumedScreens.add(n);
+					for(let n of group)
+						assumptions.set(n,"normal");
+					for(let n of group)
+						if(cr.has(n+" normal"))
+							for(let start of cr.get(n+" normal"))
+								explore(start,items,options,regionsAssumeNormal,edgesAssumeNormal,checkableAssumeNormal,continueAssumeNormal,assumptions);
+					for(let n of group)
+						assumptions.set(n,"flipped");
+					for(let n of group)
+						if(cr.has(n+" swapped"))
+							for(let start of cr.get(n+" swapped"))
+								explore(start,items,options,regionsAssumeSwapped,edgesAssumeSwapped,checkableAssumeSwapped,continueAssumeSwapped,assumptions);
+					let diffNormal = setDifference(checkableAssumeNormal,new Set()),diffSwapped = setDifference(checkableAssumeSwapped,new Set());
+					let commonCheckable = setIntersection(diffNormal,diffSwapped);
+					let maybeCheckable = setUnion(checkableAssumeNormal,checkableAssumeSwapped);
+					if(!maybeMode)
+						for(let c of commonCheckable)
+						{
+							nextScreens.add(c);
+							if(!cr.has(c+" normal"))
+								cr.set(c+" normal",new Set());
+							if(!cr.has(c+" swapped"))
+								cr.set(c+" swapped",new Set());
+							let crNormal = cr.get(c+" normal"),crSwapped = cr.get(c+" swapped");
+							let normalSize = crNormal.size,swappedSize = crSwapped.size;
+							let commonNormal = setIntersection(continueAssumeNormal.get(c+" normal"),continueAssumeSwapped.get(c+" normal"));
+							for(let region of commonNormal)
+								crNormal.add(region);
+							let commonSwapped = setIntersection(continueAssumeNormal.get(c+" swapped"),continueAssumeSwapped.get(c+" swapped"));
+							for(let region of commonSwapped)
+								crSwapped.add(region);
+							if(crNormal.size != normalSize || crSwapped.size != swappedSize)
+								assumedScreens.delete(c);
+						}
+					for(let c of maybeCheckable)
+					{
+						(maybeMode ?nextScreens :maybeCheckableScreens).add(c);
+						if(!mcr.has(c+" normal"))
+							mcr.set(c+" normal",new Set());
+						if(!mcr.has(c+" swapped"))
+							mcr.set(c+" swapped",new Set());
+						let crNormal = mcr.get(c+" normal"),crSwapped = mcr.get(c+" swapped");
+						let normalSize = crNormal.size,swappedSize = crSwapped.size;
+						let commonNormal = setUnion(continueAssumeNormal.get(c+" normal"),continueAssumeSwapped.get(c+" normal"));
+						for(let region of commonNormal)
+							crNormal.add(region);
+						let commonSwapped = setUnion(continueAssumeNormal.get(c+" swapped"),continueAssumeSwapped.get(c+" swapped"));
+						for(let region of commonSwapped)
+							crSwapped.add(region);
+						if(crNormal.size != normalSize || crSwapped.size != swappedSize)
+							assumedScreens.delete(c);
+					}
+					let commonRegions = setIntersection(regionsAssumeNormal,regionsAssumeSwapped);
+					let maybeRegions = setUnion(regionsAssumeNormal,regionsAssumeSwapped);
+					if(!maybeMode)
+					{
+						for(let region of commonRegions)
+						{
+							extraVisitedRegions.add(region);
+						}
+					}
+					for(let region of maybeRegions)
+					{
+						maybeVisitedRegions.add(region);
+					}
+					for(let region of regionsAssumeNormal)
+					{
+						(region.screen.darkWorld ?maybeDarkRegions :maybeLightRegions).add(region);
+					}
+					for(let region of regionsAssumeSwapped)
+					{
+						(region.screen.darkWorld ?maybeLightRegions :maybeDarkRegions).add(region);
+					}
+				}
+				if(nextScreens.size == 0)
+				{
+					if(maybeMode)
+					{
+						for(let n of assumedScreens)
+							maybeCheckableScreens.add(n);
+					}
+					else
+					{
+						for(let n of assumedScreens)
+							checkableScreens.add(n);
+						assumedScreens.clear();
+						cr = mcr;
+						maybeMode = true;
+						nextScreens = maybeCheckableScreens;
+					}
+				}
+			}
+		}
+		let result = {};
+		result.extraVisitedRegions = extraVisitedRegions;
+		result.maybeVisitedRegions = maybeVisitedRegions;
+		result.maybeLightRegions = maybeLightRegions;
+		result.maybeDarkRegions = maybeDarkRegions;
+		result.checkableScreens = checkableScreens;
+		result.maybeCheckableScreens = maybeCheckableScreens;
+		return result;
+	};
+
+	window.determineLocationAvailability = function(items,r) {
+		let regions = r.visitedRegions,maybeLightRegions = r.maybeLightRegions,maybeDarkRegions = r.maybeDarkRegions;
 		let door = items.flags && items.flags.doorshuffle ?items.flags.doorshuffle !== 'N' :doorshuffle !== 'N';
 		let data = {};
 		data.logic = true;
@@ -1947,14 +2153,11 @@
 			data.entrances[k] = "unavailable";
 		data.dungeonsBunny = {};
 		data.special = {};
+		let options = {},optionsDarkRooms = {};
+		optionsDarkRooms.darkRoomNavigation = true;
+		let extraRegions = new Set(),extraRegionsDarkRooms = new Set();
 		//Collect all points of interest in reachable regions
-		for(let region of extraRegions)
-		{
-			if(region.screen.mixedState !== "unknown")
-			{
-				regions.add(region);
-			}
-		}
+		//Always reachable regions with known state
 		for(let region of regions)
 		{
 			if(mixedow && region.screen.mixedState === "unknown")
@@ -1966,7 +2169,7 @@
 				let darkWorld = items.moonpearl || isDarkWorld(region.screen);
 				for(let location of region.locations)
 				{
-					if(!location.rule || checkRule(location.rule,items,darkWorld))
+					if(!location.rule || checkRule(location.rule,items,options,darkWorld))
 					{
 						data[location.type][location.id] = "available";
 					}
@@ -1975,6 +2178,32 @@
 				}
 			}
 		}
+		//Always reachable regions with known state if going through dark rooms
+		for(let region of r.visitedRegionsDarkRooms)
+		{
+			if(mixedow && region.screen.mixedState === "unknown")
+				extraRegionsDarkRooms.add(region);
+			else
+			{
+				r.maybeLightRegionsDarkRooms.delete(region);
+				r.maybeDarkRegionsDarkRooms.delete(region);
+				let darkWorld = items.moonpearl || isDarkWorld(region.screen);
+				for(let location of region.locations)
+				{
+					//console.log(location.type,location.id,data[location.type][location.id]);
+					if(data[location.type][location.id] !== "available")
+					{
+						if(!location.rule || checkRule(location.rule,items,optionsDarkRooms,darkWorld))
+						{
+							data[location.type][location.id] = "darkavailable";
+						}
+						if(!items.moonpearl && location.type === "dungeons")
+							data.dungeonsBunny[location.id] = darkWorld !== (worldState === 'I');
+					}
+				}
+			}
+		}
+		//Always reachable regions with unknown state
 		for(let region of extraRegions)
 		{
 			maybeLightRegions.delete(region);
@@ -1983,24 +2212,112 @@
 			{
 				if(data[location.type][location.id] !== "available" && region.screen.mixedState === "unknown")
 				{
-					if(!location.rule || (checkRule(location.rule,items,true) && checkRule(location.rule,items,false)))
+					if(!location.rule || (checkRule(location.rule,items,options,true) && checkRule(location.rule,items,options,false)))
 					{
 						data[location.type][location.id] = "available";
 					}
 					else
-						if(checkRule(location.rule,items,true) || checkRule(location.rule,items,false))
+					if(data[location.type][location.id] !== "darkavailable" && (checkRule(location.rule,items,options,true) || checkRule(location.rule,items,options,false)))
 							data[location.type][location.id] = "possible";
 					if(!items.moonpearl && location.type === "dungeons")
 						data.dungeonsBunny[location.id] = data[location.type][location.id] === "available";
 				}
 			}
 		}
+		//Always reachable regions with unknown state if going through dark rooms
+		for(let region of extraRegionsDarkRooms)
+		{
+			r.maybeLightRegionsDarkRooms.delete(region);
+			r.maybeDarkRegionsDarkRooms.delete(region);
+			for(let location of region.locations)
+			{
+				if(data[location.type][location.id] !== "available" && data[location.type][location.id] !== "darkavailable" && region.screen.mixedState === "unknown")
+				{
+					if(!location.rule || (checkRule(location.rule,items,optionsDarkRooms,true) && checkRule(location.rule,items,optionsDarkRooms,false)))
+					{
+						data[location.type][location.id] = "darkavailable";
+					}
+					else
+						if(data[location.type][location.id] !== "possible" && (checkRule(location.rule,items,optionsDarkRooms,true) || checkRule(location.rule,items,optionsDarkRooms,false)))
+							data[location.type][location.id] = "darkpossible";
+					if(!items.moonpearl && location.type === "dungeons")
+						data.dungeonsBunny[location.id] = data[location.type][location.id] === "available" || data[location.type][location.id] === "darkavailable";
+				}
+			}
+		}
+		//Maybe reachable regions if they're in the Light World (Open)
 		if(worldState !== 'I')
 			for(let region of maybeLightRegions)
 			{
 				for(let location of region.locations)
 				{
-					if(data[location.type][location.id] !== "available" && data[location.type][location.id] !== "possible")
+					if(data[location.type][location.id] !== "available" && data[location.type][location.id] !== "darkavailable" && data[location.type][location.id] !== "possible")
+					{
+						if(!location.rule || checkRule(location.rule,items,options,false))
+						{
+							data[location.type][location.id] = "possible";
+						}
+						if(!items.moonpearl && location.type === "dungeons")
+							data.dungeonsBunny[location.id] = worldState === 'I';
+					}
+				}
+			}
+			//Maybe reachable regions if they're in the Light World (Open) if going through dark rooms
+		if(worldState !== 'I')
+			for(let region of r.maybeLightRegionsDarkRooms)
+			{
+				for(let location of region.locations)
+				{
+					if(data[location.type][location.id] !== "available" && data[location.type][location.id] !== "darkavailable" && data[location.type][location.id] !== "possible" && data[location.type][location.id] !== "darkpossible")
+					{
+						if(!location.rule || checkRule(location.rule,items,optionsDarkRooms,false))
+						{
+							data[location.type][location.id] = "darkpossible";
+						}
+						if(!items.moonpearl && location.type === "dungeons")
+							data.dungeonsBunny[location.id] = worldState === 'I';
+					}
+				}
+			}
+		//Maybe reachable regions if they're in the Dark World
+		for(let region of maybeDarkRegions)
+		{
+			for(let location of region.locations)
+			{
+				if(data[location.type][location.id] !== "available" && data[location.type][location.id] !== "darkavailable" && data[location.type][location.id] !== "possible")
+				{
+					if(!location.rule || checkRule(location.rule,items,options,true))
+					{
+						data[location.type][location.id] = "possible";
+					}
+					if(!items.moonpearl && location.type === "dungeons")
+						data.dungeonsBunny[location.id] = worldState !== 'I';
+				}
+			}
+		}
+		//Maybe reachable regions if they're in the Dark World if going through dark rooms
+		for(let region of r.maybeLightRegionsDarkRooms)
+			{
+				for(let location of region.locations)
+				{
+					if(data[location.type][location.id] !== "available" && data[location.type][location.id] !== "darkavailable" && data[location.type][location.id] !== "possible" && data[location.type][location.id] !== "darkpossible")
+					{
+						if(!location.rule || checkRule(location.rule,items,optionsDarkRooms,true))
+						{
+							data[location.type][location.id] = "darkpossible";
+						}
+						if(!items.moonpearl && location.type === "dungeons")
+							data.dungeonsBunny[location.id] = worldState !== 'I';
+					}
+				}
+			}
+			//Maybe reachable regions if they're in the Light World (Inverted)
+		if(worldState === 'I')
+			for(let region of maybeLightRegions)
+			{
+				for(let location of region.locations)
+				{
+					if(data[location.type][location.id] !== "available" && data[location.type][location.id] !== "darkavailable" && data[location.type][location.id] !== "possible")
 					{
 						if(!location.rule || checkRule(location.rule,items,false))
 						{
@@ -2011,31 +2328,17 @@
 					}
 				}
 			}
-		for(let region of maybeDarkRegions)
-		{
-			for(let location of region.locations)
-			{
-				if(data[location.type][location.id] !== "available" && data[location.type][location.id] !== "possible")
-				{
-					if(!location.rule || checkRule(location.rule,items,true))
-					{
-						data[location.type][location.id] = "possible";
-					}
-					if(!items.moonpearl && location.type === "dungeons")
-						data.dungeonsBunny[location.id] = worldState !== 'I';
-				}
-			}
-		}
+			//Maybe reachable regions if they're in the Light World (Inverted) if going through dark rooms
 		if(worldState === 'I')
-			for(let region of maybeLightRegions)
+			for(let region of r.maybeLightRegionsDarkRooms)
 			{
 				for(let location of region.locations)
 				{
-					if(data[location.type][location.id] !== "available" && data[location.type][location.id] !== "possible")
+					if(data[location.type][location.id] !== "available" && data[location.type][location.id] !== "darkavailable" && data[location.type][location.id] !== "possible" && data[location.type][location.id] !== "darkpossible")
 					{
-						if(!location.rule || checkRule(location.rule,items,false))
+						if(!location.rule || checkRule(location.rule,items,optionsDarkRooms,false))
 						{
-							data[location.type][location.id] = "possible";
+							data[location.type][location.id] = "darkpossible";
 						}
 						if(!items.moonpearl && location.type === "dungeons")
 							data.dungeonsBunny[location.id] = worldState === 'I';
@@ -2047,13 +2350,13 @@
 		let ganonSwap = "unknown";
 		if(mixedow)
 		{
-			if((overworldScreens.get(0x1B).mixedState !== "unknown" && (overworldScreens.get(0x1B).mixedState === "swapped") === (worldState === 'I')) || (overworldScreens.get(0x03).mixedState !== "unknown" && (overworldScreens.get(0x03).mixedState === "swapped") === (worldState === 'I')))
+			if((overworldScreens.get(0x1B).mixedState !== "unknown" && (overworldScreens.get(0x1B).mixedState === "flipped") === (worldState === 'I')) || (overworldScreens.get(0x03).mixedState !== "unknown" && (overworldScreens.get(0x03).mixedState === "flipped") === (worldState === 'I')))
 				towerSwap = false;
 			else
-				if(overworldScreens.get(0x1B).mixedState !== "unknown" && (overworldScreens.get(0x1B).mixedState === "swapped") !== (worldState === 'I') && overworldScreens.get(0x03).mixedState !== "unknown" && (overworldScreens.get(0x03).mixedState === "swapped") !== (worldState === 'I'))
+				if(overworldScreens.get(0x1B).mixedState !== "unknown" && (overworldScreens.get(0x1B).mixedState === "flipped") !== (worldState === 'I') && overworldScreens.get(0x03).mixedState !== "unknown" && (overworldScreens.get(0x03).mixedState === "flipped") !== (worldState === 'I'))
 					towerSwap = true;
 			if(overworldScreens.get(0x1B).mixedState !== "unknown")
-				ganonSwap = (overworldScreens.get(0x1B).mixedState === "swapped") !== (worldState === 'I');
+				ganonSwap = (overworldScreens.get(0x1B).mixedState === "flipped") !== (worldState === 'I');
 		}
 		else
 			towerSwap = ganonSwap = worldState === 'I';
@@ -2096,26 +2399,76 @@
 			data.entrances[93] = "unavailable";
 			data.entrances[95] = "unavailable";
 		}
-		if((mixedow && overworldScreens.get(0x03).mixedState === "unknown") || (mixedow && overworldScreens.get(0x03).mixedState === "swapped") !== (worldState === 'I'))
+		if(entranceEnabled)
 		{
-			if(entranceEnabled)
+			if((mixedow && overworldScreens.get(0x03).mixedState === "unknown") || (mixedow && overworldScreens.get(0x03).mixedState === "flipped") !== (worldState === 'I'))
 			{
-				if(data.items[75] !== "unavailable")
+				if(items.lantern)
 				{
-					andSpecial(data.items,75,data.special["Inverted Old Man"]);
-					andSpecial(data.items,75,data.special["Old Man Hera"]);
-					if(data.items[75] === "unavailable")
-						data.items[75] = "possible";
+					if(data.items[75] !== "unavailable")
+						{
+							andSpecial(data.items,75,data.special["Inverted Old Man"]);
+							andSpecial(data.items,75,data.special["Old Man Hera"]);
+							if(data.items[75] === "unavailable")
+								data.items[75] = "possible";
+						}
+					}
+					else
+					{
+						if(data.special["Old Man Dark Room"])
+						{
+							data.items[75] = data.special["Old Man Dark Room"];
+							andSpecial(data.items,75,data.special["Inverted Old Man Dark Room"]);
+							andSpecial(data.items,75,data.special["Old Man Hera Dark Room"]);
+							if(data.items[75] === "unavailable")
+								data.items[75] = "darkpossible";
+							if(data.items[75] === "available" || data.items[75] === "possible")
+								data.items[75] = "dark"+data.items[75];
+						}
+					}
+				}
+				else
+				{
+					if(items.lantern)
+					{
+						if(data.items[75] !== "unavailable")
+						{
+							andSpecial(data.items,75,data.special["Old Man Hera"]);
+							if(data.items[75] === "unavailable")
+								data.items[75] = "possible";
+						}
+					}
+					else
+					{
+						if(data.special["Old Man Dark Room"])
+						{
+							data.items[75] = data.special["Old Man Dark Room"];
+							andSpecial(data.items,75,data.special["Old Man Hera Dark Room"]);
+							if(data.items[75] === "unavailable")
+								data.items[75] = "darkpossible";
+							if(data.items[75] === "available" || data.items[75] === "possible")
+								data.items[75] = "dark"+data.items[75];
+						}
 				}
 			}
 		}
 		else
-			if(entranceEnabled && data.items[75] !== "unavailable")
+		{
+			if(!items.lantern && data.special["Old Man Dark Room"])
 			{
-				andSpecial(data.items,75,data.special["Old Man Hera"]);
-				if(data.items[75] === "unavailable")
-					data.items[75] = "possible";
+				data.items[75] = data.special["Old Man Dark Room"];
+				if(data.items[75] === "available" || data.items[75] === "possible")
+					data.items[75] = "dark"+data.items[75];
 			}
+		}
+		if(!items.lantern && data.special["Dark Cross Dark Room"])
+		{
+			data.items[104] = data.special["Dark Cross Dark Room"];
+			if(data.items[104] === "available" || data.items[104] === "possible")
+				data.items[104] = "dark"+data.items[104];
+		}
+		if(!entranceEnabled && !door)
+			andSpecial(data.dungeons,73,data.special["Dam"]);
 		orSpecial(data.items,21,data.special["HSC Bottom Back"],"available");
 		orSpecial(data.items,22,data.special["HSC Top Back"],"available");
 		orSpecial(data.items,97,data.special["Uncle Drop"],"available");
@@ -2152,73 +2505,85 @@
 		//Red bomb
 		if(data.items[102] !== "unavailable")
 		{
-			let mirrorStart = canPlaceMirrorPortal(overworldScreens.get(0x6C).regions.get("Main"),regions,extraRegions,maybeLightRegions,maybeDarkRegions);
-			let mirrorTarget = canPlaceMirrorPortal(overworldScreens.get(0x1B).regions.get("Main"),regions,extraRegions,maybeLightRegions,maybeDarkRegions);
+			let mirrorStart = canPlaceMirrorPortal(overworldScreens.get(0x6C).regions.get("Main"),r);
+			let mirrorTarget = canPlaceMirrorPortal(overworldScreens.get(0x1B).regions.get("Main"),r);
 			data.items[102] = canReachFrom(overworldScreens.get(0x6C).regions.get("Main"),overworldScreens.get(0x5B).regions.get("Main"),items,"redbomb",data.items[102],mirrorStart,mirrorTarget);
 		}
 		//Smith
 		if(data.items[101] !== "unavailable")
 		{
-			let mirrorStart = canPlaceMirrorPortal(overworldScreens.get(0x69).regions.get("Frog"),regions,extraRegions,maybeLightRegions,maybeDarkRegions);
-			let mirrorTarget = canPlaceMirrorPortal(overworldScreens.get(0x62).regions.get("Main"),regions,extraRegions,maybeLightRegions,maybeDarkRegions);
+			let mirrorStart = canPlaceMirrorPortal(overworldScreens.get(0x69).regions.get("Frog"),r);
+			let mirrorTarget = canPlaceMirrorPortal(overworldScreens.get(0x62).regions.get("Main"),r);
 			data.items[101] = canReachFrom(overworldScreens.get(0x69).regions.get("Frog"),overworldScreens.get(0x22).regions.get("Main"),items,"smithfrog",data.items[101],mirrorStart,mirrorTarget);
-			if(data.items[101] === "available" && canReachFrom(overworldScreens.get(0x69).regions.get("Frog"),overworldScreens.get(0x22).regions.get("Main"),items,"smithfrognosq",data.items[101],mirrorStart,mirrorTarget) !== "available")
-				data.items[101] === "possible";
-		}
+			if(data.items[101] === "available" || data.items[101] === "darkavailable")
+				{
+					let direct = canReachFrom(overworldScreens.get(0x69).regions.get("Frog"),overworldScreens.get(0x22).regions.get("Main"),items,"smithfrognosq",data.items[101],mirrorStart,mirrorTarget);
+					if(data.items[101] !== direct)
+						data.items[101] = direct === "darkavailable" ?"darkavailable" :"possible";
+				}
+			}
 		//Purple chest
 		andSpecial(data.items,69,entranceEnabled ?data.special["Frog"] :data.items[101]);
 		if(data.items[69] !== "unavailable")
 		{
-			let mirrorStart = canPlaceMirrorPortal(overworldScreens.get(0x62).regions.get("Main"),regions,extraRegions,maybeLightRegions,maybeDarkRegions);
-			let mirrorTarget = canPlaceMirrorPortal(overworldScreens.get(0x7A).regions.get("Main"),regions,extraRegions,maybeLightRegions,maybeDarkRegions);
+			let mirrorStart = canPlaceMirrorPortal(overworldScreens.get(0x62).regions.get("Main"),r);
+			let mirrorTarget = canPlaceMirrorPortal(overworldScreens.get(0x7A).regions.get("Main"),r);
 			data.items[69] = canReachFrom(overworldScreens.get(0x62).regions.get("Main"),overworldScreens.get(0x3A).regions.get("Main"),items,"purplechest",data.items[69],mirrorStart,mirrorTarget);
 		}
-		data.entranceitems[4] = data.items[69] === "available" ?"possible" :data.items[69];
+		data.entranceitems[4] = data.items[69] === "available" ?"possible" :(data.items[69] === "darkavailable" ?"darkpossible" :data.items[69]);;
 		//For now, unknown if followers can be delivered in Entrance
 		if(data.entranceitems[0] === "available")
 			data.entranceitems[0] = "possible";
+		if(data.entranceitems[0] === "darkavailable")
+			data.entranceitems[0] = "darkpossible";
 		if(data.entrances[94] === "available")
 			data.entrances[94] = "possible";
+		if(data.entrances[94] === "darkavailable")
+			data.entrances[94] = "darkpossible";
 		//Manually refine access to certain items that involve dungeons
 		if(!entranceEnabled)
 		{
-			let front = data.items[104],back = data.items[96],towerAccess = data.items[106] === "available" && data.items[107] === "available",towerMaybe = (data.items[106] === "available" || data.items[106] === "possible") && (data.items[107] === "available" || data.items[107] === "possible");
+			let front = data.items[104],back = data.items[96];
 			let retro = items.flags && items.flags.gametype ?items.flags.gametype === 'R' :worldState === 'R';
 			//Back of Escape
 			if(back !== "unavailable")
-				data.items[96] = items.bomb || items.boots ?back :"unavailable";
+				data.items[96] = bestAvailability(data.items[96],items.bomb || items.boots ?back :"unavailable");
 			else
-				if(front !== "unavailable" && items.lantern && (items.bomb || items.boots) && (items.bomb || items.sword || items.bow > 1 || items.hammer || items.firerod || items.somaria || items.byrna))
+				if(front !== "unavailable" && (items.bomb || items.boots) && (items.bomb || items.sword || items.bow > 1 || items.hammer || items.firerod || items.somaria || items.byrna))
 				{
 					if(retro || (items.flags && items.flags.wildkeys))
-						data.items[96] = retro || items.smallkeyhalf0 ?front :"unavailable";
+						data.items[96] = bestAvailability(data.items[96],retro || items.smallkeyhalf0 ?(items.lantern ?front :(front.startsWith("dark") ?front :"dark"+front)) :"unavailable");
 					else
-						data.items[96] = "possible";
+						data.items[96] = bestAvailability(data.items[96],items.lantern ?"possible" :"darkpossible");
 				}
 			//Sewers
-			if(front !== "available" && back !== "unavailable" && items.lantern && (items.bomb || items.sword || items.bow > 1 || items.hammer || items.firerod || items.somaria || items.byrna))
+			if(front !== "available" && back !== "unavailable" && (items.bomb || items.sword || items.bow > 1 || items.hammer || items.firerod || items.somaria || items.byrna))
 			{
 				if(retro || (items.flags && items.flags.wildkeys))
-					data.items[104] = retro || items.smallkeyhalf0 ?back :"unavailable";
+					data.items[104] = bestAvailability(data.items[104],retro || items.smallkeyhalf0 ?(items.lantern ?back :(back.startsWith("dark") ?back :"dark"+back)) :"unavailable");
 				else
-					data.items[104] = "possible";
+					data.items[104] = bestAvailability(data.items[104],items.lantern ?"possible" :"darkpossible");
 			}
 			//Castle Tower
-			if(towerMaybe && (items.sword || items.bow > 1 || items.hammer || items.firerod || items.somaria || items.byrna))
-			{
-				data.items[106] = towerAccess ?"available" :"possible";
-				data.items[107] = items.lantern && (retro || items.smallkeyhalf1 || !items.flags || !items.flags.wildkeys) ?(towerAccess ?"available" :"possible") :"unavailable";
-			}
+			andSpecial(data.items,107,data.items[106]);
+			if(data.items[107] === "unavailable")
+				data.items[106] = "unavailable";
 			else
-				data.items[106] = data.items[107] = "unavailable";
+			{
+				if(items.sword || items.bow > 1 || items.hammer || items.firerod || items.somaria || items.byrna)
+					{
+						data.items[106] = data.items[107];
+						data.items[107] = retro || items.smallkeyhalf1 || !items.flags || !items.flags.wildkeys ?(items.lantern ?data.items[106] :(data.items[106].startsWith("dark") ?data.items[106] :"dark"+data.items[106])) :"unavailable";
+					}
+			}
 			//Desert Ledge
-			if(data.items[89] === "information")
+			if(data.items[89] === "information" || data.items[89] === "unavailable")
 				if(door)
 				{
-					if(items.book)
+					if(data.special["Check Desert"] && items.book)
 					{
-						data.items[89] = "possible";
-						if(data.special["Desert Access"] && (!mixedow || overworldScreens.get(0x30).mixedState !== "unknown") && (mixedow && overworldScreens.get(0x30).mixedState === "swapped") !== (worldState === 'I'))
+						data.items[89] = data.special["Check Desert"].startsWith("dark") ?"darkpossible" :"possible";
+						if(data.special["Desert Access"] && (!mixedow || overworldScreens.get(0x30).mixedState !== "unknown") && (mixedow && overworldScreens.get(0x30).mixedState === "flipped") !== (worldState === 'I'))
 							data.helpDesert = true;
 					}
 				}
@@ -2226,11 +2591,11 @@
 					if(data.special["Desert Access"])
 						data.items[89] = data.special["Desert Access"];
 			//Mimic Cave
-			if(items.mirror && items.hammer && items.moonpearl && data.items[4] === "unavailable" && data.entrances[136] !== "unavailable" && (!mixedow || overworldScreens.get(0x1B).mixedState !== "unknown") && (mixedow && overworldScreens.get(0x05).mixedState === "swapped") === (worldState === 'I'))
+			if(items.mirror && items.hammer && items.moonpearl && data.items[4] === "unavailable" && data.entrances[136] !== "unavailable" && (!mixedow || overworldScreens.get(0x1B).mixedState !== "unknown") && (mixedow && overworldScreens.get(0x05).mixedState === "flipped") === (worldState === 'I'))
 				if(door)
 				{
-					data.items[4] = "possible";
-					if(data.entrances[136] === "available")
+					data.items[4] = data.entrances[136].startsWith("dark") ?"darkpossible" :"possible";
+					if(data.entrances[136] === "available" || data.entrances[136] === "darkavailable")
 						data.helpMimic = true;
 				}
 				else
@@ -2238,12 +2603,12 @@
 						if(retro || (items.flags && items.flags.wildkeys))
 							data.items[4] = retro || items.smallkey9 > 1 ?data.entrances[136] :"unavailable";
 						else
-							data.items[4] = items.firerod ?data.entrances[136] :"possible";
+						data.items[4] = items.firerod ?data.entrances[136] :(data.entrances[136].startsWith("dark") ?"darkpossible" :"possible");
 			//Consider guaranteed or possible paths between dungeon entrances
 			if(door)
 			{
 				//Desert Palace
-				if((!mixedow || overworldScreens.get(0x30).mixedState !== "unknown") && (mixedow && overworldScreens.get(0x30).mixedState === "swapped") !== (worldState === 'I'))
+				if((!mixedow || overworldScreens.get(0x30).mixedState !== "unknown") && (mixedow && overworldScreens.get(0x30).mixedState === "flipped") !== (worldState === 'I'))
 				{
 					if(data.dungeons[8] !== "unavailable")
 					{
@@ -2252,26 +2617,20 @@
 							data.dungeons[11] = data.dungeons[8];
 					}
 				}
-				if(data.dungeons[8] !== "unavailable" && data.dungeons[9] !== "unavailable" && data.dungeons[11] !== "unavailable")
-					data.dungeons[10] = data.dungeons[8] === "available" && data.dungeons[9] === "available" && data.dungeons[11] === "available" ?"available" :"possible";
+				data.dungeons[10] = bestAvailability(data.dungeons[10],worstAvailability(data.dungeons[8],data.dungeons[9],data.dungeons[11]));
 				//Skull Woods
-				if((!mixedow || overworldScreens.get(0x00).mixedState !== "unknown") && (mixedow && overworldScreens.get(0x00).mixedState === "swapped") === (worldState === 'I'))
+				if((!mixedow || overworldScreens.get(0x00).mixedState !== "unknown") && (mixedow && overworldScreens.get(0x00).mixedState === "flipped") === (worldState === 'I'))
 				{
-					if(data.dungeons[40] !== "unavailable" && data.dungeons[41] !== "unavailable" && data.dungeons[44] !== "unavailable" && data.dungeons[45] !== "unavailable" && data.dungeons[46] !== "unavailable")
-					{
-						data.dungeons[42] = data.dungeons[47] = data.dungeons[40] === "available" && data.dungeons[41] === "available" && data.dungeons[44] === "available" && data.dungeons[45] === "available" && data.dungeons[46] === "available" ?"available" :"possible";
-						if(items.firerod)
-							data.dungeons[43] = data.dungeons[40] === "available" && data.dungeons[41] === "available" && data.dungeons[44] === "available" && data.dungeons[45] === "available" && data.dungeons[46] === "available" ?"available" :"possible";
-					}
+					data.dungeons[42] = data.dungeons[47] = bestAvailability(data.dungeons[42],data.dungeons[47],worstAvailability(data.dungeons[40],data.dungeons[41],data.dungeons[44],data.dungeons[45],data.dungeons[46]));
+					if(items.firerod)
+						data.dungeons[43] = bestAvailability(data.dungeons[42],data.dungeons[43]);
 				}
 				//Turtle Rock
-				if((!mixedow || overworldScreens.get(0x05).mixedState !== "unknown") && (mixedow && overworldScreens.get(0x05).mixedState === "swapped") === (worldState === 'I'))
+				if((!mixedow || overworldScreens.get(0x05).mixedState !== "unknown") && (mixedow && overworldScreens.get(0x05).mixedState === "flipped") === (worldState === 'I'))
 				{
 					if(data.dungeons[72] !== "unavailable" && items.bomb)
-						data.dungeons[73] = data.dungeons[74] = data.dungeons[72];
-					if(data.dungeons[72] !== "unavailable" && data.dungeons[73] !== "unavailable" && data.dungeons[74] !== "unavailable")
-						data.dungeons[75] = data.dungeons[72] === "available" && data.dungeons[73] === "available" && data.dungeons[74] === "available" ?"available" :"possible";
-				}
+						data.dungeons[73] = data.dungeons[74] = bestAvailability(data.dungeons[72],data.dungeons[73],data.dungeons[74]);
+					data.dungeons[75] = bestAvailability(data.dungeons[75],worstAvailability(data.dungeons[72],data.dungeons[73],data.dungeons[74]));}
 				//CT or GT through HC
 				if(towerSwap !== false)
 				{
@@ -2286,15 +2645,16 @@
 						}
 					}
 				}
-				if(towerSwap !== true)
+				if(towerSwap !== false)
 				{
-					if(data.dungeons[96] === "unavailable" && (!mixedow || overworldScreens.get(0x1B).mixedState !== "unknown"))
+					if(data.dungeons[80] === "unavailable" && (!mixedow || overworldScreens.get(0x1B).mixedState !== "unknown"))
 					{
-						if(checkRule("ctbarrier",items,isDarkWorld(overworldScreens.get(0x1B))) && (data.dungeons[88] !== "unavailable" || data.dungeons[91] !== "unavailable" || data.dungeons[92] !== "unavailable"))
+						let entrycheck = checkRule("gtcrystals",items,options,isDarkWorld(overworldScreens.get(0x1B))) ?"available" :(checkRule("gtcrystalsmaybe",items,options,isDarkWorld(overworldScreens.get(0x1B))) ?"possible" :"unavailable");
+						if(entrycheck !== "unavailable" && (data.dungeons[88] !== "unavailable" || data.dungeons[91] !== "unavailable" || data.dungeons[92] !== "unavailable"))
 						{
-							data.dungeons[96] = "possible";
+							data.dungeons[80] = data.dungeons[88].startsWith("dark") && data.dungeons[91].startsWith("dark") && data.dungeons[92].startsWith("dark") ?"darkpossible" :"possible";
 							if(towerSwap !== "unknown")
-								data.dungeonsBunny[96] = data.dungeonsBunny[88];
+								data.dungeonsBunny[80] = data.dungeonsBunny[88];
 						}
 					}
 				}
@@ -2304,57 +2664,155 @@
 		if(data.entrances[102] !== "unavailable" && !data.dungeonsBunny[40])
 		{
 			if(items.firerod && data.entrances[96] === "unavailable")
-				data.entrances[96] = door ?"possible" :data.entrances[102];
+				data.entrances[96] = door ?(data.entrances[102].startsWith("dark") ?"darkpossible" :"possible") :data.entrances[102];
 			if(data.entrances[97] === "unavailable")
-				data.entrances[97] = door ?"possible" :data.entrances[102];
+				data.entrances[97] = door ?(data.entrances[102].startsWith("dark") ?"darkpossible" :"possible") :data.entrances[102];
 			if(data.entrances[98] === "unavailable")
-				data.entrances[98] = door ?"possible" :data.entrances[102];
+				data.entrances[98] = door ?(data.entrances[102].startsWith("dark") ?"darkpossible" :"possible") :data.entrances[102];
 		}
 		data.special = null;
 		data.towerSwap = towerSwap;
 		data.ganonSwap = ganonSwap;
+		data.dpFrontLogic = !entranceEnabled && (!mixedow || overworldScreens.get(0x30).mixedState !== "unknown") && (mixedow && overworldScreens.get(0x30).mixedState === "flipped") !== (worldState === 'I');
+		data.trFrontLogic = !entranceEnabled && (!mixedow || overworldScreens.get(0x07).mixedState !== "unknown") && (mixedow && overworldScreens.get(0x07).mixedState === "flipped") === (worldState === 'I');
 		return data;
 	};
 
 	window.orSpecial = function(object,locationID,special,availability)
 	{
-		if(object[locationID] === "unavailable" && special === "available")
-			object[locationID] = availability;
-		else
-			if(object[locationID] === "unavailable" && special === "possible" && (availability === "available" || availability === "possible" || availability === "partialavailable"))
-				object[locationID] = "possible";
+		object[locationID] = orSpecial2(object[locationID],special,availability);
 	};
 
 	window.orSpecial2 = function(base,special,availability)
 	{
+		if(base === "available" || special === "unavailable" || !special || base === availability)
+			return base;
 		if(base === "unavailable" && special === "available")
 			return availability;
-		else
-			if(base === "unavailable" && special === "possible" && (availability === "available" || availability === "possible" || availability === "partialavailable"))
-				return "possible";
+		if(base === "unavailable" && special === "darkavailable" && (availability === "darkavailable" || availability === "darkpossible" || availability === "information"))
+			return availability;
+		if(base === "unavailable" && special === "darkavailable" && (availability === "available" || availability === "possible"))
+			return "dark"+availability;
+		if(base === "unavailable" && special === "possible" && (availability === "available" || availability === "possible"))
+			return "possible";
+		if(base === "unavailable" && special === "possible" && (availability === "darkavailable" || availability === "darkpossible"))
+			return "darkpossible";
+		if(base === "unavailable" && special === "darkpossible" && (availability === "available" || availability === "possible" || availability === "darkavailable" || availability === "darkpossible"))
+			return "darkpossible";
+		if(base === "darkpossible" && special === "available" && (availability === "available" || availability === "possible" || availability === "darkavailable"))
+			return availability;
+		if(base === "darkpossible" && special === "darkavailable" && (availability === "available" || availability === "darkavailable"))
+			return "darkavailable";
+		if(base === "darkpossible" && special === "possible" && (availability === "available" || availability === "possible"))
+			return "possible";
+		if(base === "possible" && special === "available" && (availability === "available" || availability === "darkavailable"))
+			return availability;
+		if(base === "possible" && special === "darkavailable" && (availability === "available" || availability === "darkavailable"))
+			return "darkavailable";
+		if(base === "darkavailable" && special === "available" && availability === "available")
+			return availability;
 		return base;
 	};
 
 	window.andSpecial = function(object,locationID,special)
 	{
-		if(object[locationID] !== "unavailable" && special !== "available")
-			object[locationID] = special ?special :"unavailable";
+		if(object[locationID] !== special)
+			if((object[locationID] === "available" && special === "partialavailable") || (object[locationID] === "partialavailable" && special === "available"))
+				object[locationID] = "partialavailable";
+			else
+				if(((object[locationID] === "available" || object[locationID] === "darkavailable") && special === "information") || (object[locationID] === "information" && (special === "available" || special === "darkavailable")))
+					object[locationID] = "information";
+				else
+					if(object[locationID] === "unavailable" || special === "unavailable" || !special || object[locationID] === "partialavailable" || special === "partialavailable" || object[locationID] === "information" || special === "information")
+						object[locationID] = "unavailable";
+					else
+						if(object[locationID] === "darkpossible" || special === "darkpossible")
+							object[locationID] = "darkpossible";
+						else
+							if((object[locationID] === "possible" && special === "darkavailable") || (object[locationID] === "darkavailable" && special === "possible"))
+								object[locationID] = "darkpossible";
+							else
+								if(object[locationID] === "possible" || special === "possible")
+									object[locationID] = "possible";
+								else
+									if(object[locationID] === "darkavailable" || special === "darkavailable")
+										object[locationID] = "darkavailable";
+									//else
+									//	object[locationID] = "available";
 	};
 
 	window.twoOptions = function(option1,option2)
 	{
 		if(option1 === option2)
 			return option1;
+		if(option1 === "available" && option2 === "darkavailable")
+			return "darkavailable";
+		if(option1 === "darkavailable" && option2 === "available")
+			return "darkavailable";
+		if(option1 === "possible" && option2 === "darkpossible")
+			return "darkpossible";
+		if(option1 === "darkpossible" && option2 === "possible")
+			return "darkpossible";
+		if(option1 === "darkavailable" && option2 === "darkpossible")
+			return "darkpossible";
+		if(option1 === "darkpossible" && option2 === "darkavailable")
+			return "darkpossible";
 		return "possible";
 	};
 
-	window.canPlaceMirrorPortal = function(region,visitedRegions,extraRegions,maybeLightRegions,maybeDarkRegions)
+	window.bestAvailability = function(...availabilityList)
 	{
-		if((mixedow && region.screen.mixedState === "unavailable") || isDarkWorld(region.screen) !== (worldState === 'I') || !region.parallel || region.parallel.mirrorBlock)
+		for(let k = 0; k < availabilityList.length; k++)
+			if(availabilityList[k] === "available")
+				return "available";
+		for(let k = 0; k < availabilityList.length; k++)
+			if(availabilityList[k] === "darkavailable")
+				return "darkavailable";
+		for(let k = 0; k < availabilityList.length; k++)
+			if(availabilityList[k] === "possible")
+				return "possible";
+		for(let k = 0; k < availabilityList.length; k++)
+			if(availabilityList[k] === "darkpossible")
+				return "darkpossible";
+		for(let k = 0; k < availabilityList.length; k++)
+			if(availabilityList[k] === "partialavailable")
+				return "partialavailable";
+		for(let k = 0; k < availabilityList.length; k++)
+			if(availabilityList[k] === "information")
+				return "information";
+		return "unavailable";
+	};
+
+	window.worstAvailability = function(...availabilityList)
+	{
+		for(let k = 0; k < availabilityList.length; k++)
+			if(availabilityList[k] === "unavailable")
+				return "unavailable";
+		for(let k = 0; k < availabilityList.length; k++)
+			if(availabilityList[k] === "information")
+				return "information";
+		for(let k = 0; k < availabilityList.length; k++)
+			if(availabilityList[k] === "partialavailable")
+				return "partialavailable";
+		for(let k = 0; k < availabilityList.length; k++)
+			if(availabilityList[k] === "darkpossible")
+				return "darkpossible";
+		for(let k = 0; k < availabilityList.length; k++)
+			if(availabilityList[k] === "possible")
+				return "possible";
+		for(let k = 0; k < availabilityList.length; k++)
+			if(availabilityList[k] === "darkavailable")
+				return "darkavailable";
+		return "available";
+	};
+
+	window.canPlaceMirrorPortal = function(region,r)
+	{
+		if((mixedow && region.screen.mixedState === "unknown") || isDarkWorld(region.screen) !== (worldState === 'I') || !region.parallel || region.parallel.mirrorBlock)
 			return "unavailable";
-		if(visitedRegions.has(region.parallel) || extraRegions.has(region.parallel))
+		if(r.visitedRegions.has(region.parallel))
 			return "available";
-		return (worldState === 'I' ?maybeLightRegions.has(region.parallel) :maybeDarkRegions.has(region.parallel)) ?"possible" :"unavailable";
+		return (worldState === 'I' ?r.maybeLightRegions.has(region.parallel) :r.maybeDarkRegions.has(region.parallel)) ?"possible" :"unavailable";
 	};
 
 	window.createLocation = function(screenID,regionName,locationType,locationID,rule)
@@ -2391,16 +2849,16 @@
 
 	window.setEntranceRegion = function(screenID,regionName,entranceIndices)
 	{
-        let screen = overworldScreens.get(screenID),region = screen.regions.get(regionName);
-        screen.entranceRegions.push(region);
-        region.numberEntrances = entranceIndices.length;
+		let screen = overworldScreens.get(screenID),region = screen.regions.get(regionName);
+		screen.entranceRegions.push(region);
+		region.numberEntrances = entranceIndices.length;
 		for(let k of entranceIndices)
 			entranceIndexToRegion[k] = region;
-    };
+	};
 
 	window.getEntranceRegionFromIndex = function(index)
 	{//This can cause problems in Mixed and Mystery. Change data structure in the future
-		if((index === 93 || index === 95) && (worldState === 'I') !== (mixedow && overworldScreens.get(0x1B).mixedState === "swapped"))
+		if((index === 93 || index === 95) && (worldState === 'I') !== (mixedow && overworldScreens.get(0x1B).mixedState === "flipped"))
 			index += 200;
 		return entranceIndexToRegion[index];
 	};
@@ -2685,7 +3143,7 @@
 		screen.bigInGame = big;
 		screen.edges = new Map();
 		screen.regions = new Map();
-        screen.entranceRegions = [];
+		screen.entranceRegions = [];
 		screen.mixedState = "unknown";
 		for(let regionName of regionNames)
 		{
