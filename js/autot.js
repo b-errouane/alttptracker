@@ -524,14 +524,13 @@ async function autotrackerConfigure() {
             var hash = hashChars.slice(3, 21).trim();
             document.getElementById("importflag").value = hash;
             autotrackSetStatus("Detected VT seed. Loading data from alttpr.com and then ROM");
-            const mystery = await importflags(auto=true) === 'mystery';
+            const mystery = await importflags(auto = true) === 'mystery';
             MYSTERY_SEED = mystery
 
-        } else if (hashChars.slice(0, 2) === 'DR' && (config_data['drflags'][1] & 0x1) === 1) {
+        } else if (["DR", "OD"].includes((hashChars.slice(0, 2)) && (config_data['drflags'][1] & 0x1) === 1)) {
             MYSTERY_SEED = true;
-            config_data['seed_type'] = 'DR';
-            autotrackSetStatus("Detected DR seed. Loading data from ROM");
-
+            config_data['seed_type'] = hashChars.slice(0, 2);
+            autotrackSetStatus("Detected DR/OR seed. Loading data from ROM");
         }
         if (!MYSTERY_SEED) {
             readShopFlags();
