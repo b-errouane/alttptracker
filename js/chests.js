@@ -86,7 +86,7 @@
 
 	function activeFlute()
 	{
-		return (canReachLightWorld() && items.flute === 1);
+		return ((canReachLightWorld() || window.flags.activatedflute) && items.flute >= 1) || items.flute === 2;
 	}
 	
 	function canSpinSpeed()

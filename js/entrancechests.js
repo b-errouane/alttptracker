@@ -62,7 +62,7 @@
 
 	function activeFlute()
 	{
-		return items.flute >= 1 && canReachLightWorld();
+		return (items.flute >= 1 && (canReachLightWorld() || flags.activatedflute)) || items.flute === 2;
 	}
 	
 	function activeFluteInvertedEntrance()

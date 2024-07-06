@@ -4127,6 +4127,10 @@
 			if (flags.swordmode === 'A') {
 				toggle('sword');
 			}
+
+			if (flags.activatedflute) {
+				toggle('flute', 2);
+			}
 			
 			if (window.flags.startingitems.charAt(0) === '1') {
 				toggle('moonpearl');
