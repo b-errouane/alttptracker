@@ -3597,7 +3597,6 @@
 		
 		//Replace HC and CT overworld locations by dungeons if Door Shuffle is on
 		document.getElementById('locationMap96').style.visibility = flags.doorshuffle != 'N' ? 'hidden' : 'visible';
-		document.getElementById('locationMap97').style.visibility = flags.doorshuffle != 'N' ? 'hidden' : 'visible';
 		document.getElementById('locationMap98').style.visibility = flags.doorshuffle != 'N' ? 'hidden' : 'visible';
 		document.getElementById('locationMap104').style.visibility = flags.doorshuffle != 'N' ? 'hidden' : 'visible';
 		document.getElementById('locationMap106').style.visibility = flags.doorshuffle != 'N' || (!flags.wildkeys && flags.gametype != 'R') ? 'hidden' : 'visible';
