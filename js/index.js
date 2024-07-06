@@ -1617,18 +1617,28 @@ function loadcrosskeys2024preset() {
 }
 
 
-async function importflags(auto=false) {
+async function importflags(auto = false) {
+
 	return new Promise((resolve) => {
 		var i = document.getElementById("importflag").value;
-		
+		var hash;
+
 		if (i.indexOf('/') > 1) {
-			i = i.substr(i.lastIndexOf('/') + 1);
+			hash = i.substr(i.lastIndexOf('/') + 1);
 		}
 		if (i.indexOf('#') > 1) {
-			i = i.substr(0,i.indexOf('#'));
+			hash = i.substr(0, i.indexOf('#'));
 		}
-		
-		$.getJSON("https://alttpr-patch-data.s3.us-east-2.amazonaws.com/" + i + ".json", function(data) {
+
+		var finalURL = "https://alttpr-patch-data.s3.us-east-2.amazonaws.com/" + hash + ".json";
+
+		if (i.indexOf('beeta') > 1) {
+			finalURL = "https://alttpr-patch-data-beta.s3.us-east-2.amazonaws.com/" + hash + ".json";
+		} else if (i.indexOf('gwaa.kiwi') > 1) {
+			alert("Auto-config from gwaa.kiwi is not supported.")
+		}
+
+		$.getJSON(finalURL , function(data) {
 			var d = data.spoiler;
 
 			// Gameplay
@@ -1637,23 +1647,23 @@ async function importflags(auto=false) {
 				resolve('mystery');
 			} else {
 				document.getElementById("gametype" + d.meta.mode).checked = true;
-				
+
 				//Entrance flag
 				if (d.meta.shuffle != null) {
 					document.getElementById("entrancesimple").checked = true;
 				} else {
 					document.getElementById("entrancenone").checked = true;
 				}
-				
+
 				document.getElementById("doornone").checked = true;
 				document.getElementById("overworldno").checked = true;
-				
+
 				if (d.meta["enemizer.boss_shuffle"] === "none") {
 					document.getElementById("bossnone").checked = true;
 				} else {
 					document.getElementById("bossshuffled").checked = true;
 				}
-							
+
 				if (d.meta["enemizer.enemy_shuffle"] === "none") {
 					document.getElementById("enemynone").checked = true;
 				} else {
@@ -1703,7 +1713,7 @@ async function importflags(auto=false) {
 				document.getElementById("shopsanityno").checked = true;
 
 
-				switch (d.meta.logic){
+				switch (d.meta.logic) {
 					case "NoLogic":
 						document.getElementById("glitchesnologic").checked = true;
 						break;
@@ -1722,7 +1732,7 @@ async function importflags(auto=false) {
 				}
 
 				// Goal
-				
+
 				switch (d.meta.goal) {
 					case "ganon":
 						document.getElementById("goalganon").checked = true;
@@ -1744,7 +1754,7 @@ async function importflags(auto=false) {
 						break;
 					default:
 						document.getElementById("goalother").checked = true;
-						break;		
+						break;
 				}
 
 				if (d.meta.entry_crystals_tower === 'random') {
@@ -1762,14 +1772,14 @@ async function importflags(auto=false) {
 					document.getElementById("ganoncrystal").checked = true;
 					document.getElementById("ganonselect").value = d.meta.entry_crystals_ganon;
 				}
-				
+
 			}
 			if (!auto) {
-				window.scrollTo(0,document.body.scrollHeight);
+				window.scrollTo(0, document.body.scrollHeight);
 				showToast();
 			}
 			resolve('normal');
-		}).fail(function() { autotrackSetStatus("Cannot find seed on alttpr.com. Assuming mystery."); resolve('mystery') });
+		});
 	});
 }
 
