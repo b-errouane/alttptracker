@@ -2062,6 +2062,7 @@
 				var leftOffset = 0;
 				if ( flags.mapmode === 'C') {
 					leftOffset = loc.parentElement.id === "mapEntranceDiv_dark" ? 221 : 0;
+					leftOffset += 1
 					topOffset += (flags.spheresmode === 'Y' ? 296 : 0)
 				} else if (flags.mapmode === 'M') {
 					leftOffset = loc.parentElement.id === "mapEntranceDiv_dark" ? 442 : 0;
@@ -4102,7 +4103,7 @@
 				if ([2, 8].includes(i)) {
 					dungeon.style.marginLeft = '-15px';
 					let boss = document.getElementById('bossMap'+i);
-					boss.style.marginLeft = '-5px';
+					boss.style.marginLeft = '-7px';
 				}
 			}
 
