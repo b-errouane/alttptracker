@@ -275,6 +275,12 @@ function loadarchivepreset() {
 		case "Crosskeys":
 			loadcrosskeyspreset();
 			break;
+		case "Crosshunt":
+			loadcrosshuntpreset();
+			break;
+		case "DoubleDown":
+			loaddoubledownpreset();
+			break;
 		case "Enemizer":
 			loadenemizerpreset();
 			break;
@@ -335,7 +341,6 @@ function loadarchivepreset() {
 		case "Patron":
 			loadpatronpreset();
 			break;
-		
 	}
 	
 	
@@ -1726,6 +1731,36 @@ function loadcrosskeys2024preset() {
 	document.getElementById("shopsanityno").checked = true;
 	document.getElementById("ambrosiano").checked = true;
 	document.getElementById("pseudobootsyes").checked = true;
+	document.getElementById("shuffledmaps").checked = true;
+	document.getElementById("shuffledcompasses").checked = true;
+	document.getElementById("shuffledsmallkeys").checked = true;
+	document.getElementById("shuffledbigkeys").checked = true;
+	document.getElementById("nonprogressivebowsno").checked = true;
+	document.getElementById("activatedfluteno").checked = true;
+	document.getElementById("bonkshuffleno").checked = true;
+	window.scrollTo(0,document.body.scrollHeight);
+	showToast();
+}
+
+function loadcrosshuntpreset() {
+	resetallstartingitems();
+	document.getElementById("gametypeopen").checked = true;
+	document.getElementById("entrancesimple").checked = true;
+	document.getElementById("doornone").checked = true;
+	document.getElementById("overworldno").checked = true;
+	document.getElementById("bossnone").checked = true;
+	document.getElementById("enemynone").checked = true;
+	document.getElementById("glitchesnone").checked = true;
+	document.getElementById("goalfast").checked = true;
+	document.getElementById("goalcrystal").checked = true;
+	document.getElementById("towerselect").value = 0;
+	document.getElementById("ganoncrystal").checked = true;
+	document.getElementById("ganonselect").value = 7;
+	document.getElementById("swordsrandomized").checked = true;
+	document.getElementById("unknownnone").checked = true;
+	document.getElementById("shopsanityno").checked = true;
+	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("pseudobootsno").checked = true;
 	document.getElementById("shuffledmaps").checked = true;
 	document.getElementById("shuffledcompasses").checked = true;
 	document.getElementById("shuffledsmallkeys").checked = true;
