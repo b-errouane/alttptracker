@@ -2,27 +2,26 @@
 
 <head>
 	<title>ALTTP Randomizer Community Tracker - Tracker</title>
-	<script src="js/jquery-3.3.1.js?v=21003"></script>
-	<script src="js/bootstrap.min.js?v=21003"></script>
-	<link rel="stylesheet" type="text/css" href="css/sprites.css?v=21003">
-	<link rel="stylesheet" type="text/css" href="css/fonts.css?v=21003">
-	<link rel="stylesheet" type="text/css" href="css/colors.css?v=21003">
+	<script src="js/jquery-3.7.1.min.js?v=21009"></script>
+	<script src="js/bootstrap.min.js?v=21009"></script>
+	<link rel="stylesheet" type="text/css" href="css/sprites.css?v=21009">
+	<link rel="stylesheet" type="text/css" href="css/fonts.css?v=21009">
+	<link rel="stylesheet" type="text/css" href="css/colors.css?v=21009">
 	<link rel="stylesheet" type="text/css" id="mainstyle">
 	<link rel="stylesheet" type="text/css" id="maincompactstyle">
-	<script src="js/util.js?v=21003"></script>
-	<script src="js/items.js?v=21003"></script>
-	<script src="js/chests.js?v=21003.1"></script>
-	<script src="js/entrancechests.js?v=21003.1"></script>
-	<script src="js/track.js?v=21003.1"></script>
-	<script src="js/dungeons.js?v=21003"></script>
-	<script src="js/spoiler.js?v=21003"></script>
-	<script src="js/autot.js?v=21003"></script>
+	<script src="js/util.js?v=21009"></script>
+	<script src="js/items.js?v=21009"></script>
+	<script src="js/mainScriptLoader.js?v=21009"></script>
+	<!-- <script src="js/chests.js?v=21009.1"></script>
+	<script src="js/track.js?v=21009.1"></script>
+	<script src="js/spoiler.js?v=21009"></script>
+	<script src="js/autot.js?v=21009"></script>
 	<script>
 		var colorSettings = JSON.parse(localStorage.getItem('colorSettings'));
 		for (var key in colorSettings) {
 			document.documentElement.style.setProperty(`--${key}`, colorSettings[key]);
 		}
-	</script>
+	</script> -->
 	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 	<meta http-equiv="Content-Security-Policy" content="connect-src 'self' 'unsafe-inline' localhost:* ws://localhost:*;">
 	<meta http-equiv="Pragma" content="no-cache" />
@@ -1105,6 +1104,9 @@
 							Dark World Dungeons<br>
 							<div class="entrancelocationdiv" onclick="tagEntrance('pod', true)" id="pod">PoD</div>
 							<div class="entrancelocationdiv" onclick="tagEntrance('sp', true)" id="sp">SP</div>
+							<div class="entrancelocationdiv" onclick="tagEntrance('sw_m', true)" id="sw_m">SW m</div>
+							<div class="entrancelocationdiv" onclick="tagEntrance('sw_w', true)" id="sw_w">SW w</div>
+							<div class="entrancelocationdiv" onclick="tagEntrance('sw_e', true)" id="sw_e">SW e</div>
 							<div class="entrancelocationdiv" onclick="tagEntrance('sw', true)" id="sw">SW</div>
 							<div class="entrancelocationdiv" onclick="tagEntrance('tt', true)" id="tt">TT</div>
 							<div class="entrancelocationdiv" onclick="tagEntrance('ip', true)" id="ip">IP</div>
@@ -1114,7 +1116,6 @@
 							<div class="entrancelocationdiv" onclick="tagEntrance('tr_e', true)" id="tr_e">TR e</div>
 							<div class="entrancelocationdiv" onclick="tagEntrance('tr_b', true)" id="tr_b">TR b</div>
 							<div class="entrancelocationdiv" onclick="tagEntrance('gt', true)" id="gt">GT</div>
-							<div class="entrancelocationdiv" onclick="tagEntrance('ganon', true)" id="ganon">Ganon</div>
 						</div>
 						<div>
 							Dark World Key Locations<br>
@@ -1122,6 +1123,10 @@
 							<div class="entrancelocationdiv" onclick="tagEntrance('bump', false)" id="bump">Bumper</div>
 							<div class="entrancelocationdiv" onclick="tagEntrance('spike', false)" id="spike">Spike</div>
 							<div class="entrancelocationdiv" onclick="tagEntrance('hook', false)" id="hook">Hook</div>
+						</div>
+						<div>
+							<br><br>
+							<div class="entrancelocationdiv" onclick="tagEntrance('ganon', true)" id="ganon">Ganon</div>
 						</div>
 					</div>
 				</div>
@@ -1468,7 +1473,6 @@
 			<center style="user-select: none; transform: scale(1.25);"><input type="button" onclick="closeFlagsModal();" value="Cancel" />&nbsp;&nbsp;&nbsp;<input type="button" onclick="adjustFlags();" value="Submit" /></center>
 		</div>
 	</div>
-	<script>start()</script>
 </body>
 
 </html>
