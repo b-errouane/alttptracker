@@ -719,7 +719,8 @@
             "always": {
                 "allOf": [
                     "canBreach|Dark World - South",
-                    "moonpearl"
+                    "moonpearl",
+                    "mirror"
                 ]
             },
             "logical": {
@@ -731,7 +732,8 @@
         "Inverted": {
             "always": {
                 "allOf": [
-                    "canBreach|Light World"
+                    "canBreach|Light World",
+                    "mirror"
                 ]
             },
             "logical": {
