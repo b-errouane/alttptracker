@@ -2563,7 +2563,7 @@
 	window.SPChests = function () {	
 		// if (isNewLogic()) {
 		if (flags.entrancemode != 'N' && !hasFoundLocation('dam')) return 'unavailable';
-		if (flags.entrancemode === 'N' && (!items.flippers || !items.mirror)) return 'unavailable';
+		if (flags.entrancemode === 'N' && !items.mirror) return 'unavailable';
 		return dungeonAvailability(4, 'Swamp Palace');
 		// };
 
