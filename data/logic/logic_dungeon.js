@@ -1,4 +1,7 @@
-{
+(function(window) {
+   'use strict';
+
+   window.logic_dungeon = {
    "Desert Palace": {
       "Desert Palace - Big Chest": {
          "always": {
@@ -3848,4 +3851,4 @@
          }
       }
    }
-}
+}})(window);

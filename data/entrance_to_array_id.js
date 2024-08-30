@@ -1,4 +1,7 @@
-{
+(function(window) {
+    'use strict';
+
+    window.entrance_to_array_id = {
     "20 Rupee Cave": 67,
     "Agahnims Tower": 10,
     "Aginahs Cave": 58,
@@ -139,4 +142,4 @@
     "Turtle Rock Isolated Ledge Entrance": 137,
     "Two Brothers House (West)": 46,
     "Waterfall of Wishing": 5
-}
+}})(window);

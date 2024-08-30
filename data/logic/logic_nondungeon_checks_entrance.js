@@ -1,4 +1,7 @@
-{
+(function(window) {
+    'use strict';
+
+    window.logic_nondungeon_checks_entrance = {
     "Sunken Treasure": {
         "Open": {
             "allOf": [
@@ -12,7 +15,7 @@
             ]
         }
     },
-    "Bottle Vendor": {
+    "Bottle Merchant": {
         "Open": {},
         "Inverted": {
             "allOf": [
@@ -893,4 +896,4 @@
             ]
         }
     }
-}
+}})(window);

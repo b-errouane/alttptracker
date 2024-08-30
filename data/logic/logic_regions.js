@@ -1,4 +1,7 @@
-{
+(function(window) {
+    'use strict';
+
+    window.logic_regions = {
     "Light World": {
         "Open": {},
         "Inverted": {
@@ -1143,4 +1146,4 @@
         },
         "Entrance": []
     }
-}
+}})(window);

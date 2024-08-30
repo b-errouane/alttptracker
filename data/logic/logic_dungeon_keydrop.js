@@ -1,4 +1,7 @@
-{
+(function(window) {
+   'use strict';
+
+   window.logic_dungeon_keydrop = {
    "Desert Palace": {
       "Desert Palace - Beamos Hall Pot Key": {
          "always": {
@@ -4985,4 +4988,4 @@
          }
       }
    }
-}
+}})(window);

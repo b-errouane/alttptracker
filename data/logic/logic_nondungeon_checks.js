@@ -1,4 +1,7 @@
-{
+(function(window) {
+    'use strict';
+
+    window.logic_nondungeon_checks = {
     "Aginah's Cave": {
         "Open": {
             "always": {
@@ -4707,4 +4710,4 @@
             }
         }
     }
-}
+}})(window);

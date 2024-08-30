@@ -292,7 +292,7 @@
         dec: limit(-1, range)
     };
 
-    const dungeonTotalLocations = {
+    window.dungeonTotalLocations = {
         "hc": {
             "dungeonarrayname": "chest11",
             "default": 8,
@@ -440,7 +440,7 @@
 
     if (flags.doorshuffle !== 'C') {
         let isPots = flags.doorshuffle === 'P';
-        for (const [dungeon, dungeonInfo] of Object.entries(dungeonTotalLocations)) {
+        for (const [dungeon, dungeonInfo] of Object.entries(window.dungeonTotalLocations)) {
             var value = dungeonInfo.default;
             if (isPots) {
                 value += dungeonInfo.keypot;

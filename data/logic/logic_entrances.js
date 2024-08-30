@@ -1,4 +1,7 @@
-{
+(function(window) {
+    'use strict';
+
+    window.logic_entrances = {
     "20 Rupee Cave": {
         "Open": {
             "allOf": [
@@ -1802,4 +1805,4 @@
             ]
         }
     }
-}
+}})(window);
