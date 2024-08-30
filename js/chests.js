@@ -1237,10 +1237,10 @@
 		var maxChecks = Object.keys(window.dungeonLogic[dungeonName]).length - hasNoBossItem;
 		var collected = maxChecks - items['chest' + dungeonId];
 
-		if (!flags.keyshuffle) collected -= window.dungeonTotalLocations[dungeonCheckMap[dungeonId].abbreviation]['keys'];
-		if (!flags.bigkeyshuffle) collected -= window.dungeonTotalLocations[dungeonCheckMap[dungeonId].abbreviation]['bigkey'];
-		if (!flags.compassshuffle) collected -= window.dungeonTotalLocations[dungeonCheckMap[dungeonId].abbreviation]['compass'];
-		if (!flags.mapshuffle) collected -= window.dungeonTotalLocations[dungeonCheckMap[dungeonId].abbreviation]['map'];
+		if (!flags.wildkeys) collected -= window.dungeonTotalLocations[dungeonCheckMap[dungeonId].abbreviation]['keys'];
+		if (!flags.wildbigkeys) collected -= window.dungeonTotalLocations[dungeonCheckMap[dungeonId].abbreviation]['bigkey'];
+		if (!flags.wildcompasses) collected -= window.dungeonTotalLocations[dungeonCheckMap[dungeonId].abbreviation]['compass'];
+		if (!flags.wildmaps) collected -= window.dungeonTotalLocations[dungeonCheckMap[dungeonId].abbreviation]['map'];
 
 
 		if (checksLogical >= maxChecks) return 'available';
