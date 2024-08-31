@@ -20,7 +20,13 @@
          "always": {
             "allOf": [
                "canBreach|Desert Palace - Main",
-               "canKillOrExplodeMostEnemies"
+               "canKillOrExplodeMostEnemies",
+               {
+                  "anyOf": [
+                     "keys|1",
+                     "canBreach|Desert Palace - North"
+                  ]
+               }
             ]
          },
          "required": {
@@ -55,7 +61,13 @@
       "Desert Palace - Compass Chest": {
          "always": {
             "allOf": [
-               "canBreach|Desert Palace - Main"
+               "canBreach|Desert Palace - Main",
+               {
+                  "anyOf": [
+                     "keys|1",
+                     "canBreach|Desert Palace - North"
+                  ]
+               }
             ]
          },
          "required": {

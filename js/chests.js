@@ -1602,57 +1602,110 @@
 			}
 			// Back of Escape
 			window.chests[96].is_available = function() {
-				var doorcheck = window.doorCheck(11,false,false,flags.gametype != 'S',['glove','killbomb','bombdash'],'item');
-				if (doorcheck) return doorcheck;
-				if (!items.bomb && !items.boots) return 'unavailable';
-				if (flags.gametype === 'S') return 'available';
-				if (flags.wildkeys || flags.gametype == 'R') {
-					if (items.glove) return 'available';
-					if (items.bomb || melee_bow() || items.firerod || cane()) {
-						if (items.smallkeyhalf0 >= 1 || flags.gametype == 'R') return canDoTorchDarkRooms() ? 'available' : 'darkavailable';
-					}
-					return 'unavailable';
-				}
-				
-				return items.glove ? 'available' : (items.bomb || melee_bow() || rod() || cane() ? (canDoTorchDarkRooms() ? 'possible' : 'darkpossible') : 'unavailable');
-			}
+				if (!(items.bomb || items.boots)) return 'unavailable';
+				if (flags.doorshuffle === 'P' || flags.doorshuffle === 'N') {
+					const dungeonId = 11;
+					const requirements = dungeonLogic['Hyrule Castle']['Sewers - Secret Room - Middle'];
+					if (inLogic(dungeonId, requirements["always"])) {
+						if (!("logical" in requirements) || inLogic(dungeonId, requirements["logical"])) {
+							return 'available';
+						} else if (!("required" in requirements) || inLogic(dungeonId, requirements["required"])) {
+							return 'darkavailable';
+						};
+						return 'possible';
+					};
+					return 'unavailable';		
+				};
+				return window.doorCheck(11,false,false,flags.gametype != 'S',['glove','killbomb','bombdash'],'item');
+			};
 			// HC
 			window.chests[98].is_available = function() {
-				var doorcheck = window.doorCheck(11,false,false,flags.gametype != 'S',['glove','killbomb','bombdash'],'item');
-				if (doorcheck) return doorcheck;
-				return items.bomb || melee_bow() || items.firerod || cane() ? 'available' : 'partialavailable';
+				if (flags.doorshuffle === 'N') {
+					const subdungeon = ['Hyrule Castle - Boomerang Chest','Hyrule Castle - Map Chest','Hyrule Castle - Zelda\'s Chest'];
+					const dungeonId = 11;
+					var checksAlways = 0;
+					var checksRequired = 0;
+					var checksLogical = 0;
+					for (const [location, requirements] of Object.entries(dungeonLogic['Hyrule Castle'])) {
+						if (!(subdungeon.includes(location))) continue;
+						if (inLogic(dungeonId, requirements["always"])) {
+							checksAlways++;
+							if (!("logical" in requirements) || inLogic(dungeonId, requirements["logical"])) {
+								checksLogical++;
+								checksRequired++;
+							} else if (!("required" in requirements) || inLogic(dungeonId, requirements["required"])) {
+								checksRequired++;
+							};
+						};
+					};
+
+					if (checksLogical >= subdungeon.length) return 'available';
+					if (checksLogical > 0) return 'partialavailable';
+					if (checksRequired > 0) return 'darkavailable';
+					if (checksAlways > 0) return 'possible';
+			
+					return 'unavailable';
+				}
+				return window.doorCheck(11,false,false,flags.gametype != 'S',['glove','killbomb','bombdash'],'item');
 			}
 			// Dark Cross
 			window.chests[104].is_available = function() {
-				var doorcheck = window.doorCheck(11,false,false,flags.gametype != 'S',['glove','killbomb','bombdash'],'item');
-				if (doorcheck) return doorcheck;
-				return flags.gametype === 'S' || canDoTorchDarkRooms() ? 'available' : 'darkavailable';
+				if (flags.doorshuffle === 'N') {
+					const dungeonId = 11;
+					const requirements = dungeonLogic['Hyrule Castle']['Sewers - Dark Cross'];
+					if (inLogic(dungeonId, requirements["always"])) {
+						if (!("logical" in requirements) || inLogic(dungeonId, requirements["logical"])) {
+							return 'available';
+						} else if (!("required" in requirements) || inLogic(dungeonId, requirements["required"])) {
+							return 'darkavailable';
+						};
+						return 'possible';
+					};
+					return 'unavailable';		
+				};
+				return window.doorCheck(11,false,false,flags.gametype != 'S',['glove','killbomb','bombdash'],'item');
 			}
 			// CT1
 			window.chests[106].is_available = function() {
+				if (flags.doorshuffle === 'N') {
+					const dungeonId = 12;
+					const requirements = dungeonLogic['Castle Tower']['Castle Tower - Room 03'];
+					if (inLogic(dungeonId, requirements["always"])) {
+						if (!("logical" in requirements) || inLogic(dungeonId, requirements["logical"])) {
+							return 'available';
+						} else if (!("required" in requirements) || inLogic(dungeonId, requirements["required"])) {
+							return 'darkavailable';
+						};
+						return 'possible';
+					};
+					return 'unavailable';		
+				};
 				if(items.sword < 2 && (flags.swordmode != 'S' || !items.hammer) && !items.cape && !items.agahnim)
 					return 'unavailable';
-				if(flags.doorshuffle != 'N') {
-					if(items.mirror && (items.agahnim || (items.glove && items.hammer && items.moonpearl) || (items.glove === 2 && items.moonpearl && items.flippers)))
-						return window.doorCheck(12,false,true,true,['kill','swordorswordless'],'item');
-					return 'possible';
-				}
-				if(!items.bomb && !melee_bow() && !cane() && !items.firerod)
-					return 'unavailable';
-				return 'available';
+				if(items.mirror && (items.agahnim || (items.glove && items.hammer && items.moonpearl) || (items.glove === 2 && items.moonpearl && items.flippers)))
+					return window.doorCheck(12,false,true,true,['kill','swordorswordless'],'item');
+				return 'possible';
 			}
 			// CT2
 			window.chests[107].is_available = function() {
+				if (flags.doorshuffle === 'N') {
+					const dungeonId = 12;
+					const requirements = dungeonLogic['Castle Tower']['Castle Tower - Dark Maze'];
+					if (inLogic(dungeonId, requirements["always"])) {
+						if (!("logical" in requirements) || inLogic(dungeonId, requirements["logical"])) {
+							return 'available';
+						} else if (!("required" in requirements) || inLogic(dungeonId, requirements["required"])) {
+							return 'darkavailable';
+						};
+						return 'possible';
+					};
+					return 'unavailable';		
+				};
 				if(items.sword < 2 && (flags.swordmode != 'S' || !items.hammer) && !items.cape && !items.agahnim)
 					return 'unavailable';
-				if(flags.doorshuffle != 'N') {
-					if(items.mirror && (items.agahnim || (items.glove && items.hammer && items.moonpearl) || (items.glove === 2 && items.moonpearl && items.flippers)))
-						return window.doorCheck(12,false,true,true,['kill','swordorswordless'],'item');
-					return 'possible';
-				}
-				if(!items.bomb && !melee_bow() && !cane() && !items.firerod)
-					return 'unavailable';
-				return items.smallkeyhalf1 > 0 || flags.gametype === 'R' ? items.lantern ? 'available' : 'darkavailable' : 'unavailable';
+				if(items.mirror && (items.agahnim || (items.glove && items.hammer && items.moonpearl) || (items.glove === 2 && items.moonpearl && items.flippers)))
+					return window.doorCheck(12,false,true,true,['kill','swordorswordless'],'item');
+				return 'possible';
 			}
 
 			// Bomb Shop

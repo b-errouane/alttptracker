@@ -5,9 +5,50 @@
     "Light World": {
         "Open": {},
         "Inverted": {
-            "logical": {
+            "always": {
                 "anyOf": [
                     "agahnim",
+                    {
+                        "allOf": [
+                            "mitts",
+                            "flute"
+                        ]
+                    },
+                    {
+                        "allOf": [
+                            "moonpearl",
+                            "mitts"
+                        ]
+                    },
+                    {
+                        "allOf": [
+                            "moonpearl",
+                            "hammer"
+                        ]
+                    },
+                    {
+                        "allOf": [
+                            "mitts",
+                            {
+                                "anyOf": [
+                                    "flippers",
+                                    "canZoraSplashDelete",
+                                    "canQirnJump"
+                                ]
+                            },
+                            "canOWFairyRevive"
+                        ]
+                    }
+                ]
+            },
+            "logical": {
+                "anyOf": [
+                    {
+                        "allOf": [
+                            "agahnim",
+                            "lantern"
+                        ]
+                    },
                     {
                         "allOf": [
                             "mitts",
@@ -506,7 +547,7 @@
         "Inverted": {
             "always": {
                 "allOf": [
-                    "canReach|Light World"
+                    "canBreach|Light World"
                 ],
                 "anyOf": [
                     "moonpearl",

@@ -1552,6 +1552,23 @@
             }
         }
     },
+    "Hyrule Castle Dungeon (3)": {
+        "Open": {
+            "always": []
+        },
+        "Inverted": {
+            "always": {
+                "allOf": [
+                    "canBreach|Light World"
+                ]
+            },
+            "logical": {
+                "allOf": [
+                    "canReach|Light World"
+                ]
+            }
+        }
+    },
     "Ice Rod Cave": {
         "Open": {
             "always": {
@@ -1898,6 +1915,7 @@
     },
     "Library": {
         "Open": {
+            "scout": {},
             "always": {
                 "allOf": [
                     "boots"
@@ -1905,6 +1923,11 @@
             }
         },
         "Inverted": {
+            "scout": {
+                "allOf": [
+                    "canBreach|Light World",
+                ]
+            },
             "always": {
                 "allOf": [
                     "canBreach|Light World",
@@ -1946,13 +1969,14 @@
     "Lost Woods Hideout": {
         "Open": {},
         "Inverted": {
-            "always": {
+            "scout": {
                 "allOf": [
                     "canBreach|Light World"
                 ]
             },
-            "required": {
+            "always": {
                 "allOf": [
+                    "canBreach|Light World",
                     "moonpearl"
                 ]
             },
