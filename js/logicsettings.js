@@ -27,7 +27,8 @@ const allLogic = {
   "canZoraSplashDelete": true,
   "canBunnyPocket": true,
   "canFairyBarrierRevive": true,
-  "canShockBlock": true
+  "canShockBlock": true,
+  "canTombRaider": true
 };
 
 const noStupid = {
@@ -57,7 +58,8 @@ const noStupid = {
   "canZoraSplashDelete": true,
   "canBunnyPocket": true,
   "canFairyBarrierRevive": false,
-  "canShockBlock": false
+  "canShockBlock": false,
+  "canTombRaider": true
 };
 
 const basicLogic = {
@@ -87,7 +89,8 @@ const basicLogic = {
   "canZoraSplashDelete": true,
   "canBunnyPocket": false,
   "canFairyBarrierRevive": false,
-  "canShockBlock": false
+  "canShockBlock": false,
+  "canTombRaider": true
 };
 
 // Save logic settings to local storage

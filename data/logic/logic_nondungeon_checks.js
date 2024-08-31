@@ -156,41 +156,44 @@
     },
     "Bombos Tablet": {
         "Open": {
-            "always": {
+            "scout": {
                 "allOf": [
                     "canBreach|Dark World - South",
                     "book",
                     "mirror"
                 ]
             },
-            "required": {
+            "always": {
                 "allOf": [
+                    "canBreach|Dark World - South",
+                    "book",
+                    "mirror",
                     "canBreakTablets"
                 ]
             },
             "logical": {
                 "allOf": [
                     "canReach|Dark World - South",
-                    "canBreakTablets"
                 ]
             }
         },
         "Inverted": {
+            "scout": {
+                "allOf": [
+                    "canBreach|Light World",
+                    "book",
+                ]
+            },
             "always": {
                 "allOf": [
                     "canBreach|Light World",
-                    "book"
-                ]
-            },
-            "required": {
-                "allOf": [
+                    "book",
                     "canBreakTablets"
                 ]
             },
             "logical": {
                 "allOf": [
-                    "canReach|Light World",
-                    "canBreakTablets"
+                    "canReach|Light World"
                 ]
             }
         }
@@ -257,6 +260,11 @@
     },
     "Bumper Cave Ledge": {
         "Open": {
+            "scout": {
+                "allOf": [
+                    "canBreach|Dark World - West",
+                ]
+            },
             "always": {
                 "allOf": [
                     "canBreach|Dark World - West",
@@ -272,6 +280,11 @@
             }
         },
         "Inverted": {
+            "scout": {
+                "allOf": [
+                    "canBreach|Dark World - West",
+                ]
+            },
             "always": {
                 "allOf": [
                     "canBreach|Light World",
@@ -485,6 +498,11 @@
             }
         },
         "Inverted": {
+            "scout": {
+                "allOf": [
+                    "canBreach|Light World",
+                ]
+            },
             "always": {
                 "allOf": [
                     "canBreach|Light World"
@@ -898,6 +916,7 @@
     },
     "Desert Ledge": {
         "Open": {
+            "scout": {},
             "always": {
                 "anyOf": [
                     "book",
@@ -922,6 +941,11 @@
             }
         },
         "Inverted": {
+            "scout": {
+                "allOf": [
+                    "canBreach|Light World",
+                ]
+            },
             "always": {
                 "allOf": [
                     "canBreach|Light World"
@@ -964,46 +988,53 @@
     },
     "Ether Tablet": {
         "Open": {
-            "always": {
+            "scout": {
                 "allOf": [
                     "canBreach|Light World - Upper West Death Mountain",
                     "book"
                 ]
             },
-            "required": {
+            "always": {
                 "allOf": [
+                    "canBreach|Light World - Upper West Death Mountain",
+                    "book",
                     "canBreakTablets"
                 ]
             },
             "logical": {
                 "allOf": [
-                    "canReach|Light World - Upper West Death Mountain",
-                    "canBreakTablets"
+                    "canReach|Light World - Upper West Death Mountain"
                 ]
             }
         },
         "Inverted": {
-            "always": {
+            "scout": {
                 "allOf": [
                     "canBreach|Light World - Upper West Death Mountain",
                     "book"
                 ]
             },
-            "required": {
+            "always": {
                 "allOf": [
+                    "canBreach|Light World - Upper West Death Mountain",
+                    "book",
                     "canBreakTablets"
                 ]
             },
             "logical": {
                 "allOf": [
-                    "canReach|Light World - Upper West Death Mountain",
-                    "canBreakTablets"
+                    "canReach|Light World - Upper West Death Mountain"
                 ]
             }
         }
     },
     "Floating Island": {
         "Open": {
+            "scout": {
+                "allOf": [
+                    "canBreach|Light World - East Death Mountain",
+                ]
+            },
             "always": {
                 "allOf": [
                     "canBreach|Dark World - Death Mountain",
@@ -1763,7 +1794,8 @@
             "always": {
                 "allOf": [
                     "canBreach|Light World",
-                    "moonpearl"
+                    "moonpearl",
+                    "boots"
                 ],
                 "anyOf": [
                     "mitts",
@@ -1780,6 +1812,7 @@
     },
     "Lake Hylia Island": {
         "Open": {
+            "scout": {},
             "always": {
                 "allOf": [
                     "canBreach|Dark World - East",
@@ -1795,6 +1828,11 @@
             }
         },
         "Inverted": {
+            "scout": {
+                "allOf": [
+                    "canBreach|Light World",
+                ]
+            },
             "always": {
                 "allOf": [
                     "canBreach|Light World",
@@ -1928,6 +1966,7 @@
     },
     "Lumberjack Tree": {
         "Open": {
+            "scout": {},
             "always": {
                 "allOf": [
                     "agahnim",
@@ -1941,12 +1980,12 @@
             }
         },
         "Inverted": {
-            "always": {
+            "scout": {
                 "allOf": [
                     "canBreach|Light World"
                 ]
             },
-            "required": {
+            "always": {
                 "allOf": [
                     "agahnim",
                     "boots",
@@ -1955,10 +1994,7 @@
             },
             "logical": {
                 "allOf": [
-                    "canReach|Light World",
-                    "agahnim",
-                    "boots",
-                    "moonpearl"
+                    "lantern"
                 ]
             }
         }
@@ -2023,6 +2059,11 @@
         }
     },
     "Master Sword Pedestal": {
+        "scout": {
+            "allOf": [
+                "book"
+            ]
+        },
         "Open": {
             "always": {
                 "allOf": [
@@ -2031,6 +2072,12 @@
             }
         },
         "Inverted": {
+            "scout": {
+                "allOf": [
+                    "canBreach|Light World",
+                    "book"
+                ]
+            },
             "always": {
                 "allOf": [
                     "canBreach|Light World",
@@ -2046,6 +2093,7 @@
     },
     "Maze Race": {
         "Open": {
+            "scout": {},
             "always": {
                 "anyOf": [
                     "canOpenBonkWalls",
@@ -2070,6 +2118,11 @@
             }
         },
         "Inverted": {
+            "scout": {
+                "allOf": [
+                    "canBreach|Light World",
+                ]
+            },
             "always": {
                 "allOf": [
                     "canBreach|Light World",
@@ -2282,13 +2335,14 @@
     "Mushroom": {
         "Open": {},
         "Inverted": {
-            "always": {
+            "scout": {
                 "allOf": [
                     "canBreach|Light World"
                 ]
             },
-            "required": {
+            "always": {
                 "allOf": [
+                    "canBreach|Light World",
                     "moonpearl"
                 ]
             },
@@ -3158,6 +3212,11 @@
     },
     "Spectacle Rock": {
         "Open": {
+            "scout": {
+                "allOf": [
+                    "canBreach|Light World - Lower West Death Mountain"
+                ]
+            },
             "always": {
                 "allOf": [
                     "canBreach|Light World - Lower West Death Mountain",
@@ -3171,6 +3230,11 @@
             }
         },
         "Inverted": {
+            "scout": {
+                "allOf": [
+                    "canBreach|Dark World - Death Mountain"
+                ]
+            },
             "always": {
                 "allOf": [
                     "canBreach|Light World - Upper West Death Mountain"
@@ -3560,6 +3624,14 @@
     },
     "Zora's Ledge": {
         "Open": {
+            "scout": {
+                "anyOf": [
+                    "flippers",
+                    "canWaterWalk",
+                    "glove",
+                    "canFakeFlipper"
+                ]
+            },
             "always": {
                 "anyOf": [
                     "flippers",
@@ -3589,6 +3661,18 @@
             }
         },
         "Inverted": {
+            "scout": {
+                "allOf": [
+                    "canBreach|Light World",
+                    "moonpearl"
+                ],
+                "anyOf": [
+                    "flippers",
+                    "canWaterWalk",
+                    "glove",
+                    "canFakeFlipper"
+                ]
+            },
             "always": {
                 "allOf": [
                     "canBreach|Light World",
@@ -3632,6 +3716,11 @@
             }
         },
         "Inverted": {
+            "scout": {
+                "allOf": [
+                    "canBreach|Light World"
+                ]
+            },
             "always": {
                 "allOf": [
                     "canBreach|Light World",

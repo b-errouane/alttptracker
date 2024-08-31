@@ -272,6 +272,7 @@
 			case "canBunnyPocket": return userLogicSettings[requirement] && (items.boots && (items.mirror || items.bottle));
 			case "canSpinSpeedClip": return false;
 			case "canMirrorWrap": return false;
+			case "canTombRaider": return userLogicSettings[requirement] && (items.hookshot && (items.bomb || items.sword > 1));
 			case "canFairyBarrierRevive": return userLogicSettings[requirement] && (items.bottle && items.net && items.mirror);
 			case "canShockBlock": return userLogicSettings[requirement] && (items.somaria);
 			case "canHover": return userLogicSettings[requirement] && (items.boots);
@@ -359,7 +360,8 @@
 		let available = 0;
 		let required = 0;
 		let possible = 0;
-		let unavailable = 0; 
+		let unavailable = 0;
+		let information = 0;
 		for (var i = 0; i < locations.length; i++) {
 			const location = locations[i];
 			const requirements = window.checkLogic[location][category];
@@ -371,11 +373,16 @@
 				} else if (!("required" in requirements) || stateOfAll(requirements["required"])) {
 					availability = 'darkavailable';
 				};
+			} else {
+				if ("scout" in requirements && stateOfAll(requirements["scout"])) {
+					availability = 'information';
+				};
 			};
 			switch (availability) {
 				case 'available': available++; break;
 				case 'darkavailable': required++; break;
 				case 'possible': possible++; break;
+				case 'information': information++; break;
 				default: unavailable++;
 			};
 		};
@@ -383,6 +390,7 @@
 		if (available > 0 && unavailable > 0) return 'partialavailable';
 		if (required > 0) return 'darkavailable';
 		if (possible > 0) return 'possible';
+		if (information > 0) return 'information';
 		return 'unavailable';
 	};
 	// #endregion
