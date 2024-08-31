@@ -609,7 +609,8 @@
         "caption": "Lost Old Man {lantern}",
         "checks": [
             "Old Man"
-        ]
+        ],
+        "entrance_idx": 10
     },
     {
         "open_idx": 76,
@@ -965,13 +966,6 @@
         "caption": "Bottle Merchant: Pay 100 rupees",
         "checks": [
             "Bottle Merchant"
-        ]
-    },
-    {
-        "entrance_idx": 10,
-        "caption": "Old Man House (Bottom)",
-        "checks": [
-            "Old Man"
         ]
     },
     {

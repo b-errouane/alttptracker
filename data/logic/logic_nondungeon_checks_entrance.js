@@ -23,6 +23,21 @@
             ]
         }
     },
+    "Old Man": {
+        "Open": {
+            "allOf": [
+                "canReach|Upper West Death Mountain",
+                "lantern"
+            ]
+        },
+        "Inverted": {
+            "allOf": [
+                "canReach|Inverted Upper West Death Mountain",
+                "canReach|Inverted Dark Death Mountain",
+                "lantern"
+            ]
+        }
+    },
     "Stumpy": {
         "Open": {
             "allOf": [

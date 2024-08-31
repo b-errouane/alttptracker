@@ -2309,8 +2309,7 @@
                 ]
             },
             "logical": {
-                "anyOf": [
-                    "flute",
+                "allOf": [
                     "lantern"
                 ]
             }
@@ -2323,8 +2322,7 @@
                 ]
             },
             "logical": {
-                "anyOf": [
-                    "flute",
+                "allOf": [
                     "lantern"
                 ]
             }

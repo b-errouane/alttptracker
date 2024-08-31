@@ -450,7 +450,7 @@
 		if (items.flute >= 1) return true;
 		if (hasFoundRegion([
 				"Spectacle Rock Cave", "Spectacle Rock Cave Peak", "Spectacle Rock Cave (Bottom)", "Old Man Cave (East)", 
-				"Death Mountain Return Cave (East)", "Old Man House (Bottom)", "Old Man House (Top)"
+				"Death Mountain Return Cave (East)", "Old Man House (Bottom)", "Old Man House (Top)", "Tower of Hera"
 		])) return true;
 		if (items.hookshot && hasFoundRegion([
 				"Paradox Cave (Top)", "Paradox Cave (Middle)", "Paradox Cave (Bottom)", "Spiral Cave", "Spiral Cave (Bottom)", "Hookshot Fairy",
@@ -1053,6 +1053,7 @@
 			case "flippers": return items.flippers;
 			case "flute": return items.flute || (flags.gametype === 'I' && activeFluteInvertedEntrance());
 			case "firerod": return items.firerod;
+			case "lantern": return items.lantern;
 			case "shovel": return items.shovel;
 			case "agahnim": return items.agahnim;
 			case "hammer": return items.hammer;
@@ -1246,7 +1247,7 @@
 
 		if (checksLogical >= maxChecks) return 'available';
 		if ((checksLogical - collected) > 0) return 'partialavailable';
-		if ((checksRequired - collected) > 0) return 'darkpossible';
+		if ((checksRequired - collected) > 0) return 'darkavailable';
 		if ((checksAlways - collected) > 0) return 'possible';
 
 		return 'unavailable';
@@ -1255,8 +1256,9 @@
 	function minimumAvailability(a, b) {
 		var availabilities = [a, b];
 		if (availabilities.includes('unavailable')) return 'unavailable';
-		if (availabilities.includes('darkpossible')) return 'darkpossible';
 		if (availabilities.includes('possible')) return 'possible';
+		if (availabilities.includes('darkpossible')) return 'darkpossible';
+		if (availabilities.includes('darkavailable')) return 'darkavailable';
 		if (availabilities.includes('partialavailable')) return 'partialavailable';
 		return 'available';
 	}
@@ -1267,7 +1269,7 @@
 
 		if (!("always" in requirements) || inLogic(dungeonId, requirements["always"])) {
 			availability = 'possible';
-			if (!("required" in requirements) || (inLogic(dungeonId, requirements["required"]))) availability = 'darkpossible';
+			if (!("required" in requirements) || (inLogic(dungeonId, requirements["required"]))) availability = 'darkavailable';
 			if (!("logical" in requirements) || inLogic(dungeonId, requirements["logical"])) availability = 'available';
 		};
 
@@ -1526,8 +1528,6 @@
 		if (flags.entrancemode != 'N') {
 			// Links house
 			window.chests[1].is_available = always
-			// Old Man
-			window.chests[10].is_available = always
 
 			window.entrances = []
 			Object.keys(window.entrances_data).forEach(function(key, index) {
