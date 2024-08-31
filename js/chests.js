@@ -17,6 +17,8 @@
 	window.entranceLogic = window.logic_entrances
 	window.entranceMap = window.entrance_to_array_id
 
+	const userLogicSettings = JSON.parse(localStorage.getItem("logicSettings"));
+
 	// #region Helper functions
 	function bestAvailability(arr) {
 		var best = 'unavailable';
@@ -257,23 +259,22 @@
 			case 'canKillOrExplodeMostEnemies': return items.sword > 0 || items.hammer || items.bow > 1 || items.somaria || items.byrna || items.firerod || items.bomb;
 			case "canGetBonkableItem": return items.boots || (items.sword && items.quake);
 
-			case 'canDarkRoomNavigateBlind': return true;
-			case "canFairyReviveHover": return items.boots && items.bottle && items.net;
-			case "canFakeFlipper": return items.flippers || true;
-			case "canOWFairyRevive": return items.bottle && items.net;
-			case "canQirnJump": return items.bomb;
-			case "canMirrorSuperBunny": return items.mirror;
-			case "canDungeonBunnyRevive": return true;
-			case "canFakeFlipper": return true;
-			case "canFakePowder": return items.somaria && items.mushroom;
-			case "canWaterWalk": return items.boots && items.bomb;
-			case "canZoraSplashDelete": return (items.bomb && items.bow > 0) || (items.somaria && items.bomb && items.boomerang > 1) || (items.bomb && items.icerod) || (items.bottle && items.net && items.bomb);
-			case "canBunnyPocket": return items.boots && (items.mirror || items.bottle)
+			case 'canDarkRoomNavigateBlind': return userLogicSettings[requirement] && (true);
+			case "canFairyReviveHover": return userLogicSettings[requirement] && (items.boots && items.bottle && items.net);
+			case "canOWFairyRevive": return userLogicSettings[requirement] && (items.bottle && items.net);
+			case "canQirnJump": return userLogicSettings[requirement] && (items.bomb);
+			case "canMirrorSuperBunny": return userLogicSettings[requirement] && (items.mirror);
+			case "canDungeonBunnyRevive": return userLogicSettings[requirement] && (true);
+			case "canFakeFlipper": return userLogicSettings[requirement] && (true);
+			case "canFakePowder": return userLogicSettings[requirement] && (items.somaria && items.mushroom);
+			case "canWaterWalk": return userLogicSettings[requirement] && (items.boots && items.bomb);
+			case "canZoraSplashDelete": return userLogicSettings[requirement] && ((items.bomb && items.bow > 0) || (items.somaria && items.bomb && items.boomerang > 1) || (items.bomb && items.icerod) || (items.bottle && items.net && items.bomb));
+			case "canBunnyPocket": return userLogicSettings[requirement] && (items.boots && (items.mirror || items.bottle));
 			case "canSpinSpeedClip": return false;
 			case "canMirrorWrap": return false;
-			case "canFairyBarrierRevive": return items.bottle && items.net && items.mirror;
-			case "canShockBlock": return items.somaria;
-			case "canHover": return items.boots;
+			case "canFairyBarrierRevive": return userLogicSettings[requirement] && (items.bottle && items.net && items.mirror);
+			case "canShockBlock": return userLogicSettings[requirement] && (items.somaria);
+			case "canHover": return userLogicSettings[requirement] && (items.boots);
 
 			case "canOpenGT": return crystalCheck() >= flags.opentowercount;
 			case "canBuyBigBomb": {
@@ -1172,22 +1173,22 @@
 			case 'canHitSwitch': return canHitSwitch();
 			case 'canHitRangedSwitch': return canHitRangedSwitch();
 
-			case 'canIceBreak': return items.somaria;
-			case 'canHookClip': return items.hookshot;
-			case 'canBombJump': return items.bomb;
-			case 'canBombOrBonkCameraUnlock': return items.bomb || items.boots;
-			case 'canHover': return items.boots;
-			case 'canHoverAlot': return items.boots;
-			case 'canSpeckyClip': return items.bomb && items.hookshot;
-			case 'canBombSpooky': return items.bomb;
-			case 'canHeraPot': return items.hookshot && (items.boots || items.bomb);
+			case 'canIceBreak': return userLogicSettings[requirement] && (items.somaria);
+			case 'canHookClip': return userLogicSettings[requirement] && (items.hookshot);
+			case 'canBombJump': return userLogicSettings[requirement] && (items.bomb);
+			case 'canBombOrBonkCameraUnlock': return userLogicSettings[requirement] && (items.bomb || items.boots);
+			case 'canHover': return userLogicSettings[requirement] && (items.boots);
+			case 'canHoverAlot': return userLogicSettings[requirement] && (items.boots);
+			case 'canSpeckyClip': return userLogicSettings[requirement] && (items.bomb && items.hookshot);
+			case 'canBombSpooky': return userLogicSettings[requirement] && (items.bomb);
+			case 'canHeraPot': return userLogicSettings[requirement] && (items.hookshot && (items.boots || items.bomb));
 			case 'canOpenBonkWalls': return items.boots || items.bomb;
-			case 'canFireSpooky': return items.firerod && items.somaria;
-			case 'canMimicClip': return true;
-			case 'canPotionCameraUnlock': return items.bottle > 0;
-			case 'canMoldormBounce': return items.bomb && items.sword > 0;
-			case 'canDarkRoomNavigateBlind': return true || items.lantern;
-			case 'canTorchRoomNavigateBlind': return true || (items.lantern || (items.firerod && !isDoorsBranch() && !flags.entrancemode === 'N'));
+			case 'canFireSpooky': return userLogicSettings[requirement] && (items.firerod && items.somaria);
+			case 'canMimicClip': return userLogicSettings[requirement] && (true);
+			case 'canPotionCameraUnlock': return userLogicSettings[requirement] && (items.bottle > 0);
+			case 'canMoldormBounce': return userLogicSettings[requirement] && (items.bomb && items.sword > 0);
+			case 'canDarkRoomNavigateBlind': return userLogicSettings[requirement] && (true || items.lantern);
+			case 'canTorchRoomNavigateBlind': return userLogicSettings[requirement] && (true || (items.lantern || (items.firerod && !isDoorsBranch() && !flags.entrancemode === 'N')));
 			case 'canRushRightSidePod': return (items.bomb || items.boots) && (true || items.bow > 1 || items.bottle);
 
 			case "canExitTurtleRockWestAndEnterEast": return (items.bomb || flags.gametype === 'I') && flags.entrancemode === 'N';
