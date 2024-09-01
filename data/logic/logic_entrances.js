@@ -1362,7 +1362,6 @@
                 {
                     "allOf": [
                         "canReach|South West Dark World",
-                        "moonpearl",
                         "mirror"
                     ]
                 },

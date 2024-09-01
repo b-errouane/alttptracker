@@ -829,9 +829,7 @@
             }
         },
         "Inverted": {},
-        "Entrance": [
-            "sw_e, sw_w"
-        ]
+        "Entrance": ["sw_e", "sw_w"]
     },
     "Skull Woods - Back": {
         "Open": {
@@ -887,7 +885,7 @@
             }
         },
         "Inverted": {},
-        "Entrance": []
+        "Entrance": ["exception|swdrops"]
     },
     "Thieves Town": {
         "Open": {

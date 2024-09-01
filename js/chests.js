@@ -36,7 +36,7 @@
 	const bossToColorMap = {
 		'available': 'lime',
 		'possible': 'yellow',
-		'darkavailable': 'blue',
+		'darkavailable': 'purple',
 		'darkpossible': 'purple',
 		'unavailable': 'red'
 	};
@@ -134,27 +134,27 @@
 	function enemizer_check(i) {
 		switch (enemizer[i]) {
 			// Armos
-			case 1: if (melee_bow() || items.boomerang > 0 || cane() || rod()) return 'available'; break;
+			case 1: return (melee_bow() || items.boomerang > 0 || cane() || rod()) ? 'available' : 'unavailable';
 			// Lanmolas
-			case 2: if (melee_bow() || cane() || rod() || items.hammer) return 'available'; break;
+			case 2: return (melee_bow() || cane() || rod() || items.hammer) ? 'available' : 'unavailable';
 			// Moldorm
-			case 3: if (melee()) return 'available'; break;
+			case 3: return (melee()) ? 'available' : 'unavailable';
 			// Helmasaur
-			case 4: if (melee_bow() && (items.hammer || items.bomb)) return 'available'; break;
+			case 4: return (melee_bow() && (items.hammer || items.bomb)) ? 'available': 'unavailable';
 			// Arrghus
-			case 5: if (items.hookshot && ((melee() || (items.bow > 1 && rod())) || (items.bomb && rod() && (items.bottle > 1 || (items.bottle > 0 && items.magic))))) return 'available'; break;
+			case 5: return (items.hookshot && ((melee() || (items.bow > 1 && rod())) || (items.bomb && rod() && (items.bottle > 1 || (items.bottle > 0 && items.magic))))) ? 'available': 'unavailable';
 			// Mothula
-			case 6: if (melee() || items.firerod || cane()) return 'available'; break;
+			case 6: return (melee() || items.firerod || cane()) ? 'available': 'unavailable';
 			// Blind
-			case 7: if (melee() || cane()) return 'available'; break;
+			case 7: return (melee() || cane()) ? 'available': 'unavailable';
 			// Kholdstare
-			case 8: if (items.firerod || (items.bombos && (items.sword > 0 || (flags.swordmode === 'S' && items.hammer)))) return 'available'; break;
+			case 8: return (items.firerod || (items.bombos && (items.sword > 0 || (flags.swordmode === 'S' && items.hammer)))) ? 'available': 'unavailable';
 			// Vitreous
-			case 9: if (melee_bow()) return 'available'; break;
+			case 9: return (melee_bow()) ? 'available': 'unavailable';
 			// Trinexx
-			case 10: if (items.firerod && items.icerod && (items.hammer || items.sword > 1)) return 'available'; break;
+			case 10: return (items.firerod && items.icerod && (items.hammer || items.sword > 1)) ? 'available': 'unavailable';
 			// Ganon's Tower
-			case 11: if (flags.bossshuffle != 'N') { return 'possible' } else if (melee()) return 'available'; break;
+			case 11: return (flags.bossshuffle != 'N') ? 'possible' : (melee() ? 'available': 'unavailable');
 			default: return 'unavailable';
 		};
 	};
@@ -315,6 +315,13 @@
 								(entrances[102].known_location === 'sanc' && (items.moonpearl || flags.gametype === 'I'))
 							) ? 'available' : 'unavailable';
 						};
+						case "swdrops": {
+							if (!flags.gametype != 'I') {
+								return canReachWestDarkWorld() ? (items.moonpearl ? 'available' : 'darkavailable') : 'unavailable';
+							} else {
+								return canReachInvertedWestDW() ? 'available' : 'unavailable';
+							}
+						}
 					};
 				} else if (hasFoundLocation(mapTrackerName)) {
 					found = true;
@@ -1149,6 +1156,7 @@
 			case 'bigkey': return items['bigkey' + dungeonId];
 
 			case 'boots': return items.boots;
+			case 'bombs': return items.bomb;
 			case 'bow': return items.bow > 1;
 			case 'net': return items.net;
 			case 'byrna': return items.byrna;
@@ -1168,7 +1176,6 @@
 
 			case 'canKillBoss': return enemizer_check(dungeonId) === 'available';
 			case 'canKillArmos': return enemizer_check(0) === 'available';
-			case 'canUseBombs': return items.bomb;
 			case 'canKillMostEnemies': return items.sword > 0 || items.hammer || items.bow > 1 || items.somaria || items.byrna || items.firerod;
 			case 'canKillOrExplodeMostEnemies': return items.sword > 0 || items.hammer || items.bow > 1 || items.somaria || items.byrna || items.firerod || items.bomb;
 			case 'canFightAgahnim': return items.sword > 0 || items.hammer || items.net;
@@ -1556,17 +1563,11 @@
 
 			// Mire
 			window.entrances[123]["is_available"] = function() {
-				if (checkEntranceAvailability("Misery Mire") != 'unavailable') {
-					return medallionCheck(0);
-				};
-				return 'unavailable';
+				return minimumAvailability(medallionCheck(0), checkEntranceAvailability("Misery Mire"));
 			}
 			// TR
 			window.entrances[136]["is_available"] = function() {
-				if (checkEntranceAvailability("Turtle Rock") != 'unavailable') {
-					return medallionCheck(0);
-				};
-				return 'unavailable';
+				return minimumAvailability(medallionCheck(1), checkEntranceAvailability("Turtle Rock"));
 			}
 
 		} else {
