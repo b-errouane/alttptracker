@@ -1458,12 +1458,6 @@
                }
             ]
          },
-         "required": {
-            "anyOf": [
-               "canBreach|Skull Woods - Drops",
-               "keys|1"
-            ]
-         },
          "logical": {
             "anyOf": [
                "canReach|Skull Woods - Drops",
@@ -1489,20 +1483,20 @@
                {
                   "allOf": [
                      "canBreach|Skull Woods - Drops",
-                     {
-                        "anyOf": [
-                           "moonpearl",
-                           "keys|1"
-                        ]
-                     }
+                     "keys|1"
                   ]
                }
             ]
          },
          "logical": {
             "anyOf": [
-               "canReach|Skull Woods - Drops",
-               "canReach|Skull Woods - Main"
+               "canReach|Skull Woods - Main",
+               {
+                  "allOf": [
+                     "canReach|Skull Woods - Drops",
+                     "keys|1"
+                  ]
+               }
             ]
          }
       },

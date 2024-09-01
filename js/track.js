@@ -13,6 +13,7 @@
 	window.connectorIndex = [];
 	window.connectorOne = [];
 	window.connectorTwo = [];
+	window.middleClickedEntrance = -1;
 	window.owGraphLogic = false;
 	window.dpFrontLogic = false;
 	window.trFrontLogic = false;
@@ -1409,7 +1410,7 @@
 			case 'information':
 				return (flags.colormode === "N" ? 'orange' : '#d53ae6');
 			case 'darkavailable':
-				return (flags.colormode === "N" ? 'blue' : '#034f6d');
+				return (flags.colormode === "N" ? 'purple' : '#034f6d');
 			case 'darkpossible':
 				return (flags.colormode === "N" ? 'purple' : '#cdbd00');
 		}
@@ -1748,7 +1749,18 @@
 			document.getElementById(entrances[n].known_location).style.borderColor = curStyle.getPropertyValue('--available-color');
 		}
 	}
-	
+
+	window.middleClickEntrance = function(n) {
+		if (connectStart) {
+			connectFinish = true;
+		} else {
+			connectStart = true;
+			connectFinish = false;
+			document.getElementById('entranceID').value = n;
+		};
+		toggle_location(n);
+	};
+
 	window.checkReturn = function(n) {
 		if (n.keyCode == 13) {
 			hideEntranceModal();
@@ -2275,7 +2287,16 @@
 				
 				document.getElementById('connectorLineDiv').appendChild(divtoadd);
 				connectorid++;
-			}
+			} else {
+				// Find all conectorIndex values corresponding to connectors involving this entrance
+				while (window.connectorOne.indexOf(x) > -1 || window.connectorTwo.indexOf(x) > -1) {
+					for (let i = 0; i < connectorIndex.length; i++) {
+						if (window.connectorOne[i] === x || window.connectorTwo[i] === x) {
+							entranceDisconnect(connectorIndex[i], x);
+						};
+					};
+				};
+			};
 			
 			document.getElementById('connectorStop').style.visibility = 'hidden';
 			connectStart = false;
@@ -2558,8 +2579,7 @@
 	};
 
 	window.unhighlightAll = function() {
-		if(flags.mapmode != 'N')
-		{
+		if(flags.mapmode != 'N') {
 			for(var i = 0; i < chests.length; i++)
 				document.getElementById('locationMap'+i).classList.remove('findhighlight');
 			if (flags.entrancemode != 'N') {
@@ -3761,7 +3781,38 @@
 				});
 			}
 		}
-		
+
+		if (flags.mapmode != 'N' && flags.entrancemode != 'N') {
+			document.addEventListener('DOMContentLoaded', function() {
+				for (let i = 0; i < 141; i++) {
+					const entranceMap = document.getElementById('entranceMap'+i);
+					entranceMap.addEventListener('click', function() {
+						toggle_location(i);
+					});
+
+					entranceMap.addEventListener('mouseover', function() {
+						highlight_entrance(i);
+					});
+				
+					entranceMap.addEventListener('mouseout', function() {
+						unhighlight_entrance(i);
+					});
+				
+					entranceMap.addEventListener('contextmenu', function(event) {
+						event.preventDefault();
+						rightClickEntrance(i);
+					});
+				
+					entranceMap.addEventListener('auxclick', function(event) {
+						if (event.button === 1) {
+							event.preventDefault();
+							middleClickEntrance(i);
+						}
+					});
+				};
+			});				
+		}
+
 		initializeSettings();
     };
 	
