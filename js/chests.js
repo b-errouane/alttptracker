@@ -833,7 +833,8 @@
 	};
 
 	function canReachInvertedUpperEastDeathMountain() {
-		if (hasFoundEntranceName("Paradox Cave (Top)") || (hasFoundEntranceName("Tower of Hera") && items.hammer)) return true;
+		if (hasFoundEntranceName("Paradox Cave (Top)")) return true;
+		if (hasFoundEntranceName("Tower of Hera") && items.hammer && items.moonpearl) return true;
 		if (canReachInvertedDarkDeathMountain() && items.glove > 1 && items.hammer && items.moonpearl) return true;
 		return false;
 	};
