@@ -987,13 +987,6 @@
 		   document.getElementsByClassName('tunic')[0].classList[!items.moonpearl ? 'add' : 'remove']('bunny');
 		}
 		
-		/* for (var i = 0; i < chests.length; i++) {
-            var highlight = document.getElementById('locationMap' + i).classList.contains('highlight');
-            document.getElementById('locationMap' + i).className = 'location ' + (chests[i].is_opened ? 'opened' : chests[i].is_available()) + (highlight ? ' highlight' : '');
-		} 
-		
-		updateMapTracker(); */
-		
 	}	
 
 
@@ -1196,9 +1189,12 @@
 		if(flags.mapmode != 'N') {
             for (var k = 0; k < chests.length; k++) {
                 if (!chests[k].is_opened) {
-                    document.getElementById('locationMap'+k).className = 'location ' + chests[k].is_available();
+                    document.getElementById('locationMap'+k).className = 'location ' + chests[k].is_available()
 					if (chests[k].content) {
 						document.getElementById('locationMap'+k).classList.add('scouted');
+					}
+					if ((23 <= k) && (k <= 63)) {
+						document.getElementById('locationMap'+k).classList.add('bonkloc');
 					}
 				}
             }
