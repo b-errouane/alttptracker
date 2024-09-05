@@ -235,7 +235,8 @@
                         "allOf": [
                             "agahnim",
                             "moonpearl",
-                            "hammer"
+                            "hammer",
+                            "lantern"
                         ]
                     }
                 ]

@@ -92,12 +92,24 @@
     },
     "Ether Tablet": {
         "Open": {
+            "scout": {
+                "allOf": [
+                    "canReach|Upper West Death Mountain",
+                    "book"
+                ]
+            },
             "allOf": [
                 "canReach|Upper West Death Mountain",
                 "canBreakTablets"
             ]
         },
         "Inverted": {
+            "scout": {
+                "allOf": [
+                    "canReach|Inverted Upper West Death Mountain",
+                    "book"
+                ]
+            },
             "allOf": [
                 "canReach|Inverted Upper West Death Mountain",
                 "canBreakTablets"
@@ -106,6 +118,13 @@
     },
     "Bombos Tablet": {
         "Open": {
+            "scout": {
+                "allOf": [
+                    "canReach|South Dark World",
+                    "mirror",
+                    "book"
+                ]
+            },
             "allOf": [
                 "canReach|South Dark World",
                 "mirror",
@@ -113,6 +132,12 @@
             ]
         },
         "Inverted": {
+            "scout": {
+                "allOf": [
+                    "canReach|Inverted Light World Bunny",
+                    "book"
+                ]
+            },
             "allOf": [
                 "canReach|Inverted Light World Bunny",
                 "canBreakTablets"
@@ -165,6 +190,11 @@
     "Mushroom": {
         "Open": {},
         "Inverted": {
+            "scout": {
+                "allOf": [
+                    "canReach|Inverted Light World Bunny"
+                ]
+            },
             "allOf": [
                 "canReach|Inverted Light World"
             ]
@@ -172,12 +202,22 @@
     },
     "Spectacle Rock": {
         "Open": {
+            "scout": {
+                "allOf": [
+                    "canReach|Lower West Death Mountain"
+                ]
+            },
             "allOf": [
                 "canReach|Lower West Death Mountain",
                 "mirror"
             ]
         },
         "Inverted": {
+            "scout": {
+                "allOf": [
+                    "canReach|Inverted Lower West Death Mountain"
+                ]
+            },
             "allOf": [
                 "canReach|Inverted Upper West Death Mountain"
             ]
@@ -185,6 +225,11 @@
     },
     "Floating Island": {
         "Open": {
+            "scout": {
+                "allOf": [
+                    "canReach|Upper East Death Mountain"
+                ]
+            },
             "allOf": [
                 "hasFoundEntrance|Hookshot Cave Back Entrance",
                 "mirror"
@@ -198,6 +243,7 @@
     },
     "Maze Race": {
         "Open": {
+            "scout": {},
             "anyOf": [
                 "hasFoundEntrance|Two Brothers House (West)",
                 {
@@ -209,6 +255,11 @@
             ]
         },
         "Inverted": {
+            "scout": {
+                "allOf": [
+                    "canReach|Inverted Light World Bunny"
+                ]
+            },
             "allOf": [
                 "hasFoundEntrance|Two Brothers House (West)",
                 "moonpearl"
@@ -217,6 +268,7 @@
     },
     "Desert Ledge": {
         "Open": {
+            "scout": {},
             "anyOf": [
                 {
                     "allOf": [
@@ -234,6 +286,11 @@
             ]
         },
         "Inverted": {
+            "scout": {
+                "allOf": [
+                    "canReach|Inverted Light World Bunny"
+                ]
+            },
             "anyOf": [
                 "hasFoundEntrance|Desert Palace Entrance (West)",
                 {
@@ -249,6 +306,7 @@
     },
     "Lake Hylia Island": {
         "Open": {
+            "scout": {},
             "allOf": [
                 "flippers",
                 "moonpearl",
@@ -257,6 +315,11 @@
             ]
         },
         "Inverted": {
+            "scout": {
+                "allOf": [
+                    "canReach|Inverted Light World Bunny"
+                ]
+            },
             "allOf": [
                 "canReach|Inverted Light World",
                 "flippers"
@@ -265,11 +328,21 @@
     },
     "Bumper Cave Ledge": {
         "Open": {
+            "scout": {
+                "allOf": [
+                    "canReach|West Dark World"
+                ]
+            },
             "allOf": [
                 "hasFoundEntrance|Bumper Cave (Top)"
             ]
         },
         "Inverted": {
+            "scout": {
+                "allOf": [
+                    "canReach|Inverted West Dark World"
+                ]
+            },
             "anyOf": [
                 "hasFoundEntrance|Bumper Cave (Top)",
                 {
@@ -308,11 +381,26 @@
     },
     "Zora's Ledge": {
         "Open": {
+            "scout": {},
             "allOf": [
                 "flippers"
             ]
         },
         "Inverted": {
+            "scout": {
+                "allOf": [
+                    "canReach|Inverted Light World Bunny"
+                ],
+                "anyOf": [
+                    "canOWFairyRevive",
+                    {
+                        "allOf": [
+                            "canReach|Inverted Light World",
+                            "glove"
+                        ]
+                    }
+                ]
+            },
             "allOf": [
                 "flippers",
                 "canReach|Inverted Light World"
@@ -334,11 +422,22 @@
     },
     "Master Sword Pedestal": {
         "Open": {
+            "scout": {
+                "allOf": [
+                    "book"
+                ]
+            },
             "allOf": [
                 "canPullPedestal"
             ]
         },
         "Inverted": {
+            "scout": {
+                "allOf": [
+                    "canReach|Inverted Light World Bunny",
+                    "book",
+                ]
+            },
             "allOf": [
                 "canReach|Inverted Light World Bunny",
                 "canPullPedestal"

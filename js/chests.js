@@ -956,7 +956,11 @@
 	function checkAvailabilityEntrance(location) {
 		const category = flags.gametype === 'I' ? 'Inverted' : 'Open';
 		const requirements = window.checkLogic[location][category];
-		return stateOfAllEntrance(requirements) ? 'available' : 'unavailable';
+		let state = stateOfAllEntrance(requirements) ? 'available' : 'unavailable';
+		if (state ==='unavailable' && requirements.scout) {
+			state = stateOfAllEntrance(requirements.scout) ? 'information' : 'unavailable';
+		}
+		return state;
 	};
 
 	function checkEntranceAvailability(entrance) {
@@ -1055,6 +1059,7 @@
 			case "canGetBonkableItem": return items.boots || (items.sword && items.quake);
 			case "canCrossEnergyBarrier": return items.sword > 1 || (flags.swordmode === 'S' && items.hammer) || items.cape;
 			case "canOpenGT": return crystalCheck() >= flags.opentowercount;
+			case "canOWFairyRevive": return userLogicSettings[requirement] && (items.bottle && items.net);
 			case "canBuyBigBomb": {
 				// TODO: Change this to track prizes not bosses
 				var crystal_count = 0;
@@ -1246,7 +1251,7 @@
 
 		if ( 
 			(!flags.wildkeys && window.dungeonTotalLocations[dungeonAbbreviation]['keys'] > 0 ) || 
-			(!flags.wildbigkeys && window.dungeonTotalLocations[dungeonAbbreviation['bigkey']])
+			(!flags.wildbigkeys && window.dungeonTotalLocations[dungeonAbbreviation]['bigkey'])
 		) { if (checksRequired > 0 && checksRequired < maxChecks) return 'possible'; }
 
 

@@ -1441,7 +1441,7 @@
         "Open": {
             "always": {
                 "allOf": [
-                    "canReach|Dark World - South",
+                    "canBreach|Dark World - South",
                     "bombs",
                     "moonpearl"
                 ]
@@ -2083,12 +2083,12 @@
         }
     },
     "Master Sword Pedestal": {
-        "scout": {
-            "allOf": [
-                "book"
-            ]
-        },
         "Open": {
+            "scout": {
+                "allOf": [
+                    "book"
+                ]
+            },
             "always": {
                 "allOf": [
                     "canPullPedestal"
