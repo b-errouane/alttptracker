@@ -45,26 +45,6 @@
 		return bossToColorMap[availability];
 	};
 
-	function ConvertBossToChest(x) {
-		switch (x) {
-			case 'available': return 'A';
-			case 'possible': return 'P';
-			case 'darkavailable': return 'DA';
-			case 'darkpossible': return 'DP';
-			case 'unavailable': return 'U';
-		}
-	};
-
-	function ConvertChestToBoss(x) {
-		switch (x) {
-			case 'A': return 'available';
-			case 'P': return 'possible';
-			case 'DA': return 'darkavailable';
-			case 'DP': return 'darkpossible';
-			case 'U': return 'unavailable';
-		}
-	};
-
 	function colorDungeonSquares(dungeonID, accessibility, chestAvailability, bossAvailability) {
 		let bossvisibility = 'hidden';
 		let bosscolor = 'red';
@@ -86,10 +66,6 @@
 		};
 		document.getElementById('chest' + dungeonID).style.backgroundColor = bgcolor;
 		document.getElementById('chest' + dungeonID).style.color = color;
-	};
-
-	function isNewLogic() {
-		return flags.doorshuffle === 'P' || (flags.doorshuffle === 'N' && (flags.wildkeys || flags.gametype === 'R') && flags.wildbigkeys && flags.wildcompasses && flags.wildmaps);
 	};
 
 	function isDoorsBranch() {
@@ -130,7 +106,6 @@
 		return true;
 	};
 
-	function MinimalBoss(num) { return enemizer_check(num) };
 	function enemizer_check(i) {
 		switch (enemizer[i]) {
 			// Armos
@@ -1227,6 +1202,7 @@
 	};
 
 	function dungeonAvailability(dungeonId, dungeonName) {
+		const dungeonAbbreviation = dungeonCheckMap[dungeonId].abbreviation;
 		var checksAlways = 0;
 		var checksRequired = 0;
 		var checksLogical = 0;
@@ -1263,10 +1239,15 @@
 		var maxChecks = Object.keys(window.dungeonLogic[dungeonName]).length - hasNoBossItem;
 		var collected = maxChecks - items['chest' + dungeonId];
 
-		if (!flags.wildkeys) collected -= window.dungeonTotalLocations[dungeonCheckMap[dungeonId].abbreviation]['keys'];
-		if (!flags.wildbigkeys) collected -= window.dungeonTotalLocations[dungeonCheckMap[dungeonId].abbreviation]['bigkey'];
-		if (!flags.wildcompasses) collected -= window.dungeonTotalLocations[dungeonCheckMap[dungeonId].abbreviation]['compass'];
-		if (!flags.wildmaps) collected -= window.dungeonTotalLocations[dungeonCheckMap[dungeonId].abbreviation]['map'];
+		if (!flags.wildkeys) collected -= window.dungeonTotalLocations[dungeonAbbreviation]['keys'];
+		if (!flags.wildbigkeys) collected -= window.dungeonTotalLocations[dungeonAbbreviation]['bigkey'];
+		if (!flags.wildcompasses) collected -= window.dungeonTotalLocations[dungeonAbbreviation]['compass'];
+		if (!flags.wildmaps) collected -= window.dungeonTotalLocations[dungeonAbbreviation]['map'];
+
+		if ( 
+			(!flags.wildkeys && window.dungeonTotalLocations[dungeonAbbreviation]['keys'] > 0 ) || 
+			(!flags.wildbigkeys && window.dungeonTotalLocations[dungeonAbbreviation['bigkey']])
+		) { if (checksRequired > 0 && checksRequired < maxChecks) return 'possible'; }
 
 
 		if (checksLogical >= maxChecks) return 'available';
