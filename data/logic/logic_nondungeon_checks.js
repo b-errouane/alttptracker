@@ -3342,10 +3342,12 @@
                     "hammer",
                     "glove"
                 ],
+            },
+            "required": {
                 "anyOf": [
                     "byrna",
                     "cape"
-                    ]
+                ]
             },
             "logical": {
                 "allOf": [
