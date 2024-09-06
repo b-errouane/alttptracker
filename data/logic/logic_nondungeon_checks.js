@@ -3352,6 +3352,7 @@
                     "canReach|Light World - Lower West Death Mountain"
                 ],
                 "anyOf": [
+                    'byrna',
                     "halfmagic",
                     "bottle"
                 ]
