@@ -164,6 +164,165 @@
 		if (type === 'green') return green_pendant;
 		if (type === 'all') return pendant_count === 3;
 	};
+
+	function bigRequirementSwitch(requirement, dungeonId = -1) {
+		switch (requirement) {
+			case "agahnim": return items.agahnim;
+			case "agahnim2": return items.agahnim2;
+			case "boots": return items.boots;
+			case 'bigkey': return items['bigkey' + dungeonId];
+			case 'boots': return items.boots;
+			case 'bow': return items.bow > 1;
+			case "bombs": return items.bomb;
+			case "book": return items.book;
+			case "bottle": return items.bottle;
+			case 'byrna': return items.byrna;
+			case 'cape': return items.cape;
+			case "flippers": return items.flippers;
+			case "flute": return activeFlute() || (flags.gametype === 'I' && activeFluteInvertedEntrance());
+			case "firerod": return items.firerod;
+			case "glove": return items.glove;
+			case "hammer": return items.hammer;
+			case "halfmagic": return items.magic;
+			case 'hookshot': return items.hookshot;
+			case "lantern": return items.lantern;
+			case 'melee': return items.sword > 0 || items.hammer;
+			case 'melee_bow': return items.sword > 0 || items.hammer || items.bow > 1;
+			case "moonpearl": return items.moonpearl;
+			case "mushroom": return items.mushroom;
+			case 'net': return items.net;
+			case "mitts": return items.glove > 1;
+			case "mirror": return items.mirror;
+			case "shovel": return items.shovel;
+			case 'icerod': return items.icerod;
+			case 'mirrorshield': return items.shield > 2;
+			case "powder": return items.powder;
+			case 'somaria': return items.somaria;
+			case 'sword': return items.sword > 0;
+			case "swordbeams": return items.sword > 1;
+			case "greenpendant": return pendantCheck('green');
+
+			case 'canKillBoss': return enemizer_check(dungeonId) === 'available';
+			case 'canKillArmos': return enemizer_check(0) === 'available';
+			case 'canKillMostEnemies': return items.sword > 0 || items.hammer || items.bow > 1 || items.somaria || items.byrna || items.firerod;
+			case 'canKillOrExplodeMostEnemies': return items.sword > 0 || items.hammer || items.bow > 1 || items.somaria || items.byrna || items.firerod || items.bomb;
+			case 'canFightAgahnim': return items.sword > 0 || items.hammer || items.net;
+			case 'canLightFires': return items.lantern || items.firerod;
+			case 'canDarkRoomNavigate': return items.lantern;
+			case 'canTorchRoomNavigate': return items.lantern || (items.firerod && !isDoorsBranch() && !flags.entrancemode === 'N');
+			case 'canDefeatCurtains': return items.sword > 0 || flags.swordmode === 'S';
+			case 'canKillWizzrobes': return items.sword > 0 || items.hammer || items.bow > 1 || items.byrna || items.somaria || (items.icerod && (items.bomb || items.hookshot)) || items.firerod;
+			case 'canCrossMireGap': return items.boots || items.hookshot;
+			case 'canBurnThings': return items.firerod || (items.bombos && items.sword > 0);
+			case "canHitSwitch": return canHitSwitch();
+			case "canDestroyEnergyBarrier": return items.sword > 1 || (flags.swordmode === 'S' && items.hammer);
+			case "canBreakTablets": return items.sword > 1 || (flags.swordmode === 'S' && items.hammer);
+			case "canPullPedestal": return pendantCheck('all');
+			case "canOpenBonkWalls": return items.boots || items.bomb;
+			case "canHitRangedSwitch": return canHitRangedSwitch();
+			case 'canKillOrExplodeMostEnemies': return items.sword > 0 || items.hammer || items.bow > 1 || items.somaria || items.byrna || items.firerod || items.bomb;
+			case "canGetBonkableItem": return items.boots || (items.sword && items.quake);
+			case 'gtleft': return items.hammer && items.hookshot && canHitRangedSwitch();
+			case 'gtright': return items.somaria && items.firerod;
+			case 'zeroKeyPodders': return items.bow > 1 && items.hammer && (items.bomb || items.boots);
+			case 'canRushRightSidePod': return (items.bomb || items.boots) && (true || items.bow > 1 || items.bottle);
+
+			case 'canDarkRoomNavigateBlind': return userLogicSettings[requirement] && (true);
+			case 'canTorchRoomNavigateBlind': return userLogicSettings[requirement] && (true || (items.lantern || (items.firerod && !isDoorsBranch() && !flags.entrancemode === 'N')));
+			case "canFairyReviveHover": return userLogicSettings[requirement] && (items.boots && items.bottle && items.net);
+			case "canOWFairyRevive": return userLogicSettings[requirement] && (items.bottle && items.net);
+			case "canQirnJump": return userLogicSettings[requirement] && (items.bomb);
+			case "canMirrorSuperBunny": return userLogicSettings[requirement] && (items.mirror);
+			case "canDungeonBunnyRevive": return userLogicSettings[requirement] && (true);
+			case "canFakeFlipper": return userLogicSettings[requirement] && (true);
+			case "canFakePowder": return userLogicSettings[requirement] && (items.somaria && items.mushroom);
+			case "canWaterWalk": return userLogicSettings[requirement] && (items.boots && items.bomb);
+			case "canZoraSplashDelete": return userLogicSettings[requirement] && ((items.bomb && items.bow > 0) || (items.somaria && items.bomb && items.boomerang > 1) || (items.bomb && items.icerod) || (items.bottle && items.net && items.bomb));
+			case "canBunnyPocket": return userLogicSettings[requirement] && (items.boots && (items.mirror || items.bottle));
+			case "canSpinSpeedClip": return false;
+			case "canMirrorWrap": return false;
+			case "canTombRaider": return userLogicSettings[requirement] && (items.hookshot && (items.bomb || items.sword > 1));
+			case "canFairyBarrierRevive": return userLogicSettings[requirement] && (items.bottle && items.net && items.mirror);
+			case "canShockBlock": return userLogicSettings[requirement] && (items.somaria);
+			case "canHover": return userLogicSettings[requirement] && (items.boots);
+			case 'canIceBreak': return userLogicSettings[requirement] && (items.somaria);
+			case 'canHookClip': return userLogicSettings[requirement] && (items.hookshot);
+			case 'canBombJump': return userLogicSettings[requirement] && (items.bomb);
+			case 'canBombOrBonkCameraUnlock': return userLogicSettings[requirement] && (items.bomb || items.boots);
+			case 'canHoverAlot': return userLogicSettings[requirement] && (items.boots);
+			case 'canSpeckyClip': return userLogicSettings[requirement] && (items.bomb && items.hookshot);
+			case 'canBombSpooky': return userLogicSettings[requirement] && (items.bomb);
+			case 'canHeraPot': return userLogicSettings[requirement] && (items.hookshot && (items.boots || items.bomb));
+			case 'canFireSpooky': return userLogicSettings[requirement] && (items.firerod && items.somaria);
+			case 'canMimicClip': return userLogicSettings[requirement] && (true);
+			case 'canPotionCameraUnlock': return userLogicSettings[requirement] && (items.bottle > 0);
+			case 'canMoldormBounce': return userLogicSettings[requirement] && (items.bomb && items.sword > 0);
+
+			case "canCrossEnergyBarrier": return items.sword > 1 || (flags.swordmode === 'S' && items.hammer) || items.cape;
+			case "canOpenGT": return crystalCheck() >= flags.opentowercount;
+
+			case "canBuyBigBombMaybe": {
+				// If has at least 2 prizes, can reach bomb shop, and red crystals arent marked as other non-beaten dungeons
+				var beaten_red_crystals = 0;
+				var unbeaten_red_crystals = 0;
+				var beaten_crystals = 0;
+				var unbeaten_crystals = 0;
+				for (var k = 0; k < 10; k++) {
+					if (prizes[k] === 4 && items['boss'+k]) {
+						beaten_red_crystals += 1;
+						continue;
+					}
+					if (prizes[k] === 4 && !items['boss'+k]) {
+						unbeaten_red_crystals += 1;
+						continue;
+					}
+					if (prizes[k] === 3 && items['boss'+k]) {
+						beaten_crystals += 1;
+						continue;
+					}
+					if (prizes[k] === 3 && !items['boss'+k]) {
+						unbeaten_crystals += 1;
+						continue;
+					}
+				}
+				if (beaten_red_crystals >= 2) return true;
+				if (unbeaten_red_crystals > 0) return false;
+				if (beaten_crystals >= 2) return true;
+			}
+
+			case "canBuyBigBomb": {
+				// TODO: Change this to track prizes not bosses
+				var crystal_count = 0;
+				for (var k = 0; k < 10; k++) {
+					if (prizes[k] === 4 && items['boss'+k])
+						crystal_count += 1;
+				}
+				return crystal_count >= 2;
+			};
+			
+			case "canPullPedestal": {
+				var pendant_count = 0;
+				for (var k = 0; k < 10; k++) {
+					if ((prizes[k] === 1 || prizes[k] === 2) && items['boss'+k]) {
+						if (++pendant_count === 3) return true;
+					}
+				}
+				return false;
+			};
+
+			case "canExitTurtleRockWestAndEnterEast": return (items.bomb || flags.gametype === 'I') && flags.entrancemode === 'N';
+			case "canExitTurtleRockBack": return items.bomb || (flags.gametype != 'O' || flags.entrancemode != 'N');
+			case 'canReachTurtleRockMiddle': return canReachRegion("Turtle Rock - West") === 'available' || (canReachRegion("Turtle Rock - East") === 'available' && (items.hookshot || items.somaria));
+			case 'canBreachMiseryMireMaybe': return canReachRegion('Misery Mire') != 'unavailable';
+			case 'canBreachTurtleRockMainMaybe': return canReachRegion("Turtle Rock - Main") != 'unavailable';
+			case 'canBreachTurtleRockMiddle': return canReachRegion("Turtle Rock - West") != 'unavailable' || (canReachRegion("Turtle Rock - East") != 'unavailable' && (items.hookshot || items.somaria || items.bomb || items.boots));
+			case 'canOnlyReachTurtleRockMain': return flags.gametype != 'I' && flags.entrancemode === 'N';
+
+			case "never": return false;
+			default: throw new Error("Unknown requirement: " + requirement);
+
+		};
+	};
 	// #endregion
 
 	// #region Non-entrance reach and check logic
@@ -198,72 +357,7 @@
 			return state != 'unavailable' && state != 'possible';
 		};
 
-		switch (requirement) {
-			case "book": return items.book;
-			case "bombs": return items.bomb;
-			case "boots": return items.boots;
-			case "byrna": return items.byrna;
-			case "glove": return items.glove > 0;
-			case "mitts": return items.glove > 1;
-			case "flute": return activeFlute();
-			case "firerod": return items.firerod;
-			case "lantern": return items.lantern;
-			case "mirror": return items.mirror;
-			case "somaria": return items.somaria;
-			case "mushroom": return items.mushroom;
-			case "powder": return items.powder;
-			case "flippers": return items.flippers;
-			case "hammer": return items.hammer;
-			case "hookshot": return items.hookshot;
-			case "agahnim": return items.agahnim;
-			case "moonpearl": return items.moonpearl;
-			case "cape": return items.cape;
-			case "flute": return items.flute > 1 || (flags.gametype != 'I' && items.flute);
-			case "swordbeams": return items.sword > 1;
-			case "bottle": return items.bottle;
-			case "halfmagic": return items.magic;
-			case "shovel": return items.shovel;
-
-			case "canHitSwitch": return canHitSwitch();
-			case "canDestroyEnergyBarrier": return items.sword > 1 || (flags.swordmode === 'S' && items.hammer);
-			case "canBreakTablets": return items.sword > 1 || (flags.swordmode === 'S' && items.hammer);
-			case "canPullPedestal": return pendantCheck('all');
-			case "greenpendant": return pendantCheck('green');
-			case "canOpenBonkWalls": return items.boots || items.bomb;
-			case "canHitRangedSwitch": return canHitRangedSwitch();
-			case 'canKillOrExplodeMostEnemies': return items.sword > 0 || items.hammer || items.bow > 1 || items.somaria || items.byrna || items.firerod || items.bomb;
-			case "canGetBonkableItem": return items.boots || (items.sword && items.quake);
-
-			case 'canDarkRoomNavigateBlind': return userLogicSettings[requirement] && (true);
-			case "canFairyReviveHover": return userLogicSettings[requirement] && (items.boots && items.bottle && items.net);
-			case "canOWFairyRevive": return userLogicSettings[requirement] && (items.bottle && items.net);
-			case "canQirnJump": return userLogicSettings[requirement] && (items.bomb);
-			case "canMirrorSuperBunny": return userLogicSettings[requirement] && (items.mirror);
-			case "canDungeonBunnyRevive": return userLogicSettings[requirement] && (true);
-			case "canFakeFlipper": return userLogicSettings[requirement] && (true);
-			case "canFakePowder": return userLogicSettings[requirement] && (items.somaria && items.mushroom);
-			case "canWaterWalk": return userLogicSettings[requirement] && (items.boots && items.bomb);
-			case "canZoraSplashDelete": return userLogicSettings[requirement] && ((items.bomb && items.bow > 0) || (items.somaria && items.bomb && items.boomerang > 1) || (items.bomb && items.icerod) || (items.bottle && items.net && items.bomb));
-			case "canBunnyPocket": return userLogicSettings[requirement] && (items.boots && (items.mirror || items.bottle));
-			case "canSpinSpeedClip": return false;
-			case "canMirrorWrap": return false;
-			case "canTombRaider": return userLogicSettings[requirement] && (items.hookshot && (items.bomb || items.sword > 1));
-			case "canFairyBarrierRevive": return userLogicSettings[requirement] && (items.bottle && items.net && items.mirror);
-			case "canShockBlock": return userLogicSettings[requirement] && (items.somaria);
-			case "canHover": return userLogicSettings[requirement] && (items.boots);
-
-			case "canOpenGT": return crystalCheck() >= flags.opentowercount;
-			case "canBuyBigBomb": {
-				var crystal_count = 0;
-				for (var k = 0; k < 10; k++) {
-					if (prizes[k] === 4 && items['boss'+k])
-						crystal_count += 1;
-				}
-				return crystal_count >= 2;
-			}
-
-			default: throw new Error("Unknown requirement: " + requirement);
-		};
+		return bigRequirementSwitch(requirement);
 	};
 
 	function canReachRegion(region) {
@@ -1037,52 +1131,7 @@
 			return hasFoundLocation(mapTrackerName);
 		}
 
-		switch (requirement) {
-			case "moonpearl": return items.moonpearl;
-			case "agahnim": return items.agahnim;
-			case "boots": return items.boots;
-			case "bombs": return items.bomb;
-			case "book": return items.book;
-			case "mitts": return items.glove > 1;
-			case "mirror": return items.mirror;
-			case "glove": return items.glove;
-			case "flippers": return items.flippers;
-			case "flute": return items.flute || (flags.gametype === 'I' && activeFluteInvertedEntrance());
-			case "firerod": return items.firerod;
-			case "lantern": return items.lantern;
-			case "shovel": return items.shovel;
-			case "agahnim": return items.agahnim;
-			case "hammer": return items.hammer;
-			case "agahnim2": return items.agahnim2;
-
-			case "canBreakTablets": return items.book && (items.sword >= 2 || (flags.swordmode === 'S' && items.hammer));
-			case "canGetBonkableItem": return items.boots || (items.sword && items.quake);
-			case "canCrossEnergyBarrier": return items.sword > 1 || (flags.swordmode === 'S' && items.hammer) || items.cape;
-			case "canOpenGT": return crystalCheck() >= flags.opentowercount;
-			case "canOWFairyRevive": return userLogicSettings[requirement] && (items.bottle && items.net);
-			case "canBuyBigBomb": {
-				// TODO: Change this to track prizes not bosses
-				var crystal_count = 0;
-				for (var k = 0; k < 10; k++) {
-					if (prizes[k] === 4 && items['boss'+k])
-						crystal_count += 1;
-				}
-				return crystal_count >= 2;
-			};
-			case "canPullPedestal": {
-				var pendant_count = 0;
-				for (var k = 0; k < 10; k++) {
-					if ((prizes[k] === 1 || prizes[k] === 2) && items['boss'+k]) {
-						if (++pendant_count === 3) return true;
-					}
-				}
-				return false;
-			};
-
-			case "never": return false;
-
-			default: throw new Error("Unknown requirement: " + requirement);
-		};
+		return bigRequirementSwitch(requirement);
 	};
 	// #endregion
 
@@ -1134,76 +1183,7 @@
 			return state != 'unavailable' && state != 'possible';
 		};
 
-		switch (requirement) {
-			case 'bigkey': return items['bigkey' + dungeonId];
-
-			case 'boots': return items.boots;
-			case 'bombs': return items.bomb;
-			case 'bow': return items.bow > 1;
-			case 'net': return items.net;
-			case 'byrna': return items.byrna;
-			case 'cape': return items.cape;
-			case 'flippers': return items.flippers;
-			case 'firerod': return items.firerod;
-			case 'glove': return items.glove > 0;
-			case 'hammer': return items.hammer;
-			case 'hookshot': return items.hookshot;
-			case 'icerod': return items.icerod;
-			case 'lantern': return items.lantern;
-			case 'melee_bow': return items.sword > 0 || items.hammer || items.bow > 1;
-			case 'melee': return items.sword > 0 || items.hammer;
-			case 'mirrorshield': return items.shield > 2;
-			case 'somaria': return items.somaria;
-			case 'sword': return items.sword > 0;
-
-			case 'canKillBoss': return enemizer_check(dungeonId) === 'available';
-			case 'canKillArmos': return enemizer_check(0) === 'available';
-			case 'canKillMostEnemies': return items.sword > 0 || items.hammer || items.bow > 1 || items.somaria || items.byrna || items.firerod;
-			case 'canKillOrExplodeMostEnemies': return items.sword > 0 || items.hammer || items.bow > 1 || items.somaria || items.byrna || items.firerod || items.bomb;
-			case 'canFightAgahnim': return items.sword > 0 || items.hammer || items.net;
-			case 'canLightFires': return items.lantern || items.firerod;
-			case 'canDarkRoomNavigate': return items.lantern;
-			case 'canTorchRoomNavigate': return items.lantern || (items.firerod && !isDoorsBranch() && !flags.entrancemode === 'N');
-			case 'canDefeatCurtains': return items.sword > 0 || flags.swordmode === 'S';
-			case 'canKillWizzrobes': return items.sword > 0 || items.hammer || items.bow > 1 || items.byrna || items.somaria || (items.icerod && (items.bomb || items.hookshot)) || items.firerod;
-			case 'canCrossMireGap': return items.boots || items.hookshot;
-			case 'canBurnThings': return items.firerod || (items.bombos && items.sword > 0);
-			case 'canHitSwitch': return canHitSwitch();
-			case 'canHitRangedSwitch': return canHitRangedSwitch();
-
-			case 'canIceBreak': return userLogicSettings[requirement] && (items.somaria);
-			case 'canHookClip': return userLogicSettings[requirement] && (items.hookshot);
-			case 'canBombJump': return userLogicSettings[requirement] && (items.bomb);
-			case 'canBombOrBonkCameraUnlock': return userLogicSettings[requirement] && (items.bomb || items.boots);
-			case 'canHover': return userLogicSettings[requirement] && (items.boots);
-			case 'canHoverAlot': return userLogicSettings[requirement] && (items.boots);
-			case 'canSpeckyClip': return userLogicSettings[requirement] && (items.bomb && items.hookshot);
-			case 'canBombSpooky': return userLogicSettings[requirement] && (items.bomb);
-			case 'canHeraPot': return userLogicSettings[requirement] && (items.hookshot && (items.boots || items.bomb));
-			case 'canOpenBonkWalls': return items.boots || items.bomb;
-			case 'canFireSpooky': return userLogicSettings[requirement] && (items.firerod && items.somaria);
-			case 'canMimicClip': return userLogicSettings[requirement] && (true);
-			case 'canPotionCameraUnlock': return userLogicSettings[requirement] && (items.bottle > 0);
-			case 'canMoldormBounce': return userLogicSettings[requirement] && (items.bomb && items.sword > 0);
-			case 'canDarkRoomNavigateBlind': return userLogicSettings[requirement] && (true || items.lantern);
-			case 'canTorchRoomNavigateBlind': return userLogicSettings[requirement] && (true || (items.lantern || (items.firerod && !isDoorsBranch() && !flags.entrancemode === 'N')));
-			case 'canRushRightSidePod': return (items.bomb || items.boots) && (true || items.bow > 1 || items.bottle);
-
-			case "canExitTurtleRockWestAndEnterEast": return (items.bomb || flags.gametype === 'I') && flags.entrancemode === 'N';
-			case "canExitTurtleRockBack": return items.bomb || (flags.gametype != 'O' || flags.entrancemode != 'N');
-
-			case 'canReachTurtleRockMiddle': return canReachRegion("Turtle Rock - West") === 'available' || (canReachRegion("Turtle Rock - East") === 'available' && (items.hookshot || items.somaria));
-
-			case 'canBreachMiseryMireMaybe': return canReachRegion('Misery Mire') != 'unavailable';
-			case 'canBreachTurtleRockMainMaybe': return canReachRegion("Turtle Rock - Main") != 'unavailable';
-			case 'canBreachTurtleRockMiddle': return canReachRegion("Turtle Rock - West") != 'unavailable' || (canReachRegion("Turtle Rock - East") != 'unavailable' && (items.hookshot || items.somaria || items.bomb || items.boots));
-			case 'canOnlyReachTurtleRockMain': return flags.gametype != 'I' && flags.entrancemode === 'N';
-
-			case 'gtleft': return items.hammer && items.hookshot && canHitRangedSwitch();
-			case 'gtright': return items.somaria && items.firerod;
-			case 'zeroKeyPodders': return items.bow > 1 && items.hammer && (items.bomb || items.boots);
-			default: throw new Error('Unknown requirement: ' + requirement);
-		};
+		return bigRequirementSwitch(requirement, dungeonId);
 	};
 
 	function dungeonAvailability(dungeonId, dungeonName) {

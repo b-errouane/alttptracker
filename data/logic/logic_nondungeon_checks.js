@@ -2917,7 +2917,7 @@
             "always": {
                 "allOf": [
                     "canBreach|Dark World - South",
-                    "canBuyBigBomb"
+                    "canBuyBigBombMaybe"
                 ],
                 "anyOf": [
                     {
@@ -2934,9 +2934,15 @@
                     }
                 ]
             },
+            "required": {
+                "allOf": [
+                    "canBuyBigBomb"
+                ]
+            },
             "logical": {
                 "allOf": [
-                    "canReach|Dark World - South"
+                    "canReach|Dark World - South",
+                    "canBuyBigBomb"
                 ]
             }
         },
@@ -2944,12 +2950,24 @@
             "always": {
                 "allOf": [
                     "canBreach|Light World",
-                    "canBuyBigBomb",
+                    "canBuyBigBombMaybe",
                     "mirror"
                 ]
             },
+            "required": {
+                "allOf": [
+                    "canBuyBigBomb"
+                ],
+                "logical": {
+                    "allOf": [
+                        "canReach|Light World",
+                        "canBuyBigBomb"
+                    ]
+                }
+            },
             "logical": {
                 "allOf": [
+                    "canBuyBigBomb",
                     "canReach|Light World"
                 ]
             }
@@ -2960,7 +2978,7 @@
             "always": {
                 "allOf": [
                     "canBreach|Dark World - South",
-                    "canBuyBigBomb"
+                    "canBuyBigBombMaybe"
                 ],
                 "anyOf": [
                     {
@@ -2977,9 +2995,15 @@
                     }
                 ]
             },
+            "required": {
+                "allOf": [
+                    "canBuyBigBomb"
+                ]
+            },
             "logical": {
                 "allOf": [
-                    "canReach|Dark World - South"
+                    "canReach|Dark World - South",
+                    "canBuyBigBomb"
                 ]
             }
         },
@@ -2987,12 +3011,24 @@
             "always": {
                 "allOf": [
                     "canBreach|Light World",
-                    "canBuyBigBomb",
+                    "canBuyBigBombMaybe",
                     "mirror"
                 ]
             },
+            "required": {
+                "allOf": [
+                    "canBuyBigBomb"
+                ],
+                "logical": {
+                    "allOf": [
+                        "canReach|Light World",
+                        "canBuyBigBomb"
+                    ]
+                }
+            },
             "logical": {
                 "allOf": [
+                    "canBuyBigBomb",
                     "canReach|Light World"
                 ]
             }
