@@ -610,7 +610,7 @@
             }
         },
         "Inverted": {
-            "required": {
+            "always": {
                 "allOf": [
                     "canBreach|Light World",
                     "book"
@@ -669,7 +669,7 @@
             }
         },
         "Inverted": {
-            "required": {
+            "always": {
                 "allOf": [
                     "canBreach|Light World",
                     "book",
