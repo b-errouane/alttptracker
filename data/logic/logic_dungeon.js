@@ -1210,7 +1210,7 @@
          },
          "logical": {
             "allOf": [
-               "canDarkRoomNavigate"
+               "canTorchRoomNavigate"
             ],
             "anyOf": [
                "canReach|Hyrule Castle - Main",

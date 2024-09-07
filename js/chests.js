@@ -209,7 +209,7 @@
 			case 'canFightAgahnim': return items.sword > 0 || items.hammer || items.net;
 			case 'canLightFires': return items.lantern || items.firerod;
 			case 'canDarkRoomNavigate': return items.lantern;
-			case 'canTorchRoomNavigate': return items.lantern || (items.firerod && !isDoorsBranch() && !flags.entrancemode === 'N');
+			case 'canTorchRoomNavigate': return items.lantern || (items.firerod && !isDoorsBranch() && flags.entrancemode === 'N');
 			case 'canDefeatCurtains': return items.sword > 0 || flags.swordmode === 'S';
 			case 'canKillWizzrobes': return items.sword > 0 || items.hammer || items.bow > 1 || items.byrna || items.somaria || (items.icerod && (items.bomb || items.hookshot)) || items.firerod;
 			case 'canCrossMireGap': return items.boots || items.hookshot;
@@ -227,8 +227,8 @@
 			case 'zeroKeyPodders': return items.bow > 1 && items.hammer && (items.bomb || items.boots);
 			case 'canRushRightSidePod': return (items.bomb || items.boots) && (true || items.bow > 1 || items.bottle);
 
-			case 'canDarkRoomNavigateBlind': return userLogicSettings[requirement] && (true);
-			case 'canTorchRoomNavigateBlind': return userLogicSettings[requirement] && (true || (items.lantern || (items.firerod && !isDoorsBranch() && !flags.entrancemode === 'N')));
+			case 'canDarkRoomNavigateBlind': return userLogicSettings[requirement] || bigRequirementSwitch('canDarkRoomNavigate');
+			case 'canTorchRoomNavigateBlind': return userLogicSettings[requirement] || bigRequirementSwitch('canTorchRoomNavigate');
 			case "canFairyReviveHover": return userLogicSettings[requirement] && (items.boots && items.bottle && items.net);
 			case "canOWFairyRevive": return userLogicSettings[requirement] && (items.bottle && items.net);
 			case "canQirnJump": return userLogicSettings[requirement] && (items.bomb);
