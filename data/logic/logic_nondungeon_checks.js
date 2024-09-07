@@ -3345,7 +3345,6 @@
             },
             "required": {
                 "anyOf": [
-                    "byrna",
                     "cape"
                 ]
             },
@@ -3355,8 +3354,17 @@
                 ],
                 "anyOf": [
                     'byrna',
-                    "halfmagic",
-                    "bottle"
+                    {
+                        "allOf": [
+                            "cape",
+                            {
+                                "anyOf": [
+                                    "halfmagic",
+                                    "bottle"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         },

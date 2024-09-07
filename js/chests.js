@@ -292,12 +292,18 @@
 
 			case "canBuyBigBomb": {
 				// TODO: Change this to track prizes not bosses
-				var crystal_count = 0;
+				var beaten_red_crystals = 0;
+				var beaten_crystals = 0;
 				for (var k = 0; k < 10; k++) {
-					if (prizes[k] === 4 && items['boss'+k])
-						crystal_count += 1;
+					if (prizes[k] === 4 && items['boss'+k]) {
+						beaten_red_crystals += 1;
+						beaten_crystals += 1;
+					}
+					if (prizes[k] === 3 && items['boss'+k]) {
+						beaten_crystals += 1;
+					}
 				}
-				return crystal_count >= 2;
+				return beaten_red_crystals >= 2 || beaten_crystals >= 7;
 			};
 			
 			case "canPullPedestal": {

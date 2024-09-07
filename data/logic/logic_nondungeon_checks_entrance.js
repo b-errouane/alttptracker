@@ -100,6 +100,7 @@
             },
             "allOf": [
                 "canReach|Upper West Death Mountain",
+                "book",
                 "canBreakTablets"
             ]
         },
@@ -112,6 +113,7 @@
             },
             "allOf": [
                 "canReach|Inverted Upper West Death Mountain",
+                "book",
                 "canBreakTablets"
             ]
         }
@@ -128,6 +130,7 @@
             "allOf": [
                 "canReach|South Dark World",
                 "mirror",
+                "book",
                 "canBreakTablets"
             ]
         },
@@ -140,6 +143,7 @@
             },
             "allOf": [
                 "canReach|Inverted Light World Bunny",
+                "book",
                 "canBreakTablets"
             ]
         }
