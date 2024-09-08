@@ -27,10 +27,6 @@
 	window.rightClickedLocation = -1;
 	window.rightClickedType = null;
 
-	window.entranceNameToIndex = {};
-	window.entranceIndexToName = {};
-	window.entranceNameToFriendlyName = {};
-	window.entranceNameToGroup = {};
 	window.dungeonNames = ["EP", "DP", "ToH", "PoD", "SP", "SW", "TT", "IP", "MM", "TR", "GT"];
 	window.constantFunctions = {};
 	window.constantFunctionsEDC = {};
@@ -766,49 +762,7 @@
 		document.getElementById('entranceModalNote').focus();
 		const curStyle = window.getComputedStyle(document.documentElement);
 
-		const customColours = {
-			'--hc-color': ['hc_m', 'hc_w', 'hc_e'],
-			'--ct-color': ['ct'],
-			'--ep-color': ['ep'],
-			'--dp-color': ['dp_m', 'dp_w', 'dp_e'],
-			'--dp_n-color': ['dp_n'],
-			'--toh-color': ['toh'],
-			'--pod-color': ['pod'],
-			'--sp-color': ['sp'],
-			'--sw-color': ['sw_m', 'sw_w', 'sw_e', 'sw'],
-			'--tt-color': ['tt'],
-			'--ip-color': ['ip'],
-			'--mm-color': ['mm'],
-			'--tr-color': ['tr_m', 'tr_w', 'tr_e', 'tr_b'],
-			'--gt-color': ['gt'],
-			'--ganon-color': ['ganon'],
-			'--connector-color': ['connector'],
-			'--link-color': ['link'],
-			'--sanc-color': ['sanc'],
-			'--mount-color': ['mount'],
-			'--ganon-color': ['ganon'],
-			'--link-color': ['link'],
-			'--sanc-color': ['sanc'],
-			'--mount-color': ['mount'],
-			'--item-color': ['item'],
-			'--magic-color': ['magic'],
-			'--kid-color': ['kid'],
-			'--smith-color': ['smith'],
-			'--bat-color': ['bat'],
-			'--lib-color': ['lib'],
-			'--saha-color': ['saha'],
-			'--mimc-color': ['mimc'],
-			'--rupee-color': ['rupee'],
-			'--shop-color': ['shop'],
-			'--dark-color': ['dark'],
-			'--bomb-color': ['bomb'],
-			'--bump-color': ['bump'],
-			'--spike-color': ['spike'],
-			'--hook-color': ['hook'],
-			'--dam-color': ['dam'],
-		}
-
-		for (const [key, value] of Object.entries(customColours)) {
+		for (const [key, value] of Object.entries(window.customColours)) {
 			for (const v of value) {
 				document.getElementById(v).style.backgroundColor = curStyle.getPropertyValue(key);
 				document.getElementById(v).style.color = rgbToTextColour(curStyle.getPropertyValue(key));
@@ -1403,62 +1357,6 @@
 
 	window.getFriendlyName = function(x) {
 		return entranceNameToFriendlyName[x];
-	}
-
-	window.defineEntranceTypes = function() {
-		defineEntranceType(0, 'lwdungeon', 'hc_m', 'Hyrule Castle (Main)');
-		defineEntranceType(1, 'lwdungeon', 'hc_w', 'Hyrule Castle (West)');
-		defineEntranceType(2, 'lwdungeon', 'hc_e', 'Hyrule Castle (East)');
-		defineEntranceType(3, 'lwdungeon', 'ct', 'Castle Tower');
-		defineEntranceType(4, 'lwdungeon', 'ep', 'Eastern Palace');
-		defineEntranceType(5, 'lwdungeon', 'dp_m', 'Desert Palace (Main)');
-		defineEntranceType(6, 'lwdungeon', 'dp_w', 'Desert Palace (West)');
-		defineEntranceType(7, 'lwdungeon', 'dp_e', 'Desert Palace (East)');
-		defineEntranceType(8, 'lwdungeon', 'dp_n', 'Desert Palace (North)');
-		defineEntranceType(9, 'lwdungeon', 'toh', 'Tower of Hera');
-		defineEntranceType(10, 'dwdungeon', 'pod', 'Palace of Darkness');
-		defineEntranceType(11, 'dwdungeon', 'sp', 'Swamp Palace');
-		defineEntranceType(12, 'dwdungeon', 'sw_m', 'Skull Woods (Main)');
-		defineEntranceType(13, 'dwdungeon', 'sw_w', 'Skull Woods (West)');
-		defineEntranceType(14, 'dwdungeon', 'sw_e', 'Skull Woods (East)');
-		defineEntranceType(15, 'dwdungeon', 'sw', 'Skull Woods (Back)');
-		defineEntranceType(16, 'dwdungeon', 'tt', 'Thieve\'s Town');
-		defineEntranceType(17, 'dwdungeon', 'ip', 'Ice Palace');
-		defineEntranceType(18, 'dwdungeon', 'mm', 'Misery Mire');
-		defineEntranceType(19, 'dwdungeon', 'tr_m', 'Turtle Rock (Main)');
-		defineEntranceType(20, 'dwdungeon', 'tr_w', 'Turtle Rock (West)');
-		defineEntranceType(21, 'dwdungeon', 'tr_e', 'Turtle Rock (East)');
-		defineEntranceType(22, 'dwdungeon', 'tr_b', 'Turtle Rock (Back)');
-		defineEntranceType(23, 'dwdungeon', 'gt', 'Ganon\'s Tower');
-		defineEntranceType(24, 'dwdungeon', 'ganon', 'Ganon');
-		defineEntranceType(25, 'start', 'link', 'Link\'s House');
-		defineEntranceType(26, 'start', 'sanc', 'Sanctuary');
-		defineEntranceType(27, 'start', 'mount', 'Death Mountain (Start)');
-		defineEntranceType(28, 'lwkey', 'magic', 'Magic Shop');
-		defineEntranceType(29, 'lwkey', 'kid', 'Lazy Kid');
-		defineEntranceType(30, 'lwkey', 'smith', 'Swordsmiths');
-		defineEntranceType(31, 'lwkey', 'bat', 'Magic Bat');
-		defineEntranceType(32, 'lwkey', 'lib', 'Library');
-		defineEntranceType(33, 'lwkey', 'saha', 'Sahasrahla\'s Hut');
-		defineEntranceType(34, 'lwkey', 'mimc', 'Mimic Cave');
-		defineEntranceType(35, 'lwkey', 'dam', 'Dam');
-		defineEntranceType(36, 'dwkey', 'bomb', 'Bomb Shop');
-		defineEntranceType(37, 'dwkey', 'bump', 'Bumper Cave');
-		defineEntranceType(38, 'dwkey', 'spike', 'Spike Cave');
-		defineEntranceType(39, 'dwkey', 'hook', 'Hookshot Cave');
-		defineEntranceType(40, 'generalkey', 'rupee', 'Rupee Cave');
-		defineEntranceType(41, 'generalkey', 'shop', 'Shop');
-		defineEntranceType(42, 'generalkey', 'dark', 'Dark Cave');
-		defineEntranceType(43, 'generalkey', 'connector', 'Unknown Connector');
-		defineEntranceType(44, 'generalkey', 'item', 'Room/Cave w/ Chest');
-		defineEntranceType(1000, 'null', '', '???');
-	}
-
-	window.defineEntranceType = function(index, group, name, friendlyName) {
-		entranceNameToIndex[name] = index;
-		entranceIndexToName[index] = name;
-		entranceNameToFriendlyName[name] = friendlyName;
-		entranceNameToGroup[name] = group;
 	}
 
 	window.isDungeon = function(x) {

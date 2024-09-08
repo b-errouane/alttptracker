@@ -346,1430 +346,1398 @@ function loadarchivepreset() {
 	
 }
 
-function loaddoorssotwpreset() {
+function loadPreset(settings) {
 	resetallstartingitems();
-	document.getElementById("gametypeopen").checked = true;
-	document.getElementById("entrancesimple").checked = true;
-	document.getElementById("doorcrossed").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossnone").checked = true;
-	document.getElementById("enemynone").checked = true;
-	document.getElementById("glitchesnone").checked = true;
-	document.getElementById("goalfast").checked = true;
-	document.getElementById("goalrandom").checked = true;
-	document.getElementById("towerselect").value = 7;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 7;
-	document.getElementById("swordsrandomized").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("shopsanityyes").checked = true;
-	document.getElementById("ambrosiano").checked = true;
-	document.getElementById("pseudobootsyes").checked = true;
-	document.getElementById("shuffledmaps").checked = true;
-	document.getElementById("shuffledcompasses").checked = true;
-	document.getElementById("shuffledsmallkeys").checked = true;
-	document.getElementById("shuffledbigkeys").checked = true;
-	document.getElementById("nonprogressivebowsno").checked = true;
-	document.getElementById("activatedfluteno").checked = true;
-	document.getElementById("bonkshuffleno").checked = true;
+
+	for (const [key, value] of Object.entries(settings)) {
+		if (typeof(value) === "boolean") {
+			document.getElementById(key).checked = value;
+		} else {
+			document.getElementById(key).value = value;
+		}
+	}
+
 	window.scrollTo(0,document.body.scrollHeight);
 	showToast();
+}
+
+
+function loaddoorssotwpreset() {
+	loadPreset({
+		"gametypeopen": true,
+		"entrancesimple": true,
+		"doorcrossed": true,
+		"overworldno": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goalfast": true,
+		"goalrandom": true,
+		"towerselect": 7,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsrandomized": true,
+		"unknownnone": true,
+		"shopsanityyes": true,
+		"ambrosiano": true,
+		"pseudobootsyes": true,
+		"shuffledmaps": true,
+		"shuffledcompasses": true,
+		"shuffledsmallkeys": true,
+		"shuffledbigkeys": true,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true
+	});
 }
 
 function loaddoorsbeginnerpreset() {
-	document.getElementById("gametypestandard").checked = true;
-	document.getElementById("entrancenone").checked = true;
-	document.getElementById("doorcrossed").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossnone").checked = true;
-	document.getElementById("enemynone").checked = true;
-	document.getElementById("glitchesnone").checked = true;
-	document.getElementById("goalganon").checked = true;
-	document.getElementById("goalcrystal").checked = true;
-	document.getElementById("towerselect").value = 7;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 7;
-	document.getElementById("swordsassured").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("shopsanityno").checked = true;
-	document.getElementById("ambrosiano").checked = true;
-	document.getElementById("pseudobootsyes").checked = true;
-	document.getElementById("shuffledmaps").checked = false;
-	document.getElementById("shuffledcompasses").checked = false;
-	document.getElementById("shuffledsmallkeys").checked = false;
-	document.getElementById("shuffledbigkeys").checked = false;
-	document.getElementById("nonprogressivebowsno").checked = true;
-	document.getElementById("activatedfluteno").checked = true;
-	document.getElementById("bonkshuffleno").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();
+	loadPreset({
+		"gametypestandard": true,
+		"entrancenone": true,
+		"doorcrossed": true,
+		"overworldno": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goalganon": true,
+		"goalcrystal": true,
+		"towerselect": 7,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsassured": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiano": true,
+		"pseudobootsyes": true,
+		"shuffledmaps": false,
+		"shuffledcompasses": false,
+		"shuffledsmallkeys": false,
+		"shuffledbigkeys": false,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true
+	});
 }
 
 function loadadpreset() {
-	resetallstartingitems();
-	document.getElementById("gametypeopen").checked = true;
-	document.getElementById("entrancenone").checked = true;
-	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossnone").checked = true;
-	document.getElementById("enemynone").checked = true;
-	document.getElementById("glitchesnone").checked = true;
-	document.getElementById("goaldungeons").checked = true;
-	document.getElementById("goalcrystal").checked = true;
-	document.getElementById("towerselect").value = 7;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 7;
-	document.getElementById("swordsrandomized").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("shopsanityno").checked = true;
-	document.getElementById("ambrosiano").checked = true;
-	document.getElementById("pseudobootsno").checked = true;
-	document.getElementById("shuffledmaps").checked = false;
-	document.getElementById("shuffledcompasses").checked = false;
-	document.getElementById("shuffledsmallkeys").checked = false;
-	document.getElementById("shuffledbigkeys").checked = false;
-	document.getElementById("nonprogressivebowsno").checked = true;
-	document.getElementById("activatedfluteno").checked = true;
-	document.getElementById("bonkshuffleno").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();	
+	loadPreset({
+		"gametypeopen": true,
+		"entrancenone": true,
+		"doornone": true,
+		"overworldno": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goaldungeons": true,
+		"goalcrystal": true,
+		"towerselect": 7,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsrandomized": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiano": true,
+		"pseudobootsno": true,
+		"shuffledmaps": false,
+		"shuffledcompasses": false,
+		"shuffledsmallkeys": false,
+		"shuffledbigkeys": false,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true
+	});
 }
 
 function loadganonhuntpreset() {
-	resetallstartingitems();
 	setstartingitem("boots",22,"1");
-	document.getElementById("gametypeopen").checked = true;
-	document.getElementById("entrancenone").checked = true;
-	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossnone").checked = true;
-	document.getElementById("enemynone").checked = true;
-	document.getElementById("glitchesnone").checked = true;
-	document.getElementById("goaldungeons").checked = true;
-	document.getElementById("goalother").checked = true;
-	document.getElementById("towerselect").value = 5;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 2;
-	document.getElementById("swordsassured").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("shopsanityno").checked = true;
-	document.getElementById("ambrosiano").checked = true;
-	document.getElementById("pseudobootsno").checked = true;
-	document.getElementById("shuffledmaps").checked = false;
-	document.getElementById("shuffledcompasses").checked = false;
-	document.getElementById("shuffledsmallkeys").checked = false;
-	document.getElementById("shuffledbigkeys").checked = true;
-	document.getElementById("nonprogressivebowsno").checked = true;
-	document.getElementById("activatedfluteno").checked = true;
-	document.getElementById("bonkshuffleno").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();	
+	loadPreset({
+		"gametypeopen": true,
+		"entrancenone": true,
+		"doornone": true,
+		"overworldno": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goaldungeons": true,
+		"goalother": true,
+		"towerselect": 5,
+		"ganoncrystal": true,
+		"ganonselect": 2,
+		"swordsassured": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiano": true,
+		"pseudobootsno": true,
+		"shuffledmaps": false,
+		"shuffledcompasses": false,
+		"shuffledsmallkeys": false,
+		"shuffledbigkeys": true,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true
+	});
 }
 
 function loadenemizerbootspreset() {
-	resetallstartingitems();
 	setstartingitem("boots",22,"1");
-	document.getElementById("gametypeopen").checked = true;
-	document.getElementById("entrancenone").checked = true;
-	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossshuffled").checked = true;
-	document.getElementById("enemyshuffled").checked = true;
-	document.getElementById("glitchesnone").checked = true;
-	document.getElementById("goalganon").checked = true;
-	document.getElementById("goalcrystal").checked = true;
-	document.getElementById("towerselect").value = 7;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 7;
-	document.getElementById("swordsrandomized").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("shopsanityno").checked = true;
-	document.getElementById("ambrosiano").checked = true;
-	document.getElementById("pseudobootsno").checked = true;
-	document.getElementById("shuffledmaps").checked = false;
-	document.getElementById("shuffledcompasses").checked = false;
-	document.getElementById("shuffledsmallkeys").checked = false;
-	document.getElementById("shuffledbigkeys").checked = false;
-	document.getElementById("nonprogressivebowsno").checked = true;
-	document.getElementById("activatedfluteno").checked = true;
-	document.getElementById("bonkshuffleno").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();
+	loadPreset({
+		"gametypeopen": true,
+		"entrancenone": true,
+		"doornone": true,
+		"overworldno": true,
+		"bossshuffled": true,
+		"enemyshuffled": true,
+		"glitchesnone": true,
+		"goalganon": true,
+		"goalcrystal": true,
+		"towerselect": 7,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsrandomized": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiano": true,
+		"pseudobootsno": true,
+		"shuffledmaps": false,
+		"shuffledcompasses": false,
+		"shuffledsmallkeys": false,
+		"shuffledbigkeys": false,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true
+	});
 }
 
 function loadopenpreset() {
-	resetallstartingitems();
-	document.getElementById("gametypeopen").checked = true;
-	document.getElementById("entrancenone").checked = true;
-	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossnone").checked = true;
-	document.getElementById("enemynone").checked = true;
-	document.getElementById("glitchesnone").checked = true;
-	document.getElementById("goalganon").checked = true;
-	document.getElementById("goalcrystal").checked = true;
-	document.getElementById("towerselect").value = 7;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 7;
-	document.getElementById("swordsrandomized").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("shopsanityno").checked = true;
-	document.getElementById("ambrosiano").checked = true;
-	document.getElementById("pseudobootsno").checked = true;
-	document.getElementById("shuffledmaps").checked = false;
-	document.getElementById("shuffledcompasses").checked = false;
-	document.getElementById("shuffledsmallkeys").checked = false;
-	document.getElementById("shuffledbigkeys").checked = false;
-	document.getElementById("nonprogressivebowsno").checked = true;
-	document.getElementById("activatedfluteno").checked = true;
-	document.getElementById("bonkshuffleno").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();
+	loadPreset({
+		"gametypeopen": true,
+		"entrancenone": true,
+		"doornone": true,
+		"overworldno": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goalganon": true,
+		"goalcrystal": true,
+		"towerselect": 7,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsrandomized": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiano": true,
+		"pseudobootsno": true,
+		"shuffledmaps": false,
+		"shuffledcompasses": false,
+		"shuffledsmallkeys": false,
+		"shuffledbigkeys": false,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true
+	});
 }
 
 function loadowgpreset() {
-	resetallstartingitems();
 	setstartingitem("boots",22,"1");
-	document.getElementById("gametypeopen").checked = true;
-	document.getElementById("entrancenone").checked = true;
-	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossnone").checked = true;
-	document.getElementById("enemynone").checked = true;
-	document.getElementById("glitchesoverworld").checked = true;
-	document.getElementById("goalganon").checked = true;
-	document.getElementById("goalcrystal").checked = true;
-	document.getElementById("towerselect").value = 7;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 7;
-	document.getElementById("swordsrandomized").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("shopsanityno").checked = true;
-	document.getElementById("ambrosiano").checked = true;
-	document.getElementById("pseudobootsno").checked = true;
-	document.getElementById("shuffledmaps").checked = false;
-	document.getElementById("shuffledcompasses").checked = false;
-	document.getElementById("shuffledsmallkeys").checked = false;
-	document.getElementById("shuffledbigkeys").checked = false;
-	document.getElementById("nonprogressivebowsno").checked = true;
-	document.getElementById("activatedfluteno").checked = true;
-	document.getElementById("bonkshuffleno").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();
+	loadPreset({
+		"gametypeopen": true,
+		"entrancenone": true,
+		"doornone": true,
+		"overworldno": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesoverworld": true,
+		"goalganon": true,
+		"goalcrystal": true,
+		"towerselect": 7,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsrandomized": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiano": true,
+		"pseudobootsno": true,
+		"shuffledmaps": false,
+		"shuffledcompasses": false,
+		"shuffledsmallkeys": false,
+		"shuffledbigkeys": false,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true
+	});
 }
 
 function loadhmgpreset() {
-	resetallstartingitems();
 	setstartingitem("boots",22,"1");
-	document.getElementById("gametypeopen").checked = true;
-	document.getElementById("entrancenone").checked = true;
-	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossnone").checked = true;
-	document.getElementById("enemynone").checked = true;
-	document.getElementById("glitcheshybrid").checked = true;
-	document.getElementById("goalganon").checked = true;
-	document.getElementById("goalcrystal").checked = true;
-	document.getElementById("towerselect").value = 7;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 7;
-	document.getElementById("swordsrandomized").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("shopsanityno").checked = true;
-	document.getElementById("ambrosiano").checked = true;
-	document.getElementById("pseudobootsno").checked = true;
-	document.getElementById("shuffledmaps").checked = false;
-	document.getElementById("shuffledcompasses").checked = false;
-	document.getElementById("shuffledsmallkeys").checked = false;
-	document.getElementById("shuffledbigkeys").checked = false;
-	document.getElementById("nonprogressivebowsno").checked = true;
-	document.getElementById("activatedfluteno").checked = true;
-	document.getElementById("bonkshuffleno").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();
+	loadPreset({
+		"gametypeopen": true,
+		"entrancenone": true,
+		"doornone": true,
+		"overworldno": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitcheshybrid": true,
+		"goalganon": true,
+		"goalcrystal": true,
+		"towerselect": 7,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsrandomized": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiano": true,
+		"pseudobootsno": true,
+		"shuffledmaps": false,
+		"shuffledcompasses": false,
+		"shuffledsmallkeys": false,
+		"shuffledbigkeys": false,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true
+	});
 }
 
 function loadnologicpreset() {
-	resetallstartingitems();
 	setstartingitem("boots",22,"1");
-	document.getElementById("gametypeopen").checked = true;
-	document.getElementById("entrancenone").checked = true;
-	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossnone").checked = true;
-	document.getElementById("enemynone").checked = true;
-	document.getElementById("glitchesnologic").checked = true;
-	document.getElementById("goalganon").checked = true;
-	document.getElementById("goalcrystal").checked = true;
-	document.getElementById("towerselect").value = 7;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 7;
-	document.getElementById("swordsrandomized").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("shopsanityno").checked = true;
-	document.getElementById("ambrosiano").checked = true;
-	document.getElementById("pseudobootsno").checked = true;
-	document.getElementById("shuffledmaps").checked = true;
-	document.getElementById("shuffledcompasses").checked = true;
-	document.getElementById("shuffledsmallkeys").checked = true;
-	document.getElementById("shuffledbigkeys").checked = true;
-	document.getElementById("nonprogressivebowsno").checked = true;
-	document.getElementById("activatedfluteno").checked = true;
-	document.getElementById("bonkshuffleno").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();
+	loadPreset({
+		"gametypeopen": true,
+		"entrancenone": true,
+		"doornone": true,
+		"overworldno": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesnologic": true,
+		"goalganon": true,
+		"goalcrystal": true,
+		"towerselect": 7,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsrandomized": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiano": true,
+		"pseudobootsno": true,
+		"shuffledmaps": true,
+		"shuffledcompasses": true,
+		"shuffledsmallkeys": true,
+		"shuffledbigkeys": true,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true
+	});
 }
 
 function loadopenbootspreset() {
-	resetallstartingitems();
 	setstartingitem("boots",22,"1");
-	document.getElementById("gametypeopen").checked = true;
-	document.getElementById("entrancenone").checked = true;
-	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossnone").checked = true;
-	document.getElementById("enemynone").checked = true;
-	document.getElementById("glitchesnone").checked = true;
-	document.getElementById("goalganon").checked = true;
-	document.getElementById("goalcrystal").checked = true;
-	document.getElementById("towerselect").value = 7;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 7;
-	document.getElementById("swordsrandomized").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("shopsanityno").checked = true;
-	document.getElementById("ambrosiano").checked = true;
-	document.getElementById("pseudobootsno").checked = true;
-	document.getElementById("shuffledmaps").checked = false;
-	document.getElementById("shuffledcompasses").checked = false;
-	document.getElementById("shuffledsmallkeys").checked = false;
-	document.getElementById("shuffledbigkeys").checked = false;
-	document.getElementById("nonprogressivebowsno").checked = true;
-	document.getElementById("activatedfluteno").checked = true;
-	document.getElementById("bonkshuffleno").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();
+	loadPreset({
+		"gametypeopen": true,
+		"entrancenone": true,
+		"doornone": true,
+		"overworldno": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goalganon": true,
+		"goalcrystal": true,
+		"towerselect": 7,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsrandomized": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiano": true,
+		"pseudobootsno": true,
+		"shuffledmaps": false,
+		"shuffledcompasses": false,
+		"shuffledsmallkeys": false,
+		"shuffledbigkeys": false,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true,
+	});
 }
 
 function loadambrosiapreset() {
-	resetallstartingitems();
-	document.getElementById("gametypestandard").checked = true;
-	document.getElementById("entrancenone").checked = true;
-	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossnone").checked = true;
-	document.getElementById("enemynone").checked = true;
-	document.getElementById("glitchesnone").checked = true;
-	document.getElementById("goalganon").checked = true;
-	document.getElementById("goalcrystal").checked = true;
-	document.getElementById("towerselect").value = 7;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 7;
-	document.getElementById("swordsassured").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("shopsanityno").checked = true;
-	document.getElementById("ambrosiayes").checked = true;
-	document.getElementById("pseudobootsno").checked = true;
-	document.getElementById("shuffledmaps").checked = false;
-	document.getElementById("shuffledcompasses").checked = false;
-	document.getElementById("shuffledsmallkeys").checked = false;
-	document.getElementById("shuffledbigkeys").checked = false;
-	document.getElementById("nonprogressivebowsno").checked = true;
-	document.getElementById("activatedfluteno").checked = true;
-	document.getElementById("bonkshuffleno").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();
+	loadPreset({
+		"gametypestandard": true,
+		"entrancenone": true,
+		"doornone": true,
+		"overworldno": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goalganon": true,
+		"goalcrystal": true,
+		"towerselect": 7,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsassured": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiayes": true,
+		"pseudobootsno": true,
+		"shuffledmaps": false,
+		"shuffledcompasses": false,
+		"shuffledsmallkeys": false,
+		"shuffledbigkeys": false,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true,
+	})
 }
 
 function loadmysterypreset() {
-	resetallstartingitems();
-	document.getElementById("gametypeopen").checked = true;
-	document.getElementById("entrancenone").checked = true;
-	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossshuffled").checked = true;
-	document.getElementById("enemyshuffled").checked = true;
-	document.getElementById("glitchesnone").checked = true;
-	document.getElementById("goalganon").checked = true;
-	document.getElementById("goalrandom").checked = true;
-	document.getElementById("towerselect").value = 7;
-	document.getElementById("ganonrandom").checked = true;
-	document.getElementById("ganonselect").value = 7;
-	document.getElementById("swordsrandomized").checked = true;
-	document.getElementById("unknownmystery").checked = true;
-	document.getElementById("shopsanityno").checked = true;
-	document.getElementById("ambrosiano").checked = true;
-	document.getElementById("pseudobootsno").checked = true;
-	document.getElementById("shuffledmaps").checked = true;
-	document.getElementById("shuffledcompasses").checked = true;
-	document.getElementById("shuffledsmallkeys").checked = true;
-	document.getElementById("shuffledbigkeys").checked = true;
-	document.getElementById("nonprogressivebowsno").checked = true;
-	document.getElementById("activatedfluteno").checked = true;
-	document.getElementById("bonkshuffleno").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();
+	loadPreset({
+		"gametypeopen": true,
+		"entrancenone": true,
+		"doornone": true,
+		"overworldno": true,
+		"bossshuffled": true,
+		"enemyshuffled": true,
+		"glitchesnone": true,
+		"goalganon": true,
+		"goalrandom": true,
+		"towerselect": 7,
+		"ganonrandom": true,
+		"ganonselect": 7,
+		"swordsrandomized": true,
+		"unknownmystery": true,
+		"shopsanityno": true,
+		"ambrosiano": true,
+		"pseudobootsno": true,
+		"shuffledmaps": true,
+		"shuffledcompasses": true,
+		"shuffledsmallkeys": true,
+		"shuffledbigkeys": true,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true,
+	});
 }
 
 function loadcrosskeyspreset() {
-	resetallstartingitems();
-	document.getElementById("gametypeopen").checked = true;
-	document.getElementById("entrancesimple").checked = true;
-	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossnone").checked = true;
-	document.getElementById("enemynone").checked = true;
-	document.getElementById("glitchesnone").checked = true;
-	document.getElementById("goalfast").checked = true;
-	document.getElementById("goalcrystal").checked = true;
-	document.getElementById("towerselect").value = 7;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 7;
-	document.getElementById("swordsrandomized").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("shopsanityno").checked = true;
-	document.getElementById("ambrosiano").checked = true;
-	document.getElementById("pseudobootsno").checked = true;
-	document.getElementById("shuffledmaps").checked = true;
-	document.getElementById("shuffledcompasses").checked = true;
-	document.getElementById("shuffledsmallkeys").checked = true;
-	document.getElementById("shuffledbigkeys").checked = true;
-	document.getElementById("nonprogressivebowsno").checked = true;
-	document.getElementById("activatedfluteno").checked = true;
-	document.getElementById("bonkshuffleno").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();
+	loadPreset({
+		"gametypeopen": true,
+		"entrancesimple": true,
+		"doornone": true,
+		"overworldno": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goalfast": true,
+		"goalcrystal": true,
+		"towerselect": 7,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsrandomized": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiano": true,
+		"pseudobootsno": true,
+		"shuffledmaps": true,
+		"shuffledcompasses": true,
+		"shuffledsmallkeys": true,
+		"shuffledbigkeys": true,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true,
+	});
 }
 
 function loadinvertedkeyspreset() {
-	resetallstartingitems();
-	document.getElementById("gametypeinverted").checked = true;
-	document.getElementById("entrancenone").checked = true;
-	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossnone").checked = true;
-	document.getElementById("enemynone").checked = true;
-	document.getElementById("glitchesnone").checked = true;
-	document.getElementById("goalganon").checked = true;
-	document.getElementById("goalcrystal").checked = true;
-	document.getElementById("towerselect").value = 7;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 7;
-	document.getElementById("swordsrandomized").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("shopsanityno").checked = true;
-	document.getElementById("ambrosiano").checked = true;
-	document.getElementById("pseudobootsno").checked = true;
-	document.getElementById("shuffledmaps").checked = true;
-	document.getElementById("shuffledcompasses").checked = true;
-	document.getElementById("shuffledsmallkeys").checked = true;
-	document.getElementById("shuffledbigkeys").checked = true;
-	document.getElementById("nonprogressivebowsno").checked = true;
-	document.getElementById("activatedfluteno").checked = true;
-	document.getElementById("bonkshuffleno").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();
+	loadPreset({
+		"gametypeinverted": true,
+		"entrancenone": true,
+		"doornone": true,
+		"overworldno": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goalganon": true,
+		"goalcrystal": true,
+		"towerselect": 7,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsrandomized": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiano": true,
+		"pseudobootsno": true,
+		"shuffledmaps": true,
+		"shuffledcompasses": true,
+		"shuffledsmallkeys": true,
+		"shuffledbigkeys": true,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true,
+	});
 }
 
 function loadenemizerpreset() {
-	resetallstartingitems();
-	document.getElementById("gametypeopen").checked = true;
-	document.getElementById("entrancenone").checked = true;
-	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossshuffled").checked = true;
-	document.getElementById("enemyshuffled").checked = true;
-	document.getElementById("glitchesnone").checked = true;
-	document.getElementById("goalganon").checked = true;
-	document.getElementById("goalcrystal").checked = true;
-	document.getElementById("towerselect").value = 7;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 7;
-	document.getElementById("swordsrandomized").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("shopsanityno").checked = true;
-	document.getElementById("ambrosiano").checked = true;
-	document.getElementById("pseudobootsno").checked = true;
-	document.getElementById("shuffledmaps").checked = false;
-	document.getElementById("shuffledcompasses").checked = false;
-	document.getElementById("shuffledsmallkeys").checked = false;
-	document.getElementById("shuffledbigkeys").checked = false;
-	document.getElementById("nonprogressivebowsno").checked = true;
-	document.getElementById("activatedfluteno").checked = true;
-	document.getElementById("bonkshuffleno").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();
+	loadPreset({
+		"gametypeopen": true,
+		"entrancenone": true,
+		"doornone": true,
+		"overworldno": true,
+		"bossshuffled": true,
+		"enemyshuffled": true,
+		"glitchesnone": true,
+		"goalganon": true,
+		"goalcrystal": true,
+		"towerselect": 7,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsrandomized": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiano": true,
+		"pseudobootsno": true,
+		"shuffledmaps": false,
+		"shuffledcompasses": false,
+		"shuffledsmallkeys": false,
+		"shuffledbigkeys": false,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true,
+	});
 }
 
 function loadadenemizerpreset() {
-	resetallstartingitems();
-	document.getElementById("gametypeopen").checked = true;
-	document.getElementById("entrancenone").checked = true;
-	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossshuffled").checked = true;
-	document.getElementById("enemyshuffled").checked = true;
-	document.getElementById("glitchesnone").checked = true;
-	document.getElementById("goaldungeons").checked = true;
-	document.getElementById("goalcrystal").checked = true;
-	document.getElementById("towerselect").value = 7;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 7;
-	document.getElementById("swordsrandomized").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("shopsanityno").checked = true;
-	document.getElementById("ambrosiano").checked = true;
-	document.getElementById("pseudobootsno").checked = true;
-	document.getElementById("shuffledmaps").checked = false;
-	document.getElementById("shuffledcompasses").checked = false;
-	document.getElementById("shuffledsmallkeys").checked = false;
-	document.getElementById("shuffledbigkeys").checked = false;
-	document.getElementById("nonprogressivebowsno").checked = true;
-	document.getElementById("activatedfluteno").checked = true;
-	document.getElementById("bonkshuffleno").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();
+	loadPreset({
+		"gametypeopen": true,
+		"entrancenone": true,
+		"doornone": true,
+		"overworldno": true,
+		"bossshuffled": true,
+		"enemyshuffled": true,
+		"glitchesnone": true,
+		"goaldungeons": true,
+		"goalcrystal": true,
+		"towerselect": 7,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsrandomized": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiano": true,
+		"pseudobootsno": true,
+		"shuffledmaps": false,
+		"shuffledcompasses": false,
+		"shuffledsmallkeys": false,
+		"shuffledbigkeys": false,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true,
+	});
 }
 
 function loaddoubledownpreset() {
-	resetallstartingitems();
-	setstartingitem("boots",22,"1");
-	document.getElementById("gametypeopen").checked = true;
-	document.getElementById("entrancenone").checked = true;
-	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossnone").checked = true;
-	document.getElementById("enemynone").checked = true;
-	document.getElementById("glitchesnone").checked = true;
-	document.getElementById("goaldungeons").checked = true;
-	document.getElementById("goalcrystal").checked = true;
-	document.getElementById("towerselect").value = 7;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 7;
-	document.getElementById("swordsrandomized").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("shopsanityno").checked = true;
-	document.getElementById("ambrosiano").checked = true;
-	document.getElementById("shuffledmaps").checked = true;
-	document.getElementById("shuffledcompasses").checked = true;
-	document.getElementById("shuffledsmallkeys").checked = true;
-	document.getElementById("shuffledbigkeys").checked = true;
-	document.getElementById("nonprogressivebowsno").checked = true;
-	document.getElementById("activatedfluteno").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();
+	loadPreset({
+		"gametypeopen": true,
+		"entrancenone": true,
+		"doornone": true,
+		"overworldno": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goaldungeons": true,
+		"goalcrystal": true,
+		"towerselect": 7,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsrandomized": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiano": true,
+		"shuffledmaps": true,
+		"shuffledcompasses": true,
+		"shuffledsmallkeys": true,
+		"shuffledbigkeys": true,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+	});
 }
 
 function loadbootspreset() {
-	resetallstartingitems();
 	setstartingitem("boots",22,"1");
-	document.getElementById("gametypestandard").checked = true;
-	document.getElementById("entrancenone").checked = true;
-	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossnone").checked = true;
-	document.getElementById("enemynone").checked = true;
-	document.getElementById("glitchesnone").checked = true;
-	document.getElementById("goalganon").checked = true;
-	document.getElementById("goalcrystal").checked = true;
-	document.getElementById("towerselect").value = 7;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 7;
-	document.getElementById("swordsassured").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("shopsanityno").checked = true;
-	document.getElementById("ambrosiano").checked = true;
-	document.getElementById("pseudobootsno").checked = true;
-	document.getElementById("shuffledmaps").checked = false;
-	document.getElementById("shuffledcompasses").checked = false;
-	document.getElementById("shuffledsmallkeys").checked = false;
-	document.getElementById("shuffledbigkeys").checked = false;
-	document.getElementById("nonprogressivebowsno").checked = true;
-	document.getElementById("activatedfluteno").checked = true;
-	document.getElementById("bonkshuffleno").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();
+	loadPreset({
+		"gametypestandard": true,
+		"entrancenone": true,
+		"doornone": true,
+		"overworldno": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goalganon": true,
+		"goalcrystal": true,
+		"towerselect": 7,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsassured": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiano": true,
+		"pseudobootsno": true,
+		"shuffledmaps": false,
+		"shuffledcompasses": false,
+		"shuffledsmallkeys": false,
+		"shuffledbigkeys": false,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true,
+	});
 }
 
 function loadopenkeyspreset() {
-	resetallstartingitems();
-	document.getElementById("gametypeopen").checked = true;
-	document.getElementById("entrancenone").checked = true;
-	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossnone").checked = true;
-	document.getElementById("enemynone").checked = true;
-	document.getElementById("glitchesnone").checked = true;
-	document.getElementById("goalganon").checked = true;
-	document.getElementById("goalcrystal").checked = true;
-	document.getElementById("towerselect").value = 7;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 7;
-	document.getElementById("swordsrandomized").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("shopsanityno").checked = true;
-	document.getElementById("ambrosiano").checked = true;
-	document.getElementById("pseudobootsno").checked = true;
-	document.getElementById("shuffledmaps").checked = true;
-	document.getElementById("shuffledcompasses").checked = true;
-	document.getElementById("shuffledsmallkeys").checked = true;
-	document.getElementById("shuffledbigkeys").checked = true;
-	document.getElementById("nonprogressivebowsno").checked = true;
-	document.getElementById("activatedfluteno").checked = true;
-	document.getElementById("bonkshuffleno").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();	
+	loadPreset({
+		"gametypeopen": true,
+		"entrancenone": true,
+		"doornone": true,
+		"overworldno": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goalganon": true,
+		"goalcrystal": true,
+		"towerselect": 7,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsrandomized": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiano": true,
+		"pseudobootsno": true,
+		"shuffledmaps": true,
+		"shuffledcompasses": true,
+		"shuffledsmallkeys": true,
+		"shuffledbigkeys": true,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true,
+	});
 }
 
 function loadadkeyspreset() {
-	resetallstartingitems();
-	document.getElementById("gametypeopen").checked = true;
-	document.getElementById("entrancenone").checked = true;
-	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossnone").checked = true;
-	document.getElementById("enemynone").checked = true;
-	document.getElementById("glitchesnone").checked = true;
-	document.getElementById("goaldungeons").checked = true;
-	document.getElementById("goalcrystal").checked = true;
-	document.getElementById("towerselect").value = 7;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 7;
-	document.getElementById("swordsrandomized").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("shopsanityno").checked = true;
-	document.getElementById("ambrosiano").checked = true;
-	document.getElementById("pseudobootsno").checked = true;
-	document.getElementById("shuffledmaps").checked = true;
-	document.getElementById("shuffledcompasses").checked = true;
-	document.getElementById("shuffledsmallkeys").checked = true;
-	document.getElementById("shuffledbigkeys").checked = true;
-	document.getElementById("nonprogressivebowsno").checked = true;
-	document.getElementById("activatedfluteno").checked = true;
-	document.getElementById("bonkshuffleno").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();	
+	loadPreset({
+		"gametypeopen": true,
+		"entrancenone": true,
+		"doornone": true,
+		"overworldno": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goaldungeons": true,
+		"goalcrystal": true,
+		"towerselect": 7,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsrandomized": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiano": true,
+		"pseudobootsno": true,
+		"shuffledmaps": true,
+		"shuffledcompasses": true,
+		"shuffledsmallkeys": true,
+		"shuffledbigkeys": true,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true,
+	});
 }
 
 function loadreducedpreset() {
-	resetallstartingitems();
-	document.getElementById("gametypeopen").checked = true;
-	document.getElementById("entrancenone").checked = true;
-	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossnone").checked = true;
-	document.getElementById("enemynone").checked = true;
-	document.getElementById("glitchesnone").checked = true;
-	document.getElementById("goalfast").checked = true;
-	document.getElementById("goalcrystal").checked = true;
-	document.getElementById("towerselect").value = 6;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 6;
-	document.getElementById("swordsrandomized").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("shopsanityno").checked = true;
-	document.getElementById("ambrosiano").checked = true;
-	document.getElementById("pseudobootsno").checked = true;
-	document.getElementById("shuffledmaps").checked = false;
-	document.getElementById("shuffledcompasses").checked = false;
-	document.getElementById("shuffledsmallkeys").checked = false;
-	document.getElementById("shuffledbigkeys").checked = false;
-	document.getElementById("nonprogressivebowsno").checked = true;
-	document.getElementById("activatedfluteno").checked = true;
-	document.getElementById("bonkshuffleno").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();
+	loadPreset({
+		"gametypeopen": true,
+		"entrancenone": true,
+		"doornone": true,
+		"overworldno": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goalfast": true,
+		"goalcrystal": true,
+		"towerselect": 6,
+		"ganoncrystal": true,
+		"ganonselect": 6,
+		"swordsrandomized": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiano": true,
+		"pseudobootsno": true,
+		"shuffledmaps": false,
+		"shuffledcompasses": false,
+		"shuffledsmallkeys": false,
+		"shuffledbigkeys": false,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true,
+	});
 }
 
 function loadinvrosiapreset() {
-	resetallstartingitems();
-	document.getElementById("gametypeinverted").checked = true;
-	document.getElementById("entrancenone").checked = true;
-	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossnone").checked = true;
-	document.getElementById("enemynone").checked = true;
-	document.getElementById("glitchesnone").checked = true;
-	document.getElementById("goalganon").checked = true;
-	document.getElementById("goalcrystal").checked = true;
-	document.getElementById("towerselect").value = 7;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 7;
-	document.getElementById("swordsassured").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("shopsanityno").checked = true;
-	document.getElementById("ambrosiayes").checked = true;
-	document.getElementById("pseudobootsno").checked = true;
-	document.getElementById("shuffledmaps").checked = false;
-	document.getElementById("shuffledcompasses").checked = false;
-	document.getElementById("shuffledsmallkeys").checked = false;
-	document.getElementById("shuffledbigkeys").checked = true;
-	document.getElementById("nonprogressivebowsno").checked = true;
-	document.getElementById("activatedfluteno").checked = true;
-	document.getElementById("bonkshuffleno").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();		
-	
+	loadPreset({
+		"gametypeinverted": true,
+		"entrancenone": true,
+		"doornone": true,
+		"overworldno": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goalganon": true,
+		"goalcrystal": true,
+		"towerselect": 7,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsassured": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiayes": true,
+		"pseudobootsno": true,
+		"shuffledmaps": false,
+		"shuffledcompasses": false,
+		"shuffledsmallkeys": false,
+		"shuffledbigkeys": true,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true,
+	});
 }
 
 function loadstandardpreset() {
-	resetallstartingitems();
-	document.getElementById("gametypestandard").checked = true;
-	document.getElementById("entrancenone").checked = true;
-	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossnone").checked = true;
-	document.getElementById("enemynone").checked = true;
-	document.getElementById("glitchesnone").checked = true;
-	document.getElementById("goalganon").checked = true;
-	document.getElementById("goalcrystal").checked = true;
-	document.getElementById("towerselect").value = 7;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 7;
-	document.getElementById("swordsrandomized").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("shopsanityno").checked = true;
-	document.getElementById("ambrosiano").checked = true;
-	document.getElementById("pseudobootsno").checked = true;
-	document.getElementById("shuffledmaps").checked = false;
-	document.getElementById("shuffledcompasses").checked = false;
-	document.getElementById("shuffledsmallkeys").checked = false;
-	document.getElementById("shuffledbigkeys").checked = false;
-	document.getElementById("nonprogressivebowsno").checked = true;
-	document.getElementById("activatedfluteno").checked = true;
-	document.getElementById("bonkshuffleno").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();
+	loadPreset({
+		"gametypestandard": true,
+		"entrancenone": true,
+		"doornone": true,
+		"overworldno": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goalganon": true,
+		"goalcrystal": true,
+		"towerselect": 7,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsrandomized": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiano": true,
+		"pseudobootsno": true,
+		"shuffledmaps": false,
+		"shuffledcompasses": false,
+		"shuffledsmallkeys": false,
+		"shuffledbigkeys": false,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true,
+	});
 }
 
 function loadmcshufflepreset() {
-	resetallstartingitems();
-	document.getElementById("gametypeopen").checked = true;
-	document.getElementById("entrancenone").checked = true;
-	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossnone").checked = true;
-	document.getElementById("enemynone").checked = true;
-	document.getElementById("glitchesnone").checked = true;
-	document.getElementById("goalganon").checked = true;
-	document.getElementById("goalcrystal").checked = true;
-	document.getElementById("towerselect").value = 7;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 7;
-	document.getElementById("swordsrandomized").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("shopsanityno").checked = true;
-	document.getElementById("ambrosiano").checked = true;
-	document.getElementById("pseudobootsno").checked = true;
-	document.getElementById("shuffledmaps").checked = true;
-	document.getElementById("shuffledcompasses").checked = true;
-	document.getElementById("shuffledsmallkeys").checked = false;
-	document.getElementById("shuffledbigkeys").checked = false;
-	document.getElementById("nonprogressivebowsno").checked = true;
-	document.getElementById("activatedfluteno").checked = true;
-	document.getElementById("bonkshuffleno").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();
+	loadPreset({
+		"gametypeopen": true,
+		"entrancenone": true,
+		"doornone": true,
+		"overworldno": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goalganon": true,
+		"goalcrystal": true,
+		"towerselect": 7,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsrandomized": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiano": true,
+		"pseudobootsno": true,
+		"shuffledmaps": true,
+		"shuffledcompasses": true,
+		"shuffledsmallkeys": false,
+		"shuffledbigkeys": false,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true,
+	});
 }
 
 function loadpotpourripreset() {
-	resetallstartingitems();
 	setstartingitem("hookshot",3,"1");
 	setstartingitem("icerod",7,"1");
 	setstartingitem("flute",14,"1");
-	document.getElementById("gametypeopen").checked = true;
-	document.getElementById("entrancenone").checked = true;
-	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossshuffled").checked = true;
-	document.getElementById("enemynone").checked = true;
-	document.getElementById("glitchesnone").checked = true;
-	document.getElementById("goaldungeons").checked = true;
-	document.getElementById("goalcrystal").checked = true;
-	document.getElementById("towerselect").value = 7;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 7;
-	document.getElementById("swordsrandomized").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("shopsanityno").checked = true;
-	document.getElementById("ambrosiano").checked = true;
-	document.getElementById("pseudobootsno").checked = true;
-	document.getElementById("shuffledmaps").checked = false;
-	document.getElementById("shuffledcompasses").checked = false;
-	document.getElementById("shuffledsmallkeys").checked = true;
-	document.getElementById("shuffledbigkeys").checked = true;
-	document.getElementById("nonprogressivebowsno").checked = true;
-	document.getElementById("activatedfluteyes").checked = true;
-	document.getElementById("bonkshuffleno").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();
+	loadPreset({
+		"gametypeopen": true,
+		"entrancenone": true,
+		"doornone": true,
+		"overworldno": true,
+		"bossshuffled": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goaldungeons": true,
+		"goalcrystal": true,
+		"towerselect": 7,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsrandomized": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiano": true,
+		"pseudobootsno": true,
+		"shuffledmaps": false,
+		"shuffledcompasses": false,
+		"shuffledsmallkeys": true,
+		"shuffledbigkeys": true,
+		"nonprogressivebowsno": true,
+		"activatedfluteyes": true,
+		"bonkshuffleno": true,
+	});
 }
 
 function loadretrancepreset() {
-	resetallstartingitems();
-	document.getElementById("gametyperetro").checked = true;
-	document.getElementById("entrancesimple").checked = true;
-	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossnone").checked = true;
-	document.getElementById("enemynone").checked = true;
-	document.getElementById("glitchesnone").checked = true;
-	document.getElementById("goalfast").checked = true;
-	document.getElementById("goalcrystal").checked = true;
-	document.getElementById("towerselect").value = 7;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 7;
-	document.getElementById("swordsassured").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("shopsanityno").checked = true;
-	document.getElementById("ambrosiano").checked = true;
-	document.getElementById("pseudobootsno").checked = true;
-	document.getElementById("shuffledmaps").checked = true;
-	document.getElementById("shuffledcompasses").checked = true;
-	document.getElementById("shuffledsmallkeys").checked = true;
-	document.getElementById("shuffledbigkeys").checked = true;
-	document.getElementById("nonprogressivebowsno").checked = true;
-	document.getElementById("activatedfluteno").checked = true;
-	document.getElementById("bonkshuffleno").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();
+	loadPreset({
+		"gametyperetro": true,
+		"entrancesimple": true,
+		"doornone": true,
+		"overworldno": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goalfast": true,
+		"goalcrystal": true,
+		"towerselect": 7,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsassured": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiano": true,
+		"pseudobootsno": true,
+		"shuffledmaps": true,
+		"shuffledcompasses": true,
+		"shuffledsmallkeys": true,
+		"shuffledbigkeys": true,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true,
+	});
 }
 
 function loadcswordlesspreset() {
-	resetallstartingitems();
-	document.getElementById("gametypeopen").checked = true;
-	document.getElementById("entrancenone").checked = true;
-	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossnone").checked = true;
-	document.getElementById("enemynone").checked = true;
-	document.getElementById("glitchesnone").checked = true;
-	document.getElementById("goalganon").checked = true;
-	document.getElementById("goalcrystal").checked = true;
-	document.getElementById("towerselect").value = 7;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 7;
-	document.getElementById("swordsswordless").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("shopsanityno").checked = true;
-	document.getElementById("ambrosiano").checked = true;
-	document.getElementById("pseudobootsno").checked = true;
-	document.getElementById("shuffledmaps").checked = true;
-	document.getElementById("shuffledcompasses").checked = true;
-	document.getElementById("shuffledsmallkeys").checked = false;
-	document.getElementById("shuffledbigkeys").checked = false;
-	document.getElementById("nonprogressivebowsno").checked = true;
-	document.getElementById("activatedfluteno").checked = true;
-	document.getElementById("bonkshuffleno").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();
+	loadPreset({
+		"gametypeopen": true,
+		"entrancenone": true,
+		"doornone": true,
+		"overworldno": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goalganon": true,
+		"goalcrystal": true,
+		"towerselect": 7,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsswordless": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiano": true,
+		"pseudobootsno": true,
+		"shuffledmaps": true,
+		"shuffledcompasses": true,
+		"shuffledsmallkeys": false,
+		"shuffledbigkeys": false,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true,
+	});
 }
 
 function loadinvertedadkeyspreset() {
-	resetallstartingitems();
-	document.getElementById("gametypeinverted").checked = true;
-	document.getElementById("entrancenone").checked = true;
-	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossnone").checked = true;
-	document.getElementById("enemynone").checked = true;
-	document.getElementById("glitchesnone").checked = true;
-	document.getElementById("goaldungeons").checked = true;
-	document.getElementById("goalcrystal").checked = true;
-	document.getElementById("towerselect").value = 7;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 7;
-	document.getElementById("swordsrandomized").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("ambrosiano").checked = true;
-	document.getElementById("pseudobootsno").checked = true;
-	document.getElementById("shuffledmaps").checked = true;
-	document.getElementById("shuffledcompasses").checked = true;
-	document.getElementById("shuffledsmallkeys").checked = true;
-	document.getElementById("shuffledbigkeys").checked = true;
-	document.getElementById("nonprogressivebowsno").checked = true;
-	document.getElementById("activatedfluteno").checked = true;
-	document.getElementById("bonkshuffleno").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();
+	loadPreset({
+		"gametypeinverted": true,
+		"entrancenone": true,
+		"doornone": true,
+		"overworldno": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goaldungeons": true,
+		"goalcrystal": true,
+		"towerselect": 7,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsrandomized": true,
+		"unknownnone": true,
+		"ambrosiano": true,
+		"pseudobootsno": true,
+		"shuffledmaps": true,
+		"shuffledcompasses": true,
+		"shuffledsmallkeys": true,
+		"shuffledbigkeys": true,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true,
+	});
 }
 
 function loadgoldrushspreset() {
-	resetallstartingitems();
 	setstartingitem("boots",22,"1");
-	document.getElementById("gametypeopen").checked = true;
-	document.getElementById("entrancenone").checked = true;
-	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossnone").checked = true;
-	document.getElementById("enemynone").checked = true;
-	document.getElementById("glitchesnone").checked = true;
-	document.getElementById("goalganon").checked = true;
-	document.getElementById("goalother").checked = true;
-	document.getElementById("towerselect").value = 7;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 7;
-	document.getElementById("swordsrandomized").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("shopsanityno").checked = true;
-	document.getElementById("ambrosiano").checked = true;
-	document.getElementById("pseudobootsno").checked = true;
-	document.getElementById("shuffledmaps").checked = true;
-	document.getElementById("shuffledcompasses").checked = true;
-	document.getElementById("shuffledsmallkeys").checked = true;
-	document.getElementById("shuffledbigkeys").checked = true;
-	document.getElementById("nonprogressivebowsno").checked = true;
-	document.getElementById("activatedfluteno").checked = true;
-	document.getElementById("bonkshuffleno").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();
+	loadPreset({
+		"gametypeopen": true,
+		"entrancenone": true,
+		"doornone": true,
+		"overworldno": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goalganon": true,
+		"goalother": true,
+		"towerselect": 7,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsrandomized": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiano": true,
+		"pseudobootsno": true,
+		"shuffledmaps": true,
+		"shuffledcompasses": true,
+		"shuffledsmallkeys": true,
+		"shuffledbigkeys": true,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true,
+	});
 }
 
 function loadludicrouspreset() {
-	resetallstartingitems();
-	document.getElementById("gametypeopen").checked = true;
-	document.getElementById("entrancenone").checked = true;
-	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossnone").checked = true;
-	document.getElementById("enemynone").checked = true;
-	document.getElementById("glitchesnone").checked = true;
-	document.getElementById("goaldungeons").checked = true;
-	document.getElementById("goalcrystal").checked = true;
-	document.getElementById("towerselect").value = 7;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 7;
-	document.getElementById("swordsrandomized").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("shopsanityno").checked = true;
-	document.getElementById("ambrosiano").checked = true;
-	document.getElementById("pseudobootsno").checked = true;
-	document.getElementById("shuffledmaps").checked = false;
-	document.getElementById("shuffledcompasses").checked = true;
-	document.getElementById("shuffledsmallkeys").checked = false;
-	document.getElementById("shuffledbigkeys").checked = false;
-	document.getElementById("nonprogressivebowsno").checked = true;
-	document.getElementById("activatedfluteno").checked = true;
-	document.getElementById("bonkshuffleno").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();
+	loadPreset({
+		"gametypeopen": true,
+		"entrancenone": true,
+		"doornone": true,
+		"overworldno": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goaldungeons": true,
+		"goalcrystal": true,
+		"towerselect": 7,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsrandomized": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiano": true,
+		"pseudobootsno": true,
+		"shuffledmaps": false,
+		"shuffledcompasses": true,
+		"shuffledsmallkeys": false,
+		"shuffledbigkeys": false,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true,
+	});
 }
 
 function loadhardopenpluspreset() {
-	resetallstartingitems();
-	document.getElementById("gametypeopen").checked = true;
-	document.getElementById("entrancenone").checked = true;
-	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossnone").checked = true;
-	document.getElementById("enemynone").checked = true;
-	document.getElementById("glitchesnone").checked = true;
-	document.getElementById("goalganon").checked = true;
-	document.getElementById("goalcrystal").checked = true;
-	document.getElementById("towerselect").value = 7;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 7;
-	document.getElementById("swordsrandomized").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("shopsanityno").checked = true;
-	document.getElementById("ambrosiano").checked = true;
-	document.getElementById("pseudobootsno").checked = true;
-	document.getElementById("shuffledmaps").checked = false;
-	document.getElementById("shuffledcompasses").checked = false;
-	document.getElementById("shuffledsmallkeys").checked = false;
-	document.getElementById("shuffledbigkeys").checked = false;
-	document.getElementById("nonprogressivebowsyes").checked = true;
-	document.getElementById("activatedfluteno").checked = true;
-	document.getElementById("bonkshuffleno").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();
+	loadPreset({
+		"gametypeopen": true,
+		"entrancenone": true,
+		"doornone": true,
+		"overworldno": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goalganon": true,
+		"goalcrystal": true,
+		"towerselect": 7,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsrandomized": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiano": true,
+		"pseudobootsno": true,
+		"shuffledmaps": false,
+		"shuffledcompasses": false,
+		"shuffledsmallkeys": false,
+		"shuffledbigkeys": false,
+		"nonprogressivebowsyes": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true,
+	});
 }
 
 function loadinvertedspreset() {
-	resetallstartingitems();
-	document.getElementById("gametypeinverted").checked = true;
-	document.getElementById("entrancenone").checked = true;
-	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossnone").checked = true;
-	document.getElementById("enemynone").checked = true;
-	document.getElementById("glitchesnone").checked = true;
-	document.getElementById("goalganon").checked = true;
-	document.getElementById("goalcrystal").checked = true;
-	document.getElementById("towerselect").value = 7;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 7;
-	document.getElementById("swordsrandomized").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("shopsanityno").checked = true;
-	document.getElementById("ambrosiano").checked = true;
-	document.getElementById("pseudobootsno").checked = true;
-	document.getElementById("shuffledmaps").checked = false;
-	document.getElementById("shuffledcompasses").checked = false;
-	document.getElementById("shuffledsmallkeys").checked = false;
-	document.getElementById("shuffledbigkeys").checked = false;
-	document.getElementById("nonprogressivebowsno").checked = true;
-	document.getElementById("activatedfluteno").checked = true;
-	document.getElementById("bonkshuffleno").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();
+	loadPreset({
+		"gametypeinverted": true,
+		"entrancenone": true,
+		"doornone": true,
+		"overworldno": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goalganon": true,
+		"goalcrystal": true,
+		"towerselect": 7,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsrandomized": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiano": true,
+		"pseudobootsno": true,
+		"shuffledmaps": false,
+		"shuffledcompasses": false,
+		"shuffledsmallkeys": false,
+		"shuffledbigkeys": false,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true,
+	});
 }
 
 function loadmcbosspreset() {
-	resetallstartingitems();
-	document.getElementById("gametypeopen").checked = true;
-	document.getElementById("entrancenone").checked = true;
-	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossshuffled").checked = true;
-	document.getElementById("enemynone").checked = true;
-	document.getElementById("glitchesnone").checked = true;
-	document.getElementById("goalganon").checked = true;
-	document.getElementById("goalcrystal").checked = true;
-	document.getElementById("towerselect").value = 7;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 7;
-	document.getElementById("swordsrandomized").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("shopsanityno").checked = true;
-	document.getElementById("ambrosiano").checked = true;
-	document.getElementById("pseudobootsno").checked = true;
-	document.getElementById("shuffledmaps").checked = true;
-	document.getElementById("shuffledcompasses").checked = true;
-	document.getElementById("shuffledsmallkeys").checked = false;
-	document.getElementById("shuffledbigkeys").checked = false;
-	document.getElementById("nonprogressivebowsno").checked = true;
-	document.getElementById("activatedfluteno").checked = true;
-	document.getElementById("bonkshuffleno").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();
+	loadPreset({
+		"gametypeopen": true,
+		"entrancenone": true,
+		"doornone": true,
+		"overworldno": true,
+		"bossshuffled": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goalganon": true,
+		"goalcrystal": true,
+		"towerselect": 7,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsrandomized": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiano": true,
+		"pseudobootsno": true,
+		"shuffledmaps": true,
+		"shuffledcompasses": true,
+		"shuffledsmallkeys": false,
+		"shuffledbigkeys": false,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true,
+	});
 }
 
 function loadtinvertedkeyspreset() {
-	resetallstartingitems();
 	setstartingitem("flute",14,"1");
-	document.getElementById("gametypeinverted").checked = true;
-	document.getElementById("entrancenone").checked = true;
-	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossnone").checked = true;
-	document.getElementById("enemynone").checked = true;
-	document.getElementById("glitchesnone").checked = true;
-	document.getElementById("goalganon").checked = true;
-	document.getElementById("goalcrystal").checked = true;
-	document.getElementById("towerselect").value = 7;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 7;
-	document.getElementById("swordsrandomized").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("shopsanityno").checked = true;
-	document.getElementById("ambrosiano").checked = true;
-	document.getElementById("pseudobootsno").checked = true;
-	document.getElementById("shuffledmaps").checked = true;
-	document.getElementById("shuffledcompasses").checked = true;
-	document.getElementById("shuffledsmallkeys").checked = true;
-	document.getElementById("shuffledbigkeys").checked = true;
-	document.getElementById("nonprogressivebowsno").checked = true;
-	document.getElementById("activatedfluteyes").checked = true;
-	document.getElementById("bonkshuffleno").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();
+	loadPreset({
+		"gametypeinverted": true,
+		"entrancenone": true,
+		"doornone": true,
+		"overworldno": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goalganon": true,
+		"goalcrystal": true,
+		"towerselect": 7,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsrandomized": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiano": true,
+		"pseudobootsno": true,
+		"shuffledmaps": true,
+		"shuffledcompasses": true,
+		"shuffledsmallkeys": true,
+		"shuffledbigkeys": true,
+		"nonprogressivebowsno": true,
+		"activatedfluteyes": true,
+		"bonkshuffleno": true,
+	});
 }
 
 function loadambroz1apreset() {
-	resetallstartingitems();
-	document.getElementById("gametyperetro").checked = true;
-	document.getElementById("entrancenone").checked = true;
-	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossnone").checked = true;
-	document.getElementById("enemynone").checked = true;
-	document.getElementById("glitchesnone").checked = true;
-	document.getElementById("goalother").checked = true;
-	document.getElementById("goalcrystal").checked = true;
-	document.getElementById("towerselect").value = 7;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 7;
-	document.getElementById("swordsrandomized").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("shopsanityno").checked = true;
-	document.getElementById("ambrosiayes").checked = true;
-	document.getElementById("pseudobootsno").checked = true;
-	document.getElementById("shuffledmaps").checked = false;
-	document.getElementById("shuffledcompasses").checked = false;
-	document.getElementById("shuffledsmallkeys").checked = false;
-	document.getElementById("shuffledbigkeys").checked = false;
-	document.getElementById("nonprogressivebowsyes").checked = true;
-	document.getElementById("activatedfluteyes").checked = true;
-	document.getElementById("bonkshuffleno").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();
+	loadPreset({
+		"gametyperetro": true,
+		"entrancenone": true,
+		"doornone": true,
+		"overworldno": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goalother": true,
+		"goalcrystal": true,
+		"towerselect": 7,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsrandomized": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiayes": true,
+		"pseudobootsno": true,
+		"shuffledmaps": false,
+		"shuffledcompasses": false,
+		"shuffledsmallkeys": false,
+		"shuffledbigkeys": false,
+		"nonprogressivebowsyes": true,
+		"activatedfluteyes": true,
+		"bonkshuffleno": true,
+	});
 }
 
 function loadinvertedcrosskeyspreset() {
-	resetallstartingitems();
-	document.getElementById("gametypeinverted").checked = true;
-	document.getElementById("entrancesimple").checked = true;
-	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossnone").checked = true;
-	document.getElementById("enemynone").checked = true;
-	document.getElementById("glitchesnone").checked = true;
-	document.getElementById("goalfast").checked = true;
-	document.getElementById("goalcrystal").checked = true;
-	document.getElementById("towerselect").value = 7;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 7;
-	document.getElementById("swordsrandomized").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("shopsanityno").checked = true;
-	document.getElementById("ambrosiano").checked = true;
-	document.getElementById("pseudobootsno").checked = true;
-	document.getElementById("shuffledmaps").checked = true;
-	document.getElementById("shuffledcompasses").checked = true;
-	document.getElementById("shuffledsmallkeys").checked = true;
-	document.getElementById("shuffledbigkeys").checked = true;
-	document.getElementById("nonprogressivebowsno").checked = true;
-	document.getElementById("activatedfluteno").checked = true;
-	document.getElementById("bonkshuffleno").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();
+	loadPreset({
+		"gametypeinverted": true,
+		"entrancesimple": true,
+		"doornone": true,
+		"overworldno": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goalfast": true,
+		"goalcrystal": true,
+		"towerselect": 7,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsrandomized": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiano": true,
+		"pseudobootsno": true,
+		"shuffledmaps": true,
+		"shuffledcompasses": true,
+		"shuffledsmallkeys": true,
+		"shuffledbigkeys": true,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true,
+	});
 }
 
 function loadchuntpreset() {
-	resetallstartingitems();
 	setstartingitem("boots",22,"1");
-	document.getElementById("gametypeopen").checked = true;
-	document.getElementById("entrancenone").checked = true;
-	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossnone").checked = true;
-	document.getElementById("enemynone").checked = true;
-	document.getElementById("glitchesnone").checked = true;
-	document.getElementById("goalother").checked = true;
-	document.getElementById("goalcrystal").checked = true;
-	document.getElementById("towerselect").value = 5;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 7;
-	document.getElementById("swordsassured").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("shopsanityno").checked = true;
-	document.getElementById("ambrosiano").checked = true;
-	document.getElementById("pseudobootsno").checked = true;
-	document.getElementById("shuffledmaps").checked = false;
-	document.getElementById("shuffledcompasses").checked = false;
-	document.getElementById("shuffledsmallkeys").checked = false;
-	document.getElementById("shuffledbigkeys").checked = true;
-	document.getElementById("nonprogressivebowsno").checked = true;
-	document.getElementById("activatedfluteno").checked = true;
-	document.getElementById("bonkshuffleno").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();
+	loadPreset({
+		"gametypeopen": true,
+		"entrancenone": true,
+		"doornone": true,
+		"overworldno": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goalother": true,
+		"goalcrystal": true,
+		"towerselect": 5,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsassured": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiano": true,
+		"pseudobootsno": true,
+		"shuffledmaps": false,
+		"shuffledcompasses": false,
+		"shuffledsmallkeys": false,
+		"shuffledbigkeys": true,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true,
+	});
 }
 
 function loadstandardbootspreset() {
-	resetallstartingitems();
 	setstartingitem("boots",22,"1");
-	document.getElementById("gametypestandard").checked = true;
-	document.getElementById("entrancenone").checked = true;
-	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossnone").checked = true;
-	document.getElementById("enemynone").checked = true;
-	document.getElementById("glitchesnone").checked = true;
-	document.getElementById("goalganon").checked = true;
-	document.getElementById("goalcrystal").checked = true;
-	document.getElementById("towerselect").value = 7;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 7;
-	document.getElementById("swordsrandomized").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("shopsanityno").checked = true;
-	document.getElementById("ambrosiano").checked = true;
-	document.getElementById("pseudobootsno").checked = true;
-	document.getElementById("shuffledmaps").checked = false;
-	document.getElementById("shuffledcompasses").checked = false;
-	document.getElementById("shuffledsmallkeys").checked = false;
-	document.getElementById("shuffledbigkeys").checked = false;
-	document.getElementById("nonprogressivebowsno").checked = true;
-	document.getElementById("activatedfluteno").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();
+	loadPreset({
+		"gametypestandard": true,
+		"entrancenone": true,
+		"doornone": true,
+		"overworldno": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goalganon": true,
+		"goalcrystal": true,
+		"towerselect": 7,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsrandomized": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiano": true,
+		"pseudobootsno": true,
+		"shuffledmaps": false,
+		"shuffledcompasses": false,
+		"shuffledsmallkeys": false,
+		"shuffledbigkeys": false,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+	});
 }
 
 function loadpatronpreset() {
-	resetallstartingitems();
 	setstartingitem("hookshot",3,"1");
 	setstartingitem("glove",23,"1");
 	setstartingitem("flute",14,"1");
-	document.getElementById("gametypeinverted").checked = true;
-	document.getElementById("entrancenone").checked = true;
-	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossshuffled").checked = true;
-	document.getElementById("enemynone").checked = true;
-	document.getElementById("glitchesnone").checked = true;
-	document.getElementById("goalfast").checked = true;
-	document.getElementById("goalcrystal").checked = true;
-	document.getElementById("towerselect").value = 0;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 7;
-	document.getElementById("swordsrandomized").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("shopsanityno").checked = true;
-	document.getElementById("ambrosiano").checked = true;
-	document.getElementById("pseudobootsyes").checked = true;
-	document.getElementById("shuffledmaps").checked = true;
-	document.getElementById("shuffledcompasses").checked = true;
-	document.getElementById("shuffledsmallkeys").checked = true;
-	document.getElementById("shuffledbigkeys").checked = true;
-	document.getElementById("nonprogressivebowsno").checked = true;
-	document.getElementById("activatedfluteyes").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();
+	loadPreset({
+		"gametypeinverted": true,
+		"entrancenone": true,
+		"doornone": true,
+		"overworldno": true,
+		"bossshuffled": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goalfast": true,
+		"goalcrystal": true,
+		"towerselect": 0,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsrandomized": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiano": true,
+		"pseudobootsyes": true,
+		"shuffledmaps": true,
+		"shuffledcompasses": true,
+		"shuffledsmallkeys": true,
+		"shuffledbigkeys": true,
+		"nonprogressivebowsno": true,
+		"activatedfluteyes": true,
+	});
 }
 
 function loadopen76preset() {
-	resetallstartingitems();
-	document.getElementById("gametypeopen").checked = true;
-	document.getElementById("entrancenone").checked = true;
-	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossnone").checked = true;
-	document.getElementById("enemynone").checked = true;
-	document.getElementById("glitchesnone").checked = true;
-	document.getElementById("goalfast").checked = true;
-	document.getElementById("goalcrystal").checked = true;
-	document.getElementById("towerselect").value = 7;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 6;
-	document.getElementById("swordsrandomized").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("shopsanityno").checked = true;
-	document.getElementById("ambrosiano").checked = true;
-	document.getElementById("pseudobootsno").checked = true;
-	document.getElementById("shuffledmaps").checked = false;
-	document.getElementById("shuffledcompasses").checked = false;
-	document.getElementById("shuffledsmallkeys").checked = false;
-	document.getElementById("shuffledbigkeys").checked = false;
-	document.getElementById("nonprogressivebowsno").checked = true;
-	document.getElementById("activatedfluteno").checked = true;
-	document.getElementById("bonkshuffleno").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();
+	loadPreset({
+		"gametypeopen": true,
+		"entrancenone": true,
+		"doornone": true,
+		"overworldno": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goalfast": true,
+		"goalcrystal": true,
+		"towerselect": 7,
+		"ganoncrystal": true,
+		"ganonselect": 6,
+		"swordsrandomized": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiano": true,
+		"pseudobootsno": true,
+		"shuffledmaps": false,
+		"shuffledcompasses": false,
+		"shuffledsmallkeys": false,
+		"shuffledbigkeys": false,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true,
+	});
 }
 
 function loadinflukeyspreset() {
-	resetallstartingitems();
 	setstartingitem("flute",14,"1");
-	document.getElementById("gametypeinverted").checked = true;
-	document.getElementById("entrancenone").checked = true;
-	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossnone").checked = true;
-	document.getElementById("enemynone").checked = true;
-	document.getElementById("glitchesnone").checked = true;
-	document.getElementById("goalganon").checked = true;
-	document.getElementById("goalcrystal").checked = true;
-	document.getElementById("towerselect").value = 7;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 7;
-	document.getElementById("swordsrandomized").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("ambrosiano").checked = true;
-	document.getElementById("pseudobootsno").checked = true;
-	document.getElementById("shuffledmaps").checked = true;
-	document.getElementById("shuffledcompasses").checked = true;
-	document.getElementById("shuffledsmallkeys").checked = true;
-	document.getElementById("shuffledbigkeys").checked = true;
-	document.getElementById("nonprogressivebowsno").checked = true;
-	document.getElementById("activatedfluteyes").checked = true;
-	document.getElementById("bonkshuffleno").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();
+	loadPreset({
+		"gametypeinverted": true,
+		"entrancenone": true,
+		"doornone": true,
+		"overworldno": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goalganon": true,
+		"goalcrystal": true,
+		"towerselect": 7,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsrandomized": true,
+		"unknownnone": true,
+		"ambrosiano": true,
+		"pseudobootsno": true,
+		"shuffledmaps": true,
+		"shuffledcompasses": true,
+		"shuffledsmallkeys": true,
+		"shuffledbigkeys": true,
+		"nonprogressivebowsno": true,
+		"activatedfluteyes": true,
+		"bonkshuffleno": true,
+	});
 }
 
 function loadbosshuntpreset() {
-	resetallstartingitems();
-	document.getElementById("gametypeopen").checked = true;
-	document.getElementById("entrancenone").checked = true;
-	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossnone").checked = true;
-	document.getElementById("enemynone").checked = true;
-	document.getElementById("glitchesnone").checked = true;
-	document.getElementById("goalganonhunt").checked = true;
-	document.getElementById("goalcrystal").checked = true;
-	document.getElementById("towerselect").value = 0;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 7;
-	document.getElementById("swordsrandomized").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("shopsanityno").checked = true;
-	document.getElementById("ambrosiano").checked = true;
-	document.getElementById("pseudobootsno").checked = true;
-	document.getElementById("shuffledmaps").checked = false;
-	document.getElementById("shuffledcompasses").checked = false;
-	document.getElementById("shuffledsmallkeys").checked = false;
-	document.getElementById("shuffledbigkeys").checked = false;
-	document.getElementById("nonprogressivebowsno").checked = true;
-	document.getElementById("activatedfluteno").checked = true;
-	document.getElementById("bonkshuffleno").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();
+	loadPreset({
+		"gametypeopen": true,
+		"entrancenone": true,
+		"doornone": true,
+		"overworldno": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goalganonhunt": true,
+		"goalcrystal": true,
+		"towerselect": 0,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsrandomized": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiano": true,
+		"pseudobootsno": true,
+		"shuffledmaps": false,
+		"shuffledcompasses": false,
+		"shuffledsmallkeys": false,
+		"shuffledbigkeys": false,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true,
+	});
 }
 
 function loadadkeydropshoppreset() {
-	resetallstartingitems();
 	setstartingitem("boots",22,"1");
-	document.getElementById("gametypeopen").checked = true;
-	document.getElementById("entrancenone").checked = true;
-	document.getElementById("doorpots").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossnone").checked = true;
-	document.getElementById("enemynone").checked = true;
-	document.getElementById("glitchesnone").checked = true;
-	document.getElementById("goaldungeons").checked = true;
-	document.getElementById("goalcrystal").checked = true;
-	document.getElementById("towerselect").value = 7;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 7;
-	document.getElementById("swordsrandomized").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("shopsanityyes").checked = true;
-	document.getElementById("ambrosiano").checked = true;
-	document.getElementById("pseudobootsno").checked = true;
-	document.getElementById("shuffledmaps").checked = true;
-	document.getElementById("shuffledcompasses").checked = true;
-	document.getElementById("shuffledsmallkeys").checked = true;
-	document.getElementById("shuffledbigkeys").checked = true;
-	document.getElementById("nonprogressivebowsno").checked = true;
-	document.getElementById("activatedfluteno").checked = true;
-	document.getElementById("bonkshuffleno").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();	
+	loadPreset({
+		"gametypeopen": true,
+		"entrancenone": true,
+		"doorpots": true,
+		"overworldno": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goaldungeons": true,
+		"goalcrystal": true,
+		"towerselect": 7,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsrandomized": true,
+		"unknownnone": true,
+		"shopsanityyes": true,
+		"ambrosiano": true,
+		"pseudobootsno": true,
+		"shuffledmaps": true,
+		"shuffledcompasses": true,
+		"shuffledsmallkeys": true,
+		"shuffledbigkeys": true,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true,
+	});
 }
 
 function loadshoptillyoudroppreset() {
-	resetallstartingitems();
 	setstartingitem("boots",22,"1");
-	document.getElementById("gametyperetro").checked = true;
-	document.getElementById("entrancesimple").checked = true;
-	document.getElementById("doorpots").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossnone").checked = true;
-	document.getElementById("enemynone").checked = true;
-	document.getElementById("glitchesnone").checked = true;
-	document.getElementById("goalfast").checked = true;
-	document.getElementById("goalcrystal").checked = true;
-	document.getElementById("towerselect").value = 7;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 7;
-	document.getElementById("swordsrandomized").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("shopsanityyes").checked = true;
-	document.getElementById("ambrosiano").checked = true;
-	document.getElementById("pseudobootsno").checked = true;
-	document.getElementById("shuffledmaps").checked = true;
-	document.getElementById("shuffledcompasses").checked = true;
-	document.getElementById("shuffledsmallkeys").checked = true;
-	document.getElementById("shuffledbigkeys").checked = true;
-	document.getElementById("nonprogressivebowsno").checked = true;
-	document.getElementById("activatedfluteno").checked = true;
-	document.getElementById("bonkshuffleno").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();	
+	loadPreset({
+		"gametyperetro": true,
+		"entrancesimple": true,
+		"doorpots": true,
+		"overworldno": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goalfast": true,
+		"goalcrystal": true,
+		"towerselect": 7,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsrandomized": true,
+		"unknownnone": true,
+		"shopsanityyes": true,
+		"ambrosiano": true,
+		"pseudobootsno": true,
+		"shuffledmaps": true,
+		"shuffledcompasses": true,
+		"shuffledsmallkeys": true,
+		"shuffledbigkeys": true,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true,
+	});	
 }
 
 function loadadkeydroppreset() {
-	resetallstartingitems();
 	setstartingitem("boots",22,"1");
-	document.getElementById("gametypeopen").checked = true;
-	document.getElementById("entrancenone").checked = true;
-	document.getElementById("doorpots").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossnone").checked = true;
-	document.getElementById("enemynone").checked = true;
-	document.getElementById("glitchesnone").checked = true;
-	document.getElementById("goaldungeons").checked = true;
-	document.getElementById("goalcrystal").checked = true;
-	document.getElementById("towerselect").value = 7;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 7;
-	document.getElementById("swordsrandomized").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("shopsanityno").checked = true;
-	document.getElementById("ambrosiano").checked = true;
-	document.getElementById("pseudobootsno").checked = true;
-	document.getElementById("shuffledmaps").checked = true;
-	document.getElementById("shuffledcompasses").checked = true;
-	document.getElementById("shuffledsmallkeys").checked = true;
-	document.getElementById("shuffledbigkeys").checked = true;
-	document.getElementById("nonprogressivebowsno").checked = true;
-	document.getElementById("activatedfluteno").checked = true;
-	document.getElementById("bonkshuffleno").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();	
+	loadPreset({
+		"gametypeopen": true,
+		"entrancenone": true,
+		"doorpots": true,
+		"overworldno": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goaldungeons": true,
+		"goalcrystal": true,
+		"towerselect": 7,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsrandomized": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiano": true,
+		"pseudobootsno": true,
+		"shuffledmaps": true,
+		"shuffledcompasses": true,
+		"shuffledsmallkeys": true,
+		"shuffledbigkeys": true,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true,
+	});
 }
 
 function loadcrosskeys2024preset() {
-	resetallstartingitems();
-	document.getElementById("gametypeopen").checked = true;
-	document.getElementById("entrancesimple").checked = true;
-	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossnone").checked = true;
-	document.getElementById("enemynone").checked = true;
-	document.getElementById("glitchesnone").checked = true;
-	document.getElementById("goalfast").checked = true;
-	document.getElementById("goalcrystal").checked = true;
-	document.getElementById("towerselect").value = 7;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 7;
-	document.getElementById("swordsrandomized").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("shopsanityno").checked = true;
-	document.getElementById("ambrosiano").checked = true;
-	document.getElementById("pseudobootsyes").checked = true;
-	document.getElementById("shuffledmaps").checked = true;
-	document.getElementById("shuffledcompasses").checked = true;
-	document.getElementById("shuffledsmallkeys").checked = true;
-	document.getElementById("shuffledbigkeys").checked = true;
-	document.getElementById("nonprogressivebowsno").checked = true;
-	document.getElementById("activatedfluteno").checked = true;
-	document.getElementById("bonkshuffleno").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();
+	loadPreset({
+		"gametypeopen": true,
+		"entrancesimple": true,
+		"doornone": true,
+		"overworldno": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goalfast": true,
+		"goalcrystal": true,
+		"towerselect": 7,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsrandomized": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiano": true,
+		"pseudobootsyes": true,
+		"shuffledmaps": true,
+		"shuffledcompasses": true,
+		"shuffledsmallkeys": true,
+		"shuffledbigkeys": true,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true,
+	});
 }
 
 function loadcrosshuntpreset() {
-	resetallstartingitems();
-	document.getElementById("gametypeopen").checked = true;
-	document.getElementById("entrancesimple").checked = true;
-	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldno").checked = true;
-	document.getElementById("bossnone").checked = true;
-	document.getElementById("enemynone").checked = true;
-	document.getElementById("glitchesnone").checked = true;
-	document.getElementById("goalfast").checked = true;
-	document.getElementById("goalcrystal").checked = true;
-	document.getElementById("towerselect").value = 0;
-	document.getElementById("ganoncrystal").checked = true;
-	document.getElementById("ganonselect").value = 7;
-	document.getElementById("swordsrandomized").checked = true;
-	document.getElementById("unknownnone").checked = true;
-	document.getElementById("shopsanityno").checked = true;
-	document.getElementById("ambrosiano").checked = true;
-	document.getElementById("pseudobootsno").checked = true;
-	document.getElementById("shuffledmaps").checked = true;
-	document.getElementById("shuffledcompasses").checked = true;
-	document.getElementById("shuffledsmallkeys").checked = true;
-	document.getElementById("shuffledbigkeys").checked = true;
-	document.getElementById("nonprogressivebowsno").checked = true;
-	document.getElementById("activatedfluteno").checked = true;
-	document.getElementById("bonkshuffleno").checked = true;
-	window.scrollTo(0,document.body.scrollHeight);
-	showToast();
+	loadPreset({
+		"gametypeopen": true,
+		"entrancesimple": true,
+		"doornone": true,
+		"overworldno": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goalfast": true,
+		"goalcrystal": true,
+		"towerselect": 0,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsrandomized": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiano": true,
+		"pseudobootsno": true,
+		"shuffledmaps": true,
+		"shuffledcompasses": true,
+		"shuffledsmallkeys": true,
+		"shuffledbigkeys": true,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true,
+	});
 }
 
 

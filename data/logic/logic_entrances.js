@@ -95,6 +95,7 @@
         "Open": {
             "allOf": [
                 "canReach|South Dark World",
+                "moonpearl",
                 "boots"
             ]
         },
