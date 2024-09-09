@@ -18,8 +18,11 @@
     "Agahnims Tower": {
         "Open": {
             "allOf": [
-                "canReach|Hyrule Castle Balcony",
-                "canCrossEnergyBarrier"
+                "canReach|Hyrule Castle Balcony"
+            ],
+            "anyOf": [
+                "canCrossEnergyBarrier",
+                "agahnim"
             ]
         },
         "Inverted": {
