@@ -643,7 +643,7 @@ function autotrackDoTracking(data) {
 
     // Decrement dungeon count unless a non-wild dungeon item is found 
     if ((flags.doorshuffle === 'N' || flags.doorshuffle === 'P') && flags.autotracking === 'Y') {
-        Object.entries(window.dungeondatamem).forEach(([dungeon, dungeondata]) => {
+        Object.entries(window.dungeonDataMem).forEach(([dungeon, dungeondata]) => {
             if (items[dungeondata["dungeonarrayname"]] > 0) {
                 let newCheckedLocationCount = dungeondata.locations.filter(location => checkItem(data, location)).length;
                 if (flags.doorshuffle === 'P') {
@@ -679,7 +679,7 @@ function autotrackDoTracking(data) {
 
     dungeonPrizes = {}
     if (flags.autotracking === 'Y' && !((data['fork'] === "OR") && (data['keysanity'][0] & 0x20) === 0x20)) {
-        Object.entries(window.dungeondatamem).forEach(([dungeon, dungeondata]) => {
+        Object.entries(window.dungeonDataMem).forEach(([dungeon, dungeondata]) => {
             if ('prize' in dungeondata && dungeondata.prize > 0) {
                 const prizeType = data['prizes'][dungeondata.prize + 0xD] == 0x40 ? 'crystal' : 'pendant';
                 const prize = prizemap[prizeType][data['prizes'][dungeondata.prize]];

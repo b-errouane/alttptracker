@@ -553,33 +553,197 @@
         }
     ]
 
-    window.customColours = {
-        '--ganon-color': ['ganon'],
-        '--connector-color': ['connector'],
-        '--link-color': ['link'],
-        '--sanc-color': ['sanc'],
-        '--mount-color': ['mount'],
-        '--ganon-color': ['ganon'],
-        '--link-color': ['link'],
-        '--sanc-color': ['sanc'],
-        '--mount-color': ['mount'],
-        '--item-color': ['item'],
-        '--magic-color': ['magic'],
-        '--kid-color': ['kid'],
-        '--smith-color': ['smith'],
-        '--bat-color': ['bat'],
-        '--lib-color': ['lib'],
-        '--saha-color': ['saha'],
-        '--mimc-color': ['mimc'],
-        '--rupee-color': ['rupee'],
-        '--shop-color': ['shop'],
-        '--dark-color': ['dark'],
-        '--bomb-color': ['bomb'],
-        '--bump-color': ['bump'],
-        '--spike-color': ['spike'],
-        '--hook-color': ['hook'],
-        '--dam-color': ['dam'],
-    };
+    // Create data object for custom coloring of dungeon squares
+    const enstranceModalStyles = [
+        {
+            "label": "Ganon",
+            "tag": "ganon",
+            "style": "--ganon-color",
+            "group": "dwdungeon",
+            "requireItem": false,
+            "showLabel": true
+        },
+        {
+            "label": "Connector",
+            "tag": "connector",
+            "style": "--connector-color",
+            "group": "generalkey",
+            "isConnector": true,
+            "requireItem": false,
+            "showLabel": false
+        },
+        {
+            "label": "Link's House",
+            "tag": "link",
+            "style": "--link-color",
+            "isConnector": false,
+            "group": "start",
+            "requireItem": false,
+            "showLabel": false
+        },
+        {
+            "label": "Old Man",
+            "tag": "mount",
+            "style": "--mount-color",
+            "isConnector": true,
+            "group": "start",
+            "requireItem": false,
+            "showLabel": false
+        },
+        {
+            "label": "Items Ahoy",
+            "tag": "item",
+            "style": "--item-color",
+            "isConnector": false,
+            "group": "generalkey",
+            "requireItem": true,
+            "showLabel": true
+        },
+        {
+            "label": "Magic Shop",
+            "tag": "magic",
+            "style": "--magic-color",
+            "isConnector": false,
+            "group": "lwkey",
+            "requireItem": true,
+            "showLabel": true
+        },
+        {
+            "label": "Muffin Kid",
+            "tag": "kid",
+            "style": "--kid-color",
+            "isConnector": false,
+            "group": "lwkey",
+            "requireItem": true,
+            "showLabel": true
+        },
+        {
+            "label": "Swordsmiths",
+            "tag": "smith",
+            "style": "--smith-color",
+            "isConnector": false,
+            "group": "lwkey",
+            "requireItem": true,
+            "showLabel": true
+        },
+        {
+            "label": "Magic Bat",
+            "tag": "bat",
+            "style": "--bat-color",
+            "isConnector": false,
+            "group": "lwkey",
+            "requireItem": true,
+            "showLabel": true
+        },
+        {
+            "label": "Library",
+            "tag": "lib",
+            "style": "--lib-color",
+            "isConnector": false,
+            "group": "lwkey",
+            "requireItem": true,
+            "showLabel": true
+        },
+        {
+            "label": "Sahasrahla",
+            "tag": "saha",
+            "style": "--saha-color",
+            "isConnector": false,
+            "group": "lwkey",
+            "requireItem": true,
+            "showLabel": true
+        },
+        {
+            "label": "Mimic Cave",
+            "tag": "mimc",
+            "style": "--mimc-color",
+            "isConnector": false,
+            "group": "lwkey",
+            "requireItem": true,
+            "showLabel": true
+        },
+        {
+            "label": "Dam",
+            "tag": "dam",
+            "style": "--dam-color",
+            "isConnector": false,
+            "group": "lwkey",
+            "requireItem": false,
+            "showLabel": true
+        },
+        {
+            "label": "Bomb Shop",
+            "tag": "bomb",
+            "style": "--bomb-color",
+            "isConnector": false,
+            "group": "dwkey",
+            "requireItem": true,
+            "showLabel": true
+        },
+        {
+            "label": "Bumper Cave",
+            "tag": "bump",
+            "style": "--bump-color",
+            "isConnector": true,
+            "group": "dwkey",
+            "requireItem": true,
+            "showLabel": true
+        },
+        {
+            "label": "Spike Cave",
+            "tag": "spike",
+            "style": "--spike-color",
+            "isConnector": false,
+            "group": "dwkey",
+            "requireItem": true,
+            "showLabel": true            
+        },
+        {
+            "label": "Hookshot Cave",
+            "tag": "hook",
+            "style": "--hook-color",
+            "isConnector": true,
+            "group": "dwkey",
+            "requireItem": true,
+            "showLabel": true
+        },
+        {
+            "label": "Rupee Farm",
+            "tag": "rupee",
+            "style": "--rupee-color",
+            "isConnector": false,
+            "group": "generalkey",
+            "requireItem": false,
+            "showLabel": false
+        },
+        {
+            "label": "Shop",
+            "tag": "shop",
+            "style": "--shop-color",
+            "isConnector": false,
+            "group": "generalkey",
+            "requireItem": false,
+            "showLabel": false
+        },
+        {
+            "label": "Dark Connector",
+            "tag": "dark",
+            "style": "--dark-color",
+            "isConnector": true,
+            "group": "generalkey",
+            "requireItem": false,
+            "showLabel": false
+        }
+    ];
+
+    window.customColours = {};
+
+    for ( const modal of enstranceModalStyles ) {
+        if ( window.customColours[modal.style] === undefined ) {
+            window.customColours[modal.style] = []
+        }
+        window.customColours[modal.style].push(modal.tag)
+    }
 
     for ( const dungeon of bigDungeonData ) {
         for ( const modal of dungeon.entranceModal ) {
@@ -590,17 +754,20 @@
         }
     }
 
+    // Create data object for total locations in each dungeon
     window.dungeonTotalLocations = {}
     for ( const dungeon of bigDungeonData ) {
         window.dungeonTotalLocations[dungeon.shortName] = dungeon.totalLocations
     }
 
+    // Create data object for dungeon data memory for autotracking
     window.dungeonDataMem = {}
     for ( const dungeon of bigDungeonData ) {
         window.dungeonDataMem[dungeon.shortName] = dungeon.dungeonDataMem
     }
 
-    window.dungeonCheckMap = [null, null, null, null, null, null, null, null, null, null, null, null, null]
+    // Create data object for the entrance tracker modal
+    window.dungeonCheckMap = []
     for ( const dungeon of bigDungeonData ) {
         let dungeonCheck = {
             "id": dungeon.id,
