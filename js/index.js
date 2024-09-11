@@ -28,6 +28,16 @@ function load_cookie() {
 							break;
 					}
 					break;
+				case 'cc':
+					switch (setting[1]) {
+						case 'N':
+							document.getElementById("chestcolorno").checked = false;
+							break;
+						case 'Y':
+							document.getElementById("chestcoloryes").checked = true;
+							break;
+					}
+					break;
 				case 's':
 					if (setting[1] === 'Y') {
 						document.getElementById("sphereyes").checked = true;
@@ -147,6 +157,7 @@ function launch_tracker() {
 	var ganoncrystals = ganonsel.options[ganonsel.selectedIndex].value;
 	var swords = document.querySelector('input[name="swordsgroup"]:checked').value;
 	var map = document.querySelector('input[name="mapgroup"]:checked').value;
+	var chestcolor = document.querySelector('input[name="chestcolorgroup"]:checked').value;
 	var spoiler = document.querySelector('input[name="spoilergroup"]:checked').value;
 	var sphere = document.querySelector('input[name="spheregroup"]:checked').value;
 	var autotracking = document.querySelector('input[name="autotrackinggroup"]:checked').value;
@@ -196,7 +207,7 @@ function launch_tracker() {
 	}
 		
 	if (document.getElementById("remembersettings").checked == true) {
-		var settings = "m-" + map + "|s-" + sphere + "|a-" + autotracking + trackingport + "|p-" + sprite + "|ms-" + mapStyle;
+		var settings = "m-" + map + "|cc-" + chestcolor + "|s-" + sphere + "|a-" + autotracking + trackingport + "|p-" + sprite + "|ms-" + mapStyle;
 		document.cookie = "settings=" + settings + "; expires=Sat, 3 Jan 2026 12:00:00 UTC";
 	} else {
 		document.cookie = "settings=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
@@ -207,7 +218,7 @@ function launch_tracker() {
 		glitches = 'M';
 	}
 	
-	var trackerWindow = window.open('tracker.html?f={world}{entrance}{door}{overworld}{boss}{enemy}{pseudoboots}{unknown}{glitches}{shuffledmaps}{shuffledcompasses}{shuffledsmallkeys}{shuffledbigkeys}{shopsanity}{ambrosia}{nonprogressivebows}{activatedflute}{bonkshuffle}{goal}{tower}{towercrystals}{ganon}{ganoncrystals}{swords}&d={map}{spoiler}{sphere}{autotracking}{trackingport}{restreamingcode}{restreamer}{restreamdelay}{mapstyle}&s={startingitemstring}&p={sprite}&r={epoch}'
+	var trackerWindow = window.open('tracker.html?f={world}{entrance}{door}{overworld}{boss}{enemy}{pseudoboots}{unknown}{glitches}{shuffledmaps}{shuffledcompasses}{shuffledsmallkeys}{shuffledbigkeys}{shopsanity}{ambrosia}{nonprogressivebows}{activatedflute}{bonkshuffle}{goal}{tower}{towercrystals}{ganon}{ganoncrystals}{swords}&d={map}{chestcolor}{spoiler}{sphere}{autotracking}{trackingport}{restreamingcode}{restreamer}{restreamdelay}{mapstyle}&s={startingitemstring}&p={sprite}&r={epoch}'
 			.replace('{world}', world)
 			.replace('{entrance}', entrance)
 			.replace('{door}', door)
@@ -233,6 +244,7 @@ function launch_tracker() {
 			.replace('{ganoncrystals}', ganoncrystals)
 			.replace('{swords}', swords)
 			.replace('{map}', map)
+			.replace('{chestcolor}', chestcolor)
 			.replace('{spoiler}', spoiler)
 			.replace('{sphere}', sphere)
 			.replace('{autotracking}', autotracking)

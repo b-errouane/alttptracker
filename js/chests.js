@@ -46,6 +46,12 @@
 	};
 
 	function colorDungeonSquares(dungeonID, accessibility, chestAvailability, bossAvailability) {
+		if (flags.chestcolormode === 'N') {
+			accessibility = 'unavailable';
+			chestAvailability = 'unavailable';
+			bossAvailability = 'unavailable';
+		};
+
 		let bossvisibility = 'hidden';
 		let bosscolor = 'red';
 		let bgcolor = 'white';
