@@ -34,9 +34,6 @@
         spheresmode: query.d.charAt(3),
         autotracking: query.d.charAt(4),
         trackingport: query.d.charAt(5) + query.d.charAt(6) + query.d.charAt(7) + query.d.charAt(8) + query.d.charAt(9),
-        restreamingcode: query.d.charAt(10) + query.d.charAt(11) + query.d.charAt(12) + query.d.charAt(13) + query.d.charAt(14) + query.d.charAt(15),
-        restreamer: query.d.charAt(16),
-        restreamdelay: query.d.substr(17),
         mapstyle: query.d.charAt(18),
         startingitems: query.s,
         sprite: query.p.replace('#','').replace('!',''),
@@ -324,14 +321,6 @@
         }
     };
 
-	function getdelay() {
-		s = '';
-		;
-		while (d.length > 0) {
-			s 
-		}
-	}
-	
     function limit(delta, limits) {
         return function(item) {
             var value = items[item],

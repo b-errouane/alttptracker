@@ -612,8 +612,3 @@ div[class*=" bottle"].active-7 { background-image: url(../images/items/bottle_go
     height: 24px;
     padding: 5px;
 }
-
-.restreamingoverlay {
-	z-index: 10;
-    position: absolute;
-}

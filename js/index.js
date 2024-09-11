@@ -162,27 +162,9 @@ function launch_tracker() {
 	var sphere = document.querySelector('input[name="spheregroup"]:checked').value;
 	var autotracking = document.querySelector('input[name="autotrackinggroup"]:checked').value;
 	var trackingport = document.getElementById('autotrackingport').value;
-	var restreamingcode = document.getElementById('restreamingcode').value;
-	var restreamer = document.querySelector('input[name="restreamgroup"]:checked').value;
-	var restreamdelay = document.getElementById('restreamingdelay').value;
 	var spritesel = document.getElementById("spriteselect");
 	var sprite = spritesel.options[spritesel.selectedIndex].value;
 	var mapStyle = document.querySelector('input[name="oldmapstyles"]:checked') === null ? "N" : "O";
-	
-	if (restreamingcode != "") {
-		if (restreamingcode.length != 6) {
-			alert("Restreaming codes require exactly 6 characters");
-			return;
-		} else {
-			if (restreamer === "N") {
-				restreamingcode = "000000";
-			} else if (restreamer === "R") {
-				map = "N";
-			}
-		}
-	} else {
-		restreamingcode = "000000";
-	}
 	
 	var width = map === "M" ? 1340 : 448;
 
@@ -218,7 +200,7 @@ function launch_tracker() {
 		glitches = 'M';
 	}
 	
-	var trackerWindow = window.open('tracker.html?f={world}{entrance}{door}{overworld}{boss}{enemy}{pseudoboots}{unknown}{glitches}{shuffledmaps}{shuffledcompasses}{shuffledsmallkeys}{shuffledbigkeys}{shopsanity}{ambrosia}{nonprogressivebows}{activatedflute}{bonkshuffle}{goal}{tower}{towercrystals}{ganon}{ganoncrystals}{swords}&d={map}{chestcolor}{spoiler}{sphere}{autotracking}{trackingport}{restreamingcode}{restreamer}{restreamdelay}{mapstyle}&s={startingitemstring}&p={sprite}&r={epoch}'
+	var trackerWindow = window.open('tracker.html?f={world}{entrance}{door}{overworld}{boss}{enemy}{pseudoboots}{unknown}{glitches}{shuffledmaps}{shuffledcompasses}{shuffledsmallkeys}{shuffledbigkeys}{shopsanity}{ambrosia}{nonprogressivebows}{activatedflute}{bonkshuffle}{goal}{tower}{towercrystals}{ganon}{ganoncrystals}{swords}&d={map}{chestcolor}{spoiler}{sphere}{autotracking}{trackingport}{mapstyle}&s={startingitemstring}&p={sprite}&r={epoch}'
 			.replace('{world}', world)
 			.replace('{entrance}', entrance)
 			.replace('{door}', door)
@@ -249,9 +231,6 @@ function launch_tracker() {
 			.replace('{sphere}', sphere)
 			.replace('{autotracking}', autotracking)
 			.replace('{trackingport}', trackingport.padStart(5, '0'))
-			.replace('{restreamingcode}', restreamingcode)
-			.replace('{restreamer}', restreamer)
-			.replace('{restreamdelay}', restreamdelay)
 			.replace('{mapstyle}', mapStyle)
 			.replace('{startingitemstring}', startingitemstring)
 			.replace('{sprite}', sprite)
@@ -1919,12 +1898,6 @@ async function importflags(auto = false) {
 	});
 }
 
-function hideRestreaming() {
-	if (window.location.href.indexOf("dunka.net") === -1) {
-		document.getElementById("restreamingpresetdiv").style.display = "none";
-	}
-}
-			
 function showToast() {
   // Get the snackbar DIV
   var x = document.getElementById("snackbar");
