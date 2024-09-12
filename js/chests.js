@@ -1079,16 +1079,12 @@
 		if (requirement.startsWith('keys')) {
 			if (flags.gametype === 'R' || !flags.wildkeys) return true;
 			const count = requirement.split('|')[1];
-			switch (dungeonId) {
-				case 11: var keyname = 'smallkeyhalf0'; break; // HC
-				case 12: var keyname = 'smallkeyhalf1'; break; // CT
-				default: var keyname = 'smallkey' + dungeonId;
-			};
+			const keyname = 'smallkey' + dungeonId;
 			return items[keyname] >= count;
 		};
 
-		if (dungeonId === 11 && requirement === 'bigkey') return items.bigkeyhalf0; // HC
-		if (dungeonId === 12 && requirement === 'bigkey') return items.bigkeyhalf1; // CT
+		if (dungeonId === 11 && requirement === 'bigkey') return items.bigkey11; // HC
+		if (dungeonId === 12 && requirement === 'bigkey') return items.bigkey12; // CT
 
 		if (requirement.startsWith('canReach|')) {
 			const region = requirement.split('|')[1];

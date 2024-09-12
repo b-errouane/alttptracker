@@ -355,9 +355,6 @@ function parseStartingInventory(config_data) {
     })
 }
 
-
-
-
 async function autotrackerConfigure() {
     var config_data = {}
     var MYSTERY_SEED = false;
@@ -990,8 +987,8 @@ function autotrackDoTracking(data) {
     updatesmallkeys("8", 0x4E7);
     updatesmallkeys("9", 0x4EC);
     updatesmallkeys("10", 0x4ED); // GT
-    updatesmallkeys("half0", 0x4E1); // Sewers and Hyrule Castle
-    updatesmallkeys("half1", 0x4E4); // Castle Tower
+    updatesmallkeys("11", 0x4E1); // Sewers and Hyrule Castle
+    updatesmallkeys("12", 0x4E4); // Castle Tower
 
     function updatebigkey(dungeon, offset, mask) {
         if (newbit(offset, mask) && !items["bigkey" + dungeon]) {
@@ -1010,8 +1007,8 @@ function autotrackDoTracking(data) {
     updatebigkey("8", 0x367, 0x01);
     updatebigkey("9", 0x366, 0x08);
     updatebigkey("10", 0x366, 0x04);
-    updatebigkey("half0", 0x367, 0xC0);
-    updatebigkey("half1", 0x367, 0x08);
+    updatebigkey("11", 0x367, 0xC0);
+    updatebigkey("12", 0x367, 0x08);
 
     function setitem(item, value) {
         click_map();

@@ -90,10 +90,14 @@
 		}	
 
 		if (label.substring(0,6) === 'bigkey') {
+			let prefix = 'bigkey';
+			if (label === 'bigkey11' || label === 'bigkey12') {
+				prefix += 'half';
+			}
 			if (items[label]) {
-				document.getElementById(label).className = label.substring(0,10) == 'bigkeyhalf' ? 'bigkeyhalf collected' : 'bigkey collected';
+				document.getElementById(label).className = prefix + ' collected';
 			} else {
-				document.getElementById(label).className = label.substring(0,10) == 'bigkeyhalf' ? 'bigkeyhalf' : 'bigkey';
+				document.getElementById(label).className = prefix;
 			}
 		}
 		
@@ -162,7 +166,7 @@
 			document.getElementById('pseudoboots').style.display = items.boots ? 'block' : 'none';
 		}
 
-
+		// If left clicked on chest
 		if (label.substring(0,5) === 'chest') {
             var value = items.dec(label);
 			if (value === 0) {
@@ -201,18 +205,22 @@
             return;
         }
 		
-		var skipkey = false, is_boss = false;
+		var isKey = label.includes('key');
 		
+		// If left clicked on a big key
 		if (label.substring(0,6) === 'bigkey') {
 			items[label] = !items[label];
-			
-			if (items[label]) {
-				document.getElementById(label).className = label.substring(0,10) == 'bigkeyhalf' ? 'bigkeyhalf collected' : 'bigkey collected';
-			} else {
-				document.getElementById(label).className = label.substring(0,10) == 'bigkeyhalf' ? 'bigkeyhalf' : 'bigkey';
+
+			let prefix = 'bigkey';
+			if (label === 'bigkey11' || label === 'bigkey12') {
+				prefix += 'half';
 			}
-			
-			skipkey = true;
+
+			if (items[label]) {
+				document.getElementById(label).className = prefix + ' collected';
+			} else {
+				document.getElementById(label).className = prefix;
+			}
 		}
 		
 		if (label.substring(0,12) === 'smallkeyhalf' || label.substring(0,8) === 'smallkey') {
@@ -223,10 +231,11 @@
 			}
 			document.getElementById(label).style.color = (value >= items.range[label].max) ? "green" : "white";
 			document.getElementById(label).innerHTML = value;
-			skipkey = true;
 		}
-		
-		if (!skipkey) {
+
+		var is_boss = false;
+
+		if (!isKey) {
 			var nodes = Array.from(document.getElementsByClassName(label));
 			is_boss = nodes[0].classList.contains('boss');
 			if ((typeof items[label]) === 'boolean') {
@@ -394,8 +403,7 @@
 					chests[k].is_available = constantFunctions[event.data[flags.entrancemode === 'N' ?"items" :"entranceitems"][k]];
 				for(var k = 0; k < dungeons.length; k++) {
 					var dungeonEntrances = new Array(dungeonEntranceCounts[k]),dungeonEntrancesBunny = new Array(dungeonEntranceCounts[k]);
-					for(var l = 0; l < dungeonEntrances.length; l++)
-					{
+					for(var l = 0; l < dungeonEntrances.length; l++) {
 						dungeonEntrances[l] = event.data.dungeons[k*8+l];
 						dungeonEntrancesBunny[l] = event.data.dungeonsBunny[k*8+l];
 					}
@@ -406,59 +414,41 @@
 				}
 				agahnim.is_available = dungeons[12].is_beatable;
 				if(flags.entrancemode != 'N') {
-					for(var k = 0; k < entrances.length; k++)
+					for(var k = 0; k < entrances.length; k++) {
 						entrances[k].is_available = constantFunctions[event.data.entrances[k]];
+					}
 				}
-
 				updateLocationAvailability();
+			} else if(event.data == "PING" && doorWindow && !doorWindow.closed) {
+				doorWindow.postMessage("PONG","*");
+			} else if(event.data == "UPDATE" && doorWindow && !doorWindow.closed) {
+				doorWindow.postMessage(dungeonData,"*");
+			} else if(event.data == "ITEMS" && doorWindow && !doorWindow.closed) {
+				doorWindow.postMessage(cloneItems(),"*");
+			} else if(event.data == "RESETLOGIC" && flags.overworldshuffle != 'N' && doorWindow && !doorWindow.closed) {
+				owGraphLogic = swapTowers = swapGanon = dpFrontLogic = trFrontLogic = false;
+				resetChestsKeepTrackedData();
+				updateLayout();
+				updateMapTracker();
+			} else if((""+event.data).startsWith("TOGGLE ")) {
+				var item = (""+event.data).substring(7);
+				if(items.hasOwnProperty(item))
+				{
+					click_map();
+					toggle(item);
+				}
+			} else if(event.data.dungeonPaths && event.data.dungeonPaths.length === 13) {
+				dungeonData = event.data;
+			} else if(event.data == "OPENSETTINGS" && document.getElementById("flagsModal").style.display === "none") {
+				changeFlags();
 			}
-			else
-				if(event.data == "PING" && doorWindow && !doorWindow.closed)
-					doorWindow.postMessage("PONG","*");
-				else
-					if(event.data == "UPDATE" && doorWindow && !doorWindow.closed)
-						doorWindow.postMessage(dungeonData,"*");
-					else
-						if(event.data == "ITEMS" && doorWindow && !doorWindow.closed)
-							doorWindow.postMessage(cloneItems(),"*");
-						else
-							if(event.data == "RESETLOGIC" && flags.overworldshuffle != 'N' && doorWindow && !doorWindow.closed)
-							{
-								owGraphLogic = swapTowers = swapGanon = dpFrontLogic = trFrontLogic = false;
-								resetChestsKeepTrackedData();
-								updateLayout();
-								updateMapTracker();
-							}
-							else
-								if((""+event.data).startsWith("TOGGLE "))
-								{
-									var item = (""+event.data).substring(7);
-									if(items.hasOwnProperty(item))
-									{
-										click_map();
-										toggle(item);
-									}
-								}
-								else
-									if(event.data.dungeonPaths && event.data.dungeonPaths.length === 13)
-										dungeonData = event.data;
-									else
-										if(event.data == "OPENSETTINGS")
-										{
-											if(document.getElementById("flagsModal").style.display === "none")
-											{
-												changeFlags();
-											}
-										}
 		}
 	};
 
-	window.showDoorWindow = function()
-	{
-		if(doorWindow && !doorWindow.closed)
+	window.showDoorWindow = function() {
+		if(doorWindow && !doorWindow.closed) {
 			doorWindow.focus();
-		else
-		{
+		} else {
 			var url = 'dungeontracker.html?door_shuffle='+flags.doorshuffle+'&overworld_shuffle='+flags.overworldshuffle;
 			url += '&wild_keys='+flags.wildkeys+'&wild_big_keys='+flags.wildbigkeys+'&world_state='+flags.gametype;
 			url += '&entrance_shuffle='+flags.entrancemode+(dungeonData ?'&request_update=true' :(flags.overworldshuffle === 'N' ?'' :'&init_sync=true'))+'&t='+Date.now();
@@ -466,8 +456,7 @@
 		}
 	};
 
-	window.cloneItems = function()
-	{
+	window.cloneItems = function() {
 		var newItems = Object.assign({},items);
 		newItems.inc = newItems.dec = null;
 		newItems.flags = flags;
@@ -478,32 +467,40 @@
 		return newItems;
 	};
 
-	window.resetChestsKeepTrackedData = function()
-	{
+	window.resetChestsKeepTrackedData = function() {
 		var olddungeons = dungeons;
 		var oldagahnim = agahnim;
 		var oldchests = chests;
 		var oldentrances = flags.entrancemode === 'N' ?null :entrances;
 		var olddungeonChecks = flags.entrancemode === 'N' ?null :dungeonChecks;
 		loadChestFlagsItem();
-		for(var k = 0; k < dungeons.length; k++)
-		{
+
+		for(var k = 0; k < dungeons.length; k++) {
 			olddungeons[k].is_beatable = dungeons[k].is_beatable;
 			olddungeons[k].can_get_chest = dungeons[k].can_get_chest;
 		}
+
 		oldagahnim.is_available = agahnim.is_available;
-		for(var k = 0; k < chests.length; k++)
+
+		for(var k = 0; k < chests.length; k++) {
 			oldchests[k].is_available = chests[k].is_available;
+		}
+
 		dungeons = olddungeons;
 		agahnim = oldagahnim;
 		chests = oldchests;
-		if(flags.entrancemode != 'N')
-		{
-			for(var k = 0; k < entrances.length; k++)
+
+		if(flags.entrancemode != 'N') {
+			for(var k = 0; k < entrances.length; k++) {
 				oldentrances[k].is_available = entrances[k].is_available;
+			}
+
 			entrances = oldentrances;
-			for(var k = 0; k < dungeons.length; k++)
+
+			for(var k = 0; k < dungeons.length; k++) {
 				olddungeonChecks[k].can_get_chest = dungeonChecks[k].can_get_chest;
+			}
+
 			dungeonChecks = olddungeonChecks;
 		}
 	};
@@ -661,8 +658,7 @@
     };
 
 	window.click_map = function() {
-		if(rightClickedLocation != -1)
-		{
+		if(rightClickedLocation != -1) {
 			if(rightClickedType === "chest")
 				document.getElementById('locationMap'+rightClickedLocation).classList.remove('rightclick');
 			if(rightClickedType === "dungeon")
@@ -672,32 +668,28 @@
 	};
 
 	window.rightClickLocation = function(n) {
-		if(rightClickedLocation === -1)
-		{
+		if(rightClickedLocation === -1) {
 			rightClickedLocation = n;
 			rightClickedType = "chest";
             document.getElementById('locationMap'+n).classList.add('rightclick');
 			document.getElementById('caption').innerHTML = caption_to_html('Select an item to place at '+chests[rightClickedLocation].caption);
+
+		} else if(rightClickedType === "chest" && rightClickedLocation === n) {
+			chests[n].content = "";
+			document.getElementById('caption').innerHTML = caption_to_html('Content of '+chests[rightClickedLocation].caption+' cleared');
+			document.getElementById('locationMap'+n).classList.remove('rightclick');
+			rightClickedLocation = -1;
+
+		} else {
+			if(rightClickedType === "chest")
+				document.getElementById('locationMap'+rightClickedLocation).classList.remove('rightclick');
+			if(rightClickedType === "dungeon")
+				document.getElementById('dungeon'+rightClickedLocation).classList.remove('rightclick');
+			document.getElementById('locationMap'+n).classList.add('rightclick');
+			rightClickedLocation = n;
+			rightClickedType = "chest";
+			document.getElementById('caption').innerHTML = caption_to_html('Select an item to place at '+chests[rightClickedLocation].caption);
 		}
-		else
-			if(rightClickedType === "chest" && rightClickedLocation === n)
-			{
-				chests[n].content = "";
-				document.getElementById('caption').innerHTML = caption_to_html('Content of '+chests[rightClickedLocation].caption+' cleared');
-				document.getElementById('locationMap'+n).classList.remove('rightclick');
-				rightClickedLocation = -1;
-			}
-			else
-			{
-				if(rightClickedType === "chest")
-					document.getElementById('locationMap'+rightClickedLocation).classList.remove('rightclick');
-				if(rightClickedType === "dungeon")
-					document.getElementById('dungeon'+rightClickedLocation).classList.remove('rightclick');
-				document.getElementById('locationMap'+n).classList.add('rightclick');
-				rightClickedLocation = n;
-				rightClickedType = "chest";
-				document.getElementById('caption').innerHTML = caption_to_html('Select an item to place at '+chests[rightClickedLocation].caption);
-			}
 	};
 
 	window.rightClickDungeon = function(n) {
@@ -706,11 +698,13 @@
 			rightClickedType = "dungeon";
             document.getElementById('dungeon'+n).classList.add('rightclick');
 			document.getElementById('caption').innerHTML = caption_to_html('Select an item to place in '+dungeons[rightClickedLocation].caption);
+
 		} else if (rightClickedType === "dungeon" && rightClickedLocation === n) {
 			dungeons[n].content = "";
 			document.getElementById('caption').innerHTML = caption_to_html('Content of '+dungeons[rightClickedLocation].caption+' cleared');
 			document.getElementById('dungeon'+n).classList.remove('rightclick');
 			rightClickedLocation = -1;
+
 		} else {
 			if (rightClickedType === "chest") {
 				document.getElementById('locationMap'+rightClickedLocation).classList.remove('rightclick');
@@ -793,53 +787,51 @@
 	}
 	
 	window.hideEntranceModal = function() {
-		if (overrideEntranceCloseFlag === false) {
-			if (document.getElementById('entranceModal').style.display != 'none') {
-				entrances[document.getElementById('entranceID').value].note = document.getElementById('entranceModalNote').value;
-				if (document.getElementById('entranceModalNote').value != '') {
-					//Add the note icon
-					var divtoadd = document.createElement('div');
-					divtoadd.id = 'notediv' + document.getElementById('entranceID').value;
-					var loc = document.getElementById('entranceMap' + document.getElementById('entranceID').value);
+		if (overrideEntranceCloseFlag === false && document.getElementById('entranceModal').style.display != 'none') {
+			entrances[document.getElementById('entranceID').value].note = document.getElementById('entranceModalNote').value;
 
-					var topOffset = 0;		
-					var leftOffset = 0;
-					if ( flags.mapmode === 'C') {
-						leftOffset = loc.parentElement.id === "mapEntranceDiv_dark" ? 221 : 0;
-						topOffset += (flags.spheresmode === 'Y' ? 296 : 0)
-					} else if (flags.mapmode === 'M') {
-						leftOffset = loc.parentElement.id === "mapEntranceDiv_dark" ? 442 : 0;
-					} else if (flags.mapmode === 'V') {
-						leftOffset = loc.parentElement.id === "mapEntranceDiv_dark" ? -5 : 0;
-						topOffset += (loc.parentElement.id === "mapEntranceDiv_dark" ? 448 : 0)
-					}
-					
-					divtoadd.style.left = loc.offsetLeft + 10 + leftOffset;
-					divtoadd.style.top = loc.offsetTop - 10 + topOffset;
-					
-					divtoadd.className = 'notediv';
-
-					divtoadd.style.width = 10;
-					divtoadd.style.height = 10;
-					divtoadd.style.position = 'absolute';
-					
-					divtoadd.innerHTML = '!';
-					
-					document.getElementById('informationDiv').appendChild(divtoadd);				
-					
-				} else {
-					//Remove the note icon if it exists
-					var divtoremove = document.getElementById('notediv' + document.getElementById('entranceID').value);
-					if (divtoremove != null) {
-						divtoremove.remove();
-					}
+			if (document.getElementById('entranceModalNote').value === '') {
+				//Remove the note icon if it exists
+				var divtoremove = document.getElementById('notediv' + document.getElementById('entranceID').value);
+				if (divtoremove != null) {
+					divtoremove.remove();
 				}
-				$('#entranceModal').hide();
+
+			} else {
+				//Add the note icon
+				var divtoadd = document.createElement('div');
+				divtoadd.id = 'notediv' + document.getElementById('entranceID').value;
+				var loc = document.getElementById('entranceMap' + document.getElementById('entranceID').value);
+
+				var topOffset = 0;		
+				var leftOffset = 0;
+				if ( flags.mapmode === 'C') {
+					leftOffset = loc.parentElement.id === "mapEntranceDiv_dark" ? 221 : 0;
+					topOffset += (flags.spheresmode === 'Y' ? 296 : 0)
+				} else if (flags.mapmode === 'M') {
+					leftOffset = loc.parentElement.id === "mapEntranceDiv_dark" ? 442 : 0;
+				} else if (flags.mapmode === 'V') {
+					leftOffset = loc.parentElement.id === "mapEntranceDiv_dark" ? -5 : 0;
+					topOffset += (loc.parentElement.id === "mapEntranceDiv_dark" ? 448 : 0)
+				}
+				
+				divtoadd.style.left = loc.offsetLeft + 10 + leftOffset;
+				divtoadd.style.top = loc.offsetTop - 10 + topOffset;
+				
+				divtoadd.className = 'notediv';
+
+				divtoadd.style.width = 10;
+				divtoadd.style.height = 10;
+				divtoadd.style.position = 'absolute';
+				
+				divtoadd.innerHTML = '!';
+				
+				document.getElementById('informationDiv').appendChild(divtoadd);	
 			}
-		} else {
-			overrideEntranceCloseFlag = false;
+			$('#entranceModal').hide();
 		}
-		
+
+		overrideEntranceCloseFlag = false;
 		updateMapTracker();
 	}
 	
@@ -1124,10 +1116,15 @@
     window.toggle_bigkey = function(n) {
 		items['bigkey'+n] = !items['bigkey'+n];
 		
+		let prefix = 'bigkey' 
+		if (n > 10 ) {
+			prefix += 'half'
+		}
+
 		if (items['bigkey'+n]) {
-			document.getElementById('bigkey'+n).className = 'bigkey collected';
+			document.getElementById('bigkey'+n).className = 'prefix collected';
 		} else {
-			document.getElementById('bigkey'+n).className = 'bigkey';
+			document.getElementById('bigkey'+n).className = 'prefix';
 		}
 		
         if (flags.mapmode != "N") {
@@ -1170,6 +1167,7 @@
 			if (information != null) {
 				information.style.visibility = (entrances[x].is_opened ? 'collapse' : 'visible');
 			}
+		// If we are connecting entrances
 		} else if (connectFinish === true) {
 			if (x != parseInt(document.getElementById('entranceID').value)) {
 				entrances[x].is_connector = true;
@@ -2007,8 +2005,8 @@
 				if (!items.bigkey8) toggle('bigkey8');
 				if (!items.bigkey9) toggle('bigkey9');
 				if (!items.bigkey10) toggle('bigkey10');
-				if (!items.bigkeyhalf0) toggle('bigkeyhalf0');
-				if (!items.bigkeyhalf1) toggle('bigkeyhalf1');		
+				if (!items.bigkey11) toggle('bigkey11');
+				if (!items.bigkey12) toggle('bigkey12');		
 				document.getElementById('bigkey0').style.visibility = 'hidden';
 				document.getElementById('bigkey1').style.visibility = 'hidden';
 				document.getElementById('bigkey2').style.visibility = 'hidden';
@@ -2020,8 +2018,8 @@
 				document.getElementById('bigkey8').style.visibility = 'hidden';
 				document.getElementById('bigkey9').style.visibility = 'hidden';
 				document.getElementById('bigkey10').style.visibility = 'hidden';
-				document.getElementById('bigkeyhalf0').style.visibility = 'hidden';
-				document.getElementById('bigkeyhalf1').style.visibility = 'hidden';
+				document.getElementById('bigkey11').style.visibility = 'hidden';
+				document.getElementById('bigkey12').style.visibility = 'hidden';
 			} else if (document.getElementById('shuffledbigkeys').checked != flags.wildbigkeys) {
 				if (items.bigkey0) toggle('bigkey0');
 				if (items.bigkey1) toggle('bigkey1');
@@ -2034,8 +2032,8 @@
 				if (items.bigkey8) toggle('bigkey8');
 				if (items.bigkey9) toggle('bigkey9');
 				if (items.bigkey10) toggle('bigkey10');
-				if (items.bigkeyhalf0) toggle('bigkeyhalf0');
-				if (items.bigkeyhalf1) toggle('bigkeyhalf1');
+				if (items.bigkey11) toggle('bigkey11');
+				if (items.bigkey12) toggle('bigkey12');
 				document.getElementById('bigkey0').style.visibility = 'visible';
 				document.getElementById('bigkey1').style.visibility = 'visible';
 				document.getElementById('bigkey2').style.visibility = 'visible';
@@ -2047,8 +2045,8 @@
 				document.getElementById('bigkey8').style.visibility = 'visible';
 				document.getElementById('bigkey9').style.visibility = 'visible';
 				document.getElementById('bigkey10').style.visibility = 'visible';
-				document.getElementById('bigkeyhalf0').style.visibility = document.getElementById('doorselect').value != 'N' ? 'visible' : 'hidden';
-				document.getElementById('bigkeyhalf1').style.visibility = document.getElementById('doorselect').value === 'C' ? 'visible' : 'hidden';
+				document.getElementById('bigkey11').style.visibility = document.getElementById('doorselect').value != 'N' ? 'visible' : 'hidden';
+				document.getElementById('bigkey12').style.visibility = document.getElementById('doorselect').value === 'C' ? 'visible' : 'hidden';
 			}
 			
 			if (document.getElementById('shuffledkeys').checked && flags.gametype != 'R') {
@@ -2064,8 +2062,8 @@
 					items.smallkey8 = 0;
 					items.smallkey9 = 0;
 					items.smallkey10 = 0;
-					items.smallkeyhalf0 = 0;
-					items.smallkeyhalf1 = 0;
+					items.smallkey11 = 0;
+					items.smallkey12 = 0;
 				}
 			} else {
 				items.smallkey0 = document.getElementById('doorselect').value === 'C' ? 29 : 0;
@@ -2079,8 +2077,8 @@
 				items.smallkey8 = document.getElementById('doorselect').value === 'C' ? 29 : 3;
 				items.smallkey9 = document.getElementById('doorselect').value === 'C' ? 29 : 4;
 				items.smallkey10 = document.getElementById('doorselect').value === 'C' ? 29 : 4;
-				items.smallkeyhalf0 = document.getElementById('doorselect').value === 'C' ? 29 : 1;
-				items.smallkeyhalf1 = document.getElementById('doorselect').value === 'C' ? 29 : 2;
+				items.smallkey11 = document.getElementById('doorselect').value === 'C' ? 29 : 1;
+				items.smallkey12 = document.getElementById('doorselect').value === 'C' ? 29 : 2;
 			}
 			
 			if (adjustForCrossed && document.getElementById('doorselect').value != 'C') {
@@ -2095,8 +2093,8 @@
 				items.smallkey8 = Math.min(items.smallkey8,3);
 				items.smallkey9 = Math.min(items.smallkey9,4);
 				items.smallkey10 = Math.min(items.smallkey10,4);
-				items.smallkeyhalf0 = Math.min(items.smallkeyhalf0,1);
-				items.smallkeyhalf1 = Math.min(items.smallkeyhalf1,2);
+				items.smallkey11 = Math.min(items.smallkey11,1);
+				items.smallkey12 = Math.min(items.smallkey12,2);
 			}
 			
 			document.getElementById('smallkey0').innerHTML = items.smallkey0;
@@ -2110,8 +2108,8 @@
 			document.getElementById('smallkey8').innerHTML = items.smallkey8;
 			document.getElementById('smallkey9').innerHTML = items.smallkey9;
 			document.getElementById('smallkey10').innerHTML = items.smallkey10;
-			document.getElementById('smallkeyhalf0').innerHTML = items.smallkeyhalf0;
-			document.getElementById('smallkeyhalf1').innerHTML = items.smallkeyhalf1;
+			document.getElementById('smallkey11').innerHTML = items.smallkey11;
+			document.getElementById('smallkey12').innerHTML = items.smallkey12;
 			
 			//If small keys are not shuffled, hide the icons
 			if (!document.getElementById('shuffledkeys').checked && flags.gametype != 'R') {
@@ -2127,9 +2125,9 @@
 				document.getElementById('smallkey9').style.visibility = 'hidden';
 				document.getElementById('smallkey10').style.visibility = 'hidden';
 				document.getElementById('smallhalfheader0').style.visibility = 'hidden';
-				document.getElementById('smallkeyhalf0').style.visibility = 'hidden';
+				document.getElementById('smallkey11').style.visibility = 'hidden';
 				document.getElementById('smallhalfheader1').style.visibility = 'hidden';
-				document.getElementById('smallkeyhalf1').style.visibility = 'hidden';
+				document.getElementById('smallkey12').style.visibility = 'hidden';
 			} else {
 				document.getElementById('smallkey0').style.visibility = 'visible';
 				document.getElementById('smallkey1').style.visibility = 'visible';
@@ -2143,9 +2141,9 @@
 				document.getElementById('smallkey9').style.visibility = 'visible';
 				document.getElementById('smallkey10').style.visibility = 'visible';
 				document.getElementById('smallhalfheader0').style.visibility = 'visible';
-				document.getElementById('smallkeyhalf0').style.visibility = 'visible';
+				document.getElementById('smallkey11').style.visibility = 'visible';
 				document.getElementById('smallhalfheader1').style.visibility = 'visible';
-				document.getElementById('smallkeyhalf1').style.visibility = 'visible';
+				document.getElementById('smallkey12').style.visibility = 'visible';
 			}
 			
 			if (!document.getElementById('shuffledkeys').checked && !document.getElementById('shuffledbigkeys').checked && flags.gametype != 'R' && document.getElementById('doorselect').value != 'C') {
@@ -2359,8 +2357,7 @@
 
     window.updateLayout = function() {
 		//Map layers
-		switch (flags.mapmode)
-		{
+		switch (flags.mapmode) {
 			case "N":
 				break;
 			case "M":
@@ -2392,8 +2389,8 @@
 		document.getElementById("mapEntranceDiv_dark").style.display = flags.entrancemode === 'N' ? "none" : "block";
 		
 		//Hide HC and CT big keys if not needed
-		document.getElementById('bigkeyhalf0').style.visibility = !flags.wildbigkeys || flags.doorshuffle === 'N' ? 'hidden' : 'visible';
-		document.getElementById('bigkeyhalf1').style.visibility = !flags.wildbigkeys || flags.doorshuffle != 'C' ? 'hidden' : 'visible';
+		document.getElementById('bigkey11').style.visibility = flags.wildbigkeys && flags.doorshuffle != 'N' ? 'visible' : 'hidden';
+		document.getElementById('bigkey12').style.visibility = flags.wildbigkeys && flags.doorshuffle === 'C' ? 'visible' : 'hidden';
 		
 		//Hide HC and CT chests if neither Entrance nor Door Shuffle is on
 		document.getElementById('agamagicsplitdiv').style.display = flags.entrancemode === 'N' && flags.doorshuffle === 'N' ? 'none' : 'block';
@@ -2424,7 +2421,7 @@
 		//Moved locations in Inverted
 		if (flags.entrancemode === 'N') {
 			window.document.getElementById('locationMap1').style.visibility = 'inherit';
-			if (flags.gametype === 'I' && flags.overworldshuffle === 'N' && flags.entrancemode === 'N') {
+			if (flags.gametype === 'I' && flags.overworldshuffle === 'N') {
 				document.getElementById('locationMap2').style.left = "54.8%";
 				jQuery("#locationMap2").detach().appendTo('#map_dark');
 
@@ -2452,9 +2449,7 @@
 			jQuery("#locationMap21").detach().appendTo('#map_dark');
 			jQuery("#locationMap22").detach().appendTo('#map_dark');
 			updateLayoutTowers();
-		}
-		else
-		{
+		} else {
 			document.getElementById('locationMap2').style.left = "10%";
 			
 			//Move locations to correct half of map in entrance
@@ -2668,7 +2663,7 @@
 		// Set up the event listeners for entrances
 		if (flags.mapmode != 'N' && flags.entrancemode != 'N') {
 			document.addEventListener('DOMContentLoaded', function() {
-				for (let i = 0; i < 140; i++) {
+				for (let i = 0; i < window.entrances.length; i++) {
 					const entranceMap = document.getElementById('entranceMap'+i);
 					entranceMap.addEventListener('click', function() {
 						toggle_location(i);
@@ -2784,13 +2779,11 @@
 		
 		//If small keys are not shuffled, hide the icons
 		let smallKeyHidden = !flags.wildkeys && flags.gametype != 'R' ? 'hidden' : '';
-		for (var k = 0; k < 11; k++) {
+		for (var k = 0; k < 13; k++) {
 			document.getElementById('smallkey'+k).style.visibility = smallKeyHidden;
 		}
 		document.getElementById('smallhalfheader0').style.visibility = smallKeyHidden;
-		document.getElementById('smallkeyhalf0').style.visibility = smallKeyHidden;
 		document.getElementById('smallhalfheader1').style.visibility = smallKeyHidden;
-		document.getElementById('smallkeyhalf1').style.visibility = smallKeyHidden;
 		
 		//If all keys are not shuffled, change the chest styles
 		if (!flags.wildkeys && !flags.wildbigkeys && flags.gametype != 'R' && flags.doorshuffle != 'C') {
@@ -2809,16 +2802,11 @@
 		
 		//If game type is Retro, default the keys to max and decrement
 		if (flags.gametype === 'R') {
-			for (k = 0; k < 10; k++) {
+			for (k = 0; k < 13; k++) {
 				items['smallkey'+k] = items.range['smallkey'+k].max;
 				document.getElementById('smallkey'+k).innerHTML = items['smallkey'+k];
 			}
-			items['smallkeyhalf0'] = items.range.smallkeyhalf0.max;
-			items['smallkeyhalf1'] = items.range.smallkeyhalf1.max;
-			document.getElementById('smallkeyhalf0').innerHTML = items.smallkeyhalf0;
-			document.getElementById('smallkeyhalf1').innerHTML = items.smallkeyhalf1;
 		}
-
 		
 		//If spheres are not used, hide the spheres
 		if (flags.spheresmode == 'N') {
