@@ -52,7 +52,7 @@ let dungeonautotrackCounts = {
     "ep": 0,
     "dp": 0,
     "toh": 0,
-    "at": 0,
+    "ct": 0,
     "pod": 0,
     "sp": 0,
     "sw": 0,
