@@ -2356,6 +2356,27 @@
     }
 
     window.updateLayout = function() {
+		let scaleClass = 'scale100';
+		switch (flags.scale) {
+			case "F":
+				break;
+			case "T":
+				scaleClass = 'scale75';
+				break;
+			case "H":
+				scaleClass = 'scale50';
+				break;
+			case "Q":
+				scaleClass = 'scale25';
+				break;
+		}
+
+		document.getElementById('app').classList.add(scaleClass);
+		document.getElementById('entranceModal').classList.add(scaleClass);
+		document.getElementById('summaryModal').classList.add(scaleClass);
+		document.getElementById('spoilerModal').classList.add(scaleClass);
+		document.getElementById('flagsModal').classList.add(scaleClass);
+
 		//Map layers
 		switch (flags.mapmode) {
 			case "N":
@@ -2374,6 +2395,10 @@
 				document.getElementById("informationDiv").style.height = "222px";
 				document.getElementById("informationDiv").style.left = "0";
 				document.getElementById("informationDiv").style.top = (flags.spheresmode === "N" ? "448" : "744");
+				var ganonEntranceLabelDiv = document.getElementById("ganon")
+				ganonEntranceLabelDiv.parentNode.removeChild(ganonEntranceLabelDiv);
+				var ganonCompactEntranceLabelDiv = document.getElementById("compactganondiv")
+				ganonCompactEntranceLabelDiv.appendChild(ganonEntranceLabelDiv);
 				break;
 			case "V":
 				document.getElementById("map").style.width = "448px";

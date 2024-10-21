@@ -35,6 +35,7 @@
         autotracking: query.d.charAt(4),
         trackingport: query.d.charAt(5) + query.d.charAt(6) + query.d.charAt(7) + query.d.charAt(8) + query.d.charAt(9),
         mapstyle: query.d.charAt(10),
+        scale: query.d.charAt(11),
         startingitems: query.s,
         sprite: query.p.replace('#','').replace('!',''),
     };
