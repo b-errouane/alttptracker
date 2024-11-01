@@ -1824,7 +1824,7 @@ function loadxdhuntpreset() {
 		"unknownnone": true,
 		"shopsanityno": true,
 		"ambrosiano": true,
-		"pseudobootsno": true,
+		"pseudobootsyes": true,
 		"shuffledmaps": true,
 		"shuffledcompasses": true,
 		"shuffledsmallkeys": true,
