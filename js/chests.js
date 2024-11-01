@@ -589,6 +589,7 @@
 
 	function canReachLowerWestDeathMountain() {
 		if (items.flute >= 1) return true;
+		if (canReachUpperWestDeathMountain()) return true;
 		if (hasFoundRegion([
 				"Spectacle Rock Cave", "Spectacle Rock Cave Peak", "Spectacle Rock Cave (Bottom)", "Old Man Cave (East)", 
 				"Death Mountain Return Cave (East)", "Old Man House (Bottom)", "Old Man House (Top)", "Tower of Hera"
