@@ -146,11 +146,49 @@ function resetallstartingitems() {
 	setstartingitem("magic",25,"0");
 }
 
+function resetallsettings() {
+	var settings = {
+		"gametypeopen": true,
+		"entrancenone": true,
+		"doornone": true,
+		"overworldno": true,
+		"prizeshuffleno": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goalganon": true,
+		"goalcrystal": true,
+		"towerselect": 7,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsrandomized": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiano": true,
+		"pseudobootsno": true,
+		"shuffledmaps": false,
+		"shuffledcompasses": false,
+		"shuffledsmallkeys": false,
+		"shuffledbigkeys": false,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true
+	}
+	for (const [key, value] of Object.entries(settings)) {
+		if (typeof(value) === "boolean") {
+			document.getElementById(key).checked = value;
+		} else {
+			document.getElementById(key).value = value;
+		}
+	}
+}
+
 function launch_tracker() {
 	var world = document.querySelector('input[name="gametypegroup"]:checked').value;
 	var entrance = document.querySelector('input[name="entrancegroup"]:checked').value;
 	var door = document.querySelector('input[name="doorgroup"]:checked').value;	
 	var overworld = document.querySelector('input[name="overworldgroup"]:checked').value;
+	var prizeshuffle = document.querySelector('input[name="prizeshufflegroup"]:checked').value;
 	var boss = document.querySelector('input[name="bossgroup"]:checked').value;
 	var enemy = document.querySelector('input[name="enemygroup"]:checked').value;
 	var pseudoboots = document.querySelector('input[name="pseudobootsgroup"]:checked').value;
@@ -232,7 +270,7 @@ function launch_tracker() {
 		document.cookie = "settings=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 	}
 	
-	var trackerWindow = window.open('tracker.html?f={world}{entrance}{door}{overworld}{boss}{enemy}{pseudoboots}{unknown}{glitches}{shuffledmaps}{shuffledcompasses}{shuffledsmallkeys}{shuffledbigkeys}{shopsanity}{ambrosia}{nonprogressivebows}{activatedflute}{bonkshuffle}{goal}{tower}{towercrystals}{ganon}{ganoncrystals}{swords}&d={map}{chestcolor}{spoiler}{sphere}{autotracking}{trackingport}{mapstyle}{scale}&s={startingitemstring}&p={sprite}&r={epoch}'
+	var trackerWindow = window.open('tracker.html?f={world}{entrance}{door}{overworld}{boss}{enemy}{pseudoboots}{unknown}{glitches}{shuffledmaps}{shuffledcompasses}{shuffledsmallkeys}{shuffledbigkeys}{shopsanity}{ambrosia}{nonprogressivebows}{activatedflute}{bonkshuffle}{goal}{tower}{towercrystals}{ganon}{ganoncrystals}{swords}{prizeshuffle}&d={map}{chestcolor}{spoiler}{sphere}{autotracking}{trackingport}{mapstyle}{scale}&s={startingitemstring}&p={sprite}&r={epoch}'
 			.replace('{world}', world)
 			.replace('{entrance}', entrance)
 			.replace('{door}', door)
@@ -257,6 +295,7 @@ function launch_tracker() {
 			.replace('{ganon}', ganon)
 			.replace('{ganoncrystals}', ganoncrystals)
 			.replace('{swords}', swords)
+			.replace('{prizeshuffle}', prizeshuffle)
 			.replace('{map}', map)
 			.replace('{chestcolor}', chestcolor)
 			.replace('{spoiler}', spoiler)
@@ -372,6 +411,7 @@ function loadarchivepreset() {
 
 function loadPreset(settings) {
 	resetallstartingitems();
+	resetallsettings();
 
 	for (const [key, value] of Object.entries(settings)) {
 		if (typeof(value) === "boolean") {
@@ -539,6 +579,7 @@ function loadopenpreset() {
 		"entrancenone": true,
 		"doornone": true,
 		"overworldno": true,
+		"prizeshuffleno": false,
 		"bossnone": true,
 		"enemynone": true,
 		"glitchesnone": true,
@@ -1744,9 +1785,39 @@ function loadcrosshuntpreset() {
 		"bossnone": true,
 		"enemynone": true,
 		"glitchesnone": true,
-		"goalfast": true,
+		"goalganonhunt": true,
 		"goalcrystal": true,
 		"towerselect": 0,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsrandomized": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiano": true,
+		"pseudobootsno": true,
+		"shuffledmaps": true,
+		"shuffledcompasses": true,
+		"shuffledsmallkeys": true,
+		"shuffledbigkeys": true,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true,
+	});
+}
+
+function loadxdhuntpreset() {
+	loadPreset({
+		"gametypeopen": true,
+		"entrancesimple": true,
+		"doorpots": true,
+		"overworldno": true,
+		"prizeshufflewild": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goalganonhunt": true,
+		"goalcrystal": true,
+		"towerselect": 4,
 		"ganoncrystal": true,
 		"ganonselect": 7,
 		"swordsrandomized": true,

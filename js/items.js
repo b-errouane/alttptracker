@@ -28,6 +28,7 @@
         ganonvuln: query.f.charAt(21),
         ganonvulncount: query.f.charAt(22),
         swordmode: query.f.charAt(23),
+        prizeshuffle: query.f.charAt(24),
         mapmode: query.d.charAt(0),
         chestcolormode: query.d.charAt(1),
         spoilermode: query.d.charAt(2),
@@ -78,6 +79,9 @@
                 if (flags.doorshuffle === 'P') {
                     count -= dungeonInfo.keypot;
                 }
+            }
+            if (flags.prizeshuffle === 'W') {
+                count += dungeonInfo.prize;
             }
         }
         chestCounts[dungeon.id] = count;
@@ -192,6 +196,9 @@
             if (!flags.wildkeys && !(flags.gametype === 'R')) {
                 value -= dungeonInfo.keys;
                 value -= isPots ? dungeonInfo.keypot : 0;
+            }
+            if (flags.prizeshuffle === 'W') {
+                value += dungeonInfo.prize;
             }
             items[dungeonInfo.dungeonarrayname] = value;
             items['max' + dungeonInfo.dungeonarrayname] = value;

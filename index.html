@@ -63,6 +63,9 @@
                   <input type="button" value="CROSSKEYS" class="preset-btn" onclick="loadcrosskeyspreset()" />
                </span>
                <span class="preset-btn-span">
+                  <input type="button" value="XDHUNT" class="preset-btn" onclick="loadxdhuntpreset()" />
+               </span>
+               <span class="preset-btn-span">
                   <input type="button" value="MYSTERY" class="preset-btn" onclick="loadmysterypreset()" />
                </span>
                <span class="preset-btn-span">
@@ -94,6 +97,9 @@
                   <input type="button" value="CROSSHUNT" class="preset-btn" onclick="loadcrosshuntpreset()" />
                </span>
                <span class="preset-btn-span">
+                  <input type="button" value="AD KEYDROP BOOTS" class="preset-btn" onclick="loadadkeydroppreset()" />
+               </span>
+               <span class="preset-btn-span">
                   <input type="button" value="AD KEYDROP SHOP" class="preset-btn" onclick="loadadkeydropshoppreset()" />
                </span>
                <span class="preset-btn-span">
@@ -101,9 +107,6 @@
                </span>
                <span class="preset-btn-span">
                   <input type="button" value="INFLUKEYS" class="preset-btn" onclick="loadinflukeyspreset()" />
-               </span>
-               <span class="preset-btn-span">
-                  <input type="button" value="AD ENEMIZER" class="preset-btn" onclick="loadadenemizerpreset()" />
                </span>
             </div>
             <div class="preset-header" style="cursor: default;">
@@ -114,10 +117,10 @@
                   <input type="button" value="DOORS" class="preset-btn" onclick="loaddoorssotwpreset()" />
                </span>
                <span class="preset-btn-span">
-                  <input type="button" value="AD KEYDROP BOOTS" class="preset-btn" onclick="loadadkeydroppreset()" />
+                  <input type="button" value="CROSSKEYS 2024" class="preset-btn" onclick="loadcrosskeys2024preset()" />
                </span>
                <span class="preset-btn-span">
-                  <input type="button" value="CROSSKEYS 2024" class="preset-btn" onclick="loadcrosskeys2024preset()" />
+                  <input type="button" value="AD ENEMIZER" class="preset-btn" onclick="loadadenemizerpreset()" />
                </span>
             </div>
             <div class="preset-header" style="cursor: default;">
@@ -253,6 +256,23 @@
                   <span class="preset-span-double">
                      <input id="overworldyes" value="Y" type="radio" name="overworldgroup" />
                      <label for="overworldyes">Yes (Layout/Crossed/Mixed/Flute) <span class="south tooltop-character" title="Detailed settings to be specified in the Overworld Tracker window. All combinations of Parallel/Full Layout Shuffle, Crossed, Mixed and Flute Shuffle are supported.">[?]</span></label>
+                  </span>
+               </div>
+               <div>
+                  <span class="preset-span-double">
+                     Prize Shuffle: <span class="south tooltop-character" title="BETA! Expect improvements in the future.">[?]</span>
+                  </span>
+                  <span class="preset-span">
+                     <input id="prizeshuffleno" value="N" type="radio" name="prizeshufflegroup" checked />
+                     <label for="prizeshuffleno">No</label>
+                  </span>
+                  <span class="preset-span-double">
+                     <input id="prizeshuffledungeon" value="D" type="radio" name="prizeshufflegroup" />
+                     <label for="prizeshuffledungeon">In Dungeon<span class="south tooltop-character" title="Prizes can be anywhere in their own dungeon.">[?]</span></label>
+                  </span>
+                  <span class="preset-span-double">
+                     <input id="prizeshufflewild" value="W" type="radio" name="prizeshufflegroup" />
+                     <label for="prizeshufflewild">Wild<span class="south tooltop-character" title="Prizes are shuffled throughout the whole world.">[?]</span></label>
                   </span>
                </div>
                <div>
