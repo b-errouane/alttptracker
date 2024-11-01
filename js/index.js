@@ -579,7 +579,7 @@ function loadopenpreset() {
 		"entrancenone": true,
 		"doornone": true,
 		"overworldno": true,
-		"prizeshuffleno": false,
+		"prizeshuffleno": true,
 		"bossnone": true,
 		"enemynone": true,
 		"glitchesnone": true,

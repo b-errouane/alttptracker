@@ -18,6 +18,30 @@
       regions: window.owg_logic_regions,
       entrances: window.owg_logic_entrances,
     },
+    H: {
+      dungeon: window.logic_dungeon,
+      keydrop: window.logic_dungeon_keydrop,
+      nondungeon: window.owg_logic_nondungeon_checks,
+      nondungeon_entrance: window.owg_logic_nondungeon_checks_entrance,
+      regions: window.owg_logic_regions,
+      entrances: window.owg_logic_entrances,
+    },
+    M: {
+      dungeon: window.logic_dungeon,
+      keydrop: window.logic_dungeon_keydrop,
+      nondungeon: window.owg_logic_nondungeon_checks,
+      nondungeon_entrance: window.owg_logic_nondungeon_checks_entrance,
+      regions: window.owg_logic_regions,
+      entrances: window.owg_logic_entrances,
+    },
+    Z: {
+      dungeon: window.logic_dungeon,
+      keydrop: window.logic_dungeon_keydrop,
+      nondungeon: window.owg_logic_nondungeon_checks,
+      nondungeon_entrance: window.owg_logic_nondungeon_checks_entrance,
+      regions: window.owg_logic_regions,
+      entrances: window.owg_logic_entrances,
+    },
   };
 
   const logic_set = logic_sets[flags.glitches];
