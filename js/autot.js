@@ -1009,7 +1009,7 @@ function autotrackDoTracking(data) {
     updatebigkey("4", 0x367, 0x04);
     updatebigkey("5", 0x366, 0x80);
     updatebigkey("6", 0x366, 0x10);
-    updatebigkey("7", 0x366, 0x40f);
+    updatebigkey("7", 0x366, 0x40);
     updatebigkey("8", 0x367, 0x01);
     updatebigkey("9", 0x366, 0x08);
     updatebigkey("10", 0x366, 0x04);
