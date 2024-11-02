@@ -1194,6 +1194,7 @@
 		var checksLogical = 0;
 		var checksSuperLogic = 0;
 		const hasNoBossItem = (dungeonName === 'Ganons Tower' || dungeonName === 'Castle Tower')
+		var shouldntCountPrize = 0
 
 		// Stupid exceptions
 		if (dungeonName === 'Swamp Palace') {
@@ -1204,6 +1205,9 @@
 		for (const [location, requirements] of Object.entries(dungeonLogic[dungeonName])) {
 			if (location.includes(' - Boss') && hasNoBossItem) {
 				continue;
+			};
+			if (location.includes(' - Prize') && flags.prizeshuffle !== 'W') {
+				shouldntCountPrize++;
 			};
 			if (inLogic(dungeonId, requirements["always"])) {
 				checksAlways++;
@@ -1222,7 +1226,7 @@
 			};
 		};
 
-		var maxChecks = Object.keys(window.dungeonLogic[dungeonName]).length - hasNoBossItem;
+		var maxChecks = Object.keys(window.dungeonLogic[dungeonName]).length - hasNoBossItem - shouldntCountPrize;
 		var collected = maxChecks - items['chest' + dungeonId];
 
 		if (!flags.wildkeys) collected -= window.dungeonTotalLocations[dungeonAbbreviation]['keys'];
