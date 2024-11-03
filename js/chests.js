@@ -1208,6 +1208,7 @@
 			};
 			if (location.includes(' - Prize') && flags.prizeshuffle !== 'W') {
 				shouldntCountPrize++;
+				continue
 			};
 			if (inLogic(dungeonId, requirements["always"])) {
 				checksAlways++;
