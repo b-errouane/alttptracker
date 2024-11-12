@@ -858,6 +858,50 @@
 	window.entranceNameToFriendlyName = {};
 	window.entranceNameToGroup = {};
 
+    window.itemNameToCSSName = function(x) {
+        if (x.includes('Big Key')) {
+            return 'bigkey';
+        }
+        if (x.includes('Key')) {
+            return 'smallkeyscout';
+        }
+        if (x.includes('Bottle')) {
+            return 'bottle';
+        }
+        if (x.includes('Sword')) {
+            return 'swordscout';
+        }
+        if (x.includes('Bombs')) {
+            return 'bomb';
+        }
+        switch (x) {
+            case "Bow and Silver Arrows":
+            case "Silver Arrows":
+                return 'bow';
+            case "Red Boomerang":
+            case "Blue Boomerang":
+                return 'boomerang';
+            case "Lamp":
+                return 'lantern';
+            case "Bug Net":
+                return 'net';
+            case "Book of Mudora":
+                return 'book';
+            case "Cane of Somaria":
+                return 'somaria';
+            case "Cane of Byrna":
+                return 'byrna';
+            case "Pegasus Boots":
+                return 'boots';
+            case "Gloves":
+                return 'glove';
+            case "Half Magic":
+                return 'magic';
+            default:
+                return x.toLowerCase().replace(/ /g, '');
+        }
+    }
+
 	window.defineEntranceType = function(index, group, name, friendlyName) {
 		entranceNameToIndex[name] = index;
 		entranceNameToFriendlyName[name] = friendlyName;

@@ -1,7 +1,7 @@
 (function (window) {
   "use strict";
 
-  window.chests_data = [
+  window.chests_data_orig = [
     {
         "open_idx": 0,
         "caption": "King's Tomb {boots} + {glove2}/{mirror}",

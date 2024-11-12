@@ -464,12 +464,7 @@
         "Inverted": {
             "always": {
                 "anyOf": [
-                    {
-                        "allOf": [
-                            "flute",
-                            "mitts"
-                        ]        
-                    },
+                    "flute",
                     {
                         "allOf": [
                             "canBreach|Light World",
@@ -480,12 +475,7 @@
             },
             "logical": {
                 "anyOf": [
-                    {
-                        "allOf": [
-                            "flute",
-                            "mitts"
-                        ]        
-                    },
+                    "flute",
                     {
                         "allOf": [
                             "canReach|Light World",

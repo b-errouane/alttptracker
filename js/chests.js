@@ -193,7 +193,7 @@
 	function canHitRangedSwitch() { return items.bomb || items.bow > 0 || items.boomerang || items.somaria || rod(); }
 	function agatowerweapon() { return items.sword > 0 || items.somaria || items.bow > 0 || items.hammer || items.firerod; }
     function always() { return 'available'; }
-	function activeFlute() { return items.flute > 1 || (items.flute && canReachLightWorld()) };
+	function activeFlute() { return (items.flute > 1) || ((items.flute > 0) && canReachLightWorld()) };
 	function canDoTorchDarkRooms() {
 		if (items.lantern) return true;
 		if (flags.entrancemode != 'N' || flags.doorshuffle != 'N' || flags.owGraphLogic || flags.shopsanity || flags.bonkshuffle) {
@@ -755,7 +755,7 @@
 	// #endregion
 	
 	// #region Connectors - Inverted entrance
-	function activeFluteInvertedEntrance() { return items.flute > 1 || (items.flute && (canReachInvertedLightWorld() || flags.activatedflute)) };
+	function activeFluteInvertedEntrance() { return items.flute > 1 || ((items.flute > 0) && (canReachInvertedLightWorld() || flags.activatedflute)) };
 
 	function canReachInvertedLightWorld() {
 		if (!items.moonpearl) return false;
@@ -1278,6 +1278,19 @@
 	// #endregion
 
 	window.loadChestFlagsItem = function() {
+
+		if (flags.doorshuffle === "P") {
+      window.dungeonLogic = logic_set.keydrop;
+    } else {
+      window.dungeonLogic = logic_set.dungeon;
+    }
+  
+    if (flags.entrancemode === "N") {
+      window.checkLogic = logic_set.nondungeon;
+    } else {
+      window.checkLogic = logic_set.nondungeon_entrance;
+    }
+		  
 		window.dungeonChecks = [];
 		for (var i = 0; i < dungeonCheckMap.length; i++) {
 			const dungeon = dungeonCheckMap[i];
@@ -1322,7 +1335,7 @@
 
 		var chests_idx = flags.entrancemode != 'N' ? 'entrance_idx' : 'open_idx';
 
-		window.chests_data = window.chests_data.filter((chest) => chests_idx in chest);
+		window.chests_data = window.chests_data_orig.filter((chest) => chests_idx in chest);
 		window.chests = Array(window.chests_data.length)
 
 		window.chests_data.map((chest, index) => {
@@ -1370,37 +1383,39 @@
 			window.chests[2].is_available = always
 			
 			// Mimic Cave
-			window.chests[4].is_available = function() {
-				if (flags.glitches === 'Z') return 'available';
-				if (!(flags.glitches === 'N')) {
-					if (items.mirror && items.hammer) return 'available';
-				}
-				if (!items.moonpearl || !items.hammer || items.glove !== 2 || (!items.somaria && flags.doorshuffle === 'N') || !items.mirror || (!items.bomb && flags.doorshuffle === 'N') || (flags.wildkeys && flags.doorshuffle === 'N' && items.smallkey9 <= 1 && flags.gametype != 'R')) return 'unavailable';
-				var medallion = flags.glitches === 'N' ? medallionCheck(1) : 'available';
+			if (flags.gametype !== 'I' ){
+				window.chests[4].is_available = function() {
+					if (flags.glitches === 'Z') return 'available';
+					if (!(flags.glitches === 'N')) {
+						if (items.mirror && items.hammer) return 'available';
+					}
+					if (!items.moonpearl || !items.hammer || items.glove !== 2 || (!items.somaria && flags.doorshuffle === 'N') || !items.mirror || (!items.bomb && flags.doorshuffle === 'N') || (flags.wildkeys && flags.doorshuffle === 'N' && items.smallkey9 <= 1 && flags.gametype != 'R')) return 'unavailable';
+					var medallion = flags.glitches === 'N' ? medallionCheck(1) : 'available';
 
 
-				if (flags.doorshuffle === 'P') {
-					if (medallion === 'unavailable') return 'unavailable';
-					if (items.smallkey9 < 3 || !items.bomb) return 'unavailable';
-					if (items.somaria) {
-						if (medallion === 'possible') return 'possible';
-						return (items.lantern || items.flute >= 1 ? 'available' : 'darkavailable');
+					if (flags.doorshuffle === 'P') {
+						if (medallion === 'unavailable') return 'unavailable';
+						if (items.smallkey9 < 3 || !items.bomb) return 'unavailable';
+						if (items.somaria) {
+							if (medallion === 'possible') return 'possible';
+							return (items.lantern || items.flute >= 1 ? 'available' : 'darkavailable');
+						};
+						if (items.boots) return 'possible';
+						return 'unavailable';
 					};
-					if (items.boots) return 'possible';
-					return 'unavailable';
-				};
 
-				if (medallion) return medallion === 'possible' && items.flute === 0 && !items.lantern ? 'darkpossible' : medallion;
+					if (medallion) return medallion === 'possible' && items.flute === 0 && !items.lantern ? 'darkpossible' : medallion;
 
-				var doorcheck = window.doorCheck(9,items.flute === 0 && !items.lantern,true,false,['somaria','firerod',(!flags.wildkeys && flags.gametype != 'R') || !flags.wildbigkeys ? 'laserbridge' : '','bomb'],'connector');
-				if (doorcheck) return doorcheck;
+					var doorcheck = window.doorCheck(9,items.flute === 0 && !items.lantern,true,false,['somaria','firerod',(!flags.wildkeys && flags.gametype != 'R') || !flags.wildbigkeys ? 'laserbridge' : '','bomb'],'connector');
+					if (doorcheck) return doorcheck;
 
-				if (flags.wildkeys) {
-					return (items.smallkey9 <= 1 && flags.gametype != 'R') ? 'unavailable' : (items.lantern || items.flute >= 1 ? 'available' : 'darkavailable');
-				};
+					if (flags.wildkeys) {
+						return (items.smallkey9 <= 1 && flags.gametype != 'R') ? 'unavailable' : (items.lantern || items.flute >= 1 ? 'available' : 'darkavailable');
+					};
 
-				return items.firerod ? (items.lantern || items.flute >= 1 ? 'available' : 'darkavailable') : (items.lantern || items.flute >= 1 ? 'possible' : 'darkpossible');
-			}
+					return items.firerod ? (items.lantern || items.flute >= 1 ? 'available' : 'darkavailable') : (items.lantern || items.flute >= 1 ? 'possible' : 'darkpossible');
+				}
+			} 
 			// Back of Escape
 			window.chests[96].is_available = function() {
 				if (flags.glitches === 'Z') return 'available';
@@ -1602,7 +1617,7 @@
 
 	function canReachLightWorldBunny() {
 		if (flags.gametype === 'I') {
-			if (items.agahnim || (items.glove === 2 && items.flute > 1)) return true;
+			if (items.agahnim || (items.glove === 2 && items.flute >= 1)) return true;
 		};
 		return false;
 	};
