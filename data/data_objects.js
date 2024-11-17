@@ -874,6 +874,9 @@
         if (x.includes('Bombs')) {
             return 'bomb';
         }
+        if (x.includes('Shield')) {
+            return 'shieldscout';
+        }
         switch (x) {
             case "Bow and Silver Arrows":
             case "Silver Arrows":
