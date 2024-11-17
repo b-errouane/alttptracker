@@ -37,6 +37,10 @@
         trackingport: query.d.charAt(5) + query.d.charAt(6) + query.d.charAt(7) + query.d.charAt(8) + query.d.charAt(9),
         mapstyle: query.d.charAt(10),
         scale: query.d.charAt(11),
+        showcompasses: query.d.charAt(12) === '1' ? true : false,
+        showmaps: query.d.charAt(13) === '1' ? true : false,
+        showsmallkeys: query.d.charAt(14) === '1' ? true : false,
+        showbigkeys: query.d.charAt(15) === '1' ? true : false,
         startingitems: query.s,
         sprite: query.p.replace('#','').replace('!',''),
     };
@@ -170,8 +174,8 @@
         items['chest' + i] = chestCounts[i];
         items['maxchest' + i] = chestCounts[i];
         items['chestknown' + i] = false;
-        items['bigkey' + i] = !flags.wildbigkeys;
-        items['smallkey' + i] = (flags.wildkeys ? 0 : keyCounts[i]);
+        items['bigkey' + i] = !(flags.wildbigkeys || flags.showbigkeys);
+        items['smallkey' + i] = ((flags.wildkeys || flags.showsmallkeys) ? 0 : keyCounts[i]);
     };
 
     if (flags.doorshuffle !== 'C') {

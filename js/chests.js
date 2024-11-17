@@ -653,6 +653,7 @@
 		]))) return true;
 		if (items.hookshot && canReachLowerWestDeathMountain()) return true;
 		if (canReachUpperWestDeathMountain() && items.hammer) return true;
+		if (canReachUpperEastDeathMountain()) return true;
 
 		return false;
 	};
@@ -1164,10 +1165,13 @@
 		if (requirement === 'bigkey' && !flags.wildbigkeys) {
 			res = true;
 		} else if (requirement.startsWith('keys')) {
-			if (flags.gametype === 'R' || !flags.wildkeys) res = true;
-			const count = requirement.split('|')[1];
-			const keyname = 'smallkey' + dungeonId;
-			res = items[keyname] >= count;
+			if (flags.gametype === 'R' || !flags.wildkeys) {
+				res = true;
+			} else {
+				const count = requirement.split('|')[1];
+				const keyname = 'smallkey' + dungeonId;
+				res = items[keyname] >= count;
+			}
 		} else if (dungeonId === 11 && requirement === 'bigkey') {
 			res = items.bigkey11; // HC
 		} else if (dungeonId === 12 && requirement === 'bigkey') {
@@ -1269,7 +1273,7 @@
 			if (!("logical" in requirements) || inLogic(dungeonId, requirements["logical"])) availability = 'available';
 		};
 
-		if (!flags.keyshuffle || !flags.bigkeyshuffle) {
+		if (!flags.wildkeys || !flags.wildbigkeys) {
 			var dunAvailability = dungeonAvailability(dungeonId, dungeonName);
 			return minimumAvailability(availability, dunAvailability);
 		}

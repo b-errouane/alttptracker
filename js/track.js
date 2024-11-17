@@ -71,7 +71,7 @@
 		
 		if (label.substring(0,5) === 'chest') {
 			if (value === 0) {
-				if (!flags.wildkeys && !flags.wildbigkeys && flags.gametype != 'R' && flags.doorshuffle != 'C' && label.length === 6) {
+				if (!flags.wildkeys && !flags.wildbigkeys && flags.gametype != 'R' && flags.doorshuffle != 'C' && label.length === 6 && !flags.showsmallkeys && !flags.showbigkeys) {
 					document.getElementById(label).className = 'chest-' + value + ' large';
 				} else {
 					document.getElementById(label).className = 'chest-' + value;
@@ -79,7 +79,7 @@
 				
 				document.getElementById(label).innerHTML = '';
 			} else {
-				if (!flags.wildkeys && !flags.wildbigkeys && flags.gametype != 'R' && flags.doorshuffle != 'C' && label.length === 6) {
+				if (!flags.wildkeys && !flags.wildbigkeys && flags.gametype != 'R' && flags.doorshuffle != 'C' && label.length === 6 && !flags.showsmallkeys && !flags.showbigkeys) {
 					document.getElementById(label).className = 'chest large';
 				} else {
 					document.getElementById(label).className = 'chest';
@@ -171,7 +171,7 @@
 		if (label.substring(0,5) === 'chest') {
             var value = items.dec(label);
 			if (value === 0) {
-				if (!flags.wildkeys && !flags.wildbigkeys && flags.gametype != 'R' && flags.doorshuffle != 'C' && label.length === 6) {
+				if (!flags.wildkeys && !flags.wildbigkeys && flags.gametype != 'R' && flags.doorshuffle != 'C' && label.length === 6 && !flags.showsmallkeys && !flags.showbigkeys) {
 					document.getElementById(label).className = 'chest-' + value + ' large';
 				} else {
 					document.getElementById(label).className = 'chest-' + value;
@@ -179,7 +179,7 @@
 				
 				document.getElementById(label).innerHTML = '';
 			} else {
-				if (!flags.wildkeys && !flags.wildbigkeys && flags.gametype != 'R' && flags.doorshuffle != 'C' && label.length === 6) {
+				if (!flags.wildkeys && !flags.wildbigkeys && flags.gametype != 'R' && flags.doorshuffle != 'C' && label.length === 6 && !flags.showsmallkeys && !flags.showbigkeys) {
 					document.getElementById(label).className = 'chest large';
 				} else {
 					document.getElementById(label).className = 'chest';
@@ -588,7 +588,7 @@
 
 		let className = 'chest'
 		let innerHTML = '';
-		const isLarge = !flags.wildkeys && !flags.wildbigkeys && flags.gametype != 'R' && flags.doorshuffle != 'C' && label.length === 6;
+		const isLarge = !flags.wildkeys && !flags.wildbigkeys && flags.gametype != 'R' && flags.doorshuffle != 'C' && label.length === 6 && !flags.showsmallkeys && !flags.showbigkeys;
 
 		if (value === 0) {
 			className += '-0';
@@ -2813,13 +2813,13 @@
         }
 
 		//If big keys are not shuffled, hide the icons
-		let bigKeyHidden = flags.wildbigkeys ? '' : 'hidden';
+		let bigKeyHidden = flags.wildbigkeys || flags.showbigkeys ? '' : 'hidden';
 		for (var k = 0; k < 11; k++) {
 			document.getElementById('bigkey'+k).style.visibility = bigKeyHidden;
 		}
 		
 		//If small keys are not shuffled, hide the icons
-		let smallKeyHidden = !flags.wildkeys && flags.gametype != 'R' ? 'hidden' : '';
+		let smallKeyHidden = (flags.wildkeys || flags.gametype === 'R' || flags.showsmallkeys) ? '' : 'hidden';
 		for (var k = 0; k < 13; k++) {
 			document.getElementById('smallkey'+k).style.visibility = smallKeyHidden;
 		}
@@ -2827,17 +2827,17 @@
 		document.getElementById('smallhalfheader1').style.visibility = smallKeyHidden;
 		
 		//If all keys are not shuffled, change the chest styles
-		if (!flags.wildkeys && !flags.wildbigkeys && flags.gametype != 'R' && flags.doorshuffle != 'C') {
-			for (var k = 0; k < 10; k++) {
-				document.getElementById('chest'+k).classList.add('large');
-				document.getElementById('c'+k+'bkdiv').classList.add('hidden');
-				document.getElementById('c'+k+'skdiv').classList.add('hidden');
-			}
-		} else {
+		if (bigKeyHidden === '' || smallKeyHidden === '' || flags.gametype === 'R' || flags.doorshuffle === 'C') {
 			for (var k = 0; k < 10; k++) {
 				document.getElementById('chest'+k).classList.remove('large');
 				document.getElementById('c'+k+'bkdiv').classList.remove('hidden');
 				document.getElementById('c'+k+'skdiv').classList.remove('hidden');
+			}
+		} else {
+			for (var k = 0; k < 10; k++) {
+				document.getElementById('chest'+k).classList.add('large');
+				document.getElementById('c'+k+'bkdiv').classList.add('hidden');
+				document.getElementById('c'+k+'skdiv').classList.add('hidden');
 			}
 		}
 		
