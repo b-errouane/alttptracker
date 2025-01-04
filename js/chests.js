@@ -341,7 +341,7 @@
 				}
 				if (beaten_red_crystals >= 2) return true;
 				if (unbeaten_red_crystals > 0) return false;
-				if (beaten_crystals >= 2) return true;
+				if (beaten_crystals + beaten_red_crystals >= 2) return true;
 			}
 
 			case "canBuyBigBomb": {
