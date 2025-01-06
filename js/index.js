@@ -1848,6 +1848,36 @@ function loadxdhuntpreset() {
 	});
 }
 
+function loadsupercrosskeysrippreset() {
+	loadPreset({
+		"gametypeopen": true,
+		"entrancesimple": true,
+		"doorpots": true,
+		"overworldno": true,
+		"prizeshufflewild": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goalganonhunt": false,
+		"goalcrystal": true,
+		"towerselect": 4,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsrandomized": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiano": true,
+		"pseudobootsyes": true,
+		"shuffledmaps": true,
+		"shuffledcompasses": true,
+		"shuffledsmallkeys": true,
+		"shuffledbigkeys": true,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": false,
+	});
+}
+
 
 async function importflags(auto = false) {
 
