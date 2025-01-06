@@ -417,6 +417,10 @@ function loadarchivepreset() {
 		case "Patron":
 			loadpatronpreset();
 			break;
+		case "Supercrosskeys":
+			loadsupercrosskeyspreset();
+			break;
+	
 	}
 	
 	
@@ -1848,17 +1852,17 @@ function loadxdhuntpreset() {
 	});
 }
 
-function loadsupercrosskeysrippreset() {
+function loadsupercrosskeyspreset() {
 	loadPreset({
 		"gametypeopen": true,
 		"entrancesimple": true,
 		"doorpots": true,
 		"overworldno": true,
-		"prizeshufflewild": true,
 		"bossnone": true,
 		"enemynone": true,
 		"glitchesnone": true,
-		"goalganonhunt": false,
+		"goalfast": true,
+		"goalcrystal": true,
 		"goalcrystal": true,
 		"towerselect": 4,
 		"ganoncrystal": true,
@@ -1874,7 +1878,7 @@ function loadsupercrosskeysrippreset() {
 		"shuffledbigkeys": true,
 		"nonprogressivebowsno": true,
 		"activatedfluteno": true,
-		"bonkshuffleno": false,
+		"bonkshuffleyes": true,
 	});
 }
 
