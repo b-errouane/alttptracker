@@ -54,7 +54,7 @@
             </div>
             <div>
                <span class="preset-btn-span">
-                  <input type="button" value="OPEN" class="preset-btn" onclick="loadopenpreset()" />
+                  <input type="button" value="AMBROZ1A" class="preset-btn" onclick="loadambroz1apreset()" />
                </span>
                <span class="preset-btn-span">
                   <input type="button" value="CASUAL BOOTS" class="preset-btn" onclick="loadbootspreset()" />
@@ -63,16 +63,31 @@
                   <input type="button" value="CROSSKEYS" class="preset-btn" onclick="loadcrosskeyspreset()" />
                </span>
                <span class="preset-btn-span">
-                  <input type="button" value="XDHUNT" class="preset-btn" onclick="loadxdhuntpreset()" />
+                  <input type="button" value="CROSSHUNT" class="preset-btn" onclick="loadcrosshuntpreset()" />
+               </span>
+               <span class="preset-btn-span">
+                  <input type="button" value="DOUBLE DOWN" class="preset-btn" onclick="loaddoubledownpreset()" />
+               </span>
+               <span class="preset-btn-span">
+                  <input type="button" value="FAD KEYSANITY" class="preset-btn" onclick="loadadkeyspreset()" />
+               </span>
+               <span class="preset-btn-span">
+                  <input type="button" value="INVERTED AD KEYS" class="preset-btn" onclick="loadinvertedadkeyspreset()" />
+               </span>
+               <span class="preset-btn-span">
+                  <input type="button" value="INTERMEDIATE DOORS" class="preset-btn" onclick="loaddoorsintermediatepreset()" />
                </span>
                <span class="preset-btn-span">
                   <input type="button" value="MYSTERY" class="preset-btn" onclick="loadmysterypreset()" />
                </span>
                <span class="preset-btn-span">
-                  <input type="button" value="AD KEYSANITY" class="preset-btn" onclick="loadadkeyspreset()" />
-               </span>  
+                  <input type="button" value="REDUCED CRYSTALS" class="preset-btn" onclick="loadreducedpreset()" />
+               </span>
                <span class="preset-btn-span">
-                  <input type="button" value="RETRANCE" class="preset-btn" onclick="loadretrancepreset()" />
+                  <input type="button" value="OPEN" class="preset-btn" onclick="loadopenpreset()" />
+               </span>
+               <span class="preset-btn-span">
+                  <input type="button" value="TRUE POT HUNT" class="preset-btn" onclick="loadtruepothuntpreset()" />
                </span>
             </div>
             <div class="preset-header" style="cursor: default;">
@@ -90,23 +105,29 @@
                </span>
             </div>
             <div class="preset-header" style="cursor: default;">
-               Tournament Presets
+               League Presets
             </div>
             <div>
                <span class="preset-btn-span">
-                  <input type="button" value="CROSSHUNT" class="preset-btn" onclick="loadcrosshuntpreset()" />
+                  <input type="button" value="AD KEYDROP" class="preset-btn" onclick="loadadkeydroppreset()" />
                </span>
                <span class="preset-btn-span">
-                  <input type="button" value="AD KEYDROP BOOTS" class="preset-btn" onclick="loadadkeydroppreset()" />
+                  <input type="button" value="BOSSHUNT" class="preset-btn" onclick="loadbosshuntpreset()" />
                </span>
                <span class="preset-btn-span">
-                  <input type="button" value="AD KEYDROP SHOP" class="preset-btn" onclick="loadadkeydropshoppreset()" />
-               </span>
-               <span class="preset-btn-span">
-                  <input type="button" value="SHOP 'TILL YOU DROP" class="preset-btn" onclick="loadshoptillyoudroppreset()" />
+                  <input type="button" value="DUALITY" class="preset-btn" onclick="loaddualitypreset()" />
                </span>
                <span class="preset-btn-span">
                   <input type="button" value="INFLUKEYS" class="preset-btn" onclick="loadinflukeyspreset()" />
+               </span>
+               <span class="preset-btn-span">
+                  <input type="button" value="CROSSKEYS" class="preset-btn" onclick="loadcrosskeyspreset()" />
+               </span>
+               <span class="preset-btn-span">
+                  <input type="button" value="BEGINNER DOORS" class="preset-btn" onclick="loaddoorsbeginnerpreset()" />
+               </span>
+               <span class="preset-btn-span">
+                  <input type="button" value="ENEMIZER" class="preset-btn" onclick="loadenemizerbootspreset()" />
                </span>
             </div>
             <div class="preset-header" style="cursor: default;">
@@ -129,22 +150,26 @@
             <div>
                <span class="preset-btn-span">
                   <select id="archivepresetselect" class="sprite-dropdown" onchange="loadarchivepreset()">
-                     <option value="ADKeysanity">AD Keysanity</option>
+                     <option value="ADKeysanity">(F)AD Keysanity</option>
                      <option value="Ambrosia">Ambrosia</option>
                      <option value="Ambroz1a">AmbroZ1a</option>
+                     <option value="Bosshunt">Bosshunt</option>
                      <option value="CasualBoots">Casual Boots</option>
                      <option value="ChampionsHunt">Champions Hunt</option>
                      <option value="ChampionsSwordless">Champions Swordless</option>
                      <option value="Crosshunt">Crosshunt</option>
                      <option value="Crosskeys">Crosskeys</option>
+                     <option value="BeginnerDoors">[Beginner] Doors</option>
+                     <option value="IntermediateDoors">[Intermediate] Doors</option>
                      <option value="DoubleDown">Double Down</option>
+                     <option value="Duality">Duality</option>
                      <option value="Enemizer">Enemizer</option>
-                     <option value="FADKeysanity">FAD Keysanity</option>
                      <option value="GoldRush">Gold Rush</option>
                      <option value="ADKeysanity">Hundo Keysanity</option>
                      <option value="InvertedADKeysanity">Inverted AD Keysanity</option>
                      <option value="InvertedCrosskeys">Inverted Crosskeys</option>
                      <option value="InvertedKeysanity">Inverted Keysanity</option>
+                     <option value="InfluKeys">Inverted Flute Keysanity</option>
                      <option value="Invrosia">Invrosia</option>
                      <option value="LudicrousSpeed">Ludicrous Speed</option>
                      <option value="MCBoss">MCBoss</option>
@@ -155,11 +180,14 @@
                      <option value="HardOpenPlus">[Hard] Open [Plus]</option>
                      <option value="Patron">Patron Party</option>
                      <option value="Potpourri">Potpourri</option>
+                     <option value="Pots&Bones">Pots & Bones</option>
                      <option value="ReducedCrystals">Reduced Crystals</option>
                      <option value="Retrance">Retrance</option>
                      <option value="Standard">[Hard] Standard</option>
                      <option value="StandardBoots">Standard Boots</option>
                      <option value="Supercrosskeys">Supercrosskeys</option>
+                     <option value="TruePotHunt">True Pot Hunt</option>
+                     <option value="XDHunt">XDHunt</option>
                   </select>
                </span>
                <span class="preset-btn-span">

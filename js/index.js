@@ -420,7 +420,33 @@ function loadarchivepreset() {
 		case "Supercrosskeys":
 			loadsupercrosskeyspreset();
 			break;
-	
+		case "Duality":
+			loaddualitypreset();
+			break;
+		case "XDHunt":
+			loadxdhuntpreset();
+			break;
+		case "TruePotHunt":
+			loadtruepothuntpreset();
+			break;
+		case "XDHunt":
+			loadxdhuntpreset();
+			break;
+		case "Pots&Bones":
+			loadpotsandbonespreset();
+			break;
+		case "BeginnerDoors":
+			loaddoorsbeginnerpreset();
+			break;
+		case "IntermediateDoors":
+			loaddoorsintermediatepreset();
+			break;
+		case "Bosshunt":
+			loadbosshuntpreset();
+			break;
+		case "InfluKeys":
+			loadinflukeyspreset();
+			break;
 	}
 	
 	
@@ -500,6 +526,34 @@ function loaddoorsbeginnerpreset() {
 		"bonkshuffleno": true
 	});
 }
+function loaddoorsintermediatepreset() {
+	loadPreset({
+		"gametypestandard": true,
+		"entrancenone": true,
+		"doorcrossed": true,
+		"overworldno": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goalganon": true,
+		"goalcrystal": true,
+		"towerselect": 7,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsassured": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiano": true,
+		"pseudobootsyes": true,
+		"shuffledmaps": false,
+		"shuffledcompasses": false,
+		"shuffledsmallkeys": false,
+		"shuffledbigkeys": false,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true
+	});
+}
 
 function loadadpreset() {
 	loadPreset({
@@ -539,8 +593,8 @@ function loadganonhuntpreset() {
 		"bossnone": true,
 		"enemynone": true,
 		"glitchesnone": true,
-		"goaldungeons": true,
-		"goalother": true,
+		"goalganonhunt": true,
+		"goalcrystal": true,
 		"towerselect": 5,
 		"ganoncrystal": true,
 		"ganonselect": 2,
@@ -1058,6 +1112,35 @@ function loadreducedpreset() {
 	});
 }
 
+function loaddualitypreset() {
+	loadPreset({
+		"gametypeopen": true,
+		"entrancenone": true,
+		"doornone": true,
+		"overworldno": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goalfast": true,
+		"goalcrystal": true,
+		"towerselect": 1,
+		"ganoncrystal": true,
+		"ganonselect": 5,
+		"swordsrandomized": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiano": true,
+		"pseudobootsno": true,
+		"shuffledmaps": true,
+		"shuffledcompasses": true,
+		"shuffledsmallkeys": true,
+		"shuffledbigkeys": true,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true,
+	});
+}
+
 function loadinvrosiapreset() {
 	loadPreset({
 		"gametypeinverted": true,
@@ -1272,8 +1355,8 @@ function loadgoldrushspreset() {
 		"bossnone": true,
 		"enemynone": true,
 		"glitchesnone": true,
-		"goalganon": true,
-		"goalother": true,
+		"goaltriforcehunt": true,
+		"goalcrystal": true,
 		"towerselect": 7,
 		"ganoncrystal": true,
 		"ganonselect": 7,
@@ -1448,7 +1531,6 @@ function loadambroz1apreset() {
 		"bossnone": true,
 		"enemynone": true,
 		"glitchesnone": true,
-		"goalother": true,
 		"goalcrystal": true,
 		"towerselect": 7,
 		"ganoncrystal": true,
@@ -1506,7 +1588,7 @@ function loadchuntpreset() {
 		"bossnone": true,
 		"enemynone": true,
 		"glitchesnone": true,
-		"goalother": true,
+		"goalganonhunt": true,
 		"goalcrystal": true,
 		"towerselect": 5,
 		"ganoncrystal": true,
@@ -1852,6 +1934,66 @@ function loadxdhuntpreset() {
 	});
 }
 
+function loadtruepothuntpreset() {
+	loadPreset({
+		"gametypeopen": true,
+		"entrancesimple": true,
+		"doorpots": true,
+		"overworldno": true,
+		"prizeshuffleno": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goaltriforcehunt": true,
+		"goalcrystal": true,
+		"towerselect": 7,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsrandomized": true,
+		"unknownnone": true,
+		"shopsanityyes": true,
+		"ambrosiano": true,
+		"pseudobootsno": true,
+		"shuffledmaps": true,
+		"shuffledcompasses": true,
+		"shuffledsmallkeys": true,
+		"shuffledbigkeys": true,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true,
+	});
+}
+
+function loadpotsandbonespreset() {
+	loadPreset({
+		"gametypestandard": true,
+		"entrancesimple": true,
+		"doorpots": true,
+		"overworldno": true,
+		"prizeshuffleno": true,
+		"bossnone": true,
+		"enemynone": true,
+		"glitchesnone": true,
+		"goaltriforcehunt": true,
+		"goalcrystal": true,
+		"towerselect": 7,
+		"ganoncrystal": true,
+		"ganonselect": 7,
+		"swordsrandomized": true,
+		"unknownnone": true,
+		"shopsanityno": true,
+		"ambrosiano": true,
+		"pseudobootsno": true,
+		"shuffledmaps": true,
+		"shuffledcompasses": true,
+		"shuffledsmallkeys": true,
+		"shuffledbigkeys": true,
+		"nonprogressivebowsno": true,
+		"activatedfluteno": true,
+		"bonkshuffleno": true,
+	});
+}
+
 function loadsupercrosskeyspreset() {
 	loadPreset({
 		"gametypeopen": true,
@@ -1862,7 +2004,6 @@ function loadsupercrosskeyspreset() {
 		"enemynone": true,
 		"glitchesnone": true,
 		"goalfast": true,
-		"goalcrystal": true,
 		"goalcrystal": true,
 		"towerselect": 4,
 		"ganoncrystal": true,
@@ -2013,7 +2154,7 @@ async function importflags(auto = false) {
 						document.getElementById("goalpedestal").checked = true;
 						break;
 					case "triforce_hunt":
-						document.getElementById("goaltriforce").checked = true;
+						document.getElementById("goaltriforcehunt").checked = true;
 						break;
 					case "ganonhunt":
 						document.getElementById("goalganonhunt").checked = true;
