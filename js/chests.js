@@ -1244,6 +1244,8 @@
 			(!flags.wildbigkeys && window.dungeonTotalLocations[dungeonAbbreviation]['bigkey'])
 		) { if (checksRequired > 0 && checksRequired < maxChecks) return 'possible'; }
 
+		// In doors, when the number of items isn't known, collected is set to a negative
+		collected = Math.max(0, collected);
 
 		if (checksLogical >= maxChecks) return 'available';
 		if ((checksLogical - collected) > 0) return 'partialavailable';
