@@ -135,6 +135,13 @@
                             "mirror"
                         ]
                     },
+                    {
+                        "allOf": [
+                            "mitts",
+                            "moonpearl",
+                            "mirror"
+                        ]
+                    },
                     "hammer",
                     "flippers",
                     "flute",
@@ -149,6 +156,13 @@
                             "agahnim",
                             "mirror",
                             "lantern"
+                        ]
+                    },
+                    {
+                        "allOf": [
+                            "mitts",
+                            "moonpearl",
+                            "mirror"
                         ]
                     },
                     "hammer",
