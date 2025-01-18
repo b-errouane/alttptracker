@@ -547,8 +547,8 @@ function loaddoorsintermediatepreset() {
 		"pseudobootsyes": true,
 		"shuffledmaps": false,
 		"shuffledcompasses": false,
-		"shuffledsmallkeys": false,
-		"shuffledbigkeys": false,
+		"shuffledsmallkeys": true,
+		"shuffledbigkeys": true,
 		"nonprogressivebowsno": true,
 		"activatedfluteno": true,
 		"bonkshuffleno": true
@@ -993,6 +993,7 @@ function loaddoubledownpreset() {
 		"nonprogressivebowsno": true,
 		"activatedfluteno": true,
 	});
+	setstartingitem("boots",22,"1");
 }
 
 function loadbootspreset() {
@@ -1531,7 +1532,7 @@ function loadambroz1apreset() {
 		"bossnone": true,
 		"enemynone": true,
 		"glitchesnone": true,
-		"goalcrystal": true,
+		"goalganonhunt": true,
 		"towerselect": 7,
 		"ganoncrystal": true,
 		"ganonselect": 7,
@@ -1962,6 +1963,8 @@ function loadtruepothuntpreset() {
 		"activatedfluteno": true,
 		"bonkshuffleno": true,
 	});
+	setstartingitem("boots",22,"1");
+	setstartingitem("lantern",8,"1");
 }
 
 function loadpotsandbonespreset() {
@@ -1992,6 +1995,9 @@ function loadpotsandbonespreset() {
 		"activatedfluteno": true,
 		"bonkshuffleno": true,
 	});
+	setstartingitem("boots",22,"1");
+	setstartingitem("lantern",8,"1");
+	setstartingitem("boomerang",9,"2");
 }
 
 function loadsupercrosskeyspreset() {
