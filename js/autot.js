@@ -946,7 +946,7 @@ function autotrackDoTracking(data) {
         updatechest(62, 0x2F4, 0x10); // Hype Cave Area
     };
 
-    if ('pseudoboots' in data && flags.pseudoboots === 'N' && data['pseudoboots'][0] === 0x01) {
+    if ('pseudoboots' in data && flags.pseudoboots === 'N' && data['pseudoboots'][0] === 0x01 && !items.boots) {
         flags.pseudoboots = 'Y';
         document.getElementById('pseudoboots').style.display = 'block';
         document.getElementById('pseudoboots').style.visibility = 'visible';
