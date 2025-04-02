@@ -23,6 +23,7 @@ var DRFLAGS_LOC = 0x138004; // Actually DRFlags
 var PRIZES_LOC = 0x1209B; // Pendant/Crystal number data
 var PRIZES2_LOC = 0x180050; // Pendant/Crystal data
 var KEYSANITY_LOC = 0x18016A; // Keysanity flags
+var ENTRANCE_LOC = 0xe18211; // Entrance shuffle flags
 var COMPASSCOUNTSEEN_LOC = SAVEDATA_START + 0x403; //Compass count seen flags, for autotracking chest counts in doors
 var MAPCOUNTSEEN_LOC = SAVEDATA_START + 0x474; //Map count seen flags, for autotracking key counts in doors
 var COMPASSCOUNT_LOC = 0xF65410; //Max item counts for each dungeon
@@ -32,6 +33,7 @@ var KEYS_LOC = SAVEDATA_START + 0x4E0; //Current keys in each dungeon
 
 var CONFIGURING = false;
 
+var RETROARCH_QUSB = false;
 
 
 
@@ -161,6 +163,11 @@ function autotrackOnDeviceList(event) {
         return;
     }
     autotrackDeviceName = results[0];
+    
+    // This is qusb2snes connected to a retroarch core, we will need to skip certain reads
+    if (autotrackDeviceName.startsWith("RetroArch")) {
+        RETROARCH_QUSB = true;
+    }
 
     autotrackSocket.send(JSON.stringify({
         Opcode: "Attach",
@@ -529,12 +536,8 @@ function autotrackReadMem() {
         snesreadsave(SAVEDATA_START + 0x280, 0x280,
             data,
             'rooms_inv',
-            flags.autotracking === 'Y' ? addEntranceData : handleAutoTrackData,
+            flags.autotracking !== 'N' ? addPotData : handleAutoTrackData,
             merge = true);
-    }
-
-    function addEntranceData() {
-        snesreadsave(0x180211, 0x1, data, 'entrances', addPotData);
     }
 
     function addPotData() {
@@ -542,15 +545,31 @@ function autotrackReadMem() {
     }
 
     function addSpriteDropData() {
-        snesreadsave(SPRITEDATA_START, 0x250, data, 'spritedata', addPrizeData);
+        snesreadsave(SPRITEDATA_START, 0x250, data, 'spritedata', addCompassCountSeenData);
     }
 
-    function addPrizeData() {
-        snesreadsave(PRIZES_LOC, 0xD, data, 'prizes', addPrize2Data);
+    function addCompassCountSeenData() {
+        snesreadsave(COMPASSCOUNTSEEN_LOC, 0x2, data, 'compasscountseen', addMapCountSeenData);
     }
 
-    function addPrize2Data() {
-        snesreadsave(PRIZES2_LOC, 0xD, data, 'prizes', addRandoVersion, merge = true);
+    function addMapCountSeenData() {
+        snesreadsave(MAPCOUNTSEEN_LOC, 0x2, data, 'mapcountseen', addCompassCount);
+    }
+
+    function addCompassCount() {
+        snesreadsave(COMPASSCOUNT_LOC, 0x20, data, 'compasscount', addMapCount);
+    }
+
+    function addMapCount() {
+        snesreadsave(MAPCOUNT_LOC, 0x10, data, 'mapcount', addDungeonChecks);
+    }
+
+    function addDungeonChecks() {
+        snesreadsave(CHECKS_LOC, 0x20, data, "dungeonchecks", addDungeonKeys);
+    }
+
+    function addDungeonKeys() {
+        snesreadsave(KEYS_LOC, 0x10, data, "dungeonkeys", RETROARCH_QUSB ? handleAutoTrackData : addRandoVersion);
     }
 
     function addRandoVersion() {
@@ -594,34 +613,22 @@ function autotrackReadMem() {
     function addPseudobootsFlag() {
         // Check if we're playing DR and that the mystery flag is not set, move on to item and key counts if DR
         if (["DR", "OR"].includes(data['fork']) && (data['mystery'][1] & 0x1) === 0) {
-            snesreadsave(PSEUDOBOOTS_LOC, 0x1, data, 'pseudoboots', addCompassCountSeenData);
+            snesreadsave(PSEUDOBOOTS_LOC, 0x1, data, 'pseudoboots', addEntranceData);
         } else {
-            handleAutoTrackData();
+            addEntranceData();
         }
     }
 
-    function addCompassCountSeenData() {
-        snesreadsave(COMPASSCOUNTSEEN_LOC, 0x2, data, 'compasscountseen', addMapCountSeenData);
+    function addEntranceData() {
+        snesreadsave(ENTRANCE_LOC, 0x1, data, 'entrances', addPrizeData);
     }
 
-    function addMapCountSeenData() {
-        snesreadsave(MAPCOUNTSEEN_LOC, 0x2, data, 'mapcountseen', addCompassCount);
+    function addPrizeData() {
+        snesreadsave(PRIZES_LOC, 0xD, data, 'prizes', addPrize2Data);
     }
 
-    function addCompassCount() {
-        snesreadsave(COMPASSCOUNT_LOC, 0x20, data, 'compasscount', addMapCount);
-    }
-
-    function addMapCount() {
-        snesreadsave(MAPCOUNT_LOC, 0x10, data, 'mapcount', addDungeonChecks);
-    }
-
-    function addDungeonChecks() {
-        snesreadsave(CHECKS_LOC, 0x20, data, "dungeonchecks", addDungeonKeys);
-    }
-
-    function addDungeonKeys() {
-        snesreadsave(KEYS_LOC, 0x10, data, "dungeonkeys", handleAutoTrackData);
+    function addPrize2Data() {
+        snesreadsave(PRIZES2_LOC, 0xD, data, 'prizes', handleAutoTrackData, merge = true);
     }
 
     function handleAutoTrackData() {
@@ -711,7 +718,7 @@ function autotrackDoTracking(data) {
     }
 
     // Autotrack dungeon key and chest counts if count has been seen by entering the dungeon (for keys, when map in inventory, for checks basically always since that setting is generally on)
-    if (flags.doorshuffle === 'C' && flags.autotracking === 'Y' && data["fork"] !== "VT") {
+    if (flags.doorshuffle === 'C' && flags.autotracking !== 'N' && data["fork"] !== "VT") {
         var dungeon_masks = {
             11: [0x00C0, 2],
             0: [0x0020, 4],
@@ -736,10 +743,18 @@ function autotrackDoTracking(data) {
             if (dungeon_item_count_seen & mask_data[0]){
                 var maxChecks = data["compasscount"][mask_data[1]]+ (data["compasscount"][mask_data[1] - 1] << 8);
                 var currentChecks = data["dungeonchecks"][mask_data[1]]
+                if (!flags.wildkeys && (dungeon_key_count_seen & mask_data[0])) {
+                    maxChecks -= data["mapcount"][mask_data[1]/2];
+                    currentChecks -= data["dungeonkeys"][mask_data[1] / 2];
+                }
                 if (maxChecks - currentChecks - items['chestmanual'+ dun] < 0){
                     items['chestmanual'+ dun] = maxChecks - currentChecks;
                 }
-                setChestCount(maxChecks - currentChecks, 'chest' + dun);
+                if (flags.autotracking === 'Y') {
+                    setChestCount(maxChecks - currentChecks, 'chest' + dun);
+                } else {
+                    setChestCount(maxChecks, 'chest' + dun);
+                }
             }
             
             if (dungeon_key_count_seen & mask_data[0]){
@@ -752,7 +767,7 @@ function autotrackDoTracking(data) {
     }
 
     dungeonPrizes = {}
-    if (flags.autotracking === 'Y' && !((data['fork'] === "OR") && (data['keysanity'][0] & 0x20) === 0x20)) {
+    if (!RETROARCH_QUSB && (flags.autotracking !== 'N' && !((data['fork'] === "OR") && (data['keysanity'][0] & 0x20) === 0x20))) {
         Object.entries(window.dungeonDataMem).forEach(([dungeon, dungeondata]) => {
             if ('prize' in dungeondata && dungeondata.prize > 0) {
                 const prizeType = data['prizes'][dungeondata.prize + 0xD] == 0x40 ? 'crystal' : 'pendant';
@@ -942,7 +957,7 @@ function autotrackDoTracking(data) {
         updatechest_group(105, [[0x228, 0x10], [0x228, 0x20]]); // Waterfall Fairy Left + Right
         updatechest_group(97, [[0x3C6, 0x01], [0x0AA, 0x10]]); // Uncle + Passage
 
-        if (flags.autotracking === 'Y') {
+        if (flags.autotracking !== 'N') {
             updatechest_group(96, [[0x022, 0x10], [0x022, 0x20], [0x022, 0x40]]); // Sewers Left + Middle + Right
             updatechest_group(98, [[0x0E4, 0x10], [0x0E2, 0x10], [0x100, 0x10]]); // Hyrule Castle Map + Boomerang + Zelda
             updatechest(99, 0x024, 0x10); // Sanctuary

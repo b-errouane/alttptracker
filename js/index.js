@@ -50,8 +50,8 @@ function load_cookie() {
 						case 'Y':
 							document.getElementById("autotrackingyes").checked = true;
 							break;
-						case 'O':
-							document.getElementById("autotrackingold").checked = true;
+						case 'D':
+							document.getElementById("autotrackingnodungeon").checked = true;
 							break;
 						case 'N':
 							document.getElementById("autotrackingno").checked = true;

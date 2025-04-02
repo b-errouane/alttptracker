@@ -911,6 +911,12 @@
 		entranceNameToGroup[name] = group;
 	}
 
+    window.dungeonShortToId = window.bigDungeonData.reduce((acc, dungeon) => {
+        acc[dungeon.shortName] = dungeon.id;
+        return acc;
+    }
+    , {});
+
     window.requireItem = function(x) {
 		switch (x) {
 			case 'magic':

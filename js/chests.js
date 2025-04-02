@@ -19,19 +19,19 @@
       entrances: window.owg_logic_entrances,
     },
     H: {
-      dungeon: window.logic_dungeon,
+      dungeon: window.hmg_logic_dungeon,
       keydrop: window.logic_dungeon_keydrop,
       nondungeon: window.owg_logic_nondungeon_checks,
       nondungeon_entrance: window.owg_logic_nondungeon_checks_entrance,
-      regions: window.owg_logic_regions,
+      regions: window.hmg_logic_regions,
       entrances: window.owg_logic_entrances,
     },
     M: {
-      dungeon: window.logic_dungeon,
+      dungeon: window.hmg_logic_dungeon,
       keydrop: window.logic_dungeon_keydrop,
       nondungeon: window.owg_logic_nondungeon_checks,
       nondungeon_entrance: window.owg_logic_nondungeon_checks_entrance,
-      regions: window.owg_logic_regions,
+      regions: window.hmg_logic_regions,
       entrances: window.owg_logic_entrances,
     },
     Z: {
@@ -217,6 +217,10 @@
 	};
 
 	function bigRequirementSwitch(requirement, dungeonId = -1) {
+		if (requirement.startsWith("bigkey|")) {
+			dungeonId =  window.dungeonShortToId[requirement.split("|")[1]];
+			requirement = "bigkey";
+		}
 		switch (requirement) {
 			case "agahnim": return items.agahnim;
 			case "agahnim2": return items.agahnim2;
@@ -314,7 +318,6 @@
 
 			case "canCrossEnergyBarrier": return items.sword > 1 || (flags.swordmode === 'S' && items.hammer) || items.cape;
 			case "canOpenGT": return crystalCheck() >= flags.opentowercount;
-
 			case "canBuyBigBombMaybe": {
 				// If has at least 2 prizes, can reach bomb shop, and red crystals arent marked as other non-beaten dungeons
 				var beaten_red_crystals = 0;
@@ -377,6 +380,32 @@
 			case 'canBreachTurtleRockMainMaybe': return canReachRegion("Turtle Rock - Main") != 'unavailable';
 			case 'canBreachTurtleRockMiddle': return canReachRegion("Turtle Rock - West") != 'unavailable' || (canReachRegion("Turtle Rock - East") != 'unavailable' && (items.hookshot || items.somaria || items.bomb || items.boots));
 			case 'canOnlyReachTurtleRockMain': return flags.gametype != 'I' && flags.entrancemode === 'N';
+			// Can get into mire, can get to torches and can either dash citrus or bomb clip (with the wall moved)
+			case "canHMGMireClipBreach":
+				return canReachRegion("Misery Mire") !== "unavailable" && (items.boots || (bigRequirementSwitch("canLightFires") && items.bomb)) && bigRequirementSwitch("canKillWizzrobes") && bigRequirementSwitch("canCrossMireGap");
+			case "canHMGMireClipLogic":
+				return canReachRegion("Misery Mire") === "available" && (items.boots || (bigRequirementSwitch("canLightFires") && items.bomb)) && bigRequirementSwitch("canKillWizzrobes") && bigRequirementSwitch("canCrossMireGap");
+			case "canHMGHeraClipBreach":
+				return bigRequirementSwitch("canHMGMireClipBreach") || (canReachRegion("Tower of Hera") !== "unavailable" && (((flags.wildbigkeys && items.bigkey2) || !flags.wildbigkeys) || bigRequirementSwitch("canHeraPot")) && (items.boots || items.bomb));
+			case "canHMGHeraClipLogic":
+				return bigRequirementSwitch("canHMGMireClipLogic") || (canReachRegion("Tower of Hera") === "available" && ((flags.wildbigkeys && items.bigkey2) || !flags.wildbigkeys) && (items.boots || items.bomb));
+			// Either have the MM BK or can open all chests in Mire, canHMGMireClip covers most cases
+			case "canHMGUnlockHeraBreach":
+				return bigRequirementSwitch("canHMGMireClipBreach") && ((flags.wildbigkeys && items.bigkey8) || !flags.wildbigkeys);
+			case "canHMGUnlockHeraLogic":
+				return bigRequirementSwitch("canHMGMireClipLogic") && ((flags.wildbigkeys && items.bigkey8) || !flags.wildbigkeys) && bigRequirementSwitch("canLightFires");
+			// Lamp required to save old mane for the SQ spot. Either have the Hera BK or can open all chests in Hera, canHMGUnlockHera covers most cases
+			case "canHMGUnlockSwampBreach":
+				return (
+				(bigRequirementSwitch("canHMGHeraClipBreach") && ((flags.wildkeys && items.smallkey2 >= 1) || !flags.wildkeys)) ||
+				(bigRequirementSwitch("canHMGMireClipBreach") && ((flags.wildkeys && items.smallkey8 >= 1) || !flags.wildkeys))
+				);
+			case "canHMGUnlockSwampLogic":
+				return bigRequirementSwitch("canHMGMireClipLogic") && ((flags.wildkeys && items.smallkey8 >= 3) || (!flags.wildkeys && items.somaria && items.lantern && (flags.wildbigkeys && items.bigkey8)))
+			case "canHMGMirrorlessSwampBreach":
+				return bigRequirementSwitch("canHMGUnlockHeraBreach") || bigRequirementSwitch("canHeraPot") || (bigRequirementSwitch("canHMGHeraClipBreach") && ((flags.wildbigkeys && items.bigkey2) || !flags.wildbigkeys));
+			case "canHMGMirrorlessSwampLogic":
+				return items.lantern && (bigRequirementSwitch("canHMGUnlockHeraLogic") || (bigRequirementSwitch("canHMGHeraClipLogic") && ((flags.wildbigkeys && items.bigkey2) || !flags.wildbigkeys)));
 
 			case "never": return false;
 			default: throw new Error("Unknown requirement: " + requirement);
@@ -418,8 +447,26 @@
 		} else {
 			chain[requirement] = null;
 		}
-
-		if (requirement.startsWith("canReach|")) {
+		if (requirement === 'bigkey' && !flags.wildbigkeys) {
+			res = true;
+		} else if (requirement.startsWith('keys')) {
+			if (flags.gametype === 'R' || !flags.wildkeys) {
+				res = true;
+			} else {
+				const keyInfo = requirement.split('|')
+				if (keyInfo.length === 2) {
+					const count = keyInfo[1];
+					const keyname = 'smallkey' + dungeonId;
+					res = items[keyname] >= count;
+				// Needed for HMG logic
+				} else if (keyInfo.length === 3) {
+					const count = keyInfo[2];
+					const keyDungeon = keyInfo[1]; 
+					const keyname = 'smallkey' + window.dungeonShortToId[keyDungeon];
+					res = items[keyname] >= count;
+				}
+			}
+		} else if (requirement.startsWith("canReach|")) {
 			const region = requirement.split("|")[1];
 			res = canReachRegion(region, chain) === 'available';
 		} else if (requirement.startsWith("canBreach|")) {
@@ -1168,9 +1215,18 @@
 			if (flags.gametype === 'R' || !flags.wildkeys) {
 				res = true;
 			} else {
-				const count = requirement.split('|')[1];
-				const keyname = 'smallkey' + dungeonId;
-				res = items[keyname] >= count;
+				const keyInfo = requirement.split('|')
+				if (keyInfo.length === 2) {
+					const count = keyInfo[1];
+					const keyname = 'smallkey' + dungeonId;
+					res = items[keyname] >= count;
+				// Needed for HMG logic
+				} else if (keyInfo.length === 3) {
+					const count = keyInfo[2];
+					const keyDungeon = keyInfo[1]; 
+					const keyname = 'smallkey' + window.dungeonShortToId[keyDungeon];
+					res = items[keyname] >= count;
+				}
 			}
 		} else if (dungeonId === 11 && requirement === 'bigkey') {
 			res = items.bigkey11; // HC
@@ -1203,7 +1259,7 @@
 		// Stupid exceptions
 		if (dungeonName === 'Swamp Palace') {
 			if (flags.entrancemode != 'N' && !hasFoundLocation('dam') && flags.mapmode != 'N') return 'unavailable';
-			if (flags.entrancemode === 'N' && !items.mirror) return 'unavailable';
+			if (flags.entrancemode === 'N' && !items.mirror && (!['H', 'M', 'Z'].includes(flags.glitches))) return 'unavailable';
 		};
 
 		for (const [location, requirements] of Object.entries(dungeonLogic[dungeonName])) {
@@ -1229,7 +1285,12 @@
 					}
 				};
 			};
+			if (location.includes('Swamp Palace')) {
+				console.log(location);
+				console.log(`${checksAlways} ${checksRequired} ${checksLogical} ${checksSuperLogic}`);
+			}
 		};
+		
 
 		var maxChecks = Object.keys(window.dungeonLogic[dungeonName]).length - hasNoBossItem - shouldntCountPrize;
 		var collected = maxChecks - items['chest' + dungeonId];
@@ -1535,80 +1596,6 @@
 			window.chests[119].is_available = always
 		}
 	}
-
-	// #region Glitch functions
-	function glitchLinkState() { return flags.glitches === 'M' && (items.moonpearl || items.bottle) };
-	function canSpinSpeed() { return items.boots && (items.sword || items.hookshot) };
-	function canBunnyPocket() { return items.boots && (items.mirror || items.bottle) };
-	function canReachSwampGlitchedAsLink() {
-		return (flags.glitches != 'N' && items.moonpearl && (flags.glitches === 'M' || items.boots))
-	};
-
-	function glitchLinkState() {
-		return flags.glitches === 'M' && (items.moonpearl || items.bottle)
-	};
-	// To unlock Swamp, we need to unlock Hera using either the Hera BK or the Mire BK after clipping from Mire,
-	// then have at least one spare Mire key (logic assumes we use two in Mire) to open the switch room door.
-	// 
-	// Since there are no spare keys in vanilla, MG logic assumes we're smart enough to not open the basement door.
-	// However, we still may have to kill the Mire boss and/or check the fire-locked left side to get enough keys,
-	// so we can only be absolutely sure we have enough Mire small keys when we have the ability to full-clear Mire.
-	// 
-	// Assuming we enter Swamp with a Mire key, we can use it to unlock the second waterway door, then carefully 
-	// chain pot keys to unlock the doors on the way from the entrance to the second waterway.
-	// 
-	// The logic assumes we can either hammer the pegs to flood the second waterway after collecting the key, 
-	// or S+Q and clip from either Mire or Hera again just to flood the second waterway. This only really matters 
-	// for wild keys, because otherwise we're clipping from Mire just to unlock Hera/Swamp and hammer is logically 
-	// irrelevant.
-	//
-	// Assuming Swamp is unlocked, we need to either mirror from the DW and drain the dam as normal, or pre-drain
-	// the dam and clip from Hera without taking any overworld transitions. This means we need to either have the
-	// mirror or lantern for Swamp to be fully in logic.
-	//
-	// What if non-keysanity modes were a mistake?
-	function canClipFromMireToSwamp() {
-		if (!items.moonpearl && !glitchLinkState()) return 'unavailable';
-
-		var canReachMireArea = ((flags.glitches === 'H') && items.boots) || (flags.glitches === 'M')
-		if (!canReachMireArea) return 'unavailable';
-
-		if (!items.boots && !items.hookshot) return 'unavailable';
-
-		var med = medallionCheck(0)
-		if (med === 'available') {
-			if (items.somaria && (items.lantern || items.firerod)) return 'available';
-			return 'possible';
-		} else {
-			return med
-		}
-	};
-
-	function canWalkIntoSwampMG() {
-		if (items.hammer && items.hookshot && items.flippers && (items.lantern || items.mirror)) {
-			return 'possible';
-		}
-		return 'unavailable';
-	};
-
-	function canEnterSwampGlitched() {
-		var mire = canClipFromMireToSwamp();
-		var walk = canWalkIntoSwampMG();
-		if (flags.glitches === 'H' && !items.moonpearl) return 'unavailable';
-
-		if (mire === 'available') return canDrainDam('available');
-		if (mire === 'possible') {
-			return walk === 'unavailable' ? canDrainDam(mire) : walk
-		} else {
-			return canDrainDam(walk);
-		}
-	};
-
-	function canDrainDam(status) {
-		if (status === 'unavailable') return status;
-		return items.mirror ? status : (items.lantern ? status : 'dark' + status)
-	};
-	// #endregion
 
 	// #region Old reach logic
 	function canReachLightWorld() {

@@ -1673,17 +1673,7 @@
             ],
             "anyOf": [
                "canSpeckyClip",
-               {
-                  "allOf": [
-                     "hammer",
-                     {
-                        "anyOf": [
-                           "hookshot",
-                           "canBombSpooky"
-                        ]
-                     }
-                  ]
-               }
+               "hammer"
             ]
          },
          "logical": {
@@ -1702,17 +1692,7 @@
             ],
             "anyOf": [
                "canSpeckyClip",
-               {
-                  "allOf": [
-                     "hammer",
-                     {
-                        "anyOf": [
-                           "hookshot",
-                           "canBombSpooky"
-                        ]
-                     }
-                  ]
-               }
+               "hammer",
             ]
          },
          "logical": {
