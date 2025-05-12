@@ -1,7 +1,7 @@
-(function(window) {
-    'use strict';
+(function (window) {
+  "use strict";
 
-    window.entrance_to_array_id = {
+  window.entrance_to_array_id = {
     "20 Rupee Cave": 67,
     "Agahnims Tower": 10,
     "Aginahs Cave": 58,
@@ -11,7 +11,7 @@
     "Blinds Hideout": 30,
     "Bonk Fairy (Dark)": 87,
     "Bonk Rock Cave": 14,
-    "Brewery": 111,
+    Brewery: 111,
     "Bumper Cave (Top)": 129,
     "Bush Covered House": 37,
     "C-Shaped House": 109,
@@ -48,7 +48,7 @@
     "Lake Hylia Fairy": 51,
     "Lake Hylia Fortune Teller": 62,
     "Lake Hylia Shop": 61,
-    "Library": 45,
+    Library: 45,
     "Light Hype Fairy": 6,
     "Long Fairy Cave": 52,
     "Lost Woods Hideout Drop": 21,
@@ -91,7 +91,7 @@
     "Capacity Upgrade": 64,
     "Checkerboard Cave": 57,
     "Chest Game": 107,
-    "Dam": 2,
+    Dam: 2,
     "Dark Death Mountain Fairy": 130,
     "Dark Death Mountain Ledge (East)": 139,
     "Dark Death Mountain Ledge (West)": 138,
@@ -126,7 +126,7 @@
     "Paradox Cave (Top)": 77,
     "Red Shield Shop": 91,
     "Sahasrahlas Hut": 50,
-    "Sanctuary": 13,
+    Sanctuary: 13,
     "Sick Kids House": 36,
     "Skull Woods First Section Door": 102,
     "Skull Woods Second Section Door (East)": 99,
@@ -141,5 +141,6 @@
     "Tower of Hera": 68,
     "Turtle Rock Isolated Ledge Entrance": 137,
     "Two Brothers House (West)": 46,
-    "Waterfall of Wishing": 5
-}})(window);
+    "Waterfall of Wishing": 5,
+  };
+})(window);

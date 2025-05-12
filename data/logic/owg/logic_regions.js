@@ -272,11 +272,7 @@
           ],
         },
         logical: {
-          anyOf: [
-            "lantern",
-            "canBootsClip",
-            "flute"
-          ],
+          anyOf: ["lantern", "canBootsClip", "flute"],
         },
       },
       Inverted: {
@@ -583,28 +579,30 @@
       },
       Inverted: {
         always: {
-          allOf: ["canBreach|Light World", 
+          allOf: [
+            "canBreach|Light World",
             {
               anyOf: [
                 "book",
                 {
                   allOf: ["canBootsClip", "moonpearl"],
-                }
+                },
               ],
-            }
-          ]
+            },
+          ],
         },
         logical: {
-          allOf: ["canBreach|Light World", 
+          allOf: [
+            "canBreach|Light World",
             {
               anyOf: [
                 "book",
                 {
                   allOf: ["canBootsClip", "moonpearl"],
-                }
+                },
               ],
-            }
-          ]
+            },
+          ],
         },
       },
       Entrance: ["dp_e", "dp_w", "dp_m"],
