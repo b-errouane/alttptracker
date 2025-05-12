@@ -117,7 +117,7 @@
           ],
         },
         logical: {
-          allOf: ["canReach|Dark World - South"],
+          anyOf: ["canReach|Dark World - South", "canBootsClip"],
         },
       },
       Inverted: {
@@ -140,10 +140,10 @@
       },
       Inverted: {
         always: {
-          allOf: ["canBreach|Light World", "boots"],
+          allOf: ["canBreach|Light World", "boots", "moonpearl"],
         },
         logical: {
-          allOf: ["canReach|Light World"],
+          allOf: ["canReach|Light World", "boots"],
         },
       },
     },
@@ -1302,7 +1302,7 @@
           ],
         },
         logical: {
-          allOf: ["canReach|Dark World - East", "mirror", "moonpearl", "flippers"],
+          anyOf: [{ allOf: ["mirror", "moonpearl", "flippers", "canReach|Dark World - East"] }, "canBootsClip"],
         },
       },
       Inverted: {
@@ -2414,10 +2414,7 @@
             allOf: [
               "canReach|Light World",
               {
-                anyOf: [
-                  "mirror",
-                  "moonpearl"
-                ],
+                anyOf: ["mirror", "moonpearl"],
               },
             ],
           },
@@ -2457,12 +2454,10 @@
         },
         always: {
           allOf: [
-            "canBreach|Light World - Lower West Death Mountain", 
+            "canBreach|Light World - Lower West Death Mountain",
             {
-              anyOf: [
-                "canBootsClip", "mirror"
-              ]
-            }
+              anyOf: ["canBootsClip", "mirror"],
+            },
           ],
         },
         logical: {

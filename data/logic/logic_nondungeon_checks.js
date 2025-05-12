@@ -210,12 +210,14 @@
             "always": {
                 "allOf": [
                     "canBreach|Light World",
-                    "boots"
+                    "boots",
+                    "moonpearl"
                 ]
             },
             "logical": {
                 "allOf": [
-                    "canReach|Light World"
+                    "canReach|Light World",
+                    "boots"
                 ]
             }
         }
@@ -2174,7 +2176,8 @@
             "always": {
                 "allOf": [
                     "hammer",
-                    "canBreach|Light World - East Death Mountain"
+                    "canBreach|Light World - East Death Mountain",
+                    "moonpearl"
                 ]
             },
             "logical": {

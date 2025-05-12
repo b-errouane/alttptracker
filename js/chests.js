@@ -129,6 +129,7 @@
 
 	// #region General logic functions
 	function medallionCheck(i) {
+		if (flags.glitches === 'Z') return 'available';
         if ((items.sword === 0 && flags.swordmode != 'S') || (!items.bombos && !items.ether && !items.quake)) return 'unavailable';
         if (medallions[i] === 1 && !items.bombos ||
             medallions[i] === 2 && !items.ether ||
@@ -501,11 +502,11 @@
 								entrances[29].known_location === 'sanc' ||
 								entrances[18].known_location === 'sanc' ||
 								entrances[11].known_location === 'sanc' ||
-								(entrances[24].known_location === 'sanc' && items.boots && items.agahnim) ||
-								(entrances[43].known_location === 'sanc' && items.hammer) ||
-								(entrances[95].known_location === 'sanc' && items.agahnim2) ||
-								(entrances[13].known_location === 'sanc' && items.glove > 0 && (flags.gametype != 'I' || (canReachInvertedLightWorld()))) ||
-								(entrances[102].known_location === 'sanc' && (items.moonpearl || flags.gametype === 'I'))
+								(entrances[24].known_location === 'sanc' && checkEntranceAvailability("Lumberjack Tree Tree") === 'available') ||
+								(entrances[43].known_location === 'sanc' && checkEntranceAvailability("Bat Cave Drop") === 'available') ||
+								(entrances[95].known_location === 'sanc' && checkEntranceAvailability("Pyramid Hole") === 'available') ||
+								(entrances[13].known_location === 'sanc' && checkEntranceAvailability("Sanctuary Grave") === 'available') ||
+								(entrances[102].known_location === 'sanc' && checkEntranceAvailability("Skull Woods First Section Hole (North)") === 'available')
 							) ? 'available' : 'unavailable';
 						};
 						case "swdrops": {
@@ -1285,10 +1286,6 @@
 					}
 				};
 			};
-			if (location.includes('Swamp Palace')) {
-				console.log(location);
-				console.log(`${checksAlways} ${checksRequired} ${checksLogical} ${checksSuperLogic}`);
-			}
 		};
 		
 
