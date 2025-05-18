@@ -20,13 +20,18 @@ body {
 #app.mapless { width: 448px; }
 #app.sphereless { height: 448px; }
 
+.scale100 { zoom: 1;}
+.scale75 { zoom: 0.75;}
+.scale50 { zoom: 0.5;}
+.scale25 { zoom: 0.25;}
+
 #tracker .item,
 #tracker .boss,
 #tracker [id^="item"] { width: 64px; height: 64px; }
 #tracker [id^="chest"] { width: 32px; height: 32px; font-size: 15px; text-align: center; font-family: roboto_condensedregular, "Arial Black", Gadget, sans-serif; font-weight: bold; padding-top: 6px; -moz-user-select: -moz-none; -khtml-user-select: none; -webkit-user-select: none; -o-user-select: none; user-select: none; }
 #tracker [id^="bigkey"] { width: 32px; height: 32px; }
 #tracker [id^="smallkey"] { width: 64px; height: 32px; color: #FFF; font-size: 20px; text-align: center; font-family: "Arial Black", Gadget, sans-serif; padding-top: 0px; padding-left: 32px; -moz-user-select: -moz-none; -khtml-user-select: none; -webkit-user-select: none; -o-user-select: none; user-select: none;  }
-#tracker [id^="smallkeyhalf"] { width: 32px; height: 32px; color: #FFF; font-size: 20px; text-align: center; font-family: "Arial Black", Gadget, sans-serif; padding-top: 6px; padding-left: 6px; -moz-user-select: -moz-none; -khtml-user-select: none; -webkit-user-select: none; -o-user-select: none; user-select: none;  }
+#tracker [class^="smallkeyhalf"] { width: 32px; height: 32px; color: #FFF; font-size: 20px; text-align: center; font-family: "Arial Black", Gadget, sans-serif; padding-top: 6px; padding-left: 6px; -moz-user-select: -moz-none; -khtml-user-select: none; -webkit-user-select: none; -o-user-select: none; user-select: none;  }
 #tracker [id^="smallhalfheader"] { width: 32px; height: 16px; color: #FFF; font-size: 9px; text-align: center; font-family: "Arial Black", Gadget, sans-serif; padding-top: 2px; -moz-user-select: -moz-none; -khtml-user-select: none; -webkit-user-select: none; -o-user-select: none; user-select: none;  }
 #tracker .compass { width: 32px; height: 32px; display: none; }
 #tracker [id$="skdiv"] { width: 64px; height: 32px; }
@@ -71,8 +76,8 @@ body {
 #tracker .tunic { height: 96px; width: 96px; background-size:100%; }
 #tracker .moonpearl { height: 40px; width: 40px; background-size:100%; }
 #tracker .sphere { height: 37px; width: 37px; background-size:100%; }
-#bigkeyhalf0 { top: 11px; }
-#bigkeyhalf1 { top: 59px; }
+#bigkey11 { top: 11px; }
+#bigkey12 { top: 59px; }
 
 #tracker .prize-1 { background-size: 90%; background-repeat: no-repeat; background-position: center;}
 #tracker .prize-2 { background-size: 90%; background-repeat: no-repeat; background-position: center;}
@@ -152,12 +157,12 @@ body {
   border-color:#000;
   border-style: solid;
   border-width: 1.25px;
-  width: 14;
-  height: 14;
+  width: 14 !important;
+  height: 14 !important;
   margin-left: -12px;
   margin-top: -12px;
   position: absolute;
-  background-size: 100% 100%;
+  background-size: 100% 100% !important;
 }
 
 
@@ -252,6 +257,7 @@ body {
 .availabledungeon { background-color: rgb(0, 234, 255); border-width:1px; width: 16; height: 16; margin-left: -14px; margin-top: -14px; border-radius: 0%;}
 .availablecastleconnector { border-width:1px; width: 16; height: 16; margin-left: -14px; margin-top: -14px; border-radius: 0%;}
 .availabledesertconnector { border-width:1px; width: 16; height: 16; margin-left: -14px; margin-top: -14px; border-radius: 0%;}
+.availableskullconnector { border-width:1px; width: 16; height: 16; margin-left: -14px; margin-top: -14px; border-radius: 0%;}
 .availableturtleconnector { border-width:1px; width: 16; height: 16; margin-left: -14px; margin-top: -14px; border-radius: 0%;}
 .availabledark { background-color: rgb(36, 51, 255); border-radius: 0%; transform: rotateY(0deg) rotate(45deg);}
 .availableitemlocked { background-color: rgb(255, 123, 0); border-color:rgb(255, 255, 255); border-radius: 0%; transform: rotateY(0deg) rotate(45deg);}
@@ -328,6 +334,12 @@ body {
 .sphereshield.active-2 { background-image: url(../images/items/shield2.png); }
 .sphereshield.active-3 { background-image: url(../images/items/shield3.png); }
 .spheremoonpearl { background-image: url(../images/items/moonpearl.png); }
+
+.smallkeyscout { background-image: url(../images/dungeons/smallkey.png); }
+.swordscout { background-image: url(../images/items/sword1.png); }
+.shieldscout { background-image: url(../images/items/shieldcentered.png); }
+.armor { background-image: url(../images/items/bluemail.png); }
+.bottle { background-image: url(../images/items/bottle_empty.png); }
 
 .sword.active-0 { background-image: url(../images/items/sword1.png); opacity: .25; background-size:100%; float:left; }
 .sword.active-1 { background-image: url(../images/items/sword1.png); background-size:100%; }

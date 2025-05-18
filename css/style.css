@@ -20,13 +20,18 @@ body {
 #app.mapless { width: 448px; }
 #app.sphereless { height: 448px; }
 
+.scale100 { zoom: 1;}
+.scale75 { zoom: 0.75;}
+.scale50 { zoom: 0.5;}
+.scale25 { zoom: 0.25;}
+
 #tracker .item,
 #tracker .boss,
 #tracker [id^="item"] { width: 64px; height: 64px; }
 #tracker [id^="chest"] { width: 32px; height: 32px; font-size: 15px; text-align: center; font-family: roboto_condensedregular, "Arial Black", Gadget, sans-serif; font-weight: bold; padding-top: 6px; -moz-user-select: -moz-none; -khtml-user-select: none; -webkit-user-select: none; -o-user-select: none; user-select: none; }
-#tracker [id^="bigkey"] { width: 32px; height: 32px; }
+#tracker [class^="bigkey"] { width: 32px; height: 32px; }
 #tracker [id^="smallkey"] { width: 64px; height: 32px; color: #FFF; font-size: 20px; text-align: center; font-family: "Arial Black", Gadget, sans-serif; padding-top: 0px; padding-left: 32px; -moz-user-select: -moz-none; -khtml-user-select: none; -webkit-user-select: none; -o-user-select: none; user-select: none;  }
-#tracker [id^="smallkeyhalf"] { width: 32px; height: 32px; color: #FFF; font-size: 20px; text-align: center; font-family: "Arial Black", Gadget, sans-serif; padding-top: 6px; padding-left: 6px; -moz-user-select: -moz-none; -khtml-user-select: none; -webkit-user-select: none; -o-user-select: none; user-select: none;  }
+#tracker [class^="smallkeyhalf"] { width: 32px; height: 32px; color: #FFF; font-size: 20px; text-align: center; font-family: "Arial Black", Gadget, sans-serif; padding-top: 6px; padding-left: 6px; -moz-user-select: -moz-none; -khtml-user-select: none; -webkit-user-select: none; -o-user-select: none; user-select: none;  }
 #tracker [id^="smallhalfheader"] { width: 32px; height: 16px; color: #FFF; font-size: 9px; text-align: center; font-family: "Arial Black", Gadget, sans-serif; padding-top: 2px; -moz-user-select: -moz-none; -khtml-user-select: none; -webkit-user-select: none; -o-user-select: none; user-select: none;  }
 #tracker .compass { width: 32px; height: 32px; display: none; }
 #tracker [id$="skdiv"] { width: 64px; height: 32px; }
@@ -71,8 +76,8 @@ body {
 #tracker .tunic { height: 96px; width: 96px; background-size:100%; }
 #tracker .moonpearl { height: 40px; width: 40px; background-size:100%; }
 #tracker .sphere { height: 37px; width: 37px; background-size:100%; }
-#bigkeyhalf0 { top: 11px; }
-#bigkeyhalf1 { top: 59px; }
+#bigkey11 { top: 11px; }
+#bigkey12 { top: 59px; }
 
 #tracker .prize-1 { background-size: 90%; background-repeat: no-repeat; background-position: center;}
 #tracker .prize-2 { background-size: 90%; background-repeat: no-repeat; background-position: center;}
@@ -150,12 +155,12 @@ body {
   border-color:#000;
   border-style: solid;
   border-width: 1px;
-  width: 16;
-  height: 16;
+  width: 16 !important;
+  height: 16 !important;
   margin-left: -8px;
   margin-top: -8px;
   position: absolute;
-  background-size: 100% 100%;
+  background-size: 100% 100% !important;
 }
 
 .lowerchest {
@@ -268,6 +273,12 @@ body {
 .sphereshield.active-2 { background-image: url(../images/items/shield2.png); }
 .sphereshield.active-3 { background-image: url(../images/items/shield3.png); }
 .spheremoonpearl { background-image: url(../images/items/moonpearl.png); }
+
+.smallkeyscout { background-image: url(../images/dungeons/smallkey.png); }
+.swordscout { background-image: url(../images/items/sword1.png); }
+.shieldscout { background-image: url(../images/items/shieldcentered.png); }
+.armor { background-image: url(../images/items/bluemail.png); }
+.bottle { background-image: url(../images/items/bottle_empty.png); }
 
 .sword.active-0 { background-image: url(../images/items/sword1.png); opacity: .25; background-size:100%; float:left; }
 .sword.active-1 { background-image: url(../images/items/sword1.png); background-size:100%; }
@@ -452,8 +463,10 @@ div[class*=" bottle"].active-7 { background-image: url(../images/items/bottle_go
 #bossMap8, #dungeon8 { left: 10.00%; top: 82.9%; }
 #bossMap9, #dungeon9 { left: 93.80%; top: 7.0%; }
 #bossMap10, #dungeon10 { left: 58.00%; top: 5.5%; }
-#bossMap11, #dungeon11 { left: 50.00%; top: 37.5%; }
+#bossMap11, #dungeon11 { left: 50.00%; top: 39.5%; }
 #bossMapAgahnim, #castle, #bossMap12, #dungeon12 { left: 50.00%; top: 52.6%; }
+
+.bonkloc { width: 12 !important; height: 12 !important; border-width: 0.5px !important;}
 
 #locationMap0 { left: 61.60%; top: 29.6%; } /* King's Tomb */
 #locationMap1 { left: 46.80%; top: 93.4%; } /* Dam (2) */
@@ -609,9 +622,4 @@ div[class*=" bottle"].active-7 { background-image: url(../images/items/bottle_go
     width: 140px;
     height: 24px;
     padding: 5px;
-}
-
-.restreamingoverlay {
-	z-index: 10;
-    position: absolute;
 }

@@ -21,17 +21,17 @@
 }
 
 #caption {
-  bottom: -20px;
+  bottom: 5px;
 }
 
 #autotrackingstatus {
-  bottom: -20px;
+  bottom: 5px;
   right: 3px;
 }
 
 .location {
-  width: 12px;
-  height: 12px;
+  width: 12px !important;
+  height: 12px !important;
   margin-left: -6px;
   margin-top: -6px;
 }
@@ -71,10 +71,6 @@
   background-size: 100% 100%;
 }
 
-.bonkable { background-color: rgb(0, 255, 0); width: 9; height: 9;}
-.unbonkable { background-color: rgba(255, 0, 0); width: 9; height: 9;}
-.bonked { background-color: rgba(128, 128, 128); width: 9; height: 9; border-width: 0px;}
-.darkbonkable { background-color: rgb(35, 69, 224); width: 9; height: 9;}
 
 #bossMap0, #dungeon0 { left: 92.00%; top: 38.8%; }
 #bossMap1, #dungeon1 { left: 7.60%;  top: 78.4%; }
@@ -87,7 +83,7 @@
 #bossMap8, #dungeon8 { left: 13.60%; top: 82.9%; }
 #bossMap9, #dungeon9 { left: 92.80%; top: 7.2%; }
 #bossMap10, #dungeon10 { left: 58.00%; top: 7.2%; }
-#bossMap11, #dungeon11 { left: 50.00%; top: 37.5%; }
+#bossMap11, #dungeon11 { left: 50.00%; top: 41.5%; }
 #bossMapAgahnim, #castle, #bossMap12, #dungeon12 { left: 50.00%; top: 52.6%; }
 
 #locationMap0 { left: 61.60%; top: 29.6%; } /* King's Tomb */
