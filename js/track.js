@@ -171,10 +171,12 @@
 		if (label.substring(0,5) === 'chest') {
 			//do this when autotracking doors
 			if (flags.autotracking !== 'N' && flags.doorshuffle === 'C') {
-				if (document.getElementById(label).innerHTML > 0){
+				var curCount = Number(document.getElementById(label).innerHTML.replace('+', ''));
+				if (curCount > 0){
 					items['chestmanual'+label.substring(5)]++;
 				}
-				setChestCount(Number(document.getElementById(label).innerHTML) + Number(items['chestmanual'+label.substring(5)]) - 1, label);
+				curCount = Number(document.getElementById(label).innerHTML.replace('+', ''));
+				setChestCount(curCount + Number(items['chestmanual'+label.substring(5)]) - 1, label);
 				return;
 			}
             var value = items.dec(label);
