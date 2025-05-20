@@ -371,14 +371,13 @@ function loadnamedpreset(name) {
       loadadenemizerpreset();
       break;
     case "adkdb":
-      loadadkeyspreset();
-      break;
     case "adkeydrop":
       loadadkeydroppreset();
       break;
     case "adkeydropshop":
       loadadkeydropshoppreset();
       break;
+    case "adkeys":
     case "adkeysanity":
     case "fadkeysanity":
       loadadkeyspreset();
@@ -393,6 +392,7 @@ function loadnamedpreset(name) {
       loadbosshuntpreset();
       break;
     case "cabookey":
+    case "kaesden/cabookey":
       loadcabookeypreset();
       break;
     case "casualboots":
@@ -405,6 +405,7 @@ function loadnamedpreset(name) {
       loadcswordlesspreset();
       break;
     case "crisscross":
+    case "jem041/crisscross_zw":
       loadcrisscrosspreset();
       break;
     case "crosshunt":
