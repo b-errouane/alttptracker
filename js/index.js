@@ -476,6 +476,7 @@ function loadnamedpreset(name) {
       loadmcshufflepreset();
       break;
     case "mystery":
+    case "mmmmavid23":
       loadmysterypreset();
       break;
     case "nologic":
@@ -827,7 +828,7 @@ function loadcabookeypreset() {
     bossnone: true,
     enemynone: true,
     glitchesnone: true,
-    goalganon: true,
+    goaldungeons: true,
     goalcrystal: true,
     towerselect: 7,
     ganoncrystal: true,

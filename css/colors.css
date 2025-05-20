@@ -8,6 +8,8 @@
   --darkavailable-color: #9255fd;
   --darkpossible-color: #9255fd;
   --partialavailable-color: #049a04;
+  --highlight-color: #ffee00;
+  --remindme-color: #ffee00;
   --opened-color: #808080a6;
   --connector-color: #ff00f9;
   --connector1-color: #ff50f9;
@@ -80,6 +82,12 @@
 }
 .darkpossible {
   background-color: var(--darkpossible-color);
+}
+.highlight {
+  background-color: var(--highlight-color) !important;
+}
+.remindme {
+  background-color: var(--remindme-color) !important;
 }
 .opened {
   background-color: var(--opened-color);
@@ -158,18 +166,6 @@
 }
 .availablesp {
   background-color: var(--sp-color);
-  border-radius: 0% !important
-}
-.availablesw_m {
-  background-color: var(--sw-color);
-  border-radius: 0% !important
-}
-.availablesw_w {
-  background-color: var(--sw-color);
-  border-radius: 0% !important
-}
-.availablesw_e {
-  background-color: var(--sw-color);
   border-radius: 0% !important
 }
 .availablesw {

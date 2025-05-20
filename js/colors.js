@@ -11,6 +11,8 @@ const mikeColors = {
   "darkavailable-color": "#7c32fb",
   "darkpossible-color": "#7c32fb",
   "partialavailable-color": "#049a04",
+  "highlight-color": "#ffee00",
+  "remindme-color": "#ffee00",
   "opened-color": "#808080a6",
   "connector-color": "#ff00f9",
   "connector1-color": "#ff50f9",
@@ -37,21 +39,21 @@ const mikeColors = {
   "sanc-color": "#00ddff",
   "mount-color": "#00ddff",
   "item-color": "#51ff3a",
-	"magic-color": "#ff7b00",
-	"kid-color": "#ff7b00",
-	"smith-color": "#ff7b00",
-	"bat-color": "#ff7b00",
-	"lib-color": "#ff7b00",
-	"saha-color": "#ff7b00",
-	"mimc-color": "#ff7b00",
-	"rupee-color": "#51ff3a",
-	"shop-color": "#51ff3a",
-	"dark-color": "#2433ff",
-	"bomb-color": "#ff7b00",
-	"bump-color": "#ff7b00",
-	"spike-color": "#ff7b00",
-	"hook-color": "#ff7b00",
-	"dam-color": "#ff7b00",
+  "magic-color": "#ff7b00",
+  "kid-color": "#ff7b00",
+  "smith-color": "#ff7b00",
+  "bat-color": "#ff7b00",
+  "lib-color": "#ff7b00",
+  "saha-color": "#ff7b00",
+  "mimc-color": "#ff7b00",
+  "rupee-color": "#51ff3a",
+  "shop-color": "#51ff3a",
+  "dark-color": "#2433ff",
+  "bomb-color": "#ff7b00",
+  "bump-color": "#ff7b00",
+  "spike-color": "#ff7b00",
+  "hook-color": "#ff7b00",
+  "dam-color": "#ff7b00",
 };
 
 const dunkaColors = {
@@ -64,6 +66,8 @@ const dunkaColors = {
   "darkavailable-color": "#2433ff",
   "darkpossible-color": "#800080",
   "partialavailable-color": "#006400",
+  "highlight-color": "#ffee00",
+  "remindme-color": "#ffee00",
   "opened-color": "#808080",
   "connector-color": "#ff00f9",
   "connector1-color": "#ff50f9",
@@ -87,21 +91,21 @@ const dunkaColors = {
   "sanc-color": "#00ddff",
   "mount-color": "#00ddff",
   "item-color": "#51ff3a",
-	"magic-color": "#ff7b00",
-	"kid-color": "#ff7b00",
-	"smith-color": "#ff7b00",
-	"bat-color": "#ff7b00",
-	"lib-color": "#ff7b00",
-	"saha-color": "#ff7b00",
-	"mimc-color": "#ff7b00",
-	"rupee-color": "#51ff3a",
-	"shop-color": "#51ff3a",
-	"dark-color": "#2433ff",
-	"bomb-color": "#ff7b00",
-	"bump-color": "#ff7b00",
-	"spike-color": "#ff7b00",
-	"hook-color": "#ff7b00",
-	"dam-color": "#ff7b00",
+  "magic-color": "#ff7b00",
+  "kid-color": "#ff7b00",
+  "smith-color": "#ff7b00",
+  "bat-color": "#ff7b00",
+  "lib-color": "#ff7b00",
+  "saha-color": "#ff7b00",
+  "mimc-color": "#ff7b00",
+  "rupee-color": "#51ff3a",
+  "shop-color": "#51ff3a",
+  "dark-color": "#2433ff",
+  "bomb-color": "#ff7b00",
+  "bump-color": "#ff7b00",
+  "spike-color": "#ff7b00",
+  "hook-color": "#ff7b00",
+  "dam-color": "#ff7b00",
 };
 
 const altColors = {
@@ -114,6 +118,8 @@ const altColors = {
   "darkavailable-color": "#034f6d",
   "darkpossible-color": "#cdbd00",
   "partialavailable-color": "#fee090",
+  "highlight-color": "#ffee00",
+  "remindme-color": "#ffee00",
   "opened-color": "#858585",
   "connector-color": "#ff00f9",
   "connector1-color": "#ff50f9",
@@ -137,21 +143,21 @@ const altColors = {
   "sanc-color": "#00ddff",
   "mount-color": "#00ddff",
   "item-color": "#51ff3a",
-	"magic-color": "#ff7b00",
-	"kid-color": "#ff7b00",
-	"smith-color": "#ff7b00",
-	"bat-color": "#ff7b00",
-	"lib-color": "#ff7b00",
-	"saha-color": "#ff7b00",
-	"mimc-color": "#ff7b00",
-	"rupee-color": "#51ff3a",
-	"shop-color": "#51ff3a",
-	"dark-color": "#2433ff",
-	"bomb-color": "#ff7b00",
-	"bump-color": "#ff7b00",
-	"spike-color": "#ff7b00",
-	"hook-color": "#ff7b00",
-	"dam-color": "#ff7b00",
+  "magic-color": "#ff7b00",
+  "kid-color": "#ff7b00",
+  "smith-color": "#ff7b00",
+  "bat-color": "#ff7b00",
+  "lib-color": "#ff7b00",
+  "saha-color": "#ff7b00",
+  "mimc-color": "#ff7b00",
+  "rupee-color": "#51ff3a",
+  "shop-color": "#51ff3a",
+  "dark-color": "#2433ff",
+  "bomb-color": "#ff7b00",
+  "bump-color": "#ff7b00",
+  "spike-color": "#ff7b00",
+  "hook-color": "#ff7b00",
+  "dam-color": "#ff7b00",
 };
 
 const colorSets = {
@@ -181,9 +187,7 @@ opacitySliders.forEach((item) => {
 
 const handleColorClick = (e) => {
   const color = e.getAttribute("data-color");
-  const colorPicker = document.querySelector(
-    `input.input-color-picker[data-id="${e.getAttribute("data-id")}"]`
-  );
+  const colorPicker = document.querySelector(`input.input-color-picker[data-id="${e.getAttribute("data-id")}"]`);
   colorPicker.value = color;
   colorPicker.dispatchEvent(new Event("input"));
 };
@@ -192,15 +196,15 @@ const setColorAndSlider = (item, colorSettings) => {
   const slider = document.querySelector("input.input-color-opacity-slider[data-id='" + item.getAttribute("data-id") + "']");
   if (!colorSettings[item.getAttribute("data-id")]) {
     colorSettings[item.getAttribute("data-id")] = mikeColors[item.getAttribute("data-id")];
-  } 
+  }
   if (colorSettings[item.getAttribute("data-id")].length < 8) {
     colorSettings[item.getAttribute("data-id")] = colorSettings[item.getAttribute("data-id")] + "ff";
   }
   let sliderHex = colorSettings[item.getAttribute("data-id")].slice(-2);
   // padded to
-  slider.value = parseInt(sliderHex, 16) / 255
+  slider.value = parseInt(sliderHex, 16) / 255;
   item.value = colorSettings[item.getAttribute("data-id")].slice(0, -2);
-}
+};
 
 // Save color settings to local storage
 const saveColorSettings = () => {
@@ -208,7 +212,9 @@ const saveColorSettings = () => {
   const colorPicker = document.querySelectorAll("input.input-color-picker");
   colorPicker.forEach((item) => {
     const slider = document.querySelector("input.input-color-opacity-slider[data-id='" + item.getAttribute("data-id") + "']");
-    let sliderHex = Math.ceil(slider.value * 255).toString(16).padStart(2, "0");
+    let sliderHex = Math.ceil(slider.value * 255)
+      .toString(16)
+      .padStart(2, "0");
     colorSettings[item.getAttribute("data-id")] = item.value + sliderHex;
   });
   localStorage.setItem("colorSettings", JSON.stringify(colorSettings));
@@ -244,7 +250,7 @@ const saveToDownload = () => {
   const colorSettings = JSON.parse(localStorage.getItem("colorSettings"));
   if (!colorSettings) {
     colorSettings = mikeColors;
-  };
+  }
   const data = JSON.stringify(colorSettings);
   const blob = new Blob([data], { type: "text/plain" });
   const url = window.URL.createObjectURL(blob);
@@ -252,7 +258,7 @@ const saveToDownload = () => {
   link.download = "alttprtracker_colors.json";
   link.href = url;
   link.click();
-}
+};
 
 const loadFromFile = (input) => {
   const file = input.files[0];
@@ -261,11 +267,11 @@ const loadFromFile = (input) => {
     const colorSettings = JSON.parse(event.target.result);
     colorPickers.forEach((item) => {
       setColorAndSlider(item, colorSettings);
-    })
-      // const slider = document.querySelector("input.input-color-opacity-slider[data-id='" + item.getAttribute("data-id") + "']");
-      // let sliderHex = colorSettings[item.getAttribute("data-id")].slice(-2);
-      // slider.value = parseInt(sliderHex, 16);
-      // item.value = colorSettings[item.getAttribute("data-id")].slice(0, -2);    });
+    });
+    // const slider = document.querySelector("input.input-color-opacity-slider[data-id='" + item.getAttribute("data-id") + "']");
+    // let sliderHex = colorSettings[item.getAttribute("data-id")].slice(-2);
+    // slider.value = parseInt(sliderHex, 16);
+    // item.value = colorSettings[item.getAttribute("data-id")].slice(0, -2);    });
     saveColorSettings();
   };
   reader.readAsText(file);
