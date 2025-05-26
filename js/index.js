@@ -34,7 +34,7 @@ function load_cookie() {
         case "cc":
           switch (setting[1]) {
             case "N":
-              document.getElementById("chestcolorno").checked = false;
+              document.getElementById("chestcolorno").checked = true;
               break;
             case "Y":
               document.getElementById("chestcoloryes").checked = true;

@@ -168,42 +168,39 @@
   }
 
   function enemizer_check(i) {
-    switch (enemizer[i]) {
-      // Armos
-      case 1:
-        return melee_bow() || items.boomerang > 0 || cane() || rod() ? "available" : "unavailable";
-      // Lanmolas
-      case 2:
-        return melee_bow() || cane() || rod() || items.hammer ? "available" : "unavailable";
-      // Moldorm
-      case 3:
-        return melee() ? "available" : "unavailable";
-      // Helmasaur
-      case 4:
-        return melee_bow() && (items.hammer || items.bomb) ? "available" : "unavailable";
-      // Arrghus
-      case 5:
-        return items.hookshot && (melee() || (items.bow > 1 && rod()) || (items.bomb && rod() && (items.bottle > 1 || (items.bottle > 0 && items.magic)))) ? "available" : "unavailable";
-      // Mothula
-      case 6:
-        return melee() || items.firerod || cane() ? "available" : "unavailable";
-      // Blind
-      case 7:
-        return melee() || cane() ? "available" : "unavailable";
-      // Kholdstare
-      case 8:
-        return items.firerod || (items.bombos && (items.sword > 0 || (flags.swordmode === "S" && items.hammer))) ? "available" : "unavailable";
-      // Vitreous
-      case 9:
-        return melee_bow() ? "available" : "unavailable";
-      // Trinexx
-      case 10:
-        return items.firerod && items.icerod && (items.hammer || items.sword > 1) ? "available" : "unavailable";
-      // Ganon's Tower
-      case 11:
-        return flags.bossshuffle != "N" ? "possible" : melee() ? "available" : "unavailable";
-      default:
+    const completable = [];
+    // Armos
+    completable.push(melee_bow() || items.boomerang > 0 || cane() || rod() ? "available" : "unavailable");
+    // Lanmolas
+    completable.push(melee_bow() || cane() || rod() || items.hammer ? "available" : "unavailable");
+    // Moldorm
+    completable.push(melee() ? "available" : "unavailable");
+    // Helmasaur
+    completable.push(melee_bow() && (items.hammer || items.bomb) ? "available" : "unavailable");
+    // Arrghus
+    completable.push(items.hookshot && (melee() || (items.bow > 1 && rod()) || (items.bomb && rod() && (items.bottle > 1 || (items.bottle > 0 && items.magic)))) ? "available" : "unavailable");
+    // Mothula
+    completable.push(melee() || items.firerod || cane() ? "available" : "unavailable");
+    // Blind
+    completable.push(melee() || cane() ? "available" : "unavailable");
+    // Kholdstare
+    completable.push(items.firerod || (items.bombos && (items.sword > 0 || (flags.swordmode === "S" && items.hammer))) ? "available" : "unavailable");
+    // Vitreous
+    completable.push(melee_bow() ? "available" : "unavailable");
+    // Trinexx
+    completable.push(items.firerod && items.icerod && (items.hammer || items.sword > 1) ? "available" : "unavailable");
+    // Ganon's Tower
+    completable.push(flags.bossshuffle != "N" ? "possible" : melee() ? "available" : "unavailable");
+
+    const bossId = enemizer[i] - 1
+    if (bossId >= 0 && bossId < 12) {
+      return completable[bossId];
+    } else {
+      if (completable.every((c) => c === "available")) {
+        return "available";
+      } else {
         return "unavailable";
+      }
     }
   }
 
