@@ -167,44 +167,56 @@
     return true;
   }
 
-  function enemizer_check(i) {
-    switch (enemizer[i]) {
+  function boss_beatable(i) {
+    switch (i) {
       // Armos
       case 1:
-        return melee_bow() || items.boomerang > 0 || cane() || rod() ? "available" : "unavailable";
+        return melee_bow() || items.boomerang > 0 || cane() || rod();
       // Lanmolas
       case 2:
-        return melee_bow() || cane() || rod() || items.hammer ? "available" : "unavailable";
+        return melee_bow() || cane() || rod() || items.hammer;
       // Moldorm
       case 3:
-        return melee() ? "available" : "unavailable";
+        return melee();
       // Helmasaur
       case 4:
-        return melee_bow() && (items.hammer || items.bomb) ? "available" : "unavailable";
+        return melee_bow() && (items.hammer || items.bomb);
       // Arrghus
       case 5:
-        return items.hookshot && (melee() || (items.bow > 1 && rod()) || (items.bomb && rod() && (items.bottle > 1 || (items.bottle > 0 && items.magic)))) ? "available" : "unavailable";
+        return items.hookshot && (melee() || (items.bow > 1 && rod()) || (items.bomb && rod() && (items.bottle > 1 || (items.bottle > 0 && items.magic))));
       // Mothula
       case 6:
-        return melee() || items.firerod || cane() ? "available" : "unavailable";
+        return melee() || items.firerod || cane();
       // Blind
       case 7:
-        return melee() || cane() ? "available" : "unavailable";
+        return melee() || cane();
       // Kholdstare
       case 8:
-        return items.firerod || (items.bombos && (items.sword > 0 || (flags.swordmode === "S" && items.hammer))) ? "available" : "unavailable";
+        return items.firerod || (items.bombos && (items.sword > 0 || (flags.swordmode === "S" && items.hammer)));
       // Vitreous
       case 9:
-        return melee_bow() ? "available" : "unavailable";
+        return melee_bow();
       // Trinexx
       case 10:
-        return items.firerod && items.icerod && (items.hammer || items.sword > 1) ? "available" : "unavailable";
-      // Ganon's Tower
-      case 11:
-        return flags.bossshuffle != "N" ? "possible" : melee() ? "available" : "unavailable";
+        return items.firerod && items.icerod && (items.hammer || items.sword > 1);
       default:
-        return "unavailable";
+        return false;
     }
+  }
+
+  function enemizer_check(i) {
+    let boss_in_dungeon = enemizer[i];
+    if (boss_in_dungeon >= 1 && boss_in_dungeon <= 10) {
+      // Known boss
+      return boss_beatable(boss_in_dungeon) ? "available" : "unavailable";
+    }
+    // Unknown boss or compass
+    for (let i = 1; i <= 10; i++) {
+      if (!boss_beatable(i)) {
+        return "unavailable";
+      }
+    }
+    return "available";
   }
 
   function melee() {

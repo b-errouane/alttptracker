@@ -565,28 +565,28 @@
     updateMapTracker();
   };
 
-  // event of right clicking on a boss's enemizer portrait
-  window.rightClickEnemy = function (n) {
-    enemizer[n] -= 1;
-    if (enemizer[n] === -1) enemizer[n] = flags.wildcompasses ? 11 : 10;
+  window.toggle_enemy_direction = function (n, direction) {
+    enemizer[n] += direction;
+    let limit = flags.wildcompasses ? 12 : 11
+    enemizer[n] = (enemizer[n] + limit) % limit;
     document.getElementById("dungeonEnemy" + n).className = "enemizer-" + enemizer[n];
     dungeons[n].is_beatable();
     if (!dungeons[n].is_beaten)
       if (document.getElementById("bossMap" + n) != null) {
         document.getElementById("bossMap" + n).className = "bossprize-" + prizes[n] + " boss " + dungeons[n].is_beatable();
       }
+
+    updateLocationAvailability();
+  }
+
+  // event of right clicking on a boss's enemizer portrait
+  window.rightClickEnemy = function (n) {
+    toggle_enemy_direction(n, -1);
   };
 
   // event of clicking on a boss's enemizer portrait
   window.toggle_enemy = function (n) {
-    enemizer[n] += 1;
-    if (enemizer[n] === (flags.wildcompasses ? 12 : 11)) enemizer[n] = 0;
-    document.getElementById("dungeonEnemy" + n).className = "enemizer-" + enemizer[n];
-    dungeons[n].is_beatable();
-    if (!dungeons[n].is_beaten)
-      if (document.getElementById("bossMap" + n) != null) {
-        document.getElementById("bossMap" + n).className = "bossprize-" + prizes[n] + " boss " + dungeons[n].is_beatable();
-      }
+    toggle_enemy_direction(n, 1);
   };
 
   window.rightClickChest = function (label) {
